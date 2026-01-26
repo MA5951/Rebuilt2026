@@ -25,6 +25,9 @@ public class ShooterCommand extends SubsystemCommand {
             case "SHOOTING":
                 shooter.setVelocity(Superstructure.getShooterVelocity());// TODO after merge
                 break;
+            case "PRESET_SHOOTING":
+                shooter.setVelocity(Superstructure.getPresetShooterVelocity());// TODO after merge
+                break;
             case "FEEDING":
                 shooter.setVelocity(Superstructure.getFeedingVelocity());// TODO after merge
                 break;
@@ -34,7 +37,6 @@ public class ShooterCommand extends SubsystemCommand {
             case "EJECT":
                 shooter.setVelocity(ShooterConstants.EJECT_VELOCITY);
                 break;
-
         }
     }
 

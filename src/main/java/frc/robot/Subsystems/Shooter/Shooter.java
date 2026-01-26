@@ -10,8 +10,7 @@ public class Shooter extends VelocityControlledSystem {
     private Shooter() {
         super(ShooterConstants.shooterConstants, ShooterConstants.IDLE, ShooterConstants.SHOOTING,
                 ShooterConstants.WARMUP, ShooterConstants.FEEDING, ShooterConstants.STATIC_FEEDING,
-                ShooterConstants.EJECT);
-
+                ShooterConstants.EJECT, ShooterConstants.PRESET_SHOOTING);
     }
 
     @Override

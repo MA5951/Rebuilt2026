@@ -12,7 +12,6 @@ import frc.robot.PortMap;
 
 public class ShooterConstants {
 
-        public static final double FEED_FORWARD = 0;
         public static final double EJECT_VELOCITY = 0;
         public static final double IDLE_VELOCITY = 0;
         public static final double WARMUP_VELOCITY = 0;
@@ -47,6 +46,7 @@ public class ShooterConstants {
         public static final State WARMUP = new State("WARMUP");
         public static final State FEEDING = new State("FEEDING");
         public static final State STATIC_FEEDING = new State("STATIC_FEEDING");
+        public static final State PRESET_SHOOTING = new State("PRESET_SHOOTING");
         public static final State EJECT = new State("EJECT");
 
 }
