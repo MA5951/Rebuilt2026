@@ -32,6 +32,7 @@ public class ShooterConstants {
             .motorCurrentLimit(0)
             .maxVelocity(0)
             .statorCurrentLimit(true, 0)
+            .rampRate(0.1)
             .build();
 
     public static final State IDLE = new State("IDLE");

@@ -104,6 +104,11 @@ public class VelocitySystemConstants extends DeafultSystemConstants<VelocitySyst
             return this;
         }
 
+        public Builder rampRate(double rampRate) {
+            base.rampRate(rampRate);
+            return this;
+        }
+
         public Builder statorCurrentLimit(boolean enabled, double limit) {
             base.statorCurrentLimit(enabled, limit);
             return this;
