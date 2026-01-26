@@ -21,7 +21,7 @@ public class Sandwich extends PowerControlledSystem {
     public void createSelfTest() {
     }
 
-    private boolean canEject() {
+    private boolean canShoot() {
         return (Swerve.atPointForSHooting() && hood.atPointForSHooting() && Shooter.atPointForSHooting()) &&
                 (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                         RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
@@ -31,23 +31,21 @@ public class Sandwich extends PowerControlledSystem {
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
                 RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallDetected();
-
     }
 
     private boolean canFeedingInMotion() {
         return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
-                && Shooter.atPointForFeeding && SuperStructure.canFeedingInMotion());
-
+                && Shooter.atPointForFeeding && !SuperStructure.isHittingNet() && !SuperStructur.outSideField());
     }
 
     @Override
     public boolean CAN_MOVE() {
-        return canEject() || canIntake() || canFeedingInMotion()
+        return canShoot() || canIntake() || canFeedingInMotion()
                 || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
-                || RobotContainer.getRobotState() == RobotConstants.IDLE;// TODO After Merge
+                || RobotContainer.getRobotState() == RobotConstants.IDLE;
 
     }
 
