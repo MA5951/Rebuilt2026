@@ -12,30 +12,23 @@ public class Sandwich extends PowerControlledSystem {
 
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE, SandwichConstants.FEEDING,
-                SandwichConstants.FEDDING_IN_MOTION, SandwichConstants.FEEDING_EJECT,
+                SandwichConstants.FEDDING_IN_MOTION, SandwichConstants.EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
     }
 
     @Override
     public void createSelfTest() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createSelfTest'");
-    }
-
-    public boolean isballsInSandwich() {
-        return true;//TODO After Merge or when we add sensors
     }
 
     private boolean canEject() {
-        return (Swerve.atPoint() && hood.atPoint() && Shooter.atVelocity()) &&
+        return (Swerve.atPointForSHooting() && hood.atPointForSHooting() && Shooter.atPointForSHooting()) &&
          (RobotContainer.getRobotState() == RobotConstants.SHOOTING || 
          RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS || RobotContainer.getRobotState() == RobotConstants.FEEDING);//TODO After Merge
     }
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY || 
-         RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !isballsInSandwich();//TODO After Merge
-    }
+         RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallDetected();
 
     private boolean canEject() {
         return (Swerve.atPoint() && hood.atPoint() && Shooter.atVelocity()) &&
@@ -50,7 +43,7 @@ public class Sandwich extends PowerControlledSystem {
         || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE 
         || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
         || RobotContainer.getRobotState() == RobotConstants.IDLE 
-        || (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPoint() && SuperStructer.canFeeedingInMotion());//TODO After Merge
+        || (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding() && Shooter.atPointForFeeding && SuperStructer.canFeeedingInMotion());//TODO After Merge
 
 
     }
