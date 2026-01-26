@@ -30,10 +30,10 @@ public class SandwichConstants {
     public static final State UNSTUCK = new State("UNSTUCK");
 
 
-    private static final Motor sandwichMotor = new Motor(
+    private static final Motor SANDWICH_MOTOR = new Motor(
         PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "sandwichMotor", InvertedValue.Clockwise_Positive);
 
-    public static PowerSystemConstants sandwichConstants = PowerSystemConstants.builder("Sandwich", sandwichMotor)
+    public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
     .gear(1)
     .isBrake(false)
     .rampRate(0.2)

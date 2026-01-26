@@ -11,7 +11,7 @@ public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
 
     private Sandwich() {
-        super(SandwichConstants.sandwichConstants, SandwichConstants.IDLE, SandwichConstants.INTAKE, SandwichConstants.FEEDING,
+        super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE, SandwichConstants.FEEDING,
                 SandwichConstants.FEDDING_IN_MOTION, SandwichConstants.FEEDING_EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
     }
