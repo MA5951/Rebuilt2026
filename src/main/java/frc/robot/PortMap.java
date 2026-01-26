@@ -13,6 +13,8 @@ public class PortMap {
 
     public class Sandwich_Ports {
         public static final CANBusID SANDWICH_MOTOR = new CANBusID(15, CAN_BUS.RIO_BUS);
+        public static final int MACAM = 11;
+        public static final int IR = 1;
     }
 
 

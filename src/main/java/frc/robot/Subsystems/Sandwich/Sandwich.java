@@ -1,8 +1,11 @@
 
 package frc.robot.Subsystems.Sandwich;
 
+import com.MAutils.Components.MACam;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.PortMap;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Shooter.Shooter;
@@ -10,11 +13,22 @@ import frc.robot.Subsystems.Shooter.Shooter;
 public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
 
+    private double lastMAcamDistance;
+
+    private MACam macam = new MACam(0);
+    private DigitalInput ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
+
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE,
                 SandwichConstants.FEEDING,
                 SandwichConstants.FEDDING_IN_MOTION, SandwichConstants.EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
+
+        macam = new MACam(PortMap.Sandwich_Ports.MACAM);
+        ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
+
+        lastMAcamDistance = macam.getDistance();
+
     }
 
     @Override
@@ -47,6 +61,18 @@ public class Sandwich extends PowerControlledSystem {
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
                 || RobotContainer.getRobotState() == RobotConstants.IDLE;
 
+    }
+
+    public double getMACamDistance() {
+        return macam.getDistance();
+    }
+
+    public boolean getIRSensor() {
+        return ir.get();
+    }
+
+    public double getDeltaMAcamDistance() {
+        return macam.getDistance() - lastMAcamDistance;
     }
 
     public static Sandwich getInstance() {
