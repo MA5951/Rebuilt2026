@@ -11,6 +11,7 @@ public class ShooterCommand extends SubsystemCommand {
 
     public ShooterCommand() {
         super(shooter);
+        addRequirements(shooter);
     }
 
     @Override
