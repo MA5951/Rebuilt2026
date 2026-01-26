@@ -25,7 +25,7 @@ public class SandwichConstants {
 
     public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
             .gear(1)
-            .isBrake(false)
+            .isBrake(true)
             .rampRate(0.2)
             .motorCurrentLimit(40)
             .statorCurrentLimit(true, 35)
