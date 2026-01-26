@@ -1,7 +1,6 @@
 package com.MAutils.Controllers;
 
 import edu.wpi.first.wpilibj.PS5Controller;
-import frc.robot.RobotConstatns;
 
 
 /*
@@ -13,7 +12,7 @@ public class PS5MAController implements MAController {
 
     public PS5MAController(int port) {
         this.controller = new PS5Controller(port);
-        this.xboxController = new XboxMAController(RobotConstatns.MAControllerConstant.INITIAL_PORT_FOR_XBOX - port); 
+        this.xboxController = new XboxMAController(5 - port); 
     }
 
     @Override

@@ -4,7 +4,6 @@ package com.MAutils.Components;
 import org.photonvision.simulation.SimCameraProperties;
 
 import edu.wpi.first.math.geometry.Rotation2d;
-import frc.robot.RobotConstatns;
 
 
 /*
@@ -32,10 +31,10 @@ public class CameraTypes {
 
         public SimCameraProperties getSimulationProp() {
             return new SimCameraProperties().setCalibration(width, height, Rotation2d.fromDegrees(fov))
-                    .setCalibError(RobotConstatns.CameraTypesConstatnt.AVG_ERROR_PX, RobotConstatns.CameraTypesConstatnt.ERROR_STD_DEV_PX) 
+                    .setCalibError(0.25, 0.08) 
                     .setFPS(simFps)
-                    .setAvgLatencyMs(RobotConstatns.CameraTypesConstatnt.AVG_LATENCY_MS) 
-                    .setLatencyStdDevMs(RobotConstatns.CameraTypesConstatnt.LATENCY_STD_DEV_MS);
+                    .setAvgLatencyMs(35) 
+                    .setLatencyStdDevMs(5);
         }
     }
 

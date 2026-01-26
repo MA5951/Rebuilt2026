@@ -92,7 +92,7 @@ public class AprilTagFilters {
         ChassisSpeeds speeds = chassisSpeeds.get();
         final double v = Math.hypot(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond);
 
-        // Use latency as dt for “reachable radius”
+
         final double dt = Math.max(1e-3, visionPose.latency / 1000.0);
         final double radius = Math.max(
                     filtersConfig.idleBubbleMeters,
@@ -107,7 +107,7 @@ public class AprilTagFilters {
         // }
 
         // // ---- Aggressive falloff based on maxPoseJumpMeters ----
-        // // Normalized distance vs your “insane jump” threshold
+
         // final double maxJump = Math.max(1e-6, filtersConfig.maxPoseJumpMeters);
         // double norm = dist / maxJump; // 0..∞
 

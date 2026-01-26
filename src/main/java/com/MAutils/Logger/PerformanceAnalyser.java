@@ -84,7 +84,7 @@ public class PerformanceAnalyser {
     private static MRobotState firstRobotState = null; 
     private static MRobotState secondRobotState = null; 
 
-    private static Supplier<MRobotState> currentRobotState = () -> RobotContainer.getRobotState();
+    private static Supplier<MRobotState> currentRobotState;
 
     private static int cycleNum = 0; 
 

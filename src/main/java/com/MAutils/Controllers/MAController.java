@@ -3,8 +3,6 @@ package com.MAutils.Controllers;
 
 import com.MAutils.Logger.MALog;
 
-import frc.robot.RobotConstatns;
-import frc.robot.RobotContainer;
 
 //Add custom dead band TODO
 
@@ -65,7 +63,7 @@ public interface MAController {
     public void setRumble(double power);
 
     default public double withDeadbound(double value) {
-        return withDeadbound(value, RobotConstatns.MAControllerConstant.DEAD_BOUND);
+        return withDeadbound(value, 0.05);
     }
 
     default public double withDeadbound(double value, double deadbound) {

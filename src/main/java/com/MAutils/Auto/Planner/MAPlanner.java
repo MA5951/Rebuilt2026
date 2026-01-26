@@ -134,7 +134,7 @@ public final class MAPlanner {
     this.speedCtl = new AccelerationJerkControl(mp);
 
     HeadingControl.Params hp = new HeadingControl.Params();
-    hp.defaultR2 = p.stopRadius; // “finish by the time we’d stop translating”
+    hp.defaultR2 = p.stopRadius;
     this.headingCtl = new HeadingControl(hp);
   }
 

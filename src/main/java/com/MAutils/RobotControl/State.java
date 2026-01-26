@@ -6,7 +6,7 @@ package com.MAutils.RobotControl;
  */
 public class State {
 
-    private final String stateName; 
+    public final String stateName; 
     private StateSubsystem subsystem;
     private Runnable onStateSet = () -> {
     };
