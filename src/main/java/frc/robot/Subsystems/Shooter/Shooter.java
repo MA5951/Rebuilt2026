@@ -7,7 +7,7 @@ public class Shooter extends VelocityControlledSystem {
 
     private static Shooter shooter;
     private Shooter() {
-        super(ShooterConstants.shooterConstants);
+        super(ShooterConstants.shooterConstants);//TODO States
 
     }
 
@@ -29,7 +29,4 @@ public class Shooter extends VelocityControlledSystem {
         return shooter;
     }
 
-    public void periodic() {
-        super.periodic();
-    }
 }

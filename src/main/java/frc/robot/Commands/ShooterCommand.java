@@ -7,18 +7,15 @@ import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 
 public class ShooterCommand extends SubsystemCommand{
-
-
-
     private static final Shooter shooter = Shooter.getInstance();
 
 
     public ShooterCommand() {
         super(shooter);
-
-
-
     }
+
+
+
     @Override
     public void Automatic() {
        switch (shooter.getCurrentState().stateName) {
@@ -46,8 +43,6 @@ public class ShooterCommand extends SubsystemCommand{
 
     @Override
     public void Manual() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Manual'");
     }
 
     @Override
