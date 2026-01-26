@@ -27,8 +27,8 @@ public class SandwichConstants {
             .gear(1)
             .isBrake(false)
             .rampRate(0.2)
-            .motorCurrentLimit(FEDDING_IN_MOTION_VOLTAGE)
-            .statorCurrentLimit(false, FEDDING_IN_MOTION_VOLTAGE)
+            .motorCurrentLimit(40)
+            .statorCurrentLimit(true, 35)
             .build(PowerSystemConstants::new);
 
     public static final State IDLE = new State("IDLE");

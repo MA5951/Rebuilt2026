@@ -34,15 +34,20 @@ public class Sandwich extends PowerControlledSystem {
 
     }
 
+    private boolean canFeedingInMotion() {
+        return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
+                && Shooter.atPointForFeeding && SuperStructure.canFeedingInMotion());
+
+    }
+
     @Override
     public boolean CAN_MOVE() {
-        return canEject() || canIntake() || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
+        return canEject() || canIntake() || canFeedingInMotion()
+                || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
-                || RobotContainer.getRobotState() == RobotConstants.IDLE
-                || (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
-                        && Shooter.atPointForFeeding && SuperStructer.canFeeedingInMotion());// TODO After Merge
+                || RobotContainer.getRobotState() == RobotConstants.IDLE;// TODO After Merge
 
     }
 
