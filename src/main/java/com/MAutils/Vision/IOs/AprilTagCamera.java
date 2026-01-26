@@ -1,0 +1,182 @@
+package com.MAutils.Vision.IOs;
+
+import java.util.function.Supplier;
+
+import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimator;
+import com.MAutils.PoseEstimation.PoseEstimatorSource;
+import com.MAutils.Vision.Filters.AprilTagFilters;
+import com.MAutils.Vision.Filters.FiltersConfig;
+import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
+import com.MAutils.Vision.Util.LimelightHelpers.PoseEstimate;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Twist2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+
+public class AprilTagCamera extends Camera {
+
+    private final PoseEstimatorSource poseEstimatorSource;
+    public final Supplier<Double> robotAngleSupplier; // degrees
+
+    private FiltersConfig teleopConfig, autoConfig;
+    private AprilTagFilters aprilTagFilters;
+    private Transform2d delta;
+    private PoseEstimate poseEstimate;
+    private Pose2d visionPose, prior;
+    private Rotation2d heading;
+    private Twist2d visionTwsit = new Twist2d();
+    private boolean updatePoseEstiamte = true;
+    private double xyFom, oFom, visionTs, fieldDx, fieldDy, fieldDtheta, robotDx, robotDy;
+
+    // ===== ADDED: supplier for chassis speeds so filters can use real v =====
+    private final Supplier<ChassisSpeeds> chassisSpeedsSupplier; // ADDED
+
+    // ===== CHANGED: original ctor now delegates and uses zero speeds by default
+    // =====
+
+    //TODO need to add filter of more then one camrea that check if the dis bettwen the src are in tolorecn
+    public AprilTagCamera(VisionCameraIO cameraIO, FiltersConfig filterConfig, Supplier<Double> robotAngleSupplier) {
+        this(cameraIO, filterConfig, filterConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
+    }
+
+    public AprilTagCamera(VisionCameraIO cameraIO,
+            FiltersConfig teleopConfig,
+            FiltersConfig autoConfig,
+            Supplier<Double> robotAngleSupplier) {
+        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
+    }
+
+    public AprilTagCamera(VisionCameraIO cameraIO,
+            FiltersConfig teleopConfig,
+            Supplier<Double> robotAngleSupplier,
+            Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
+        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier); // CHANGED
+    }
+
+    // ===== ADDED: new ctor that accepts a ChassisSpeeds supplier =====
+    public AprilTagCamera(VisionCameraIO cameraIO,
+            FiltersConfig teleopConfig,
+            FiltersConfig autoConfig,
+            Supplier<Double> robotAngleSupplier,
+            Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
+        super(cameraIO);
+
+        this.teleopConfig = teleopConfig;
+        this.autoConfig = autoConfig;
+
+        this.robotAngleSupplier = robotAngleSupplier;
+        this.chassisSpeedsSupplier = chassisSpeedsSupplier != null
+                ? chassisSpeedsSupplier
+                : () -> new ChassisSpeeds(); // ADDED
+
+        // ===== CHANGED: pass IMU yaw (radians) + chassis speeds to filters
+        this.aprilTagFilters = new AprilTagFilters(getFiltersConfig(),
+                cameraIO,
+                this.chassisSpeedsSupplier,
+                () -> Math.toRadians(this.robotAngleSupplier.get())); // ADDED
+
+        poseEstimatorSource = new PoseEstimatorSource(name,
+                () -> getRobotRelaticTwist(poseEstimate, visionTs),
+                () -> xyFom,
+                () -> oFom,
+                () -> visionTs);
+
+        PoseEstimator.addSource(poseEstimatorSource);
+    }
+
+    
+
+    public void setUpdatePoseEstimate(boolean updatePoseEstiamte) {
+        this.updatePoseEstiamte = updatePoseEstiamte;
+    }
+
+    public FiltersConfig getFiltersConfig() {
+        return DriverStation.isTeleop() ? teleopConfig : autoConfig;
+    }
+
+    //TODO need to also consider isValidForHeadingReset
+    @Override
+    public void update() {
+        cameraIO.update();
+        logIO();
+
+        aprilTagFilters.updateFiltersConfig(getFiltersConfig());
+
+        if (updatePoseEstiamte) {
+            xyFom = aprilTagFilters.getXyFOM(); // CHANGED: now computed by yaw/motion gates
+            oFom = aprilTagFilters.getOFOM(); // CHANGED 
+
+            MALog.log("Subsystems/Vision/Cameras/" + name + "/XY FOM", xyFom);
+            MALog.log("Subsystems/Vision/Cameras/" + name + "/Omega FOM", oFom);
+
+            visionTs = getVisionTimetemp();
+
+            if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0) && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
+                //TODO why you check this? the fom should hendel it that the whole point of the filter
+                poseEstimatorSource.capture();
+            } else {
+                oFom = 0;
+                xyFom = 0;
+                poseEstimatorSource.capture();
+            }
+            
+        }
+    }
+
+    @Override
+    protected void logIO() {
+        super.logIO();
+        poseEstimate = cameraIO.getPoseEstimate(getFiltersConfig().poseEstimateType);
+
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Target/Ambiguit", tag.ambiguity);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Target/Id", tag.id);
+
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Pose Estimate/Pose", poseEstimate.pose);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Pose Estimate/Avg Distance", poseEstimate.avgTagDist);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Pose Estimate/Tag Count", poseEstimate.tagCount);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Pose Estimate/Latency", poseEstimate.latency);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Pose Estimate/Timestamp", poseEstimate.timestampSeconds);
+        MALog.log("Subsystems/Vision/Cameras/" + name + "/Heading Reset", isValidForHeadingReset());
+
+    }
+
+    private Double getVisionTimetemp() {
+        return Timer.getFPGATimestamp() - (poseEstimate.latency / 1000.0);
+    }
+
+    //TODO add get raw pose value,without fom or filters just pose3d
+    
+    
+    private Twist2d getRobotRelaticTwist(PoseEstimate poseEstimator, double timestemp) {
+        visionPose = poseEstimate.pose;
+        prior = PoseEstimator.getPoseAt(timestemp);
+
+        delta = new Transform2d(prior, visionPose);
+
+        fieldDx = delta.getTranslation().getX();
+        fieldDy = delta.getTranslation().getY();
+        fieldDtheta = delta.getRotation().getRadians();
+        heading = Rotation2d.fromDegrees(robotAngleSupplier.get());
+        robotDx = heading.getCos() * fieldDx
+                + heading.getSin() * fieldDy;
+        robotDy = -heading.getSin() * fieldDx
+                + heading.getCos() * fieldDy;
+
+        visionTwsit.dx = robotDx;
+        visionTwsit.dy = robotDy;
+        visionTwsit.dtheta = fieldDtheta;
+
+        return visionTwsit;
+
+    }
+
+    public boolean isValidForHeadingReset() {
+        return cameraIO.isTag() && cameraIO.getFiducials().length > 1 && cameraIO.getTag().distToCamera < 2 && cameraIO.getPoseEstimate(VisionCameraIO.PoseEstimateType.MT1).pose.getX() != -1;
+    }
+}
