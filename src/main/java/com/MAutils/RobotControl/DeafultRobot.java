@@ -29,8 +29,7 @@ public class DeafultRobot extends TimedRobot {
     private double startLoop = 0;
     private PowerDistribution pdh = new PowerDistribution();
 
-    public DeafultRobot() {// Note: this makes shure we are creating the RobotContainer, if not we could
-                           // not run the robot
+    public DeafultRobot() {
 
     }
 
