@@ -1,4 +1,7 @@
 
 package frc.robot.Subsystems.SixBar;
 
-public class SixBarConstants {}
+public class SixBarConstants {
+
+    
+}

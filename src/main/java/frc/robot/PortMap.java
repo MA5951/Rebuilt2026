@@ -1,4 +1,14 @@
 
 package frc.robot;
 
-public class PortMap {}
+import com.ctre.phoenix6.CANBus;
+
+public class PortMap {
+
+    public class CAN_BUS {
+        public static final CANBus RIO_BUS = new CANBus("rio");
+        public static final CANBus CANIVORE_BUS = new CANBus("*");
+    }
+
+
+}
