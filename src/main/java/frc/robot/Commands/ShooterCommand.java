@@ -47,6 +47,6 @@ public class ShooterCommand extends SubsystemCommand{
 
     @Override
     public void CantMove() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CantMove'");
-    }}
+     shooter.setVoltage(0);
+    }
+}

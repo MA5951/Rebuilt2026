@@ -7,7 +7,7 @@ public class Shooter extends VelocityControlledSystem {
 
     private static Shooter shooter;
     private Shooter() {
-        super(ShooterConstants.shooterConstants);//TODO States
+        super(ShooterConstants.shooterConstants, ShooterConstants.IDLE, ShooterConstants.SHOOTING, ShooterConstants.WARMUP, ShooterConstants.FEEDING, ShooterConstants.STATIC_FEEDING, ShooterConstants.EJECT);
 
     }
 
