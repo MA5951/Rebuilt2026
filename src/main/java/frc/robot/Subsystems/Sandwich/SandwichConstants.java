@@ -11,7 +11,6 @@ import frc.robot.PortMap;
 
 public class SandwichConstants {
 
-
     public static final double IDLE_VOLTAGE = 0;
     public static final double INTAKE_VOLTAGE = 8.0;
     public static final double FEDDING_IN_MOTION_VOLTAGE = 8.0;
@@ -20,6 +19,17 @@ public class SandwichConstants {
     public static final double SHOOTING_VOLTAGE = 8.0;
     public static final double UNSTUCK_VOLTAGE = 8.0;
 
+    private static final Motor SANDWICH_MOTOR = new Motor(
+            PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
+            InvertedValue.Clockwise_Positive);
+
+    public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
+            .gear(1)
+            .isBrake(false)
+            .rampRate(0.2)
+            .motorCurrentLimit(FEDDING_IN_MOTION_VOLTAGE)
+            .statorCurrentLimit(false, FEDDING_IN_MOTION_VOLTAGE)
+            .build(PowerSystemConstants::new);
 
     public static final State IDLE = new State("IDLE");
     public static final State INTAKE = new State("INTAKE");
@@ -29,14 +39,4 @@ public class SandwichConstants {
     public static final State SHOOTING = new State("SHOOTING");
     public static final State UNSTUCK = new State("UNSTUCK");
 
-
-    private static final Motor SANDWICH_MOTOR = new Motor(
-        PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "sandwichMotor", InvertedValue.Clockwise_Positive);
-
-    public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
-    .gear(1)
-    .isBrake(false)
-    .rampRate(0.2)
-    .build(PowerSystemConstants::new);
-    
 }

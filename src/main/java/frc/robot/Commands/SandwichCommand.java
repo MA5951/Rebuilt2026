@@ -20,11 +20,9 @@ public class SandwichCommand extends SubsystemCommand {
             case "IDLE":
                 sandwich.setVoltage(SandwichConstants.IDLE_VOLTAGE);
                 break;
-        
             case "INTAKE" :
                 sandwich.setVoltage(SandwichConstants.INTAKE_VOLTAGE);
-                break;
-            
+                break;        
             case "FEEDING" :
                 sandwich.setVoltage(SandwichConstants.FEEDING_VOLTAGE);
                 break;
