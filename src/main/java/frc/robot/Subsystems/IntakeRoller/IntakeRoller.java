@@ -5,4 +5,11 @@
 package frc.robot.Subsystems.IntakeRoller;
 
 /** Add your docs here. */
-public class IntakeRoller {}
+public class IntakeRoller {
+private IntakeRoller intakeroller;
+
+//TODO CHANGE THE VOID TO BO
+public void CAN_MOVE(){ //TODO After Merge SuperStructure
+return;
+}
+}
