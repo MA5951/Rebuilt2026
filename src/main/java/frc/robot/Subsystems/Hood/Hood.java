@@ -4,5 +4,33 @@
 
 package frc.robot.Subsystems.Hood;
 
+import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
+
 /** Add your docs here. */
-public class Hood {}
+public class Hood extends PositionControlledSystem {
+
+    private static Hood hood;
+
+    private Hood() {
+        super(HoodConstants.hoodConstants, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
+                HoodConstants.SHOOTING, HoodConstants.STATIC_FEEDING);
+
+    }
+
+    @Override
+    public void createSelfTest() {
+
+    }
+
+    @Override
+    public boolean CAN_MOVE() {
+        return true;
+    }
+
+    public static Hood getInstance() {
+        if (hood == null) {
+            hood = new Hood();
+        }
+        return hood;
+    }
+}

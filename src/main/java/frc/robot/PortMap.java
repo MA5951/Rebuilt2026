@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.CanBus.CANBusID;
 import com.ctre.phoenix6.CANBus;
 
 public class PortMap {
@@ -10,5 +11,7 @@ public class PortMap {
         public static final CANBus CANIVORE_BUS = new CANBus("*");
     }
 
-
+    public static class HoodPorts {
+        public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
+    }
 }
