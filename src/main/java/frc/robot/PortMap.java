@@ -13,6 +13,10 @@ public class PortMap {
         
     }
 
+    public static class HoodPorts {
+        public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
+    }
+
     public class ClimbPorts{
             public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
         }
