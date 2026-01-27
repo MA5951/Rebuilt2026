@@ -11,8 +11,7 @@ public class PortMap {
         public static final CANBus CANIVORE_BUS = new CANBus("*");
     }
 
-public class IntakeRollerPorts{
-            public static final CANBusID INTAKEROLLER_MOTOR = new CANBusID(0, CANBus.CANIVORE_BUS);
-            public static final CANBusID INTAKE_ROLLER_MOTOR = null;
+public class Intake_Roller_Ports{
+            public static final CANBusID INTAKE_ROLLER_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
         }
 }
