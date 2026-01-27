@@ -31,7 +31,7 @@ public class RollerCommand extends SubsystemCommand {
                 roller.setVoltage(RollerConstants.FEDDING_IN_MOTION_VOLTAGE);
                 break;
             case "EJECT":
-                roller.setVoltage(RollerConstants.FEEDING_EJECT_VOLTAGE);
+                roller.setVoltage(RollerConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
                 roller.setVoltage(RollerConstants.SHOOTING_VOLTAGE);
