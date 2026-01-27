@@ -19,16 +19,21 @@ public class SandwichConstants {
     public static final double SHOOTING_VOLTAGE = 8.0;
     public static final double UNSTUCK_VOLTAGE = 8.0;
 
+    private static final double GEAR = 12.0 / 60.0;
+    private static final double RAMP_RATE = 0.2;
+    private static final int CURRENT_LIMIT = 30;
+    private static final int STATOR_CURRENT_LIMIT = 40;
+
     private static final Motor SANDWICH_MOTOR = new Motor(
             PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
             InvertedValue.Clockwise_Positive);
 
     public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
-            .gear(1)
+            .gear(GEAR)
             .isBrake(true)
-            .rampRate(0.2)
-            .motorCurrentLimit(40)
-            .statorCurrentLimit(true, 35)
+            .rampRate(RAMP_RATE)
+            .motorCurrentLimit(CURRENT_LIMIT)
+            .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
             .build(PowerSystemConstants::new);
 
     public static final State IDLE = new State("IDLE");
