@@ -20,30 +20,30 @@ public class SandwichCommand extends SubsystemCommand {
             case "IDLE":
                 sandwich.setVoltage(SandwichConstants.IDLE_VOLTAGE);
                 break;
-            case "INTAKE" :
+            case "INTAKE":
                 sandwich.setVoltage(SandwichConstants.INTAKE_VOLTAGE);
-                break;        
-            case "FEEDING" :
+                break;
+            case "FEEDING":
                 sandwich.setVoltage(SandwichConstants.FEEDING_VOLTAGE);
                 break;
-            case "FEEDING_IN_MOTION" :
+            case "FEEDING_IN_MOTION":
                 sandwich.setVoltage(SandwichConstants.FEDDING_IN_MOTION_VOLTAGE);
                 break;
-            case "EJECT" :
+            case "EJECT":
                 sandwich.setVoltage(SandwichConstants.EJECT_VOLTAGE);
                 break;
-            case "SHOOTING" :
+            case "SHOOTING":
                 sandwich.setVoltage(SandwichConstants.SHOOTING_VOLTAGE);
                 break;
-            case "UNSTUCK" :
-                sandwich.setVoltage(SandwichConstants.UNSTUCK_VOLTAGE); 
+            case "UNSTUCK":
+                sandwich.setVoltage(SandwichConstants.UNSTUCK_VOLTAGE);
                 break;
         }
     }
 
     @Override
     public void Manual() {
-        
+
     }
 
     @Override

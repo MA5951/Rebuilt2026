@@ -14,7 +14,6 @@ public class RollerCommand extends SubsystemCommand {
         addRequirements(roller);
     }
 
-
     @Override
     public void Automatic() {
         switch (roller.getCurrentState().stateName) {
@@ -28,7 +27,7 @@ public class RollerCommand extends SubsystemCommand {
                 roller.setVoltage(RollerConstants.FEEDING_VOLTAGE);
                 break;
             case "FEDDING_IN_MOTION":
-                roller.setVoltage(RollerConstants.FEDDING_IN_MOTION_VOLTAGE);
+                roller.setVoltage(RollerConstants.FEEDING_IN_MOTION_VOLTAGE);
                 break;
             case "EJECT":
                 roller.setVoltage(RollerConstants.EJECT_VOLTAGE);
@@ -44,7 +43,7 @@ public class RollerCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-        
+
     }
 
     @Override

@@ -16,7 +16,7 @@ public class ShooterConstants {
         public static final double IDLE_VELOCITY = 0;
         public static final double WARMUP_VELOCITY = 0;
 
-        public static final double SHOOTER_MAX_VELOCITY = 0;
+        public static final double MAX_VELOCITY = 0;
         public static final double GEAR = 0;
         public static final double TOLERANCE = 0;
         public static final double CURRENT_LIMIT = 0;
@@ -35,7 +35,7 @@ public class ShooterConstants {
                         .gear(GEAR)
                         .isBrake(false)
                         .tolerance(TOLERANCE)
-                        .maxVelocity(SHOOTER_MAX_VELOCITY)
+                        .maxVelocity(MAX_VELOCITY)
                         .motorCurrentLimit(CURRENT_LIMIT)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
                         .rampRate(RAMP_RATE)

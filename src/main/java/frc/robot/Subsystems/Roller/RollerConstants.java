@@ -17,7 +17,7 @@ public class RollerConstants {
     public static final double EJECT_VOLTAGE = 8.0;
     public static final double FEEDING_VOLTAGE = 8.0;
     public static final double SHOOTING_VOLTAGE = 8.0;
-    public static final double UNSTUCK_VOLTAGE = 8.0;
+    public static final double UNSTUCK_VOLTAGE = -8.0;
 
     public static final double GEAR = 1;
     public static final double CURRENT_LIMIT = 35;

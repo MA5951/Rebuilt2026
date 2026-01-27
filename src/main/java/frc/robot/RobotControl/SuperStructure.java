@@ -88,6 +88,11 @@ public class SuperStructure extends DeafultSuperStructure{
         }
     }
 
+
+    public static boolean isDefenceMode() {
+        return false;
+    }
+
     private static double getShootingRPM(double distance) {
         return 0.0;
     } 

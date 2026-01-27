@@ -11,7 +11,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import frc.robot.PortMap;
 
 public class SixBarConstants {
-    public static final double COLLISION_VOLTS = 0.0;
+    public static final double COLLISION_VOLTS = -1.0;
     public static final double DEPLOY_ANGLE = 0.0;
     public static final double IDLE_ANGLE = 0.0;
     public static final double BUMPER_ZONE_ANGLE = 0.0;
@@ -45,6 +45,6 @@ public class SixBarConstants {
     public static final State IDLE = new State("IDLE");
     public static final State DEPLOY = new State("DEPLOY");
     public static final State ARMBRAKS = new State("ARMBRAKS");
-    public static final State COLLISION = new State("COLLISION");
+    public static final State COLLISION = new State("COLLISION");//TODO add OnStateStart coast and OnStateEnd brake
     public static final State SHOOTING = new State("SHOOTING");
 }
