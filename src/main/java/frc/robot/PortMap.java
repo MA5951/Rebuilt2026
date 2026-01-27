@@ -35,4 +35,9 @@ public class Intake_Roller_Ports{
     
 
 
+    public class ShooterPorts {
+        public static final CANBusID SHOOTER_MASTER = new CANBusID(1, CAN_BUS.RIO_BUS);
+        public static final CANBusID SHOOTER_SLAVE = new CANBusID(2, CAN_BUS.RIO_BUS);
+    }
+
 }
