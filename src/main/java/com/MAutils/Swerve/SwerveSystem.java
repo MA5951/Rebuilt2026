@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 public class SwerveSystem extends SubsystemBase {
-    private static SwerveSystem instance;
+    //private static SwerveSystem instance;
 
     private SwerveState currentState;
     private SwerveDriveEstimator swerveDriveEstimator;
@@ -70,7 +70,7 @@ public class SwerveSystem extends SubsystemBase {
                     new SwerveModuleState()
             }, DriveFeedforwards.zeros(4));
 
-    private SwerveSystem(SwerveSystemConstants swerveConstants) {
+    public SwerveSystem(SwerveSystemConstants swerveConstants) {
         super();
         this.swerveConstants = swerveConstants;
 
@@ -236,11 +236,11 @@ public class SwerveSystem extends SubsystemBase {
         MALog.log("/Subsystems/Swerve/States/Current State", currentState.getStateName());
     }
 
-    public static SwerveSystem getInstance(SwerveSystemConstants swerveConstants) {
-        if (instance == null) {
-            instance = new SwerveSystem(swerveConstants);
-        }
-        return instance;
-    }
+    // public static SwerveSystem getInstance(SwerveSystemConstants swerveConstants) {
+    //     if (instance == null) {
+    //         instance = new SwerveSystem(swerveConstants);
+    //     }
+    //     return instance;
+    // }
 
 }
