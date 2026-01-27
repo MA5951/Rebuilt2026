@@ -8,7 +8,7 @@ public class SixBar extends PositionControlledSystem {
     private static SixBar sixbar;
 
     private SixBar() {
-        super(SixBarConstants.sixBarConstants, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
+        super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
                 SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY);
     }
 

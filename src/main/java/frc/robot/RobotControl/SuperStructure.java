@@ -62,6 +62,10 @@ public class SuperStructure extends DeafultSuperStructure{
         return false;
     }
 
+    public static boolean outSideField() {
+        return false;
+    }
+
     public static boolean isFull() {
         return false;
     }

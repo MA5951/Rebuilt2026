@@ -8,7 +8,10 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.PortMap;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Shooter.Shooter;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
@@ -21,7 +24,7 @@ public class Sandwich extends PowerControlledSystem {
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE,
                 SandwichConstants.FEEDING,
-                SandwichConstants.FEDDING_IN_MOTION, SandwichConstants.EJECT,
+                SandwichConstants.FEEDING_IN_MOTION, SandwichConstants.EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
 
         macam = new MACam(PortMap.Sandwich_Ports.MACAM);
@@ -36,20 +39,20 @@ public class Sandwich extends PowerControlledSystem {
     }
 
     private boolean canShoot() {
-        return (Swerve.atPointForSHooting() && hood.atPointForSHooting() && Shooter.atPointForSHooting()) &&
+        return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint() && Shooter.getInstance().atPoint()) &&
                 (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                         RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO After Merge
+                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);//TODO change to larger tolerance
     }
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallDetected();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBalls();
     }
 
     private boolean canFeedingInMotion() {
-        return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
-                && Shooter.atPointForFeeding && !SuperStructure.isHittingNet() && !SuperStructur.outSideField());
+        return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && Hood.getInstance().atPoint()
+                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet() && !SuperStructure.outSideField());// TODO change to larger tolerance
     }
 
     @Override

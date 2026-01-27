@@ -6,6 +6,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
 
@@ -25,13 +26,13 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
             case "SHOOTING":
-                hood.setPosition(Superstructure.getHoodShootingPosition());// TODO after merge
+                hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());// TODO after merge
                 break;
             case "FEEDING":
-                hood.setPosition(Superstructure.getHoodFeedingPosition());// TODO after merge
+                hood.setPosition(SuperStructure.getHoodFeedingPosition());// TODO after merge
                 break;
             case "FEEDING_IN_MOTION":
-                hood.setPosition(Superstructure.getHoodFeedingInMotionPosition());// TODO after merge
+                hood.setPosition(SuperStructure.getHoodFeedingInMotionPosition());// TODO after merge
                 break;
             case "EJECT":
                 hood.setPosition(HoodConstants.EJECT_POSITION);

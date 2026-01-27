@@ -5,7 +5,10 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Shooter.Shooter;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Transfer extends PowerControlledSystem {
         private static Transfer transfer;
@@ -13,7 +16,7 @@ public class Transfer extends PowerControlledSystem {
         private Transfer() {
                 super(TransferConstants.TRANSFER_CONSTANTS, TransferConstants.IDLE, TransferConstants.INTAKE,
                                 TransferConstants.FEEDING,
-                                TransferConstants.FEDDING_IN_MOTION, TransferConstants.EJECT,
+                                TransferConstants.FEEDING_IN_MOTION, TransferConstants.EJECT,
                                 TransferConstants.SHOOTING, TransferConstants.UNSTUCK);
         }
 
@@ -23,16 +26,16 @@ public class Transfer extends PowerControlledSystem {
         }
 
         private boolean canShoot() {
-                return (Swerve.atPointForSHooting() && hood.atPointForSHooting() && Shooter.atPointForSHooting()) &&
+                return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint() && Shooter.getInstance().atPoint()) &&//TODO change to larger tolerance
                         (RobotContainer.getRobotState() == RobotConstants.SHOOTING 
                         || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO After Merge
+                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);
         }
 
         private boolean canFeedingInMotion() {
-                return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
-                                && Shooter.atPointForFeeding && !SuperStructure.isHittingNet()
-                                && !SuperStructur.outSideField());// TODO After Merge
+                return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && Hood.getInstance().atPoint()
+                                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet()
+                                && !SuperStructure.outSideField());// TODO change to larger tolerance
         }
 
         @Override
@@ -44,7 +47,7 @@ public class Transfer extends PowerControlledSystem {
                                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
-                                || RobotContainer.getRobotState() == RobotConstants.IDLE; // TODO After Merge
+                                || RobotContainer.getRobotState() == RobotConstants.IDLE; 
 
         }
 

@@ -16,7 +16,7 @@ public class TransferConstants {
     public static final double FEEDING_EJECT_VOLTAGE = 8.0;
     public static final double FEEDING_VOLTAGE = 8.0;
     public static final double SHOOTING_VOLTAGE = 8.0;
-    public static final double UNSTUCK_VOLTAGE = 8.0;
+    public static final double UNSTUCK_VOLTAGE = -8.0;
 
     public static final double GEAR = 1;
     public static final double RAMP_RATE = 0.2;
