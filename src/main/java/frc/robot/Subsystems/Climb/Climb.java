@@ -1,12 +1,30 @@
 
 package frc.robot.Subsystems.Climb;
 
-public class Climb {
+import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
 
-    private Climb climb;
+public class Climb extends PositionControlledSystem{
 
-    
-public boolean CAN_MOVE(){
-    return true;
-}
+    private static Climb climb;
+
+    private Climb() {
+        super(ClimbConstnats.CLIMB_CONSTANTS, ClimbConstnats.IDLE, ClimbConstnats.CLIMB, ClimbConstnats.DOWN, ClimbConstnats.PRECLIMB);
+    }
+
+    @Override
+    public void createSelfTest() {
+        
+    }
+
+    @Override
+    public boolean CAN_MOVE() {
+        return true;
+    }
+
+    public static Climb getInstance(){
+        if(climb == null){
+            climb = new Climb();
+        }
+        return climb;
+    }
 }

@@ -14,7 +14,7 @@ public class PortMap {
     }
 
     public class ClimbPorts{
-            public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CANBus.CANIVORE_BUS);
+            public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
         }
 
     
