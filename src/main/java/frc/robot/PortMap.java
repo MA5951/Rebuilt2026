@@ -17,6 +17,9 @@ public class PortMap {
         public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
     }
 
+    public class RollerPorts {
+        public static final CANBusID ROLLER_MOTOR = new CANBusID(21, CAN_BUS.RIO_BUS);
+    }
 public class Intake_Roller_Ports{
             public static final CANBusID INTAKE_ROLLER_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
         }
