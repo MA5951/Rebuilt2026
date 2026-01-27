@@ -39,20 +39,21 @@ public class Sandwich extends PowerControlledSystem {
     }
 
     private boolean canShoot() {
-        return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint() && Shooter.getInstance().atPoint()) &&
+        return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
+                && Shooter.getInstance().atPoint()) &&
                 (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                         RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);//TODO change to larger tolerance
+                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO change to larger tolerance
     }
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBalls();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
     }
 
-    private boolean canFeedingInMotion() {
+    private boolean canFeedingInMotion() { // change to larger tolerance
         return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && Hood.getInstance().atPoint()
-                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet() && !SuperStructure.outSideField());// TODO change to larger tolerance
+                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet() && !SuperStructure.outSideField());
     }
 
     @Override

@@ -5,24 +5,25 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
 
-public class IntakeRoller extends PowerControlledSystem{
+public class IntakeRoller extends PowerControlledSystem {
     private static IntakeRoller intakeroller;
 
     private IntakeRoller() {
         super(IntakeRollerConstants.INTAKE_ROLLER_CONSTANTS, IntakeRollerConstants.IDLE,
-         IntakeRollerConstants.FORWARD, IntakeRollerConstants.BACKWARD);
+                IntakeRollerConstants.FORWARD, IntakeRollerConstants.BACKWARD);
     }
 
     @Override
     public boolean CAN_MOVE() { // TODO After Merge SuperStructure
-        return !SuperStracter.isMagazinFull() && (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY 
-        || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER);
+        return !SuperStructure.isFull() && (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY
+                || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER);
     }
 
     @Override
     public void createSelfTest() {
-        
+
     }
 
     public static IntakeRoller getInstance() {
@@ -32,5 +33,4 @@ public class IntakeRoller extends PowerControlledSystem{
         return intakeroller;
     }
 
-    
 }
