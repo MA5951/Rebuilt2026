@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 
@@ -24,13 +25,13 @@ public class ShooterCommand extends SubsystemCommand {
                 shooter.setVelocity(ShooterConstants.WARMUP_VELOCITY);
                 break;
             case "SHOOTING":
-                shooter.setVelocity(Superstructure.getShooterVelocity());// TODO after merge
+                shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
                 break;
             case "FEEDING":
                 shooter.setVelocity(Superstructure.getFeedingVelocity());// TODO after merge
                 break;
             case "FEEDING_IN_MOTION":
-                shooter.setVelocity(Superstructure.getFeedingInMotionVelocity());// TODO after merge
+                shooter.setVelocity(SuperStructure.getFeedingInMotionVelocity());// TODO after merge
                 break;
             case "EJECT":
                 shooter.setVelocity(ShooterConstants.EJECT_VELOCITY);

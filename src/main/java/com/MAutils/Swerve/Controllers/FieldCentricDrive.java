@@ -28,7 +28,7 @@ public class FieldCentricDrive extends SwerveController {
         super("Field Centric Drive");
         this.constants = constants;
         this.controller = controller;
-        this.gyroDataSupplier = () -> SwerveSystem.getInstance(constants).getGyroData();
+        //this.gyroDataSupplier = () -> SwerveSystem.getInstance(constants).getGyroData();//TODO GALDO
     }
 
     public FieldCentricDrive withSclers(double xyScaler, double omegaScaler) {

@@ -17,7 +17,7 @@ public class SandwichConstants {
     public static final double EJECT_VOLTAGE = 8.0;
     public static final double FEEDING_VOLTAGE = 8.0;
     public static final double SHOOTING_VOLTAGE = 8.0;
-    public static final double UNSTUCK_VOLTAGE = 8.0;
+    public static final double UNSTUCK_VOLTAGE = -8.0;
 
     public static final double GEAR = 12.0 / 60.0;
     public static final double RAMP_RATE = 0.2;

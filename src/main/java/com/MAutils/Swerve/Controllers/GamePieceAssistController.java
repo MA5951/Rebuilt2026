@@ -35,7 +35,7 @@ public class GamePieceAssistController extends SwerveController {
         this.kMaxCorrection = kMaxCorrection;
         this.targetLocationSupplier = targetLocationSupplier;
         this.robotLocationSupplier = robotLocationSupplier;
-        this.gyroDataSupplier = () -> SwerveSystem.getInstance(constants).getGyroData();
+        //this.gyroDataSupplier = () -> SwerveSystem.getInstance(constants).getGyroData();//TODO GALDO
     }
 
     public GamePieceAssistController withSclers(double xyScaler, double omegaScaler) {

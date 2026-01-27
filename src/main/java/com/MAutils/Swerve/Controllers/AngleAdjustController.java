@@ -22,7 +22,7 @@ public class AngleAdjustController extends SwerveController {
         this.angleSupplier = angleSupplier; //TODO ?
 
         pidController.setSetpoint(angleOffset);
-        withGyroSupplier(() -> SwerveSystem.getInstance(swerveSystem).getAbsYaw()); 
+        //withGyroSupplier(() -> SwerveSystem.getInstance(swerveSystem).getAbsYaw()); //TODO GALDO
         //TODO just make it look lika a normal code init angleSupplier like a normal person
 
     }

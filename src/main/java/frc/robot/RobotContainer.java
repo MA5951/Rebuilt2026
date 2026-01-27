@@ -16,7 +16,12 @@ public class RobotContainer extends DeafultRobotContainer{
 
   @Override
   public void configBinding() {
-    throw new UnsupportedOperationException("Unimplemented method 'configBinding'");
+    
+
+
+    
+
+
   }
 
 
