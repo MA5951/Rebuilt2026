@@ -21,7 +21,7 @@ public class IntakeRollerConstants {
      public static final double STATOR_CURRENT_LIMIT = 40;
      public static final double RAMP_RATE = 0.2;
 
-     public static final Motor INTAKE_ROLLER_MOTOR = new Motor(PortMap.Intake_Roller_Ports.INTAKE_ROLLER_MOTOR, MotorType.KRAKEN,
+     private static final Motor INTAKE_ROLLER_MOTOR = new Motor(PortMap.Intake_Roller_Ports.INTAKE_ROLLER_MOTOR, MotorType.KRAKEN,
      "Intake Roller Motor", InvertedValue.Clockwise_Positive);
 
      public static final PowerSystemConstants INTAKE_ROLLER_CONSTANTS = PowerSystemConstants.builder("Intake Roller",INTAKE_ROLLER_MOTOR)
