@@ -39,7 +39,7 @@ public class SandwichConstants {
     public static final State IDLE = new State("IDLE");
     public static final State INTAKE = new State("INTAKE");
     public static final State FEEDING = new State("FEEDING");
-    public static final State FEDDING_IN_MOTION = new State("FEDDING_IN_MOTION");
+    public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
     public static final State EJECT = new State("EJECT");
     public static final State SHOOTING = new State("SHOOTING");
     public static final State UNSTUCK = new State("UNSTUCK");
