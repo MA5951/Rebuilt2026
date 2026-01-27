@@ -8,9 +8,9 @@ public class Shooter extends VelocityControlledSystem {
     private static Shooter shooter;
 
     private Shooter() {
-        super(ShooterConstants.shooterConstants, ShooterConstants.IDLE, ShooterConstants.SHOOTING,
-                ShooterConstants.WARMUP, ShooterConstants.FEEDING, ShooterConstants.STATIC_FEEDING,
-                ShooterConstants.EJECT, ShooterConstants.PRESET_SHOOTING);
+        super(ShooterConstants.SHOOTER_CONSTANTS, ShooterConstants.IDLE, ShooterConstants.SHOOTING,
+                ShooterConstants.WARMUP, ShooterConstants.FEEDING, ShooterConstants.FEEDING_IN_MOTION,
+                ShooterConstants.EJECT);
     }
 
     @Override

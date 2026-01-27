@@ -23,9 +23,9 @@ public class ShooterConstants {
         public static final double STATOR_CURRENT_LIMIT = 0;
         public static final double RAMP_RATE = 0.1;
 
-        public static final Motor MASTER_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_MASTER, MotorType.KRAKEN,
+        private static final Motor MASTER_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_MASTER, MotorType.KRAKEN,
                         "Shooter Master Motor", InvertedValue.Clockwise_Positive);
-        public static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
+        private static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
                         "Shooter Slave Motor", InvertedValue.Clockwise_Positive);
 
         private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);
@@ -35,8 +35,8 @@ public class ShooterConstants {
                         .gear(GEAR)
                         .isBrake(false)
                         .tolerance(TOLERANCE)
-                        .motorCurrentLimit(CURRENT_LIMIT)
                         .maxVelocity(SHOOTER_MAX_VELOCITY)
+                        .motorCurrentLimit(CURRENT_LIMIT)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
                         .rampRate(RAMP_RATE)
                         .build();
@@ -45,8 +45,7 @@ public class ShooterConstants {
         public static final State SHOOTING = new State("SHOOTING");
         public static final State WARMUP = new State("WARMUP");
         public static final State FEEDING = new State("FEEDING");
-        public static final State STATIC_FEEDING = new State("STATIC_FEEDING");
-        public static final State PRESET_SHOOTING = new State("PRESET_SHOOTING");
+        public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
         public static final State EJECT = new State("EJECT");
 
 }
