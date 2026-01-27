@@ -42,13 +42,12 @@ public class SixBarCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'Manual'");
+
     }
 
     @Override
     public void CantMove() {
-
+        sixbar.setVoltage(0);
     }
 
 }
