@@ -5,4 +5,4 @@
 package frc.robot.Util;
 
 /** Add your docs here. */
-public class ShootingParameters {}
+public record ShootingParameters(double hoodAngle, double shooterRPM) {}

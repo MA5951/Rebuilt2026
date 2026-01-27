@@ -5,6 +5,9 @@ import com.MAutils.RobotControl.DeafultSuperStructure;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import frc.robot.RobotContainer;
+import frc.robot.Subsystems.Roller.Roller;
+import frc.robot.Subsystems.Sandwich.Sandwich;
+import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Util.ShootingParameters;
 
 public class SuperStructure extends DeafultSuperStructure{ 
@@ -25,9 +28,14 @@ public class SuperStructure extends DeafultSuperStructure{
         }
     }
 
+    public enum StuckType {
+        NONE,
+        STUCK_IN_SANDWICH,
+        STUCK_IN_TRANSFER;
+    }
 
     public SuperStructure() {
-        super(null);
+        super( () -> Swerve.getInstance().getChassisSpeeds());
     }
 
     public static int getMainTagID() {
@@ -38,59 +46,77 @@ public class SuperStructure extends DeafultSuperStructure{
         return 0.0;
     }
 
-    public double getAbsAngleToTarget() {
+    public static double getAbsAngleToTarget() {
         return 0.0;
     }
 
-    public double getAngleToFeeding() {
+    public static double getAngleToFeeding() {
         return 0.0;
     }
 
-    public double getDistanceToFeeding() {
+    public static double getDistanceToFeeding() {
         return 0.0;
     }
 
-    public boolean isHittingNet() {
+    public static boolean isHittingNet() {
         return false;
     }
 
-    public boolean isFull() {
+    public static boolean isFull() {
         return false;
     }
 
-    public boolean isBalls() {
+    public static boolean isBalls() {
         return false;
     }
 
-    public boolean isStuck() {
-        return false;
+    public static boolean isBallsInSandwich() {
+        return Sandwich.getMacam < ;
     }
 
-    private double getShootingRPM(double distance) {
+    public static StuckType isStuck() {
+        if (Sandwich.isMoving() && isBallsInSandwich() && Sandwich.getMAcamDelta < 1) {
+            return StuckType.STUCK_IN_SANDWICH;
+        } else if (!isBallsInSandwich() && Roller.isMoving() && Transfer.isMoving && isBalls()) {
+            return StuckType.STUCK_IN_TRANSFER;
+        } else {
+            return StuckType.NONE;
+        }
+    }
+
+    private static double getShootingRPM(double distance) {
         return 0.0;
     } 
 
-    private double getHoodAngle(double distance) {
+    private static double getHoodAngle(double distance) {
         return 0.0;
     }
 
-    public ShootingParameters getShootingParameters() {
+    public static ShootingParameters getShootingParameters() {
         return currentShootingParameters;
     }
 
-    public ShootingParameters getFeedingParameters() {
+    public static ShootingParameters getFeedingParameters() {
         return new ShootingParameters(getShootingRPM(0.0), getHoodAngle(0.0));
     }
 
-    private double getDistanceToTarget() {
+    private static double getDistanceToTargetShooting() {
+        return 0.0;
+    }
+
+    private static double getDistanceToTargetFeeding() {
         return 0.0;
     }
 
     public static void update() {
         if (RobotContainer.getRobotState() == SHOOTING) {
-            currentShootingParameters = new ShootingParameters(getDistanceToTarget(), MOVING_MPS);
+            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),  getHoodAngle(getDistanceToTargetShooting()));
+        } else if (RobotContainer.getRobotState() == FEEDING || RobotContainer.getRobotState() == FEEDING_IN_MOTION ) {
+            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),  getHoodAngle(getDistanceToTargetFeeding()));
         }
     }
+
+
 
 
 

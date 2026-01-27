@@ -36,7 +36,6 @@ public abstract class DeafultSuperStructure {
         return robotVelocitySupplier.get() > MOVING_MPS; 
     }
 
-    public abstract boolean hasGamePiece();
     
 
     
