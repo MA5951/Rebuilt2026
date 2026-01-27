@@ -37,6 +37,10 @@ public class Intake_Roller_Ports{
             public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
         }
 
+public class Transfer_Ports {
+        public static final CANBusID TRANSFER_MOTOR = new CANBusID(11, CAN_BUS.RIO_BUS);
+}
+
     
 
     public static class SwervePorts {
@@ -45,6 +49,7 @@ public class Intake_Roller_Ports{
         private static final CANBusID LEFT_FRONT_DRIVE = new CANBusID(8, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_FRONT_TURNING = new CANBusID(5, CAN_BUS.CANIVORE_BUS);
 
+  
         private static final CANBusID LEFT_BACK_ENCODER = new CANBusID(21, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_BACK_DRIVE = new CANBusID(4, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_BACK_TURNING = new CANBusID(9, CAN_BUS.CANIVORE_BUS);
