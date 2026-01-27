@@ -19,7 +19,7 @@ public class SixBarCommand extends SubsystemCommand {
     public void Automatic() {
         switch (sixbar.getCurrentState().stateName) {
             case "IDLE":
-                if (SuperStructure.isDefenceMode) {// TODO after merge
+                if (SuperStructure.isDefenceMode()) {// TODO after merge
                     sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 } else {
                     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
@@ -28,10 +28,9 @@ public class SixBarCommand extends SubsystemCommand {
             case "DEPLOY":
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
             case "ARMBRAKS":
-
+                sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 break;
             case "COLLISION":
-
                 sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS);
                 break;
             case "SHOOTING":

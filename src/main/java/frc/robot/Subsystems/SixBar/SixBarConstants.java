@@ -23,8 +23,10 @@ public class SixBarConstants {
     public static final double MAXIMUM_ANGLE = 0.0;
     public static final double GEAR = 0.0;
     public static final double TOLERANCE = 0.0;
+    public static final double CURRENT_LIMIT = 35;
+    public static final double STATOR_CURRENT_LIMIT = 30;
 
-    public static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
+    private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
             "SixBar Motor", InvertedValue.Clockwise_Positive);
 
     private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);
@@ -36,6 +38,8 @@ public class SixBarConstants {
             .tolerance(TOLERANCE)
             .range(MINUMUM_ANGLE, MAXIMUM_ANGLE)
             .startPose(IDLE_ANGLE)
+            .motorCurrentLimit(CURRENT_LIMIT)
+            .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
             .build();
 
     public static final State IDLE = new State("IDLE");
