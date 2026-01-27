@@ -30,8 +30,8 @@ public class HoodCommand extends SubsystemCommand {
             case "FEEDING":
                 hood.setPosition(Superstructure.getHoodFeedingPosition());// TODO after merge
                 break;
-            case "STATIC_FEEDING":
-                hood.setPosition(Superstructure.getHoodStaticFeedingPosition());// TODO after merge
+            case "FEEDING_IN_MOTION":
+                hood.setPosition(Superstructure.getHoodFeedingInMotionPosition());// TODO after merge
                 break;
             case "EJECT":
                 hood.setPosition(HoodConstants.EJECT_POSITION);

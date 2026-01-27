@@ -12,8 +12,8 @@ public class Hood extends PositionControlledSystem {
     private static Hood hood;
 
     private Hood() {
-        super(HoodConstants.hoodConstants, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
-                HoodConstants.SHOOTING, HoodConstants.STATIC_FEEDING);
+        super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
+                HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION);
 
     }
 
