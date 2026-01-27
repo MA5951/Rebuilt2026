@@ -15,7 +15,7 @@ public class Sandwich extends PowerControlledSystem {
 
     private double lastMAcamDistance;
 
-    private MACam macam = new MACam(0);
+    private MACam macam = new MACam(PortMap.Sandwich_Ports.MACAM);
     private DigitalInput ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
 
     private Sandwich() {

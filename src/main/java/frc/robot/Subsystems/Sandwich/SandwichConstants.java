@@ -19,10 +19,10 @@ public class SandwichConstants {
     public static final double SHOOTING_VOLTAGE = 8.0;
     public static final double UNSTUCK_VOLTAGE = 8.0;
 
-    private static final double GEAR = 12.0 / 60.0;
-    private static final double RAMP_RATE = 0.2;
-    private static final int CURRENT_LIMIT = 30;
-    private static final int STATOR_CURRENT_LIMIT = 40;
+    public static final double GEAR = 12.0 / 60.0;
+    public static final double RAMP_RATE = 0.2;
+    public static final int CURRENT_LIMIT = 30;
+    public static final int STATOR_CURRENT_LIMIT = 40;
 
     private static final Motor SANDWICH_MOTOR = new Motor(
             PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
