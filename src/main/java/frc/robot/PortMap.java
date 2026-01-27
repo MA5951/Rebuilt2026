@@ -17,6 +17,10 @@ public class PortMap {
         public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
     }
 
+    public class SixBarPorts {
+        public static final CANBusID SIXBAR_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
+    }
+    
     public class Sandwich_Ports {
         public static final CANBusID SANDWICH_MOTOR = new CANBusID(15, CAN_BUS.RIO_BUS);
         public static final int MACAM = 11;
