@@ -31,7 +31,7 @@ public class SixBarConstants {
 
     private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);
 
-    public static PositionSystemConstants sixBarConstants = PositionSystemConstants
+    public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
             .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
             .gear(GEAR)
             .isBrake(true)
