@@ -29,11 +29,6 @@ public class Transfer extends PowerControlledSystem {
                         || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO After Merge
         }
 
-        private boolean canIntake() {
-                return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY 
-                        ||RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER);// TODO After Merge
-        }
-
         private boolean canFeedingInMotion() {
                 return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && hood.atPointForFeeding()
                                 && Shooter.atPointForFeeding && !SuperStructure.isHittingNet()
@@ -42,7 +37,9 @@ public class Transfer extends PowerControlledSystem {
 
         @Override
         public boolean CAN_MOVE() {
-                return canShoot() || canIntake() || canFeedingInMotion()
+                return canShoot() || canFeedingInMotion()
+                                || RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY 
+                                || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER
                                 || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
