@@ -30,7 +30,7 @@ public class ShooterConstants {
 
         private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);
 
-        public static VelocitySystemConstants shooterConstants = VelocitySystemConstants
+        public static VelocitySystemConstants SHOOTER_CONSTANTS = VelocitySystemConstants
                         .newBuilder("Shooter", REAL_GAIN_CONFIG, MASTER_MOTOR, SLAVE_MOTOR)
                         .gear(GEAR)
                         .isBrake(false)
