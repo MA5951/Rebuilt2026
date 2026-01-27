@@ -29,8 +29,8 @@ public class SandwichCommand extends SubsystemCommand {
             case "FEEDING_IN_MOTION" :
                 sandwich.setVoltage(SandwichConstants.FEDDING_IN_MOTION_VOLTAGE);
                 break;
-            case "FEEDING_EJECT" :
-                sandwich.setVoltage(SandwichConstants.FEEDING_EJECT_VOLTAGE);
+            case "EJECT" :
+                sandwich.setVoltage(SandwichConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING" :
                 sandwich.setVoltage(SandwichConstants.SHOOTING_VOLTAGE);

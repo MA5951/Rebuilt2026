@@ -14,7 +14,7 @@ public class SandwichConstants {
     public static final double IDLE_VOLTAGE = 0;
     public static final double INTAKE_VOLTAGE = 8.0;
     public static final double FEDDING_IN_MOTION_VOLTAGE = 8.0;
-    public static final double FEEDING_EJECT_VOLTAGE = 8.0;
+    public static final double EJECT_VOLTAGE = 8.0;
     public static final double FEEDING_VOLTAGE = 8.0;
     public static final double SHOOTING_VOLTAGE = 8.0;
     public static final double UNSTUCK_VOLTAGE = 8.0;
