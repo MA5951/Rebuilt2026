@@ -24,6 +24,8 @@ public class SandwichConstants {
     public static final int CURRENT_LIMIT = 30;
     public static final int STATOR_CURRENT_LIMIT = 40;
 
+    public static final double IS_BALLS_DISTANCE = 0.1;
+
     private static final Motor SANDWICH_MOTOR = new Motor(
             PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
             InvertedValue.Clockwise_Positive);

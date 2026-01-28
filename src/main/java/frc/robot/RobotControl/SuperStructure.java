@@ -4,10 +4,13 @@ package frc.robot.RobotControl;
 import com.MAutils.RobotControl.DeafultSuperStructure;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Sandwich.Sandwich;
+import frc.robot.Subsystems.Sandwich.SandwichConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
+import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Util.ShootingParameters;
 
 public class SuperStructure extends DeafultSuperStructure{ 
@@ -35,7 +38,7 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public SuperStructure() {
-        super( () -> Swerve.getInstance().getChassisSpeeds());
+        super( () -> Swerve.getInstance().get);
     }
 
     public static int getMainTagID() {
@@ -75,13 +78,25 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getMacam < ;
+        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE;
+    }
+
+    public static boolean isInActive() {
+        return true;
+    }
+
+    public static double getTimePastActive() {
+        return 0.0;
+    }
+
+    public static double getTimeUntilActive() {
+        return 0.0;
     }
 
     public static StuckType isStuck() {
-        if (Sandwich.isMoving() && isBallsInSandwich() && Sandwich.getMAcamDelta < 1) {
+        if (Sandwich.getInstance().isMoving() && isBallsInSandwich() && Sandwich.getInstance().getDeltaMAcamDistance() < 1) {
             return StuckType.STUCK_IN_SANDWICH;
-        } else if (!isBallsInSandwich() && Roller.isMoving() && Transfer.isMoving && isBalls()) {
+        } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving && isBalls()) {
             return StuckType.STUCK_IN_TRANSFER;
         } else {
             return StuckType.NONE;
@@ -112,10 +127,14 @@ public class SuperStructure extends DeafultSuperStructure{
         return 0.0;
     }
 
+    public static boolean isInTheAlinceZone() {
+        return false;
+    }
+
     public static void update() {
-        if (RobotContainer.getRobotState() == SHOOTING) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),  getHoodAngle(getDistanceToTargetShooting()));
-        } else if (RobotContainer.getRobotState() == FEEDING || RobotContainer.getRobotState() == FEEDING_IN_MOTION ) {
+        } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION ) {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),  getHoodAngle(getDistanceToTargetFeeding()));
         }
     }
