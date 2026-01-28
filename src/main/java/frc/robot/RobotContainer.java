@@ -127,13 +127,9 @@ public class RobotContainer extends DeafultRobotContainer {
     (SixBar.getInstance().getPosition() - SixBar.getInstance().getSetPoint()) <= SixBarConstants.TOLERANCE))
     .onTrue( new InstantCommand(() -> SixBar.getInstance().setState(SixBar.getInstance().getLastState())));
 
-  new Trigger(() -> (getOperatorController().getActionsDown() && 
-  (!SuperStructure.isDefenceMode())))
-  .onTrue( new InstantCommand(() -> SuperStructure.setDefenceMode(true)));
+  new Trigger(() -> (getOperatorController().getActionsDown() ))
+  .onTrue( new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
 
-  new Trigger(() -> (getOperatorController().getActionsDown() && 
-  (SuperStructure.isDefenceMode())))
-  .onTrue( new InstantCommand(() -> SuperStructure.setDefenceMode(false)));
 
   }
 }
