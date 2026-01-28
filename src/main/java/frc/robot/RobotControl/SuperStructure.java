@@ -15,6 +15,9 @@ import frc.robot.Util.ShootingParameters;
 
 public class SuperStructure extends DeafultSuperStructure{ 
     private static ShootingParameters currentShootingParameters;
+    private static boolean automatic = true;
+    private static boolean defence = false;
+
 
     public enum ShootingPreset {
         CLOSE(10.0, 2000.0, new Pose2d()),
@@ -91,6 +94,34 @@ public class SuperStructure extends DeafultSuperStructure{
 
     public static double getTimeUntilActive() {
         return 0.0;
+    }
+
+    public static boolean isAutomatic() {
+        return automatic;
+    }
+
+    public static void setAutomatic(boolean update) {
+        automatic = update;
+    }
+
+    public static boolean isDefenceMode() {
+        return defence;
+    }
+
+    public static void setDefenceMode(boolean update) {
+        defence = update;
+    }
+
+    public static boolean isTransferStuck() {
+        return false;
+    }
+
+    public static double getTimeLeft() {
+        return 9;
+    }
+
+    public static boolean isRobotInAir() {
+        return false;
     }
 
     public static StuckType isStuck() {
