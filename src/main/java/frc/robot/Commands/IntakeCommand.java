@@ -6,7 +6,7 @@ import com.MAutils.RobotControl.SubsystemCommand;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 
-public class IntakeCommand extends SubsystemCommand{
+public class IntakeCommand extends SubsystemCommand {
     private static IntakeRoller intakeroller = IntakeRoller.getInstance();
 
     public IntakeCommand() {
@@ -31,7 +31,7 @@ public class IntakeCommand extends SubsystemCommand{
 
     @Override
     public void Manual() {
-        
+
     }
 
     @Override

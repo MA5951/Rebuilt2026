@@ -28,10 +28,10 @@ public class ShooterCommand extends SubsystemCommand {
                 shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
                 break;
             case "FEEDING":
-                shooter.setVelocity(Superstructure.getFeedingVelocity());// TODO after merge
+                shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
                 break;
             case "FEEDING_IN_MOTION":
-                shooter.setVelocity(SuperStructure.getFeedingInMotionVelocity());// TODO after merge
+                shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
                 break;
             case "EJECT":
                 shooter.setVelocity(ShooterConstants.EJECT_VELOCITY);

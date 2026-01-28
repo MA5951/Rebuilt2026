@@ -1,6 +1,4 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+
 
 package frc.robot.Commands;
 
@@ -10,7 +8,7 @@ import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
 
-/** Add your docs here. */
+
 public class HoodCommand extends SubsystemCommand {
     private static final Hood hood = Hood.getInstance();
 
@@ -26,13 +24,13 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
             case "SHOOTING":
-                hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());// TODO after merge
+                hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
                 break;
             case "FEEDING":
-                hood.setPosition(SuperStructure.getHoodFeedingPosition());// TODO after merge
+                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());
                 break;
             case "FEEDING_IN_MOTION":
-                hood.setPosition(SuperStructure.getHoodFeedingInMotionPosition());// TODO after merge
+                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());
                 break;
             case "EJECT":
                 hood.setPosition(HoodConstants.EJECT_POSITION);

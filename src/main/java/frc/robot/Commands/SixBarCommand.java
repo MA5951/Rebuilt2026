@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 
@@ -19,7 +20,7 @@ public class SixBarCommand extends SubsystemCommand {
     public void Automatic() {
         switch (sixbar.getCurrentState().stateName) {
             case "IDLE":
-                if (SuperStructure.isDefenceMode()) {// TODO after merge
+                if (SuperStructure.isDefenceMode()) {
                     sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 } else {
                     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
