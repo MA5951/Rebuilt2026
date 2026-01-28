@@ -55,15 +55,15 @@ public class RobotContainer extends DeafultRobotContainer {
     T(StateTrigger.T(() -> getDriverController().getR1() && SixBar.getInstance().getCurrentState() == SixBarConstants.ARMBRAKS,
         RobotConstants.INTAKE_ROLLER));
 
-    T(StateTrigger.T(() -> getDriverController().getL1() && SuperStructure.isInActive() && SuperStructure.getTimeUntilActive() > 2 && getRobotState() == RobotConstants.UNSTUCK,
-        RobotConstants.INTAKE_ROLLER));
-
-    T(StateTrigger.T(() -> getDriverController().getL2() && (SuperStructure.isInActive() || SuperStructure.getTimeUntilActive() < 2)
-       && getRobotState() != RobotConstants.UNSTUCK,
+    T(StateTrigger.T(() -> getDriverController().getL1() && SuperStructure.isInActive() && SuperStructure.getTimeUntilActive() > 2 && 
+    getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isAutomatic(),
         RobotConstants.SHOOTING));
 
     T(StateTrigger.T(() -> getDriverController().getActionsRight() && getRobotState() != RobotConstants.UNSTUCK,
         RobotConstants.EJECT ));
+
+    T(StateTrigger.T(()-> getDriverController().getActionsLeft() && getRobotState() != RobotConstants.UNSTUCK, 
+        RobotConstants.FEEDING));
 
     T(StateTrigger.T(() -> getDriverController().getR2() && getRobotState() != RobotConstants.UNSTUCK, 
         RobotConstants.FEEDING_IN_MOTION));
