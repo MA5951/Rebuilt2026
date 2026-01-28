@@ -28,6 +28,9 @@ public class ClimbConstnats {
 
         public static final double GEAR = 1;
 
+        public static final double TOLERANCE_FOR_TRIGGER = 3;
+
+
         private static final Motor CLIMB_MOTOR = new Motor(PortMap.ClimbPorts.CLIMB_MOTOR, MotorType.KRAKEN,
                         "Climb Motor",
                         InvertedValue.Clockwise_Positive);
