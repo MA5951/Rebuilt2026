@@ -7,6 +7,7 @@ import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
+import frc.robot.Subsystems.Sandwich.SandwichConstants;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Swerve.Swerve;
 
@@ -53,6 +54,10 @@ public class Roller extends PowerControlledSystem {
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
                 || RobotContainer.getRobotState() == RobotConstants.IDLE;
 
+    }
+
+    public boolean isMoving() {
+        return getVelocity() > RollerConstants.MAX_VELOCITY_IN_STOPING;
     }
 
     public static Roller getInstance() {

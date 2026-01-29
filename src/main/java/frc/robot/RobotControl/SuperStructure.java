@@ -4,6 +4,7 @@ package frc.robot.RobotControl;
 import com.MAutils.RobotControl.DeafultSuperStructure;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Roller.Roller;
@@ -17,6 +18,8 @@ public class SuperStructure extends DeafultSuperStructure{
     private static ShootingParameters currentShootingParameters;
     private static boolean automatic = true;
     private static boolean defence = false;
+
+    private static boolean isCompation = false;
 
 
     public enum ShootingPreset {
@@ -41,7 +44,7 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public SuperStructure() {
-        super( () -> Swerve.getInstance().get);
+        super( () -> Swerve.getInstance().getChassisSpeeds().);
     }
 
     public static int getMainTagID() {
@@ -85,7 +88,10 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public static boolean isInActive() {
-        return true;
+        if (isCompation) {///////////////////////////////////////////////////////////////////////////////////
+            return true;
+        } 
+        return false;
     }
 
     public static double getTimePastActive() {
@@ -93,6 +99,9 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public static double getTimeUntilActive() {
+        if(isCompation) {
+            return 3;
+        }
         return 0.0;
     }
 
@@ -113,11 +122,11 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public static boolean isTransferStuck() {
-        return false;
+        return !(isStuck() == StuckType.NONE);
     }
 
     public static double getTimeLeft() {
-        return 9;
+        return DriverStation.getMatchTime();
     }
 
     public static boolean isRobotInAir() {
@@ -127,16 +136,11 @@ public class SuperStructure extends DeafultSuperStructure{
     public static StuckType isStuck() {
         if (Sandwich.getInstance().isMoving() && isBallsInSandwich() && Sandwich.getInstance().getDeltaMAcamDistance() < 1) {
             return StuckType.STUCK_IN_SANDWICH;
-        } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving && isBalls()) {
+        } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving() && isBalls()) {
             return StuckType.STUCK_IN_TRANSFER;
         } else {
             return StuckType.NONE;
         }
-    }
-
-
-    public static boolean isDefenceMode() {
-        return false;
     }
 
     private static double getShootingRPM(double distance) {
@@ -174,13 +178,5 @@ public class SuperStructure extends DeafultSuperStructure{
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),  getHoodAngle(getDistanceToTargetFeeding()));
         }
     }
-
-
-
-
-
-
-
-
 
 }
