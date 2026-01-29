@@ -18,5 +18,9 @@ public class ChassisSpeedsUtil {
         speeds.vyMetersPerSecond = rotated.getY();
         return speeds;
     }
+
+    public static double getSpeedMagnitude(ChassisSpeeds speeds) {
+        return Math.hypot(speeds.vxMetersPerSecond, speeds.vyMetersPerSecond);
+    }
     //TODO remaind my again why we dont use the wpi one? 
 }

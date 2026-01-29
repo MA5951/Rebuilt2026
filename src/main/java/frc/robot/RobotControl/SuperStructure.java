@@ -2,11 +2,14 @@
 package frc.robot.RobotControl;
 
 import com.MAutils.RobotControl.DeafultSuperStructure;
+import com.MAutils.Utils.ChassisSpeedsUtil;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
+import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Sandwich.SandwichConstants;
@@ -15,11 +18,15 @@ import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Util.ShootingParameters;
 
 public class SuperStructure extends DeafultSuperStructure{ 
+
+    public static final double IN_THE_AIR_CURRENT_THRESHOLD = 40.0;
+
     private static ShootingParameters currentShootingParameters;
     private static boolean automatic = true;
     private static boolean defence = false;
 
-    private static boolean isCompation = false;
+
+    private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
 
 
     public enum ShootingPreset {
@@ -44,7 +51,7 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public SuperStructure() {
-        super( () -> Swerve.getInstance().getChassisSpeeds().);
+        super( () -> ChassisSpeedsUtil.getSpeedMagnitude(Swerve.getInstance().getChassisSpeeds()));
     }
 
     public static int getMainTagID() {
@@ -87,24 +94,6 @@ public class SuperStructure extends DeafultSuperStructure{
         return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE;
     }
 
-    public static boolean isInActive() {
-        if (isCompation) {///////////////////////////////////////////////////////////////////////////////////
-            return true;
-        } 
-        return false;
-    }
-
-    public static double getTimePastActive() {
-        return 0.0;
-    }
-
-    public static double getTimeUntilActive() {
-        if(isCompation) {
-            return 3;
-        }
-        return 0.0;
-    }
-
     public static boolean isAutomatic() {
         return automatic;
     }
@@ -130,7 +119,7 @@ public class SuperStructure extends DeafultSuperStructure{
     }
 
     public static boolean isRobotInAir() {
-        return false;
+        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD);
     }
 
     public static StuckType isStuck() {

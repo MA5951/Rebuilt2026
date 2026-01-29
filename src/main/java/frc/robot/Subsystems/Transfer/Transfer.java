@@ -3,6 +3,8 @@ package frc.robot.Subsystems.Transfer;
 
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import frc.robot.PortMap.Transfer_Ports;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
@@ -13,11 +15,20 @@ import frc.robot.Subsystems.Swerve.Swerve;
 public class Transfer extends PowerControlledSystem {
         private static Transfer transfer;
 
+        private DigitalInput firstLevelSensor;
+        private DigitalInput secondLevelSensor;
+        private DigitalInput thirdLevelSensor;
+
+
         private Transfer() {
                 super(TransferConstants.TRANSFER_CONSTANTS, TransferConstants.IDLE, TransferConstants.INTAKE,
                                 TransferConstants.FEEDING,
                                 TransferConstants.FEEDING_IN_MOTION, TransferConstants.EJECT,
                                 TransferConstants.SHOOTING, TransferConstants.UNSTUCK);
+
+                firstLevelSensor = new DigitalInput(Transfer_Ports.FIRST_LEVEL_SENSOR);
+                secondLevelSensor = new DigitalInput(Transfer_Ports.SECOND_LEVEL_SENSOR);
+                thirdLevelSensor = new DigitalInput(Transfer_Ports.THIRD_LEVEL_SENSOR);
         }
 
         @Override
@@ -55,6 +66,18 @@ public class Transfer extends PowerControlledSystem {
                                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
                                 || RobotContainer.getRobotState() == RobotConstants.IDLE;
 
+        }
+
+        public boolean isFirstLevelSensor() {
+                return firstLevelSensor.get();
+        }
+
+        public boolean isSecondLevelSensor() {
+                return secondLevelSensor.get();
+        }
+
+        public boolean isThirdLevelSensor() {
+                return thirdLevelSensor.get();
         }
 
         public static Transfer getInstance() {

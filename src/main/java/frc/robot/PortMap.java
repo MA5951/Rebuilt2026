@@ -39,6 +39,10 @@ public class Intake_Roller_Ports{
 
 public class Transfer_Ports {
         public static final CANBusID TRANSFER_MOTOR = new CANBusID(11, CAN_BUS.RIO_BUS);
+
+        public static final int FIRST_LEVEL_SENSOR = 0;
+        public static final int SECOND_LEVEL_SENSOR = 1;
+        public static final int THIRD_LEVEL_SENSOR = 2;
 }
 
     

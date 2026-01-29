@@ -16,8 +16,13 @@ import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
+import frc.robot.Util.ActiveUtil;
 
 public class RobotContainer extends DeafultRobotContainer {
+
+  private static final double TIME_UNTIL_ACTIVE = 1;
+  private static final double TIME_PAST_ACTIVE = 1;
+
 
   public RobotContainer() {
     super();
@@ -42,10 +47,10 @@ public class RobotContainer extends DeafultRobotContainer {
         () -> ((getRobotState() == RobotConstants.INTAKE_DEPLOY || getRobotState() == RobotConstants.INTAKE_ROLLER)
             && (!getDriverController().getR1()) || SuperStructure.isFull()) ||
             (getRobotState() == RobotConstants.EJECT && !getDriverController().getActionsRight())
-            || (getRobotState() == RobotConstants.FEEDING && (!getDriverController().getActionsRight() || !SuperStructure.isBalls()))
+            || (getRobotState() == RobotConstants.FEEDING && (!getDriverController().getActionsLeft() || !SuperStructure.isBalls()))
             ||(getRobotState() == RobotConstants.FEEDING_IN_MOTION && !getDriverController().getR2())
-            || (getRobotState() == RobotConstants.SHOOTING && (!getDriverController().getR2()|| !SuperStructure.isBalls() 
-            || (!SuperStructure.isInActive() &&  SuperStructure.getTimePastActive() < 1.5)))
+            || (getRobotState() == RobotConstants.SHOOTING && (!getDriverController().getL1()|| !SuperStructure.isBalls() 
+            || (!ActiveUtil.isActive() &&  ActiveUtil.getTimePastActive() < 1.5)))
             || getRobotState() == RobotConstants.SHOOTING_PRESETS && !getDriverController().getR2()
             , RobotConstants.IDLE_INTAKE));
 
@@ -55,7 +60,7 @@ public class RobotContainer extends DeafultRobotContainer {
     T(StateTrigger.T(() -> getDriverController().getR1() && SixBar.getInstance().getCurrentState() == SixBarConstants.ARMBRAKS,
         RobotConstants.INTAKE_ROLLER));
 
-    T(StateTrigger.T(() -> getDriverController().getL1() && SuperStructure.isInActive() && SuperStructure.getTimeUntilActive() > 2 && 
+    T(StateTrigger.T(() -> getDriverController().getL1() && ActiveUtil.isActive() && ActiveUtil.getTimeUntilActive() > 2 && 
     getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isAutomatic(),
         RobotConstants.SHOOTING));
 
@@ -99,10 +104,10 @@ public class RobotContainer extends DeafultRobotContainer {
     && getRobotState() != RobotConstants.SHOOTING && getRobotState() != RobotConstants.SHOOTING_PRESETS 
     && getRobotState() != RobotConstants.FEEDING && getRobotState() != RobotConstants.FEEDING_IN_MOTION 
     && getRobotState() != RobotConstants.EJECT 
-    && ((!SuperStructure.isInActive()  && SuperStructure.getTimeUntilActive() < 5) || SuperStructure.isInActive()) )
-    .onTrue( new InstantCommand(() -> Shooter.getInstance().setState(ShooterConstants.WARMUP)));// change to variable
+    && ((!ActiveUtil.isActive()  && ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE) || ActiveUtil.isActive()) )
+    .onTrue( new InstantCommand(() -> Shooter.getInstance().setState(ShooterConstants.WARMUP)));
 
-   T(StateTrigger.T(() -> !SuperStructure.isBalls() || !SuperStructure.isInTheAlinceZone() || SuperStructure.getTimePastActive() > 1 // change to variable
+   T(StateTrigger.T(() -> !SuperStructure.isBalls() || !SuperStructure.isInTheAlinceZone() || ActiveUtil.getTimePastActive() > TIME_PAST_ACTIVE
    , RobotConstants.IDLE_SHOOTER));
 
 
