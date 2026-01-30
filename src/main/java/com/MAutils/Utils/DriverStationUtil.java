@@ -19,6 +19,10 @@ public class DriverStationUtil {
         return Alliance.Blue;
     }
 
+    public static boolean isRed() {
+        return getAlliance() == Alliance.Red;
+    }
+
    
 
 

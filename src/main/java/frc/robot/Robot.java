@@ -3,6 +3,8 @@ package frc.robot;
 
 import com.MAutils.RobotControl.DeafultRobot;
 
+import frc.robot.Util.ActiveUtil;
+
 public class Robot extends DeafultRobot {
 
   @SuppressWarnings("unused")
@@ -11,6 +13,18 @@ public class Robot extends DeafultRobot {
   public Robot() {
     super();
     m_robotContainer = new RobotContainer();
+  }
+
+  @Override
+  public void teleopInit() {
+    super.teleopInit();
+    ActiveUtil.startTeleop();
+  }
+
+  @Override
+  public void teleopPeriodic() {
+    super.teleopPeriodic();
+    ActiveUtil.checkShift();
   }
 
   
