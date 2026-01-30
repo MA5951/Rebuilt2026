@@ -30,9 +30,6 @@ public class SixBarConstants {
     public static final double COLLISION_DETECTION  = 0.0;
     public static final double CLOSE_LOOP_TOLERANCE  = 0.0;
 
-
-
-
     private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
             "SixBar Motor", InvertedValue.Clockwise_Positive);
 

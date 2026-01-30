@@ -12,11 +12,6 @@ public class ActiveUtil {
     private static Boolean isFirstShift;
     private static Timer matchTimer = new Timer();
 
-    // is active
-    // time left active
-    // time until active
-    // time passed active
-
     public static void startTeleop() {
         matchTimer.reset();
         matchTimer.start();

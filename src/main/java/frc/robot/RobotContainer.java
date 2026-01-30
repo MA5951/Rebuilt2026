@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
-import frc.robot.Subsystems.Hood.Hood;
-import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
@@ -60,7 +58,7 @@ public class RobotContainer extends DeafultRobotContainer {
     T(StateTrigger.T(() -> getDriverController().getR1() && SixBar.getInstance().getCurrentState() == SixBarConstants.ARMBRAKS,
         RobotConstants.INTAKE_ROLLER));
 
-    T(StateTrigger.T(() -> getDriverController().getL1() && ActiveUtil.isActive() && ActiveUtil.getTimeUntilActive() > 2 && 
+    T(StateTrigger.T(() -> getDriverController().getL1() && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)  && 
     getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isAutomatic(),
         RobotConstants.SHOOTING));
 

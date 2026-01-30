@@ -30,7 +30,6 @@ public class SwerveConstants {
                         .withDriveCurrentLimit(80, true)// 45
                         .withTurningCurrentLimit(50, false).withDriveTuning(driveGainConfig)
                         .withTurningTuning(turnGainConfig)
-
                         .withGearRatio(GearRatio.L2);
 
         // PID Controllers
@@ -49,7 +48,6 @@ public class SwerveConstants {
                         ANGLE_PID_CONTROLLER);
 
 
-
         // Swerve States
         public static final SwerveState NONE = new SwerveState("NONE").withXY(0, 0).withOmega(0);      
 
@@ -64,6 +62,4 @@ public class SwerveConstants {
         public static final SwerveState FIELD_CENTRIC_20 = new SwerveState("Field Centric 20 Precent")
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.5, 0.5))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
-
-
 }

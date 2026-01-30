@@ -5,7 +5,6 @@ import com.MAutils.CanBus.StatusSignalsRunner;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
 import com.ctre.phoenix6.StatusSignal;
 
-import frc.robot.PortMap;
 
 public class SixBar extends PositionControlledSystem {
 
