@@ -8,6 +8,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Constants.VelocitySystemConstant
 import com.MAutils.Utils.GainConfig;
 import com.ctre.phoenix6.signals.InvertedValue;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.PortMap;
 
 public class ShooterConstants {
@@ -22,6 +23,8 @@ public class ShooterConstants {
         public static final double CURRENT_LIMIT = 0;
         public static final double STATOR_CURRENT_LIMIT = 0;
         public static final double RAMP_RATE = 0.1;
+
+        public static final Translation2d SHOOTER_OFFSET = new Translation2d(0.0, 0.0);
 
         private static final Motor MASTER_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_MASTER, MotorType.KRAKEN,
                         "Shooter Master Motor", InvertedValue.Clockwise_Positive);

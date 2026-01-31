@@ -10,7 +10,8 @@ public class VisionSystem extends SubsystemBase {
 
     private Camera[] cameras;
 
-    private VisionSystem() { //TODO need to be private but why you dont put here the set cameras code
+    private VisionSystem(Camera... cameras) {
+        this.cameras = cameras;
     }
 
     public void setCameras(Camera... cameras) {

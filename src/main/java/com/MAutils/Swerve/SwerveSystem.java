@@ -24,6 +24,7 @@ import com.MAutils.Utils.DriverStationUtil;
 import com.pathplanner.lib.util.DriveFeedforwards;
 import com.pathplanner.lib.util.swerve.SwerveSetpointGenerator;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -161,6 +162,10 @@ public class SwerveSystem extends SubsystemBase {
         return new Rotation3d(getGyroData().roll, getGyroData().pitch, getGyroData().yaw);
     }
 
+    public Rotation2d getRobotRotation2d() {
+        return Rotation2d.fromDegrees(getGyroData().yaw);
+    }
+
     public double getAbsYaw() {
         if (DriverStationUtil.getAlliance() == Alliance.Blue) {
             return getGyroData().yaw + 180;
@@ -216,6 +221,10 @@ public class SwerveSystem extends SubsystemBase {
 
     public GyroData getGyroData() {
         return gyro.getGyroData();
+    }
+
+    public Supplier<Double> getGyroYawSupplier() {
+        return () -> getGyroData().yaw;
     }
 
     public SwerveModuleData[] getSwerveModuleData() {

@@ -25,11 +25,12 @@ public class SandwichConstants {
         public static final int STATOR_CURRENT_LIMIT = 40;
 
         public static final double IS_BALLS_DISTANCE = 0.1;
-        public static final double MAX_VELOCITY_IN_STOPING = 50.0; // in RPM
 
         private static final Motor SANDWICH_MOTOR = new Motor(
                         PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
                         InvertedValue.Clockwise_Positive);
+
+        
 
         public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR)
                         .gear(GEAR)

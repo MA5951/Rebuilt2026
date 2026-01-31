@@ -79,6 +79,10 @@ public abstract class PowerControlledSystem extends StateSubsystem {
         systemIO.setBrakeMode(isBrake);
     }
 
+    public boolean isMoving() {
+        return systemIO.isMoving();
+    }
+
     @Override
     public void periodic() {
         super.periodic();

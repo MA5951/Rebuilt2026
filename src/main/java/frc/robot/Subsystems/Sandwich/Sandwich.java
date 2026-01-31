@@ -79,9 +79,6 @@ public class Sandwich extends PowerControlledSystem {
         return macam.getDistance() - lastMAcamDistance;
     }
 
-    public boolean isMoving() {
-        return getVelocity() > SandwichConstants.MAX_VELOCITY_IN_STOPING;
-    }
 
     public static Sandwich getInstance() {
         if (sandwich == null) {

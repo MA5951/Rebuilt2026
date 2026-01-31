@@ -36,10 +36,6 @@ public class Transfer extends PowerControlledSystem {
 
         }
 
-        public boolean isMoving() {
-                return getVelocity() > TransferConstants.MAX_VELOCITY_IN_STOPING;
-        }
-
         private boolean canShoot() {
                 return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
                                 && Shooter.getInstance().atPoint()) && // TODO change to larger tolerance

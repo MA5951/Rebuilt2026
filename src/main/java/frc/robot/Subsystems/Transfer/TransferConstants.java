@@ -23,8 +23,6 @@ public class TransferConstants {
         public static final int CURRENT_LIMIT = 30;
         public static final int STATOR_CURRENT_LIMIT = 40;
 
-        public static final double MAX_VELOCITY_IN_STOPING = 50.0; // in RPM
-
         private static final Motor TRA_MOTOR = new Motor(
                         PortMap.Transfer_Ports.TRANSFER_MOTOR, MotorType.KRAKEN, "Transfer Motor",
                         InvertedValue.Clockwise_Positive);

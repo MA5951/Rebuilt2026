@@ -55,10 +55,6 @@ public class Roller extends PowerControlledSystem {
 
     }
 
-    public boolean isMoving() {
-        return getVelocity() > RollerConstants.MAX_VELOCITY_IN_STOPING;
-    }
-
     public static Roller getInstance() {
         if (roller == null) {
             roller = new Roller();
