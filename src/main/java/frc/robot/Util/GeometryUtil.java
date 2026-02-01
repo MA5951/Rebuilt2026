@@ -9,6 +9,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 public class GeometryUtil {
 
+    //TODO did read it just check in the sim if its work
+
     public static boolean willShotHitNet(
             Pose2d robotPoseField,
             Translation2d shooterOffsetRobot,

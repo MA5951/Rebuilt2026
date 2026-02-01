@@ -32,7 +32,7 @@ public class SixBarCommand extends SubsystemCommand {
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 break;
             case "COLLISION":
-                sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS);
+                sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS); //TODO change to zero and if the 6bar angle is leed the x give it -1 volt
                 break;
             case "SHOOTING":
                 sixbar.setPosition(SixBarConstants.SHOOTING_ANGLE);
@@ -42,6 +42,7 @@ public class SixBarCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO add
 
     }
 

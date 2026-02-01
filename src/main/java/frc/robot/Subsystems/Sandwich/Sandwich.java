@@ -30,7 +30,7 @@ public class Sandwich extends PowerControlledSystem {
         macam = new MACam(PortMap.Sandwich_Ports.MACAM);
         ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
 
-        lastMAcamDistance = macam.getDistance();
+        lastMAcamDistance = macam.getDistance(); //TODO this isnt a good place to init it, need to do it in the func
 
     }
 
@@ -67,17 +67,20 @@ public class Sandwich extends PowerControlledSystem {
 
     }
 
-    public double getMACamDistance() {
+    public double getMACamDistance() { //TODO rename
         return macam.getDistance();
     }
 
-    public boolean getIRSensor() {
+    public boolean getIRSensor() { //TODO rename
         return ir.get();
     }
 
     public double getDeltaMAcamDistance() {
         return macam.getDistance() - lastMAcamDistance;
+        //TODO nned to update lastMAcamDistance
     }
+
+    //TODO add delta for the IR also
 
 
     public static Sandwich getInstance() {

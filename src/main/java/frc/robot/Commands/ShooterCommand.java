@@ -25,12 +25,15 @@ public class ShooterCommand extends SubsystemCommand {
                 shooter.setVelocity(ShooterConstants.WARMUP_VELOCITY);
                 break;
             case "SHOOTING":
+                //TODO need to set this one time, also in the hood, and in the swerve
                 shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
                 break;
             case "FEEDING":
+                 //TODO need to set this one time, also in the hood, and in the swerve
                 shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
                 break;
             case "FEEDING_IN_MOTION":
+                //TODO need to set this one time, also in the hood, and in the swerve
                 shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
                 break;
             case "EJECT":
@@ -41,6 +44,7 @@ public class ShooterCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO same commants as hood 
     }
 
     @Override

@@ -16,6 +16,8 @@ public class TransferCommand extends SubsystemCommand {
 
     @Override
     public void Automatic() {
+        //TODO imploment the pulse base on num of balls and the velocity
+        
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
                 transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
@@ -43,6 +45,7 @@ public class TransferCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO same as all the over systems
 
     }
 

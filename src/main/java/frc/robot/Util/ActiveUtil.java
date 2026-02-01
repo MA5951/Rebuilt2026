@@ -10,15 +10,19 @@ import edu.wpi.first.wpilibj.Timer;
 public class ActiveUtil {
 
     private static Boolean isFirstShift;
-    private static Timer matchTimer = new Timer();
+    private static Timer matchTimer = new Timer(); //TODO why dont use the Timer.getFTGA
+    //TODO add a dashboard option to disbale or enable this
 
     public static void startTeleop() {
         matchTimer.reset();
         matchTimer.start();
     }
 
+    //TODO ther is so musch if else her, if you init the isFirstShift to false its will cut most of the code
+
     public static void checkShift() {
-        if (isFirstShift == null && DriverStation.getGameSpecificMessage().length() > 0) {
+        //TODO add check if connet to the FMS
+        if (isFirstShift == null && DriverStation.getGameSpecificMessage().length() > 0) { 
             if (DriverStationUtil.getAlliance() == Alliance.Red
                     && DriverStation.getGameSpecificMessage().charAt(0) == 'B') {
                 isFirstShift = true;
@@ -39,7 +43,7 @@ public class ActiveUtil {
                 return (matchTimer.get() > 35 && matchTimer.get() < 60) || matchTimer.get() > 85;
             }
         }
-        return false;
+        return false; //TODO need to be by difult true not false
     }
 
     public static boolean isActive() {

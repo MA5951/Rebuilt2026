@@ -43,6 +43,7 @@ public class SandwichCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO add manual 
 
     }
 

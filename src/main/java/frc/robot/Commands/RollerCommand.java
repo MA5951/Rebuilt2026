@@ -43,6 +43,7 @@ public class RollerCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO need to imploment
 
     }
 

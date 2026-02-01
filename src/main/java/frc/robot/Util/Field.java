@@ -48,7 +48,7 @@ public class Field {
         return DriverStationUtil.getAlliance() == DriverStation.Alliance.Blue ? BLUE_MAIN_TAG : RED_MAIN_TAG;
     }
 
-    public static Translation2d getNetA() {
+    public static Translation2d getNetA() { 
         return DriverStationUtil.getAlliance() == DriverStation.Alliance.Blue ? BLUE_NET_A : RED_NET_A;
     }
 

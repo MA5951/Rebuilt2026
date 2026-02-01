@@ -52,6 +52,10 @@ public class Roller extends PowerControlledSystem {
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER
                 || RobotContainer.getRobotState() == RobotConstants.IDLE;
+                
+                //TODO add in commant that ther arent any balls in the sandwich for the shooting and feeding state
+
+
 
     }
 

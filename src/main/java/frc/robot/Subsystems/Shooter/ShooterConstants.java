@@ -31,7 +31,7 @@ public class ShooterConstants {
         private static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
                         "Shooter Slave Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0);//TODO add FF
 
         public static VelocitySystemConstants SHOOTER_CONSTANTS = VelocitySystemConstants
                         .newBuilder("Shooter", REAL_GAIN_CONFIG, MASTER_MOTOR, SLAVE_MOTOR)
@@ -40,7 +40,7 @@ public class ShooterConstants {
                         .tolerance(TOLERANCE)
                         .maxVelocity(MAX_VELOCITY)
                         .motorCurrentLimit(CURRENT_LIMIT)
-                        .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
+                        .statorCurrentLimit(true, STATOR_CURRENT_LIMIT) // TODO last start with flase
                         .rampRate(RAMP_RATE)
                         .build();
 

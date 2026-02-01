@@ -19,7 +19,7 @@ public class Vision {
     }
 
     public double getDistanceTryg() {
-        return 0;
+        return 0; //TODO can imploment
     }
 
     public static Vision getInstance() {

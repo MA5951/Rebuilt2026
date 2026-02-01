@@ -22,6 +22,7 @@ public class HoodCommand extends SubsystemCommand {
         switch (hood.getCurrentState().stateName) {
             case "IDLE":
                 hood.setPosition(HoodConstants.IDLE_POSITION);
+                //TODO need to hade hooming her
                 break;
             case "SHOOTING":
                 hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
@@ -40,6 +41,7 @@ public class HoodCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        //TODO need to call the Automatic() and set to shooting state
 
     }
 

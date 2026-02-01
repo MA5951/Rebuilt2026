@@ -79,7 +79,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getAbsAngleToTarget() {
-        return 0.0;
+        return 0.0; //TODO need to implomets all of this
     }
 
     public static double getAngleToFeeding() {
@@ -107,10 +107,11 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBalls() {
-        return false;
+        return false; //TODO need to imploment
     }
 
     public static boolean isBallsInSandwich() {
+        //TODO need to check if the other see the ball if not move the sandwitch forwed and let other balls get in
         return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE;
     }
 
@@ -135,16 +136,17 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getTimeLeft() {
-        return DriverStation.getMatchTime();
+        return DriverStation.getMatchTime(); // retunr the current match time, not the time left
     }
 
     public static boolean isRobotInAir() {
+        //TODO also check the pos of the climb and the voltage
         return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD);
     }
 
     public static StuckType isStuck() {
         if (Sandwich.getInstance().isMoving() && isBallsInSandwich()
-                && Sandwich.getInstance().getDeltaMAcamDistance() < 1) {
+                && Sandwich.getInstance().getDeltaMAcamDistance() < 1) { //TODO need to be with a Debouncer and also need to check the other sensor 
             return StuckType.STUCK_IN_SANDWICH;
         } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving()
                 && isBalls()) {

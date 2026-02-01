@@ -10,6 +10,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem
 public class Hood extends PositionControlledSystem {
 
     private static Hood hood;
+    //TODO need to had cancoder?
 
     private Hood() {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
@@ -21,6 +22,7 @@ public class Hood extends PositionControlledSystem {
     public void createSelfTest() {
 
     }
+    
 
     @Override
     public boolean CAN_MOVE() {

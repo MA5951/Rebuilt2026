@@ -15,6 +15,8 @@ public class Robot extends DeafultRobot {
     m_robotContainer = new RobotContainer();
   }
 
+  //TODO right now the code dont support pathplaner of run path in auto
+
   @Override
   public void teleopInit() {
     super.teleopInit();

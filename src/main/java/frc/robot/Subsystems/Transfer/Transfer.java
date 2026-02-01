@@ -19,6 +19,8 @@ public class Transfer extends PowerControlledSystem {
         private DigitalInput secondLevelSensor;
         private DigitalInput thirdLevelSensor;
 
+        //TODO add in commants net sensore
+
 
         private Transfer() {
                 super(TransferConstants.TRANSFER_CONSTANTS, TransferConstants.IDLE, TransferConstants.INTAKE,
@@ -35,7 +37,7 @@ public class Transfer extends PowerControlledSystem {
         public void createSelfTest() {
 
         }
-
+        //TODO for all the systems (sanfwitch roller ) add a letch for the can move with Shooter.getInstance().atPoint() in commant
         private boolean canShoot() {
                 return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
                                 && Shooter.getInstance().atPoint()) && // TODO change to larger tolerance
@@ -50,6 +52,7 @@ public class Transfer extends PowerControlledSystem {
                                 && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet()
                                 && !SuperStructure.outSideField());// TODO change to larger tolerance
         }
+
 
         @Override
         public boolean CAN_MOVE() {
@@ -75,6 +78,8 @@ public class Transfer extends PowerControlledSystem {
         public boolean isThirdLevelSensor() {
                 return thirdLevelSensor.get();
         }
+
+        //TODO add delta
 
         public static Transfer getInstance() {
                 if (transfer == null) {

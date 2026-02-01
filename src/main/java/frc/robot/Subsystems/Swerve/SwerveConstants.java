@@ -62,4 +62,6 @@ public class SwerveConstants {
         public static final SwerveState FIELD_CENTRIC_20 = new SwerveState("Field Centric 20 Precent")
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.5, 0.5))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
+
+        //TODO were all the over states? shooting deeding etc
 }

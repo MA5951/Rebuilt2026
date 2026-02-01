@@ -12,19 +12,25 @@ public class SixBar extends PositionControlledSystem {
 
     private StatusSignal<Double> closedLoopVolts;
 
+    //TODO add cancoder
+
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
                 SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
 
-        StatusSignalsRunner.registerSignals(false, closedLoopVolts);
+        StatusSignalsRunner.registerSignals(false, closedLoopVolts); //TODO change to the master.canbusID 
     }
+
+    //TODO need to add reast from cancoder  
 
 
     public double getCloseLoopVolts() {
         return closedLoopVolts.getValueAsDouble();
     }
+
+    //TODO need to add FF func 
         
     @Override
     public void createSelfTest() {

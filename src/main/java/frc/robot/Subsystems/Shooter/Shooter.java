@@ -7,6 +7,8 @@ public class Shooter extends VelocityControlledSystem {
 
     private static Shooter shooter;
 
+    //TODO need to add MACAM/IR
+
     private Shooter() {
         super(ShooterConstants.SHOOTER_CONSTANTS, ShooterConstants.IDLE, ShooterConstants.SHOOTING,
                 ShooterConstants.WARMUP, ShooterConstants.FEEDING, ShooterConstants.FEEDING_IN_MOTION,

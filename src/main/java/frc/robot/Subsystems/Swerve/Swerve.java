@@ -10,9 +10,8 @@ public class Swerve extends SwerveSystem{
         super(SwerveConstants.SWERVE_CONSTANTS);
     }
 
-
     public boolean atPointForShooting() {
-        return true;
+        return true;  //TODO can imploments this 
     }
 
     public boolean atPointForFeeding() {
