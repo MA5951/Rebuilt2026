@@ -16,6 +16,10 @@ public class MRobotState {
 
     };
 
+    private Runnable onStateEnd = () -> {
+
+    };
+
     public static void addSubsystem(StateSubsystem subsystem) {
         if (!subsystemsArry.contains(subsystem)) {
             subsystemsArry.add(subsystem);
@@ -34,8 +38,22 @@ public class MRobotState {
 
     }
 
+    public MRobotState(String name, Runnable onStateSet,Runnable onStateEnd, State... subsystemStates) {
+        this.subsystemStates = subsystemStates;
+        stateName = name;
+        this.onStateSet = onStateSet;
+        this.onStateEnd = onStateEnd;
+    }
+
+    
+
+
     public String getStateName() {
         return stateName;
+    }
+
+    public Runnable getOnStateEnd() {
+        return onStateEnd;
     }
 
     public void setState() {

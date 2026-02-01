@@ -13,6 +13,8 @@ import com.MAutils.Utils.GainConfig;
 import edu.wpi.first.math.system.plant.DCMotor;
 import frc.robot.PortMap;
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Vision.VisionConstants;
 
 public class SwerveConstants {
 
@@ -33,23 +35,24 @@ public class SwerveConstants {
                         .withGearRatio(GearRatio.L2);
 
         // PID Controllers
-        public static final PIDController ANGLE_PID_CONTROLLER = new PIDController(0.09, 0, 0)
+        public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.09, 0, 0)
                         .withContinuesInput(-180, 180)
                         .withTolerance(3);
 
-        public static final PIDController POSEX_PID_CONTROLLER = new PIDController(0.7, 0, 0).withTolerance(0.1);// 0.05
-        public static final PIDController POSEY_PID_CONTROLLER = new PIDController(0.75, 0, 0).withTolerance(0.1);//0.05
+        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.09, 0, 0)
+                        .withContinuesInput(-180, 180)
+                        .withTolerance(3);
 
+       
         // Swerve Drive Controllers
         public static final FieldCentricDrive FIELD_CENTRIC_DRIVE = new FieldCentricDrive(
                         RobotContainer.getDriverController(), SWERVE_CONSTANTS);
 
         public static final AngleAdjustController ANGLE_ADJUST_CONTROLLER = new AngleAdjustController(SWERVE_CONSTANTS,
-                        ANGLE_PID_CONTROLLER);
-
+                        ABS_PID_CONTROLLER);
 
         // Swerve States
-        public static final SwerveState NONE = new SwerveState("NONE").withXY(0, 0).withOmega(0);      
+        public static final SwerveState NONE = new SwerveState("NONE").withXY(0, 0).withOmega(0);
 
         public static final SwerveState FIELD_CENTRIC = new SwerveState("Field Centric")
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(1, 0.7))
@@ -59,7 +62,34 @@ public class SwerveConstants {
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.8, 0.8))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
-        public static final SwerveState FIELD_CENTRIC_20 = new SwerveState("Field Centric 20 Precent")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.5, 0.5))
+        public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAbsAngleToTarget());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
+                        })
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+
+
+        public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getRelAngleToTarget());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
+                        })
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+
+
+        public static final SwerveState FEEDING = new SwerveState("Feeding")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAngleToFeeding());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
+                        })
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+
+        public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding In Motion")
+                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.6, 0.4))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
+
 }

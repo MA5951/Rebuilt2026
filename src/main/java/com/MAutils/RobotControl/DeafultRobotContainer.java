@@ -53,6 +53,9 @@ public abstract class DeafultRobotContainer {
     }
 
     public static void setRobotState(MRobotState robotState) {
+        if (robotState != currentRobotState) {
+            currentRobotState.getOnStateEnd().run();
+        }
         lastRobotState = currentRobotState;
         currentRobotState = robotState;
     }

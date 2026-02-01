@@ -35,6 +35,7 @@ public class Intake_Roller_Ports{
         }
     public class ClimbPorts{
             public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
+            public static final int MACAM = 0;
         }
 
 public class Transfer_Ports {

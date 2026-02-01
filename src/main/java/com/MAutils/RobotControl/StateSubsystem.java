@@ -40,6 +40,9 @@ public abstract class StateSubsystem extends SubsystemBase {
     }
 
     public void setState(State state) {
+        if (state != currentState) {
+            currentState.runEndRunnable();
+        }
         lastState = currentState;
         state.runRunnable();
         currentState = state;

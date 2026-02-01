@@ -22,13 +22,16 @@ public class ClimbConstnats {
         public static final double CURRENT_LIMIT = 35;
         public static final double STATOR_CURRENT_LIMIT = 40;
 
+        public static final double AUTONOMOUS_MIN_DISTANCE = 10;
+        public static final double INTAKE_OPEN_POSITION = 30;
+
         public static final double KP = 0.1;;
         public static final double KI = 0;
         public static final double KD = 0;
 
         public static final double GEAR = 1;
 
-        public static final double TOLERANCE_FOR_TRIGGER = 3;
+        public static final double TOLERANCE_FOR_OPENCLOSE_TRIGGER = 3;
 
 
         private static final Motor CLIMB_MOTOR = new Motor(PortMap.ClimbPorts.CLIMB_MOTOR, MotorType.KRAKEN,
@@ -36,6 +39,8 @@ public class ClimbConstnats {
                         InvertedValue.Clockwise_Positive);
 
         private static final GainConfig GAIN_CONFIG = new GainConfig().withKP(KP).withKI(KI).withKD(KD);
+
+        private static final GainConfig CLOSE_GAIN_CONFIG = new GainConfig().withKP(KP).withKI(KI).withKD(KD);
 
         public static final PositionSystemConstants CLIMB_CONSTANTS = PositionSystemConstants
                         .newBuilder("Climb", GAIN_CONFIG, CLIMB_MOTOR)
@@ -52,5 +57,6 @@ public class ClimbConstnats {
         public static final State PRECLIMB = new State("PRECLIMB");
         public static final State CLIMB = new State("CLIMB");
         public static final State DOWN = new State("DOWN");
+        
 
 }

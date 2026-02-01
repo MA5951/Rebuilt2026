@@ -10,6 +10,8 @@ public class State {
     private StateSubsystem subsystem;
     private Runnable onStateSet = () -> {
     };
+    private Runnable onStateEnd = () -> {
+    };
 
     public State(String state_name, Runnable onStateSet, StateSubsystem subsystem) {
         this.stateName = state_name;
@@ -26,6 +28,17 @@ public class State {
         this.stateName = state_name;
     }
 
+    public State(String state_name, Runnable onStateSet,Runnable onStateEnd) {
+        this.stateName = state_name;
+        this.onStateSet = onStateSet;
+        this.onStateEnd = onStateEnd;
+    }
+
+    public State(String state_name,Runnable onStateEnd) {
+        this.stateName = state_name;
+        this.onStateEnd = onStateEnd;
+    }
+
     public void setSystem(StateSubsystem subsystem) {
         if (this.subsystem == null) {
             this.subsystem = subsystem;
@@ -40,6 +53,10 @@ public class State {
 
     public void runRunnable() {
         onStateSet.run();
+    }
+
+    public void runEndRunnable() {
+        onStateEnd.run();
     }
 
 }

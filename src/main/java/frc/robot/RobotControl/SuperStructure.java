@@ -31,6 +31,8 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final Translation2d FEEDING_POSE = new Translation2d(2, 2);
 
     public static final double IN_THE_AIR_CURRENT_THRESHOLD = 40.0;
+    public static final double CLIMB_POSITION_THRESHOLD = 0.15;
+
     public static final double FEEDING_ANGLE_OFFSET = 20;
     public static final double FEEDING_SHOOTER_OFFSET = 20;
 
@@ -38,12 +40,15 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_IN_MOTION_NET_MARGIN = 0.5;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
+    public static final double SANDWICH_STUCK_DELTA = 10;
+
     private static Result lastFeedingResult = new Result(false, -1, new Translation2d());
     private static ShootingParameters currentShootingParameters;
     private static boolean automatic = true;
     private static boolean defence = false;
 
     private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
+    private static Debouncer sandwichStuckDebouncer = new Debouncer(0.6);
 
     public enum ShootingPreset {
         CLOSE(10.0, 2000.0, new Pose2d()),
@@ -74,7 +79,7 @@ public class SuperStructure extends DeafultSuperStructure {
         return Vision.getInstance().isMainTag();
     }
 
-    public static double getTxToTarget() {
+    public static double getRelAngleToTarget() {
         return 0.0;
     }
 
@@ -139,12 +144,12 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isRobotInAir() {
-        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD);
+        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD;
     }
 
     public static StuckType isStuck() {
         if (Sandwich.getInstance().isMoving() && isBallsInSandwich()
-                && Sandwich.getInstance().getDeltaMAcamDistance() < 1) {
+                && sandwichStuckDebouncer.calculate(Sandwich.getInstance().getDeltaMAcamDistance() < SANDWICH_STUCK_DELTA)) {
             return StuckType.STUCK_IN_SANDWICH;
         } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving()
                 && isBalls()) {
