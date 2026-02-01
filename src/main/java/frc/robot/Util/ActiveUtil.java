@@ -39,7 +39,7 @@ public class ActiveUtil {
                 return (matchTimer.get() > 35 && matchTimer.get() < 60) || matchTimer.get() > 85;
             }
         }
-        return false;
+        return true;
     }
 
     public static boolean isActive() {

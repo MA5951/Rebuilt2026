@@ -36,6 +36,8 @@ public class SixBar extends PositionControlledSystem {
         return true;
     }
 
+    
+
     public static SixBar getInstance() {
         if (sixbar == null) {
             sixbar = new SixBar();

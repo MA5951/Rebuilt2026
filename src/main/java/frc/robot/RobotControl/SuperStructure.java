@@ -203,6 +203,9 @@ public class SuperStructure extends DeafultSuperStructure {
                 ? PoseEstimator.getCurrentPose().getX() < Field.ALLIANCE_WIDTH
                 : PoseEstimator.getCurrentPose().getX() > Field.LENGTH - Field.ALLIANCE_WIDTH;
     }
+    
+
+
 
     public static void update() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
@@ -214,5 +217,7 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding()));
         }
     }
+
+
 
 }
