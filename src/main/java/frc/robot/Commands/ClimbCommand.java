@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 
@@ -34,7 +35,7 @@ public class ClimbCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-
+        climb.setVoltage(-RobotContainer.getOperatorController().getLeftY(true, 3));
     }
 
     @Override

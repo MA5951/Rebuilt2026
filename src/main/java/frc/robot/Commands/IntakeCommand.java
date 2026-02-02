@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 
@@ -31,7 +32,13 @@ public class IntakeCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-
+        if (RobotContainer.getOperatorController().getR1()) {
+            intakeroller.setVoltage(6);
+        } else if (RobotContainer.getOperatorController().getL1()){
+            intakeroller.setVoltage(-6);
+        } else {
+            intakeroller.setVoltage(0);
+        }
     }
 
     @Override

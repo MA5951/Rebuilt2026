@@ -19,6 +19,10 @@ public class Swerve extends SwerveSystem{
         return true;
     }
 
+    public boolean atPointForFeedingInMotion() {
+        return true;
+    }
+
     public static Swerve getInstance() {
         if (instance == null) {
             instance = new Swerve();

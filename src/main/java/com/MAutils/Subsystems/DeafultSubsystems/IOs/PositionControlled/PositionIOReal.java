@@ -89,7 +89,7 @@ public class PositionIOReal extends PowerIOReal implements PositionSystemIO {
     @Override
     public void setSystemConstants(PositionSystemConstants systemConstants) {
         this.systemConstants = systemConstants;
-        //TODO smae commmant as in powerIO
+        configMotors();
     }
 
     @Override

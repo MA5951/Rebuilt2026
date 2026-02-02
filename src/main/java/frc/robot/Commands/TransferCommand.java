@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Transfer.TransferConstants;
 
@@ -43,6 +44,11 @@ public class TransferCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        if (RobotContainer.getOperatorController().getR2()) {
+            transfer.setVoltage(5);
+        } else {
+            transfer.setVoltage(0);
+        }
 
     }
 

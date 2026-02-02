@@ -8,9 +8,6 @@ import frc.robot.PortMap.Transfer_Ports;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Hood.Hood;
-import frc.robot.Subsystems.Shooter.Shooter;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Transfer extends PowerControlledSystem {
         private static Transfer transfer;
@@ -37,23 +34,22 @@ public class Transfer extends PowerControlledSystem {
         }
 
         private boolean canShoot() {
-                return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
-                                && Shooter.getInstance().atPoint()) && // TODO change to larger tolerance
+                return (SuperStructure.atPointForShooting()) &&
                                 (RobotContainer.getRobotState() == RobotConstants.SHOOTING
-                                                || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                                                || RobotContainer.getRobotState() == RobotConstants.FEEDING);
+                                                || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS);
         }
 
         private boolean canFeedingInMotion() {
-                return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION
-                                && Hood.getInstance().atPoint()
-                                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet()
-                                && !SuperStructure.outSideField());// TODO change to larger tolerance
+                return (SuperStructure.atPointForFeedingInMotion() && RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION);
+        }
+
+        private boolean canFeeding() {
+                return (SuperStructure.atPointForFeeding() && RobotContainer.getRobotState() == RobotConstants.FEEDING);
         }
 
         @Override
         public boolean CAN_MOVE() {
-                return canShoot() || canFeedingInMotion()
+                return canShoot() || canFeedingInMotion() || canFeeding()
                                 || RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY
                                 || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER
                                 || RobotContainer.getRobotState() == RobotConstants.UNSTUCK

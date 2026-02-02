@@ -8,7 +8,6 @@ import frc.robot.Util.Field;
 public class Vision {
     private static Vision instance;
 
-    
     private Vision() {
         VisionSystem.getInstance()
                 .setCameras(VisionConstants.FRONT_LL, VisionConstants.BACK_LL);
@@ -19,7 +18,8 @@ public class Vision {
     }
 
     public double getDistanceTryg() {
-        return 0;
+        return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
+                / Math.tan(Math.toRadians(VisionConstants.FRONTLL_ANGLE + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
     }
 
     public static Vision getInstance() {
@@ -28,5 +28,5 @@ public class Vision {
         }
         return instance;
     }
-    
+
 }

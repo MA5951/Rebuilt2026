@@ -22,6 +22,7 @@ public class SixBarConstants {
     public static final double MINUMUM_ANGLE = 0.0;
     public static final double MAXIMUM_ANGLE = 0.0;
     public static final double GEAR = 0.0;
+    public static final double CAN_CODER_GEAR = 2;
     public static final double TOLERANCE = 0.0;
     public static final double CURRENT_LIMIT = 35;
     public static final double STATOR_CURRENT_LIMIT = 30;
@@ -49,6 +50,8 @@ public class SixBarConstants {
     public static final State IDLE = new State("IDLE");
     public static final State DEPLOY = new State("DEPLOY");
     public static final State ARMBRAKS = new State("ARMBRAKS");
-    public static final State COLLISION = new State("COLLISION");//TODO add OnStateStart coast and OnStateEnd brake
+    public static final State COLLISION = new State("COLLISION",() -> {
+        //Recorsiv//TODO talk with rader
+    }, () -> {});
     public static final State SHOOTING = new State("SHOOTING");
 }

@@ -4,6 +4,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
@@ -11,6 +12,8 @@ import frc.robot.Subsystems.Hood.HoodConstants;
 
 public class HoodCommand extends SubsystemCommand {
     private static final Hood hood = Hood.getInstance();
+
+    private double manuelPosition = 20;
 
     public HoodCommand() {
         super(hood);
@@ -40,7 +43,12 @@ public class HoodCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-
+        if (RobotContainer.getOperatorController().getDpadUp()) {
+            manuelPosition += 2;
+        }   else if (RobotContainer.getOperatorController().getDpadDown()) {
+            manuelPosition -= 2;
+        }
+        hood.setPosition(manuelPosition);
     }
 
     @Override

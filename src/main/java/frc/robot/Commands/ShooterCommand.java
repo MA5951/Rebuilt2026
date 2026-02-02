@@ -3,12 +3,14 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 
 public class ShooterCommand extends SubsystemCommand {
     private static final Shooter shooter = Shooter.getInstance();
+    private double manuelRPM = 0;
 
     public ShooterCommand() {
         super(shooter);
@@ -41,6 +43,13 @@ public class ShooterCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        if (RobotContainer.getOperatorController().getDpadLeft()) {
+            manuelRPM = 0;
+        } else if (RobotContainer.getOperatorController().getDpadRight()) {
+            manuelRPM = 3000;
+        }
+
+        shooter.setVelocity(manuelRPM);
     }
 
     @Override

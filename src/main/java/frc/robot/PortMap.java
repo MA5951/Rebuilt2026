@@ -16,10 +16,12 @@ public class PortMap {
 
     public static class HoodPorts {
         public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
+        public static final int CAN_CODER = 0;
     }
 
     public class SixBarPorts {
         public static final CANBusID SIXBAR_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
+        public static final int CAN_CODER = 0;
     }
     
     public class Sandwich_Ports {
@@ -82,6 +84,7 @@ public class Transfer_Ports {
     public class ShooterPorts {
         public static final CANBusID SHOOTER_MASTER = new CANBusID(1, CAN_BUS.RIO_BUS);
         public static final CANBusID SHOOTER_SLAVE = new CANBusID(2, CAN_BUS.RIO_BUS);
+        public static final int IR = 0;
     }
 
 }

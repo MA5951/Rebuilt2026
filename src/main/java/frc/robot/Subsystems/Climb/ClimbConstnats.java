@@ -1,6 +1,8 @@
 
 package frc.robot.Subsystems.Climb;
 
+import java.util.zip.GZIPInputStream;
+
 import com.MAutils.Components.Motor;
 import com.MAutils.RobotControl.State;
 import com.MAutils.Subsystems.DeafultSubsystems.Constants.PositionSystemConstants;
@@ -21,6 +23,8 @@ public class ClimbConstnats {
         public static final double TOLERANCE = 3;
         public static final double CURRENT_LIMIT = 35;
         public static final double STATOR_CURRENT_LIMIT = 40;
+        public static final double CRUISE_VELOCITY = 0;
+        public static final double ACCELERATION = 0;
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
         public static final double INTAKE_OPEN_POSITION = 30;
@@ -48,6 +52,7 @@ public class ClimbConstnats {
                         .isBrake(true)
                         .tolerance(TOLERANCE)
                         .motorCurrentLimit(CURRENT_LIMIT)
+                        .motionMagic(CRUISE_VELOCITY, ACCELERATION, 0)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
                         .range(MIN_POSITION, MAX_POSITION)
                         .startPose(START_POSITION)

@@ -14,14 +14,17 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Climb.Climb;
+import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Sandwich.SandwichConstants;
+import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Subsystems.Vision.VisionConstants;
+import frc.robot.Util.BooleanLatch;
 import frc.robot.Util.Field;
 import frc.robot.Util.GeometryUtil;
 import frc.robot.Util.ShootingParameters;
@@ -49,6 +52,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
     private static Debouncer sandwichStuckDebouncer = new Debouncer(0.6);
+
+    private static BooleanLatch atPointLatch = new BooleanLatch();
 
     public enum ShootingPreset {
         CLOSE(10.0, 2000.0, new Pose2d()),
@@ -84,15 +89,11 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getAbsAngleToTarget() {
-        return 0.0;
+        return GeometryUtil.angleTo(PoseEstimator.getCurrentPose(), Field.getHub());
     }
 
     public static double getAngleToFeeding() {
-        return 0.0;
-    }
-
-    public static double getDistanceToFeeding() {
-        return 0.0;
+        return GeometryUtil.angleTo(PoseEstimator.getCurrentPose(), FEEDING_POSE);
     }
 
     public static boolean isHittingNet() {
@@ -204,11 +205,32 @@ public class SuperStructure extends DeafultSuperStructure {
                 : PoseEstimator.getCurrentPose().getX() > Field.LENGTH - Field.ALLIANCE_WIDTH;
     }
     
+    public static boolean atPointForShooting() {
+        //return atPointLatch.calculate((Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting()); //Full Latch
 
+        return atPointLatch.calculate(Shooter.getInstance().atPointForShooting()) && Hood.getInstance().atPointForShooting() && (Swerve.getInstance().atPointForShooting() || !isAutomatic()) ; //Intiligent Latch
 
+        // (Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting();//No Latch
+    }
+
+    public static boolean atPointForFeeding() {
+        //return atPointLatch.calculate((Swerve.getInstance().atPointForFeeding() || !isAutomatic()) && Shooter.getInstance().atPointForFeeding() && Hood.getInstance().atPointForFeeding()); //Full Latch
+
+        return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding()) && Hood.getInstance().atPointForFeeding() && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()) ; //Intiligent Latch
+
+        //return (Swerve.getInstance().atPointForFeeding() || !isAutomatic()) && Shooter.getInstance().atPointForFeeding() && Hood.getInstance().atPointForFeeding(); //No Latch
+    }
+
+    public static boolean atPointForFeedingInMotion() {
+        //return atPointLatch.calculate((Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() && Hood.getInstance().atPointForFeedingInMotion()); //Full Latch
+
+        return atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion()) && Hood.getInstance().atPointForFeedingInMotion() && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) ; //Intiligent Latch
+
+        //return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() && Hood.getInstance().atPointForFeedingInMotion(); //No Latch
+    }
 
     public static void update() {
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {    
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
                     getHoodAngle(getDistanceToTargetShooting()));
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING

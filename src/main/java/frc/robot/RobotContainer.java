@@ -95,19 +95,19 @@ public class RobotContainer extends DeafultRobotContainer {
     T(StateTrigger.T(() -> getDriverController().getActionsLeft() &&
         !SuperStructure.isRobotInAir()
         && Math.abs(
-            Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_TRIGGER
+            Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
         && SuperStructure.getTimeLeft() < 30, RobotConstants.PRECLIMB));
 
     T(StateTrigger.T(() -> getDriverController().getActionsLeft()
         && Math.abs(
-            Climb.getInstance().getPosition() - ClimbConstnats.OPEN_POSITION) < ClimbConstnats.TOLERANCE_FOR_TRIGGER
+            Climb.getInstance().getPosition() - ClimbConstnats.OPEN_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
         && SuperStructure.getTimeLeft() < 30, RobotConstants.CLIMB));
 
     // Internal climb stats
     new Trigger(() -> getDriverController().getActionsLeft()
         && SuperStructure.getTimeLeft() < 30 && SuperStructure.isRobotInAir()
         && (Math.abs(
-            Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_TRIGGER
+            Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
             || SuperStructure.getTimeLeft() > 20))
         .onTrue(new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.DOWN)));
 

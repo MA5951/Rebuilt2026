@@ -5,6 +5,7 @@ import com.MAutils.Utils.DriverStationUtil;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import frc.robot.RobotControl.Dashboard;
 import edu.wpi.first.wpilibj.Timer;
 
 public class ActiveUtil {
@@ -43,10 +44,19 @@ public class ActiveUtil {
     }
 
     public static boolean isActive() {
+        if (Dashboard.isActiveDisabled()) {
+            return true;
+        }
+
         return matchTimer.get() < 10 || matchTimer.get() > 110 || isMyShift();
     }
 
     public static double getTimeInActive() {
+        if (Dashboard.isActiveDisabled()) {
+            return 0;
+        }
+
+
         if(isFirstShift != null) {
             if (isFirstShift) {
                 if (matchTimer.get() < 35) {
@@ -70,6 +80,10 @@ public class ActiveUtil {
     }
 
     public static double getTimePastActive() {
+        if (Dashboard.isActiveDisabled()) {
+            return 0;
+        }
+
         if(isFirstShift != null) {
             if (isFirstShift) {
                 if (isActive()) {
@@ -93,6 +107,10 @@ public class ActiveUtil {
     }
 
     public static double getTimeUntilActive() {
+        if (Dashboard.isActiveDisabled()) {
+            return 0;
+        }
+
         if(isFirstShift != null) {
             if (isFirstShift) {
                 if (isActive()) {

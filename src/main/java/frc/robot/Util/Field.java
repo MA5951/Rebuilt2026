@@ -19,6 +19,7 @@ public class Field {
 
     public static final int BLUE_MAIN_TAG = 26;
     public static final int RED_MAIN_TAG = 10;
+    public static final double HUB_TAG_HIGHT = Units.inchesToMeters(44.25);
 
     public static final double ALLIANCE_WIDTH = TAG_LAYOUT.getTagPose(26).get().getX();
     public static final Translation2d MIDDLE = new Translation2d(LENGTH / 2, WIDTH / 2);

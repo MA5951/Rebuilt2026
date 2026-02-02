@@ -34,7 +34,7 @@ public abstract class StateSubsystem extends SubsystemBase {
 
         this.subsystemName = name;
 
-        LOG_PATH = "Subsystems/" + subsystemName;
+        LOG_PATH = "Subsystems/" + subsystemName + "/";
 
         createSelfTest();
     }

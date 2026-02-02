@@ -21,7 +21,7 @@ public class Constants {
 
 
     public static final SimulationType SIMULATION_TYPE = SimulationType.SIM; 
-    public static final boolean TUNING_MODE = false; 
+    public static final boolean TUNING_MODE = true; 
     public static boolean COMPETITION_LOG = false;
 
     public static void cheackConstants() { //TODO this shoudnt belong to the constnats class put it in the superstucer class

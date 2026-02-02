@@ -1,7 +1,7 @@
 
 package frc.robot.Util;
 
-import javax.naming.spi.DirStateFactory.Result;
+
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -218,5 +218,14 @@ public class GeometryUtil {
     return robotPoseField.getTranslation()
         .plus(offsetRobot.rotateBy(robotPoseField.getRotation()));
   }
+
+  public static double angleTo(Pose2d robotPoseField, Translation2d targetField) {
+    final double targetFieldAngle = Math.atan2(targetField.getY() - robotPoseField.getY(), targetField.getX() - robotPoseField.getX());
+    final double robotFieldAngle  = robotPoseField.getRotation().getRadians();
+
+    return Math.toDegrees(Math.atan2(Math.sin(targetFieldAngle - robotFieldAngle),
+                      Math.cos(targetFieldAngle - robotFieldAngle)));
+}
+
 
 }

@@ -66,7 +66,7 @@ public class SwerveConstants {
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAbsAngleToTarget());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
@@ -84,7 +84,7 @@ public class SwerveConstants {
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAngleToFeeding());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 

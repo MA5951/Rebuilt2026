@@ -19,6 +19,7 @@ public class HoodConstants {
         public static final double MIN_POSITION = 0;
         public static final double MAX_POSITION = 0;
         public static final double GEAR = 0;
+        public static final double CAN_CODER_GEAR = 0;
         public static final double MOTOR_CURRENT_LIMIT = 0;
         public static final double STATOR_CURRENT_LIMIT = 0;
         public static final double TOLERANCE = 0;
@@ -44,5 +45,6 @@ public class HoodConstants {
         public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
         public static final State FEEDING = new State("FEEDING");
         public static final State EJECT = new State("EJECT");
+        
 
 }

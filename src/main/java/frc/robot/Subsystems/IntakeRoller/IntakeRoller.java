@@ -16,9 +16,12 @@ public class IntakeRoller extends PowerControlledSystem {
     }
 
     @Override
-    public boolean CAN_MOVE() { 
+    public boolean CAN_MOVE() {
         return !SuperStructure.isFull() && (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY
-                || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER);
+                || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER)
+                || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
+                || RobotContainer.getRobotState() == RobotConstants.IDLE
+                || RobotContainer.getRobotState() == RobotConstants.SHOOTING;
     }
 
     @Override

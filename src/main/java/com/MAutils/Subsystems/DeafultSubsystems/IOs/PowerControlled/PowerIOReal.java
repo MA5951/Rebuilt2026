@@ -69,7 +69,8 @@ public class PowerIOReal implements PowerSystemIO {
     @Override
     public void setSystemConstants(PowerSystemConstants systemConstants) {
         this.systemConstants = systemConstants;
-        //TODO after set you need to call config
+        
+        configBaseMotors();
     }
 
     private  void configBaseMotors() {

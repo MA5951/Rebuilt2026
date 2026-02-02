@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Sandwich.SandwichConstants;
 
@@ -43,7 +44,11 @@ public class SandwichCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-
+        if (RobotContainer.getOperatorController().getL2()) {
+            sandwich.setVoltage(7);
+        } else {
+            sandwich.setVoltage(0);
+        }
     }
 
     @Override

@@ -9,14 +9,12 @@ import frc.robot.PortMap;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Hood.Hood;
-import frc.robot.Subsystems.Shooter.Shooter;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
 
     private double lastMAcamDistance;
+    private double deltaMAcamDistance;
 
     private MACam macam = new MACam(PortMap.Sandwich_Ports.MACAM);
     private DigitalInput ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
@@ -39,11 +37,9 @@ public class Sandwich extends PowerControlledSystem {
     }
 
     private boolean canShoot() {
-        return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
-                && Shooter.getInstance().atPoint()) &&
-                (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
-                        RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO change to larger tolerance
+        return (SuperStructure.atPointForShooting()) &&
+                (RobotContainer.getRobotState() == RobotConstants.SHOOTING
+                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS);
     }
 
     private boolean canIntake() {
@@ -51,14 +47,18 @@ public class Sandwich extends PowerControlledSystem {
                 RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
     }
 
-    private boolean canFeedingInMotion() { // change to larger tolerance
-        return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && Hood.getInstance().atPoint()
-                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet() && !SuperStructure.outSideField());
+    private boolean canFeedingInMotion() {
+        return (SuperStructure.atPointForFeedingInMotion()
+                && RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION);
+    }
+
+    private boolean canFeeding() {
+        return (SuperStructure.atPointForFeeding() && RobotContainer.getRobotState() == RobotConstants.FEEDING);
     }
 
     @Override
     public boolean CAN_MOVE() {
-        return canShoot() || canIntake() || canFeedingInMotion()
+        return canShoot() || canIntake() || canFeedingInMotion() || canFeeding()
                 || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
@@ -71,14 +71,15 @@ public class Sandwich extends PowerControlledSystem {
         return macam.getDistance();
     }
 
-    public boolean getIRSensor() {
+    public boolean getEndSensor() {
         return ir.get();
     }
 
     public double getDeltaMAcamDistance() {
-        return macam.getDistance() - lastMAcamDistance;
+        deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
+        lastMAcamDistance = macam.getDistance();
+        return deltaMAcamDistance;
     }
-
 
     public static Sandwich getInstance() {
         if (sandwich == null) {

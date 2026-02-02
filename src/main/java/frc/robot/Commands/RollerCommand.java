@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Roller.RollerConstants;
 
@@ -43,7 +44,11 @@ public class RollerCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-
+        if (RobotContainer.getOperatorController().getL2()) {
+            roller.setVoltage(4);
+        } else {
+            roller.setVoltage(0);
+        }
     }
 
     @Override

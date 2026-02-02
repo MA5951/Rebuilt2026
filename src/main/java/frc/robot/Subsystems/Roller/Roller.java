@@ -6,9 +6,6 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Hood.Hood;
-import frc.robot.Subsystems.Shooter.Shooter;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Roller extends PowerControlledSystem {
     private static Roller roller;
@@ -26,11 +23,18 @@ public class Roller extends PowerControlledSystem {
     }
 
     private boolean canShoot() {
-        return (Swerve.getInstance().atPointForShooting() && Hood.getInstance().atPoint()
-                && Shooter.getInstance().atPoint()) &&
-                (RobotContainer.getRobotState() == RobotConstants.SHOOTING
-                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || RobotContainer.getRobotState() == RobotConstants.FEEDING);// TODO change to larger tolerance
+                return (SuperStructure.atPointForShooting()) &&
+                                (RobotContainer.getRobotState() == RobotConstants.SHOOTING
+                                                || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS);
+        }
+
+    private boolean canFeedingInMotion() {
+        return (SuperStructure.atPointForFeedingInMotion()
+                && RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION);
+    }
+
+    private boolean canFeeding() {
+        return (SuperStructure.atPointForFeeding() && RobotContainer.getRobotState() == RobotConstants.FEEDING);
     }
 
     private boolean canIntake() {
@@ -38,15 +42,9 @@ public class Roller extends PowerControlledSystem {
                 RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
     }
 
-    private boolean canFeedingInMotion() {
-        return (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION && Hood.getInstance().atPoint()
-                && Shooter.getInstance().atPoint() && !SuperStructure.isHittingNet()
-                && !SuperStructure.outSideField());// change to larger tolerance
-    }
-
     @Override
     public boolean CAN_MOVE() {
-        return canShoot() || canIntake() || canFeedingInMotion()
+        return canShoot() || canIntake() || canFeedingInMotion() || canFeeding()
                 || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE

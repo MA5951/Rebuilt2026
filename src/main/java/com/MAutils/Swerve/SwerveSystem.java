@@ -174,6 +174,13 @@ public class SwerveSystem extends SubsystemBase {
 
     }
 
+    public Supplier<Double> getAbsYawSupplier() {
+        if (DriverStationUtil.getAlliance() == Alliance.Blue) {
+            return () -> getGyroData().yaw;
+        }
+        return () -> getGyroData().yaw + 180;
+    }
+
     public SwerveModulePosition[] getCurrentPositions() {
         return currentPositions;
     }

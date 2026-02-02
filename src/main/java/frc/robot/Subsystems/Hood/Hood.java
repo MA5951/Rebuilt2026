@@ -2,16 +2,46 @@
 
 package frc.robot.Subsystems.Hood;
 
+
+import com.MAutils.CanBus.StatusSignalsRunner;
+import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.hardware.CANcoder;
+
+import edu.wpi.first.units.measure.Angle;
+import frc.robot.PortMap;
 
 public class Hood extends PositionControlledSystem {
 
     private static Hood hood;
+    private StatusSignal<Angle> absPosition;
+    private final CANcoder canCoder;
 
     private Hood() {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
                 HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION);
 
+        canCoder = new CANcoder(PortMap.HoodPorts.CAN_CODER, PortMap.CAN_BUS.RIO_BUS);
+
+        absPosition = canCoder.getAbsolutePosition();
+        absPosition.refresh();
+
+        resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
+
+        StatusSignalsRunner.registerSignals(PortMap.HoodPorts.HOOD_MOTOR, absPosition);
+    }
+
+    public boolean atPointForShooting() {
+        return true;
+    }
+
+    public boolean atPointForFeeding() {
+        return true;
+    }
+
+    public boolean atPointForFeedingInMotion() {
+        return true;
     }
 
     @Override
@@ -22,6 +52,12 @@ public class Hood extends PositionControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return true;
+    }
+
+    @Override
+    public void periodic() {
+        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble());
+        super.periodic();
     }
 
     public static Hood getInstance() {
