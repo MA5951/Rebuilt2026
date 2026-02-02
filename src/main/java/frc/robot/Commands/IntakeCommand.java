@@ -20,6 +20,7 @@ public class IntakeCommand extends SubsystemCommand {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
                 intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
+                //TODO add reset position
                 break;
             case "FORWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.FORWARD_VOLTAGE);

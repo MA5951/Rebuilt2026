@@ -17,9 +17,12 @@ public class ClimbCommand extends SubsystemCommand {
 
     @Override
     public void Automatic() {
+
+        //TODO need to add the servo here to lock the climb
         switch (climb.getCurrentState().stateName) {
             case "IDLE":
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                //TODO add reset position
                 break;
             case "PRECLIMB":
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
@@ -28,6 +31,7 @@ public class ClimbCommand extends SubsystemCommand {
                 climb.setPosition(ClimbConstnats.CLOSE_POSITION);
                 break;
             case "DOWN":
+            //TODO write if her for auto down and driver down
                 climb.setPosition(ClimbConstnats.CLOSE_POSITION);
                 break;
         }

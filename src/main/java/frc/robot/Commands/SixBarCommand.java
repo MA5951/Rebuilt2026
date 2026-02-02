@@ -27,17 +27,21 @@ public class SixBarCommand extends SubsystemCommand {
                 } else {
                     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 }
+                //TODO add reset position
                 break;
             case "DEPLOY":
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
             case "ARMBRAKS":
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+                //TODO after its in postion apply a small voltage to hold it there instad of position control, it for the collision state
                 break;
             case "COLLISION":
                 sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS);
+                //TODO why dont implement as we takled in the subsystem design doc? give it a smalell voltage where it go over the pivot point
                 break;
             case "SHOOTING":
                 sixbar.setPosition(SixBarConstants.SHOOTING_ANGLE);
+                //probably the intake should open and close so write it as an else if in a big tolrance
                 break;
         }
     }
@@ -54,6 +58,7 @@ public class SixBarCommand extends SubsystemCommand {
 
     @Override
     public void CantMove() {
+        //TODO what about the go to  COLLISION if the current are too high?
         sixbar.setVoltage(0);
     }
 

@@ -19,7 +19,7 @@ public class Vision {
 
     public double getDistanceTryg() {
         return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
-                / Math.tan(Math.toRadians(VisionConstants.FRONTLL_ANGLE + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
+                / Math.tan(Math.toRadians(VisionConstants.FRONTLL_ANGLE + VisionConstants.FRONT_LL.getCameraIO().getTag().tync)); //TODO why dont use the limlight internal gyro
     }
 
     public static Vision getInstance() {

@@ -23,6 +23,7 @@ public class VisionConstants {
         public static final AprilTagCamera FRONT_LL = new AprilTagCamera(
                         new LimelightIO("FrontLL", Swerve.getInstance().getGyroYawSupplier()), DEFAULT_FILTERS_CONFIG,
                         Swerve.getInstance().getGyroYawSupplier());
+                        //TODO lets go over the filters togher
 
         public static final AprilTagCamera BACK_LL = new AprilTagCamera(
                         new LimelightIO("BackLL", Swerve.getInstance().getGyroYawSupplier()), DEFAULT_FILTERS_CONFIG,

@@ -12,7 +12,7 @@ import frc.robot.RobotControl.SuperStructure;
 public class Transfer extends PowerControlledSystem {
         private static Transfer transfer;
 
-        private DigitalInput firstLevelSensor;
+        private DigitalInput firstLevelSensor; //TODO this cant be a digital input its need to be macam
         private DigitalInput secondLevelSensor;
         private DigitalInput thirdLevelSensor;
 
@@ -71,6 +71,8 @@ public class Transfer extends PowerControlledSystem {
         public boolean isThirdLevelSensor() {
                 return thirdLevelSensor.get();
         }
+
+        //TODO log the sensors
 
         public static Transfer getInstance() {
                 if (transfer == null) {

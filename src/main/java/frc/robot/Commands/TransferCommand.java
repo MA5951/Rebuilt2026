@@ -17,6 +17,10 @@ public class TransferCommand extends SubsystemCommand {
 
     @Override
     public void Automatic() {
+        //TODO what about the pulse imoplomation? base on num of balls and velocity?
+        //TODO and what about the two case in the unstuck same to the roller and the sandwich
+        
+
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
                 transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
@@ -45,7 +49,7 @@ public class TransferCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getR2()) {
-            transfer.setVoltage(5);
+            transfer.setVoltage(5); // TODO same as the others
         } else {
             transfer.setVoltage(0);
         }

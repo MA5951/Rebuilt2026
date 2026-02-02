@@ -33,7 +33,8 @@ public class Hood extends PositionControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return true;
+        return true; //TODO why dont use the position controller's atSetpoint?  
+         
     }
 
     public boolean atPointForFeeding() {

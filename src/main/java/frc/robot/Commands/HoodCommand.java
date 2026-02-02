@@ -43,6 +43,7 @@ public class HoodCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+            //TODO clamp this to min and max positions
         if (RobotContainer.getOperatorController().getDpadUp()) {
             manuelPosition += 2;
         }   else if (RobotContainer.getOperatorController().getDpadDown()) {

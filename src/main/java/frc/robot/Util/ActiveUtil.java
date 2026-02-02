@@ -10,13 +10,16 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ActiveUtil {
 
-    private static Boolean isFirstShift;
-    private static Timer matchTimer = new Timer();
+    private static Boolean isFirstShift; //TODO by default put flase and clean the code here
+    private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
+
 
     public static void startTeleop() {
         matchTimer.reset();
         matchTimer.start();
     }
+
+    //TODO you dont consider the dashboard override here
 
     public static void checkShift() {
         if (isFirstShift == null && DriverStation.getGameSpecificMessage().length() > 0) {

@@ -14,6 +14,8 @@ import frc.robot.PortMap;
 
 public class ClimbConstnats {
 
+        //TODO lets get from solid all the values to the constance of the systems in term of setpoints and limits 
+
         public static final double OPEN_POSITION = 10;
         public static final double CLOSE_POSITION = 50;
         public static final double IDLE_POSITION = 20;

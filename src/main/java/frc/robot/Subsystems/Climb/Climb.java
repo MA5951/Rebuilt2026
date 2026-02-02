@@ -23,6 +23,9 @@ public class Climb extends PositionControlledSystem{
         
     }
 
+    //TODO get the macma?
+    
+
     @Override
     public boolean CAN_MOVE() {
         return (!DriverStation.isAutonomous() || (DriverStation.isAutonomous() && macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE)) && SixBar.getInstance().getPosition() > ClimbConstnats.INTAKE_OPEN_POSITION;

@@ -79,13 +79,13 @@ public class SuperStructure extends DeafultSuperStructure {
     public SuperStructure() {
         super(() -> ChassisSpeedsUtil.getSpeedMagnitude(Swerve.getInstance().getChassisSpeeds()));
     }
-
+    //TODO all the clculations need to go in the sim before we got the robot, and also maybe filtering for small changes in the state
     public static boolean isMainTag() {
         return Vision.getInstance().isMainTag();
     }
 
     public static double getRelAngleToTarget() {
-        return 0.0;
+        return 0.0; //TODO need to imploment this
     }
 
     public static double getAbsAngleToTarget() {
@@ -105,19 +105,21 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean outSideField() {
         return lastFeedingResult.valid && Field.FIELD_RECTANGLE.contains(lastFeedingResult.hitPointField)
-                && lastFeedingResult.distanceMeters > FEEDING_IN_MOTION_MIN_DISTANCE;
+                && lastFeedingResult.distanceMeters > FEEDING_IN_MOTION_MIN_DISTANCE; //TODO you mean < and why 
     }
 
     public static boolean isFull() {
-        return false;
+        return false; //TODO need to imploment this and talk about how
     }
 
     public static boolean isBalls() {
-        return false;
+        //TODO lets add to the dashboard overide for this
+        return false; //TODO need to imploment this  and talk about how
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE;
+        //TODO also check the ir in the kiker 
+        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE; //TODO i think we whant to sync the sandwich as much as possible and bring tha balss as close to the kiker as possible
     }
 
     public static boolean isAutomatic() {
@@ -141,23 +143,25 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getTimeLeft() {
-        return DriverStation.getMatchTime();
+        return DriverStation.getMatchTime(); //TODO the name dont match the function need to subtract from total match time
     }
 
     public static boolean isRobotInAir() {
-        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD;
+        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD; //TODO and the IR see if its on the bar
     }
 
     public static StuckType isStuck() {
         if (Sandwich.getInstance().isMoving() && isBallsInSandwich()
-                && sandwichStuckDebouncer.calculate(Sandwich.getInstance().getDeltaMAcamDistance() < SANDWICH_STUCK_DELTA)) {
+                && sandwichStuckDebouncer.calculate(Sandwich.getInstance().getDeltaMAcamDistance() < SANDWICH_STUCK_DELTA)) { 
             return StuckType.STUCK_IN_SANDWICH;
         } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving()
-                && isBalls()) {
+                && isBalls()) { // TODO need to talk about this, its depent on how we write the isballs function, this might do the oposit of what we whant
             return StuckType.STUCK_IN_TRANSFER;
         } else {
             return StuckType.NONE;
         }
+
+        //TODO we dont whant to use the flywheel sensore at all? , what if the ball stuck in the kiker?
     }
 
     private static double getShootingRPM(double distance) {
@@ -174,7 +178,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static ShootingParameters getFeedingParameters() {
         return new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()) + FEEDING_SHOOTER_OFFSET,
-                getHoodAngle(getDistanceToTargetFeeding()) + FEEDING_ANGLE_OFFSET);
+                getHoodAngle(getDistanceToTargetFeeding()) + FEEDING_ANGLE_OFFSET); 
     }
 
     private static double getDistanceToTargetShooting() {
@@ -207,7 +211,7 @@ public class SuperStructure extends DeafultSuperStructure {
     
     public static boolean atPointForShooting() {
         //return atPointLatch.calculate((Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting()); //Full Latch
-
+        //TODO lets start without rthe latch ist better if we dont need this
         return atPointLatch.calculate(Shooter.getInstance().atPointForShooting()) && Hood.getInstance().atPointForShooting() && (Swerve.getInstance().atPointForShooting() || !isAutomatic()) ; //Intiligent Latch
 
         // (Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting();//No Latch

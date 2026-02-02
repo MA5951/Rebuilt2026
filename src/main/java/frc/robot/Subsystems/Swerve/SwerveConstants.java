@@ -65,26 +65,25 @@ public class SwerveConstants {
         public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAbsAngleToTarget());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); //TODO we need to talk about when we enter tha shooting state 
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
 
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getRelAngleToTarget());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier());
-                        })
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER); //TODO not the right pid
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getRelAngleToTarget());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier()); 
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
 
         public static final SwerveState FEEDING = new SwerveState("Feeding")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAngleToFeeding());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAngleToFeeding());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 

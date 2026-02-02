@@ -15,6 +15,8 @@ public class Robot extends DeafultRobot {
     m_robotContainer = new RobotContainer();
   }
 
+  //TODO what about the auto? we need to talk about it
+
   @Override
   public void teleopInit() {
     super.teleopInit();

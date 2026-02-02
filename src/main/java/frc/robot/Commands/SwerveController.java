@@ -21,9 +21,10 @@ public class SwerveController extends SwerveSystemController {
     public void SetSwerveState() {
 
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
-            if (SuperStructure.isMainTag()) {
+            if (SuperStructure.isMainTag()) { 
                 setState(SwerveConstants.SHOOTING_REL);
             } else {
+                //TODO if the tag flicker(go from rel to abs its should stay at abs uniil the end of the shooting state)
                 setState(SwerveConstants.SHOOTING_ABS);
             }
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING) {
@@ -36,7 +37,11 @@ public class SwerveController extends SwerveSystemController {
             } else {
                 setState(SwerveConstants.FIELD_CENTRIC);
             }
+
+            //TODO lets make a climbe case also
         }
+
+        //TODO what about the auto swervecontroller?
 
     }
 

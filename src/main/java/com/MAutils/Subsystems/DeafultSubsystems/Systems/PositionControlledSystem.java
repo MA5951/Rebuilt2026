@@ -15,7 +15,6 @@ import frc.robot.Robot;
 
 public abstract class PositionControlledSystem extends PowerControlledSystem { 
     //TODO change it to extends the StateSubsystem and add func of get IO
-
     //and then you dont even need to cover the IO func you can acutly just change this class to a factory class, and add the getIO and upet to onther layer of subsystem 
 
     protected PositionSystemIO systemIO;

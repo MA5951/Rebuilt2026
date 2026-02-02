@@ -75,6 +75,8 @@ public class Sandwich extends PowerControlledSystem {
         return ir.get();
     }
 
+    //TODO log the IR and macam
+
     public double getDeltaMAcamDistance() {
         deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
         lastMAcamDistance = macam.getDistance();
