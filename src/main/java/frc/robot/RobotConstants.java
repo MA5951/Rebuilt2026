@@ -3,6 +3,7 @@ package frc.robot;
 
 import com.MAutils.RobotControl.MRobotState;
 
+import frc.robot.Commands.SwerveController;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
@@ -30,8 +31,8 @@ public class RobotConstants {
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, SixBarConstants.DEPLOY,
                         RollerConstants.INTAKE, TransferConstants.INTAKE);
 
-        public static final MRobotState INTAKE_ROLLER = new MRobotState("IDLE_DEPLOY",
-                        IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, RollerConstants.INTAKE,
+        public static final MRobotState INTAKE_ROLLER = new MRobotState("INTAKE_ROLLER",
+                        IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, RollerConstants.INTAKE, SixBarConstants.ARMBRAKS,
                         TransferConstants.INTAKE);
 
         public static final MRobotState FEEDING_IN_MOTION = new MRobotState("FEEDING_IN_MOTION", () -> {
@@ -50,7 +51,7 @@ public class RobotConstants {
                         RollerConstants.FEEDING, TransferConstants.FEEDING, HoodConstants.FEEDING,
                         SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE);
 
-        public static final MRobotState SHOOTING = new MRobotState("SHOOTING",() -> {},() -> {
+        public static final MRobotState SHOOTING = new MRobotState("SHOOTING",() -> {SwerveController.isAbs = false;},() -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());},
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,

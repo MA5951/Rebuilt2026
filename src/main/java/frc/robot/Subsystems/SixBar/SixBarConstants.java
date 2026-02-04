@@ -11,13 +11,16 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import frc.robot.PortMap;
 
 public class SixBarConstants {
-    public static final double COLLISION_VOLTS = -1.0;
+    public static final double COLLISION_VOLTS_INSIDE = -1.0;
+    public static final double COLLISION_VOLTS_OUTSIDE = -1.0;
     public static final double DEPLOY_ANGLE = 0.0;
     public static final double IDLE_ANGLE = 0.0;
     public static final double BUMPER_ZONE_ANGLE = 0.0;
     public static final double FRAME_PARIMETER_ANGLE = 0.0;
     public static final double COLLISION_TOLERANCE = 0.0;
     public static final double SHOOTING_ANGLE = 0.0;
+    public static final double COLLISION_POWER_ANGLE = 10;
+    public static final double CANT_MOVE_VOLTAGE = 0.0;
 
     public static final double MINUMUM_ANGLE = 0.0;
     public static final double MAXIMUM_ANGLE = 0.0;
@@ -46,6 +49,8 @@ public class SixBarConstants {
             .motorCurrentLimit(CURRENT_LIMIT)
             .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
             .build();
+    
+
 
     public static final State IDLE = new State("IDLE");
     public static final State DEPLOY = new State("DEPLOY");

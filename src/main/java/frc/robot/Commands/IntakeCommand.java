@@ -33,7 +33,7 @@ public class IntakeCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getR1()) {
-            intakeroller.setVoltage(6);
+            intakeroller.setVoltage(6); //TODO move to constants/use the saame value as automatic
         } else if (RobotContainer.getOperatorController().getL1()){
             intakeroller.setVoltage(-6);
         } else {

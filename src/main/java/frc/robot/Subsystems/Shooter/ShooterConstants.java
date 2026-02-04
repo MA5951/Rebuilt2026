@@ -24,6 +24,10 @@ public class ShooterConstants {
         public static final double STATOR_CURRENT_LIMIT = 0;
         public static final double RAMP_RATE = 0.1;
 
+        public static final double AT_POINT_FOR_FEEDING_TOLERANCE = 300;
+        public static final double AT_POINT_FOR_SHOOTING_TOLERANCE = 100;
+
+
         public static final Translation2d SHOOTER_OFFSET = new Translation2d(0.0, 0.0);
 
         private static final Motor MASTER_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_MASTER, MotorType.KRAKEN,

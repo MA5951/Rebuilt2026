@@ -2,6 +2,7 @@
 package frc.robot.Subsystems.Sandwich;
 
 import com.MAutils.Components.MACam;
+import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -79,6 +80,14 @@ public class Sandwich extends PowerControlledSystem {
         deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
         lastMAcamDistance = macam.getDistance();
         return deltaMAcamDistance;
+    }
+
+    @Override
+    public void periodic() {
+        super.periodic();
+        MALog.log("Subsystems/Sandwich/MACam Distance", getMACamDistance()); 
+        MALog.log("Subsystems/Sandwich/End Sensor", getEndSensor());   
+
     }
 
     public static Sandwich getInstance() {

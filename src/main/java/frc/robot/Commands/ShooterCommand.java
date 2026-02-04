@@ -27,7 +27,11 @@ public class ShooterCommand extends SubsystemCommand {
                 shooter.setVelocity(ShooterConstants.WARMUP_VELOCITY);
                 break;
             case "SHOOTING":
-                shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
+                if (SuperStructure.isAutomatic()) {
+                    shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
+                } else {
+                    shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
+                }
                 break;
             case "FEEDING":
                 shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
@@ -46,7 +50,7 @@ public class ShooterCommand extends SubsystemCommand {
         if (RobotContainer.getOperatorController().getDpadLeft()) {
             manuelRPM = 0;
         } else if (RobotContainer.getOperatorController().getDpadRight()) {
-            manuelRPM = 3000;
+            manuelRPM = SuperStructure.getCurrentShootingPreset().shooterRPM;
         }
 
         shooter.setVelocity(manuelRPM);

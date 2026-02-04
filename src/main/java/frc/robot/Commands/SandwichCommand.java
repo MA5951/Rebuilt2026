@@ -11,6 +11,7 @@ public class SandwichCommand extends SubsystemCommand {
     private static Sandwich sandwich = Sandwich.getInstance();
 
     public SandwichCommand() {
+        //TODO what about the kiker system?
         super(sandwich);
         addRequirements(sandwich);
     }
@@ -22,6 +23,7 @@ public class SandwichCommand extends SubsystemCommand {
                 sandwich.setVoltage(SandwichConstants.IDLE_VOLTAGE);
                 break;
             case "INTAKE":
+            //TODO here i think we whant the logic of moveing the ball to the end of the sandwich to let other balls in 
                 sandwich.setVoltage(SandwichConstants.INTAKE_VOLTAGE);
                 break;
             case "FEEDING":
@@ -45,7 +47,7 @@ public class SandwichCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL2()) {
-            sandwich.setVoltage(7);
+            sandwich.setVoltage(7); //TODO move to constants
         } else {
             sandwich.setVoltage(0);
         }

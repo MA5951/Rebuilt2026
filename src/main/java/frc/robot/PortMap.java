@@ -38,6 +38,8 @@ public class Intake_Roller_Ports{
     public class ClimbPorts{
             public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
             public static final int MACAM = 0;
+            public static final int LOCK_SENSOR = 0;
+            public static int LOCK_SERVO;
         }
 
 public class Transfer_Ports {

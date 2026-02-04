@@ -1,6 +1,7 @@
 
 package frc.robot.Subsystems.Shooter;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.VelocityControlledSystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -20,15 +21,15 @@ public class Shooter extends VelocityControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return getError() < 100;
+        return getError() < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
     }
 
     public boolean atPointForFeeding() {
-        return getError() < 300;
+        return getError() < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
     }
 
     public boolean atPointForFeedingInMotion() {
-        return getError() < 300;
+        return getError() < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
     }
 
     public boolean getSensor() {
@@ -43,6 +44,12 @@ public class Shooter extends VelocityControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return true;
+    }
+
+    @Override
+    public void periodic() {
+        super.periodic();
+        MALog.log("Subsystems/Shooter/is balls", getSensor());
     }
 
     public static Shooter getInstance() {

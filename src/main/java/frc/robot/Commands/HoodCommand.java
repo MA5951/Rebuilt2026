@@ -43,10 +43,16 @@ public class HoodCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
+        if (manuelPosition < HoodConstants.MIN_POSITION) {
+            manuelPosition = HoodConstants.MIN_POSITION;
+        } else if (manuelPosition > HoodConstants.MAX_POSITION) {
+            manuelPosition = HoodConstants.MAX_POSITION;
+        }
+
         if (RobotContainer.getOperatorController().getDpadUp()) {
-            manuelPosition += 2;
+            manuelPosition += HoodConstants.MANUAL_INCREMENT; 
         }   else if (RobotContainer.getOperatorController().getDpadDown()) {
-            manuelPosition -= 2;
+            manuelPosition -= HoodConstants.MANUAL_INCREMENT;
         }
         hood.setPosition(manuelPosition);
     }

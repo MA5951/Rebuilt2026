@@ -42,7 +42,7 @@ public class RobotContainer extends DeafultRobotContainer {
 
     T(StateTrigger.T(
         () -> ((getRobotState() == RobotConstants.INTAKE_DEPLOY || getRobotState() == RobotConstants.INTAKE_ROLLER)
-            && (!getDriverController().getR1()) || SuperStructure.isFull()) ||
+            && (!getDriverController().getR1()) || SuperStructure.isFull()) || //TODO not the behavior we want in intake roller ints need to close only if r3 is pressed
             (getRobotState() == RobotConstants.EJECT && !getDriverController().getActionsRight())
             || (getRobotState() == RobotConstants.FEEDING
                 && (!getDriverController().getActionsLeft() || !SuperStructure.isBalls()))
@@ -51,7 +51,8 @@ public class RobotContainer extends DeafultRobotContainer {
                 && (!getDriverController().getL1() || !SuperStructure.isBalls()
                     || (!ActiveUtil.isActive() && ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE)))
             || getRobotState() == RobotConstants.SHOOTING_PRESETS && !getDriverController().getR2(),
-        RobotConstants.IDLE_INTAKE));
+        RobotConstants.IDLE_INTAKE)); //TODO i still think after we write the logic that the chagne to 3 idles is not needed
+        
 
     T(StateTrigger.T(
         () -> getDriverController().getR1() && SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS,
@@ -94,22 +95,20 @@ public class RobotContainer extends DeafultRobotContainer {
 
     T(StateTrigger.T(() -> getDriverController().getActionsLeft() &&
         !SuperStructure.isRobotInAir()
-        && Math.abs(
-            Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
+        && Climb.getInstance().atPoint(ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER)
         && SuperStructure.getTimeLeft() < 30, RobotConstants.PRECLIMB));
 
     T(StateTrigger.T(() -> getDriverController().getActionsLeft()
-        && Math.abs(
-            Climb.getInstance().getPosition() - ClimbConstnats.OPEN_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
+        && Climb.getInstance().atPoint(ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER)
         && SuperStructure.getTimeLeft() < 30, RobotConstants.CLIMB));
 
     // Internal climb stats
     new Trigger(() -> getDriverController().getActionsLeft()
-        && SuperStructure.getTimeLeft() < 30 && SuperStructure.isRobotInAir()
+        && SuperStructure.getTimeLeft() < 30 && SuperStructure.isRobotInAir() 
         && (Math.abs(
             Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
-            || SuperStructure.getTimeLeft() > 20))
-        .onTrue(new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.DOWN)));
+            || SuperStructure.getTimeLeft() > 20)) 
+        .onTrue(new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.DOWN))); //TODO what return it to idle?
 
     // Internal shooter stats
 
@@ -135,7 +134,7 @@ public class RobotContainer extends DeafultRobotContainer {
             - SixBarConstants.DEPLOY_ANGLE)) <= SixBarConstants.TOLERANCE_IN_ARM_BRAKE)
         || (!getDriverController().getR1()
             && (getRobotState() == RobotConstants.INTAKE_DEPLOY || getRobotState() == RobotConstants.INTAKE_ROLLER)
-            && SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS))
+            && SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS)) //why the doubel check here with intak idle?
         .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.IDLE)));
 
     new Trigger(() -> (getRobotState() != RobotConstants.IDLE &&

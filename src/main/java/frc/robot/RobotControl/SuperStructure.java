@@ -49,6 +49,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static ShootingParameters currentShootingParameters;
     private static boolean automatic = true;
     private static boolean defence = false;
+    private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
 
     private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
     private static Debouncer sandwichStuckDebouncer = new Debouncer(0.6);
@@ -105,7 +106,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean outSideField() {
         return lastFeedingResult.valid && Field.FIELD_RECTANGLE.contains(lastFeedingResult.hitPointField)
-                && lastFeedingResult.distanceMeters > FEEDING_IN_MOTION_MIN_DISTANCE;
+                && lastFeedingResult.distanceMeters < FEEDING_IN_MOTION_MIN_DISTANCE;
     }
 
     public static boolean isFull() {
@@ -113,11 +114,11 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBalls() {
-        return false;
+        return true;
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE;
+        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE || Sandwich.getInstance().getEndSensor();
     }
 
     public static boolean isAutomatic() {
@@ -144,8 +145,8 @@ public class SuperStructure extends DeafultSuperStructure {
         return DriverStation.getMatchTime();
     }
 
-    public static boolean isRobotInAir() {
-        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD;
+    public static boolean isRobotInAir() { 
+        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD && Climb.getInstance().isOnBar();
     }
 
     public static StuckType isStuck() {
@@ -229,6 +230,14 @@ public class SuperStructure extends DeafultSuperStructure {
         //return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() && Hood.getInstance().atPointForFeedingInMotion(); //No Latch
     }
 
+    public static ShootingPreset getCurrentShootingPreset() {
+        return currentShootingPreset;
+    }
+
+    public static void setCurrentShootingPreset(ShootingPreset preset) {
+        currentShootingPreset = preset;
+    }
+
     public static void update() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {    
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
@@ -238,6 +247,8 @@ public class SuperStructure extends DeafultSuperStructure {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),
                     getHoodAngle(getDistanceToTargetFeeding()));
         }
+
+         //TODO add atuck update
     }
 
 

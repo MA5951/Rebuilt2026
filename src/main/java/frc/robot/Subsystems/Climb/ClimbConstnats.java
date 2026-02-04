@@ -28,6 +28,10 @@ public class ClimbConstnats {
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
         public static final double INTAKE_OPEN_POSITION = 30;
+        public static double LOCK_SERVO_LOCKED_ANGLE = 0;
+        public static double LOCK_SERVO_UNLOCKED_ANGLE = 0;
+        public static double LOCK_VOLTAGE = 0;
+        public static double LOCK_POSITION = 0;
 
         public static final double KP = 0.1;;
         public static final double KI = 0;
@@ -62,6 +66,7 @@ public class ClimbConstnats {
         public static final State PRECLIMB = new State("PRECLIMB");
         public static final State CLIMB = new State("CLIMB");
         public static final State DOWN = new State("DOWN");
+        
         
 
 }

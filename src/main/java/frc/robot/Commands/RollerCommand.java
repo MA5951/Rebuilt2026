@@ -17,6 +17,7 @@ public class RollerCommand extends SubsystemCommand {
 
     @Override
     public void Automatic() {
+        //TODO what about the pulse imoplomation?
         switch (roller.getCurrentState().stateName) {
             case "IDLE":
                 roller.setVoltage(RollerConstants.IDLE_VOLTAGE);
@@ -45,7 +46,7 @@ public class RollerCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL2()) {
-            roller.setVoltage(4);
+            roller.setVoltage(4); //TODO move to constants
         } else {
             roller.setVoltage(0);
         }

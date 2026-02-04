@@ -49,6 +49,10 @@ public class Hood extends PositionControlledSystem {
 
     }
 
+    public boolean atPoint(double tolerance) {
+        return Math.abs(getError()) < tolerance;
+    }
+
     @Override
     public boolean CAN_MOVE() {
         return true;

@@ -34,7 +34,11 @@ public class SixBarCommand extends SubsystemCommand {
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 break;
             case "COLLISION":
-                sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS);
+                if (sixbar.getPosition() < SixBarConstants.COLLISION_POWER_ANGLE) {
+                    sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_INSIDE);
+                } else {
+                    sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_OUTSIDE);
+                }
                 break;
             case "SHOOTING":
                 sixbar.setPosition(SixBarConstants.SHOOTING_ANGLE);
@@ -54,7 +58,7 @@ public class SixBarCommand extends SubsystemCommand {
 
     @Override
     public void CantMove() {
-        sixbar.setVoltage(0);
+        sixbar.setVoltage(SixBarConstants.CANT_MOVE_VOLTAGE);
     }
 
 }

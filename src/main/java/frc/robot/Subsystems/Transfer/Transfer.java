@@ -1,6 +1,8 @@
 
 package frc.robot.Subsystems.Transfer;
 
+import com.MAutils.Components.MACam;
+import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -12,10 +14,9 @@ import frc.robot.RobotControl.SuperStructure;
 public class Transfer extends PowerControlledSystem {
         private static Transfer transfer;
 
-        private DigitalInput firstLevelSensor;
-        private DigitalInput secondLevelSensor;
-        private DigitalInput thirdLevelSensor;
-
+        private MACam firstLevelSensor;
+        private MACam secondLevelSensor;
+        private MACam thirdLevelSensor;
 
         private Transfer() {
                 super(TransferConstants.TRANSFER_CONSTANTS, TransferConstants.IDLE, TransferConstants.INTAKE,
@@ -23,9 +24,9 @@ public class Transfer extends PowerControlledSystem {
                                 TransferConstants.FEEDING_IN_MOTION, TransferConstants.EJECT,
                                 TransferConstants.SHOOTING, TransferConstants.UNSTUCK);
 
-                firstLevelSensor = new DigitalInput(Transfer_Ports.FIRST_LEVEL_SENSOR);
-                secondLevelSensor = new DigitalInput(Transfer_Ports.SECOND_LEVEL_SENSOR);
-                thirdLevelSensor = new DigitalInput(Transfer_Ports.THIRD_LEVEL_SENSOR);
+                firstLevelSensor = new MACam(Transfer_Ports.FIRST_LEVEL_SENSOR);
+                secondLevelSensor = new MACam(Transfer_Ports.SECOND_LEVEL_SENSOR);
+                thirdLevelSensor = new MACam(Transfer_Ports.THIRD_LEVEL_SENSOR);
         }
 
         @Override
@@ -40,7 +41,8 @@ public class Transfer extends PowerControlledSystem {
         }
 
         private boolean canFeedingInMotion() {
-                return (SuperStructure.atPointForFeedingInMotion() && RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION);
+                return (SuperStructure.atPointForFeedingInMotion()
+                                && RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION);
         }
 
         private boolean canFeeding() {
@@ -60,16 +62,24 @@ public class Transfer extends PowerControlledSystem {
 
         }
 
-        public boolean isFirstLevelSensor() {
-                return firstLevelSensor.get();
+        public double getFirstLevelSensorDistance() {
+                return firstLevelSensor.getDistance();
         }
 
-        public boolean isSecondLevelSensor() {
-                return secondLevelSensor.get();
+        public double getSecondLevelSensorDistance() {
+                return secondLevelSensor.getDistance();
         }
 
-        public boolean isThirdLevelSensor() {
-                return thirdLevelSensor.get();
+        public double getThirdLevelSensorDistance() {
+                return thirdLevelSensor.getDistance();
+        }
+
+        public void periodic() {
+
+                MALog.log("Subsystems/Transfer/First Level Sensor Distance", getFirstLevelSensorDistance());
+                MALog.log("Subsystems/Transfer/Second Level Sensor Distance", getSecondLevelSensorDistance());
+                MALog.log("Subsystems/Transfer/Third Level Sensor Distance", getThirdLevelSensorDistance());
+                super.periodic();
         }
 
         public static Transfer getInstance() {

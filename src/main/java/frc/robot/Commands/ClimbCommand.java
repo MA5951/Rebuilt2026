@@ -19,16 +19,23 @@ public class ClimbCommand extends SubsystemCommand {
     public void Automatic() {
         switch (climb.getCurrentState().stateName) {
             case "IDLE":
+                climb.unlockClimb();
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
             case "CLIMB":
-                climb.setPosition(ClimbConstnats.CLOSE_POSITION);
+                if (climb.getPosition() > ClimbConstnats.LOCK_POSITION) {
+                    climb.setPosition(ClimbConstnats.CLOSE_POSITION);
+                } else {
+                    climb.lockClimb();
+                    climb.setVoltage(ClimbConstnats.LOCK_VOLTAGE);
+                }
                 break;
             case "DOWN":
-                climb.setPosition(ClimbConstnats.CLOSE_POSITION);
+                climb.unlockClimb();
+                climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
         }
     }
@@ -41,6 +48,10 @@ public class ClimbCommand extends SubsystemCommand {
     @Override
     public void CantMove() {
         climb.setVoltage(0);
+
+        if (climb.getCurrentState() == ClimbConstnats.DOWN) {
+            climb.unlockClimb();
+        }
     }
 
 }
