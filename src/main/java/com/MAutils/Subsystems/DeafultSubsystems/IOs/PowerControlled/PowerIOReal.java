@@ -102,7 +102,7 @@ public class PowerIOReal implements PowerSystemIO {
 
     @Override
     public double getVelocity() {
-        return getRawVelocity() * systemConstants.VELOCITY_FACTOR;
+        return getRawVelocity();
     }
 
     @Override

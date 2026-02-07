@@ -2,6 +2,7 @@
 package com.MAutils.Vision.IOs;
 
 import com.MAutils.Vision.Util.VisionTarget;
+import com.MAutils.Vision.Util.LimelightHelpers.IMUData;
 import com.MAutils.Vision.Util.LimelightHelpers.PoseEstimate;
 import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
 
@@ -35,6 +36,8 @@ public interface VisionCameraIO {
     RawFiducial getTag();
 
     RawFiducial[] getFiducials();
+
+    IMUData getIMU();
 
     PoseEstimate getPoseEstimate(PoseEstimateType type);
 

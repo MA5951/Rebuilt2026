@@ -19,7 +19,7 @@ public class SandwichConstants {
         public static final double SHOOTING_VOLTAGE = 8.0;
         public static final double UNSTUCK_VOLTAGE = -8.0;
 
-        public static final double GEAR = 1.5;
+        public static final double GEAR = 1;
         public static final double RAMP_RATE = 0.2;
         public static final int CURRENT_LIMIT = 40;
         public static final int STATOR_CURRENT_LIMIT = 40;

@@ -14,6 +14,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import com.MAutils.Components.CameraTypes.Cameras;
 import com.MAutils.Simulation.Simulatables.VisionWorldSimulation;
 import com.MAutils.Simulation.SimulationManager;
+import com.MAutils.Vision.Util.LimelightHelpers.IMUData;
 import com.MAutils.Vision.Util.LimelightHelpers.PoseEstimate;
 import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
 import com.MAutils.Vision.Util.VisionTarget;
@@ -232,5 +233,10 @@ public class CameraSimIO implements VisionCameraIO {
     @Override
     public VisionTarget getTarget() {
         throw new UnsupportedOperationException("Unimplemented method 'getTarget'");
+    }
+
+    @Override
+    public IMUData getIMU() {
+        return new IMUData();
     }
 }

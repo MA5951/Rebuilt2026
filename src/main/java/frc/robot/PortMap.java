@@ -25,7 +25,7 @@ public class PortMap {
 
     public class SixBarPorts {
         public static final CANBusID SIXBAR_MOTOR = new CANBusID(39, CAN_BUS.RIO_BUS);
-        public static final int CAN_CODER = 27;
+        public static final int CAN_CODER = 30;
     }
 
     public class Sandwich_Ports {

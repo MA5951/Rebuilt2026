@@ -22,8 +22,8 @@ public class TransferConstants {
 
         public static final double GEAR = 1.5;
         public static final double RAMP_RATE = 0.2;
-        public static final int CURRENT_LIMIT = 70;
-        public static final int STATOR_CURRENT_LIMIT = 25;
+        public static final int CURRENT_LIMIT = 55;
+        public static final int STATOR_CURRENT_LIMIT = 45;
 
         private static final Motor TRA_MOTOR = new Motor(
                         PortMap.Transfer_Ports.TRANSFER_MOTOR, MotorType.KRAKEN, "Transfer Motor",

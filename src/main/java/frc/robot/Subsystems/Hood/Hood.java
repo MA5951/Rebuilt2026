@@ -4,6 +4,7 @@ package frc.robot.Subsystems.Hood;
 
 
 import com.MAutils.CanBus.StatusSignalsRunner;
+import com.MAutils.DashBoard.Tunable;
 import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
 import com.ctre.phoenix6.StatusSignal;
@@ -17,6 +18,7 @@ public class Hood extends PositionControlledSystem {
     private static Hood hood;
     private StatusSignal<Angle> absPosition;
     private final CANcoder canCoder;
+    private Tunable hoodPosition;
 
     private Hood() {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
@@ -27,9 +29,11 @@ public class Hood extends PositionControlledSystem {
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
 
-        resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
+        //resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
 
         StatusSignalsRunner.registerSignals(PortMap.HoodPorts.HOOD_MOTOR, absPosition);
+
+        hoodPosition = new Tunable(0, "Hood Position");
     }
 
     public boolean atPointForShooting() {
@@ -56,6 +60,10 @@ public class Hood extends PositionControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return true;
+    }
+
+    public double getHoodPosition() {
+        return hoodPosition.get();
     }
 
     @Override

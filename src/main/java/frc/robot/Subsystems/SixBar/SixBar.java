@@ -29,7 +29,7 @@ public class SixBar extends PositionControlledSystem {
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
 
-        resetPosition((absPosition.getValueAsDouble() * 360) / SixBarConstants.CAN_CODER_GEAR);
+        resetPosition(-(absPosition.getValueAsDouble() * 360) / SixBarConstants.CAN_CODER_GEAR);
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
         StatusSignalsRunner.registerSignals(true,  absPosition);
@@ -39,13 +39,9 @@ public class SixBar extends PositionControlledSystem {
         return closedLoopVolts.getValueAsDouble();
     }
 
-    private double getFF() {
-        return 0;
-    }
-
     @Override
     public void setPosition(double position) {
-        super.setPosition(position, 0);
+        super.setPosition(-position, 0.3);
     }
 
     @Override
@@ -65,7 +61,7 @@ public class SixBar extends PositionControlledSystem {
     @Override
     public void periodic() {
         MALog.log(LOG_PATH + "PID Voltage", getCloseLoopVolts());
-        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble());
+        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() * 360 / 2);
         super.periodic();
     }
 

@@ -19,6 +19,12 @@ public class Robot extends DeafultRobot {
   }
 
   @Override
+  public void robotPeriodic() {
+    super.robotPeriodic();
+    SuperStructure.update();
+  }
+
+  @Override
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();

@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.MAutils.Utils.Constants;
 import com.MAutils.Utils.Constants.SimulationType;
 import com.MAutils.Vision.Util.LimelightHelpers;
+import com.MAutils.Vision.Util.LimelightHelpers.IMUData;
 import com.MAutils.Vision.Util.LimelightHelpers.PoseEstimate;
 import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
 import com.MAutils.Vision.Util.VisionTarget;
@@ -112,6 +113,11 @@ public class LimelightIO implements VisionCameraIO {
         LimelightHelpers.SetRobotOrientation(cameraName, robotRotaionSupplier.get(), 0, 0, 0,
                 0, 0);
 
+    }
+
+    @Override
+    public IMUData getIMU() {
+        return LimelightHelpers.getIMUData(cameraName);
     }
 
 }

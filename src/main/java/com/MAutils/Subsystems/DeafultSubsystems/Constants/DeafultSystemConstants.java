@@ -142,7 +142,7 @@ public abstract class DeafultSystemConstants<T> { //TODO ther isnt any point of 
                 private double peakReverseVoltage = -12;
                 private boolean isBrake = true;
                 private double positionFactor = 1;
-                private double velocityFactor = 1;
+                private double velocityFactor = 60;
                 private double inertia = 0.00001;
                 private boolean foc = false;
                 private String logPath = null; //TODO change to " "

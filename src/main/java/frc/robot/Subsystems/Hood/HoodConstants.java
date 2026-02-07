@@ -15,7 +15,7 @@ public class HoodConstants {
         public static final double IDLE_POSITION = 0;
         public static final double EJECT_POSITION = 0;
         public static final double MIN_POSITION = 0;
-        public static final double MAX_POSITION = 25;
+        public static final double MAX_POSITION = 28;
         public static final double GEAR = 185.185;
         public static final double CAN_CODER_GEAR = 18.656;
         public static final double MOTOR_CURRENT_LIMIT = 20;

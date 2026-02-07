@@ -11,7 +11,7 @@ import frc.robot.Subsystems.SixBar.SixBarConstants;
 public class SixBarCommand extends SubsystemCommand {
 
     private static final SixBar sixbar = SixBar.getInstance();
-    private double manuelPosition = SixBarConstants.FRAME_PARIMETER_ANGLE;
+    private double manuelPosition = SixBarConstants.IDLE_ANGLE;
 
     public SixBarCommand() {
         super(sixbar);
@@ -49,15 +49,13 @@ public class SixBarCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getActionsUp()) {
-            //manuelPosition = SixBarConstants.DEPLOY_ANGLE;
-            sixbar.setVoltage(1);
+            manuelPosition = SixBarConstants.DEPLOY_ANGLE;
+            // sixbar.setVoltage(1);
         } else if (RobotContainer.getOperatorController().getActionsDown()) {
-            //manuelPosition = SixBarConstants.FRAME_PARIMETER_ANGLE;
-            sixbar.setVoltage(-1);
-        } else {
-            sixbar.setVoltage(0);
-        }
-        //sixbar.setPosition(manuelPosition);
+            manuelPosition = SixBarConstants.IDLE_ANGLE;
+            // sixbar.setVoltage(-1);
+        } 
+        sixbar.setPosition(manuelPosition);
     }
 
     @Override

@@ -17,9 +17,9 @@ public class ShooterConstants {
         public static final double IDLE_VELOCITY = 0;
         public static final double WARMUP_VELOCITY = 0;
 
-        public static final double MAX_VELOCITY = 0;
+        public static final double MAX_VELOCITY = 6060;
         public static final double GEAR = 1;
-        public static final double TOLERANCE = 0;
+        public static final double TOLERANCE = 50;
         public static final double CURRENT_LIMIT = 40;
         public static final double STATOR_CURRENT_LIMIT = 30;
         public static final double RAMP_RATE = 0.1;
@@ -35,7 +35,7 @@ public class ShooterConstants {
         private static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
                         "Shooter Slave Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(0).withKI(0).withKD(0).withKS(0).withKV(0);
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKS(0.195).withKV(0.116).withKP(0.12);
 
         public static VelocitySystemConstants SHOOTER_CONSTANTS = VelocitySystemConstants
                         .newBuilder("Shooter", REAL_GAIN_CONFIG, MASTER_MOTOR, SLAVE_MOTOR)

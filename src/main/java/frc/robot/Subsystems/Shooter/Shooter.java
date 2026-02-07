@@ -1,6 +1,7 @@
 
 package frc.robot.Subsystems.Shooter;
 
+import com.MAutils.DashBoard.Tunable;
 import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.VelocityControlledSystem;
 
@@ -11,6 +12,7 @@ public class Shooter extends VelocityControlledSystem {
 
     private static Shooter shooter;
     private DigitalInput ir;
+    private Tunable shooterVelo;
 
     private Shooter() {
         super(ShooterConstants.SHOOTER_CONSTANTS, ShooterConstants.IDLE, ShooterConstants.SHOOTING,
@@ -18,6 +20,7 @@ public class Shooter extends VelocityControlledSystem {
                 ShooterConstants.EJECT);
 
         ir = new DigitalInput(PortMap.ShooterPorts.IR);
+        shooterVelo = new Tunable(0, "Shooter Velocity");
     }
 
     public boolean atPointForShooting() {
@@ -44,6 +47,10 @@ public class Shooter extends VelocityControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return true;
+    }
+
+    public double getShooterVelo() {
+        return shooterVelo.get();
     }
 
     @Override

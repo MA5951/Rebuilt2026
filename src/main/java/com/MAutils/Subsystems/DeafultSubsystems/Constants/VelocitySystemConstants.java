@@ -65,6 +65,7 @@ public class VelocitySystemConstants extends DeafultSystemConstants<VelocitySyst
 
         private Builder(String name, GainConfig realGains, Motor master, Motor... motors) {
             this.base = DeafultSystemConstants.builder(name, master, motors);
+            this.realGains = realGains;
         }
 
         /* subclass options */

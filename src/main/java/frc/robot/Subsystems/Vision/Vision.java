@@ -1,6 +1,7 @@
 
 package frc.robot.Subsystems.Vision;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Vision.VisionSystem;
 
 import frc.robot.Util.Field;
@@ -18,8 +19,9 @@ public class Vision {
     }
 
     public double getDistanceTryg() {
+        MALog.log("Subsystems/Vision/Roll",-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
         return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
-                / Math.tan(Math.toRadians(VisionConstants.FRONTLL_ANGLE + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
+                / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch) + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
     }
 
     public static Vision getInstance() {

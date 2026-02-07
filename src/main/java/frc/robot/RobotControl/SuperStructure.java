@@ -1,13 +1,16 @@
 
 package frc.robot.RobotControl;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultSuperStructure;
 import com.MAutils.Utils.ChassisSpeedsUtil;
 import com.MAutils.Utils.DriverStationUtil;
+import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -118,7 +121,8 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE || Sandwich.getInstance().getEndSensor();
+        return Sandwich.getInstance().getMACamDistance() < SandwichConstants.IS_BALLS_DISTANCE
+                || Sandwich.getInstance().getEndSensor();
     }
 
     public static boolean isAutomatic() {
@@ -145,13 +149,15 @@ public class SuperStructure extends DeafultSuperStructure {
         return DriverStation.getMatchTime();
     }
 
-    public static boolean isRobotInAir() { 
-        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD) && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD && Climb.getInstance().isOnBar();
+    public static boolean isRobotInAir() {
+        return inTheAirDebouncer.calculate(Climb.getInstance().getCurrent() > IN_THE_AIR_CURRENT_THRESHOLD)
+                && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD && Climb.getInstance().isOnBar();
     }
 
     public static StuckType isStuck() {
         if (Sandwich.getInstance().isMoving() && isBallsInSandwich()
-                && sandwichStuckDebouncer.calculate(Sandwich.getInstance().getDeltaMAcamDistance() < SANDWICH_STUCK_DELTA)) {
+                && sandwichStuckDebouncer
+                        .calculate(Sandwich.getInstance().getDeltaMAcamDistance() < SANDWICH_STUCK_DELTA)) {
             return StuckType.STUCK_IN_SANDWICH;
         } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() && Transfer.getInstance().isMoving()
                 && isBalls()) {
@@ -179,11 +185,10 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getDistanceToTargetShooting() {
-        return isMainTag() ? Math.pow(Vision.getInstance().getDistanceTryg(), 2) + Math.pow(Field.HUB_WIDTH / 2, 2)
-                + 2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) * Math.cos(Math.toRadians(
-                        VisionConstants.FRONT_LL.getCameraIO().getTag().txnc + Swerve.getInstance().getGyroData().yaw))
-                : GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(), VisionConstants.FRONTLL_OFFSET)
-                    .getDistance(Field.getHub());
+        return Math.sqrt(Math.pow(Vision.getInstance().getDistanceTryg(), 2) + Math.pow(Field.HUB_WIDTH / 2, 2)
+                + (2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) * Math.cos(Math.toRadians(
+                        VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
+                                + Swerve.getInstance().getGyroData().yaw))));
     }
 
     private static double getDistanceToTargetFeeding() {
@@ -205,29 +210,48 @@ public class SuperStructure extends DeafultSuperStructure {
                 ? PoseEstimator.getCurrentPose().getX() < Field.ALLIANCE_WIDTH
                 : PoseEstimator.getCurrentPose().getX() > Field.LENGTH - Field.ALLIANCE_WIDTH;
     }
-    
+
     public static boolean atPointForShooting() {
-        //return atPointLatch.calculate((Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting()); //Full Latch
+        // return atPointLatch.calculate((Swerve.getInstance().atPointForShooting() ||
+        // !isAutomatic()) && Shooter.getInstance().atPointForShooting() &&
+        // Hood.getInstance().atPointForShooting()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPointForShooting()) && Hood.getInstance().atPointForShooting() && (Swerve.getInstance().atPointForShooting() || !isAutomatic()) ; //Intiligent Latch
+        return atPointLatch.calculate(Shooter.getInstance().atPointForShooting())
+                && Hood.getInstance().atPointForShooting()
+                && (Swerve.getInstance().atPointForShooting() || !isAutomatic()); // Intiligent Latch
 
-        // (Swerve.getInstance().atPointForShooting() || !isAutomatic()) && Shooter.getInstance().atPointForShooting() && Hood.getInstance().atPointForShooting();//No Latch
+        // (Swerve.getInstance().atPointForShooting() || !isAutomatic()) &&
+        // Shooter.getInstance().atPointForShooting() &&
+        // Hood.getInstance().atPointForShooting();//No Latch
     }
 
     public static boolean atPointForFeeding() {
-        //return atPointLatch.calculate((Swerve.getInstance().atPointForFeeding() || !isAutomatic()) && Shooter.getInstance().atPointForFeeding() && Hood.getInstance().atPointForFeeding()); //Full Latch
+        // return atPointLatch.calculate((Swerve.getInstance().atPointForFeeding() ||
+        // !isAutomatic()) && Shooter.getInstance().atPointForFeeding() &&
+        // Hood.getInstance().atPointForFeeding()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding()) && Hood.getInstance().atPointForFeeding() && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()) ; //Intiligent Latch
+        return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding())
+                && Hood.getInstance().atPointForFeeding()
+                && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()); // Intiligent Latch
 
-        //return (Swerve.getInstance().atPointForFeeding() || !isAutomatic()) && Shooter.getInstance().atPointForFeeding() && Hood.getInstance().atPointForFeeding(); //No Latch
+        // return (Swerve.getInstance().atPointForFeeding() || !isAutomatic()) &&
+        // Shooter.getInstance().atPointForFeeding() &&
+        // Hood.getInstance().atPointForFeeding(); //No Latch
     }
 
     public static boolean atPointForFeedingInMotion() {
-        //return atPointLatch.calculate((Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() && Hood.getInstance().atPointForFeedingInMotion()); //Full Latch
+        // return
+        // atPointLatch.calculate((Swerve.getInstance().atPointForFeedingInMotion() ||
+        // !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() &&
+        // Hood.getInstance().atPointForFeedingInMotion()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion()) && Hood.getInstance().atPointForFeedingInMotion() && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) ; //Intiligent Latch
+        return atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion())
+                && Hood.getInstance().atPointForFeedingInMotion()
+                && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()); // Intiligent Latch
 
-        //return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() && Hood.getInstance().atPointForFeedingInMotion(); //No Latch
+        // return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic())
+        // && Shooter.getInstance().atPointForFeedingInMotion() &&
+        // Hood.getInstance().atPointForFeedingInMotion(); //No Latch
     }
 
     public static ShootingPreset getCurrentShootingPreset() {
@@ -239,18 +263,31 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static void update() {
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {    
-            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
-                    getHoodAngle(getDistanceToTargetShooting()));
-        } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING
-                || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
-            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),
-                    getHoodAngle(getDistanceToTargetFeeding()));
-        }
+        // if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
+        // currentShootingParameters = new
+        // ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
+        // getHoodAngle(getDistanceToTargetShooting()));
+        // } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING
+        // || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
+        // currentShootingParameters = new
+        // ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),
+        // getHoodAngle(getDistanceToTargetFeeding()));
+        // }
 
-         //TODO add atuck update
+        // TODO add atuck update
+
+        MALog.log("/SuperStructure/TrigoDistance Rel", getDistanceToTargetShooting());
+        MALog.log("/SuperStructure/TrigoDistance Abs",
+                GeometryUtil
+                        .poseAdjust(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose,
+                                VisionConstants.FRONTLL_OFFSET)
+                        .getDistance(Field.getHub()));
+        MALog.log("/SuperStructure/X Dis", Vision.getInstance().getDistanceTryg());
+
+        MALog.log("/SuperStructure/Offset Pose",
+                new Pose2d(GeometryUtil.poseAdjust(
+                        VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose,
+                        VisionConstants.FRONTLL_OFFSET), new Rotation2d()));
     }
-
-
 
 }

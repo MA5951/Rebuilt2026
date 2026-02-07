@@ -39,9 +39,10 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
         motorConfig.Slot0.kV = systemConstants.getGainConfig().Kv;
         motorConfig.Slot0.kA = systemConstants.getGainConfig().Ka;
 
+
+
         motorConfig.Slot0.StaticFeedforwardSign = StaticFeedforwardSignValue.UseVelocitySign;
 
-        //TODO ramprate? need to check that all the constns have implomation
 
         motorConfig.MotorOutput.Inverted = systemConstants.master.invert;
         systemConstants.master.motorController.getConfigurator().apply(motorConfig);
@@ -79,10 +80,10 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
             //TODO clamp it dowm dont throw exeption
             throw new IllegalArgumentException("Velocity exceeds maximum limit: " + systemConstants.MAX_VELOCITY);
         }
+        System.out.println(Velocity+ " " +  systemConstants.getGainConfig().Kv);
 
-        systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity)
+        systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity / 60)
                 .withSlot(0) //TODO constance 
-                .withFeedForward((Velocity / systemConstants.MAX_VELOCITY) * 12) //TODO constance 
                 .withLimitForwardMotion(getCurrent() > systemConstants.MOTOR_LIMIT_CURRENT)
                 .withLimitReverseMotion(getCurrent() < -systemConstants.MOTOR_LIMIT_CURRENT));
     }
@@ -93,7 +94,8 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
             throw new IllegalArgumentException("Velocity exceeds maximum limit: " + systemConstants.MAX_VELOCITY);
         }
 
-        systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity)
+
+        systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity / 60)
                 .withSlot(0)
                 .withFeedForward(feedForward) //TODO need to check if this is add to the KV KA KS or insted of, also in postion
                 .withLimitForwardMotion(getCurrent() > systemConstants.MOTOR_LIMIT_CURRENT)

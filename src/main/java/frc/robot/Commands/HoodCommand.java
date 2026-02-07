@@ -60,12 +60,12 @@ public class HoodCommand extends SubsystemCommand {
         // }
 
 
-        if (RobotContainer.getOperatorController().getActionsLeft()) {
-            manuelPosition = 23;
-        } else if (RobotContainer.getOperatorController().getActionsRight()) {
-            manuelPosition = 5;
-        }
-        hood.setPosition(manuelPosition);
+        // if (RobotContainer.getOperatorController().getActionsLeft()) {
+        //     manuelPosition = 23;
+        // } else if (RobotContainer.getOperatorController().getActionsRight()) {
+        //     manuelPosition = 5;
+        // }
+        hood.setPosition(hood.getHoodPosition());
     }
 
     @Override
