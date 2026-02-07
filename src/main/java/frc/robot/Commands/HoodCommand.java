@@ -43,16 +43,27 @@ public class HoodCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-        if (manuelPosition < HoodConstants.MIN_POSITION) {
-            manuelPosition = HoodConstants.MIN_POSITION;
-        } else if (manuelPosition > HoodConstants.MAX_POSITION) {
-            manuelPosition = HoodConstants.MAX_POSITION;
-        }
+        // if (manuelPosition < HoodConstants.MIN_POSITION) {
+        //     manuelPosition = HoodConstants.MIN_POSITION;
+        // } else if (manuelPosition > HoodConstants.MAX_POSITION) {
+        //     manuelPosition = HoodConstants.MAX_POSITION;
+        // }
 
-        if (RobotContainer.getOperatorController().getDpadUp()) {
-            manuelPosition += HoodConstants.MANUAL_INCREMENT; 
-        }   else if (RobotContainer.getOperatorController().getDpadDown()) {
-            manuelPosition -= HoodConstants.MANUAL_INCREMENT;
+        // if (RobotContainer.getOperatorController().getDpadUp()) {
+        //     //manuelPosition += HoodConstants.MANUAL_INCREMENT; 
+        //     hood.setVoltage(1);
+        // }   else if (RobotContainer.getOperatorController().getDpadDown()) {
+        //     //manuelPosition -= HoodConstants.MANUAL_INCREMENT;
+        //     hood.setVoltage(-1);
+        // }  else {
+        //     hood.setVoltage(0);
+        // }
+
+
+        if (RobotContainer.getOperatorController().getActionsLeft()) {
+            manuelPosition = 23;
+        } else if (RobotContainer.getOperatorController().getActionsRight()) {
+            manuelPosition = 5;
         }
         hood.setPosition(manuelPosition);
     }

@@ -32,13 +32,13 @@ public class PoseEstimator {
     private static SwerveDriveSimulation swerveSim = null;
 
     // Pose and time just before our replay buffer begins
-    private static Pose2d poseBeforeHistory;
+    private static Pose2d poseBeforeHistory = new Pose2d();
     private static double historyStartTime;
 
     // Recent applied twists, for replay
     private static final Deque<HistoryEntry> history = new ArrayDeque<>();
 
-    private static Pose2d currentPose;
+    private static Pose2d currentPose = new Pose2d();
     private static double lastUpdateTime;
 
     public static void setSwerveSim(SwerveDriveSimulation sim) {

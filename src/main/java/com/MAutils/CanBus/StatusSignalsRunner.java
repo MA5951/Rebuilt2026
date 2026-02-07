@@ -17,6 +17,7 @@ public class StatusSignalsRunner {
     private static BaseStatusSignal[] rioSignals = new BaseStatusSignal[0];
 
     public static void registerSignals(boolean canivore, BaseStatusSignal... signals) {
+
         for (BaseStatusSignal signal : signals) {
             TelemetryLogger.logSignal("Registerd Signal " + signal.getName() + " on " + (canivore ? "canivore" : "rio"));
         }

@@ -67,12 +67,12 @@ public class MALog {
     public static void startLog(MALogMode mode) {
         DataLogManager.start();
         if (!Constants.COMPETITION_LOG) {
-            sessionID = loadNextID();
-            String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now());
-            String logName = String.format("MALog_%s_%s_%s", mode.name(), sessionID, timeStamp);
-            malogTable.getEntry("LogName").setString(logName);
-            malogTable.getEntry("LogID").setString(sessionID);
-            DataLogManager.start("", logName); 
+            // sessionID = loadNextID();
+            // String timeStamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(LocalDateTime.now());
+            // String logName = String.format("MALog_%s_%s_%s", mode.name(), sessionID, timeStamp);
+            // malogTable.getEntry("LogName").setString(logName);
+            // malogTable.getEntry("LogID").setString(sessionID);
+            DataLogManager.start(); //"", logName
         }
         DataLogManager.logNetworkTables(true);
     }
@@ -106,6 +106,7 @@ public class MALog {
     }
 
     public static NetworkTableEntry get(String key) {
+        System.out.println("Getting entry for key: " + key);
         return getEntry(key);
     }
 

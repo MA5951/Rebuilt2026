@@ -49,11 +49,15 @@ public class SixBarCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getActionsUp()) {
-            manuelPosition = SixBarConstants.DEPLOY_ANGLE;
+            //manuelPosition = SixBarConstants.DEPLOY_ANGLE;
+            sixbar.setVoltage(1);
         } else if (RobotContainer.getOperatorController().getActionsDown()) {
-            manuelPosition = SixBarConstants.FRAME_PARIMETER_ANGLE;
+            //manuelPosition = SixBarConstants.FRAME_PARIMETER_ANGLE;
+            sixbar.setVoltage(-1);
+        } else {
+            sixbar.setVoltage(0);
         }
-        sixbar.setPosition(manuelPosition);
+        //sixbar.setPosition(manuelPosition);
     }
 
     @Override

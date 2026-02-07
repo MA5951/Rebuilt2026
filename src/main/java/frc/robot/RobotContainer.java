@@ -4,16 +4,34 @@ package frc.robot;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Commands.HoodCommand;
+import frc.robot.Commands.IntakeCommand;
+import frc.robot.Commands.KickerCommand;
+import frc.robot.Commands.RollerCommand;
+import frc.robot.Commands.SandwichCommand;
+import frc.robot.Commands.ShooterCommand;
+import frc.robot.Commands.SixBarCommand;
+import frc.robot.Commands.SwerveController;
+import frc.robot.Commands.TransferCommand;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
+import frc.robot.Subsystems.Hood.Hood;
+import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
+import frc.robot.Subsystems.Kicker.Kicker;
+import frc.robot.Subsystems.Roller.Roller;
+import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
+import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
+import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Util.ActiveUtil;
 
 public class RobotContainer extends DeafultRobotContainer {
@@ -23,11 +41,23 @@ public class RobotContainer extends DeafultRobotContainer {
 
   public RobotContainer() {
     super();
+
+    CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
+    CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
+    CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+    //CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
+    CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
+    CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(), new IntakeCommand());
+
   }
 
   @Override
   public void configAuto() {
-    throw new UnsupportedOperationException("Unimplemented method 'configAuto'");
+
   }
 
   @Override

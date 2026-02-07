@@ -46,7 +46,7 @@ public class SwerveConstants {
        
         // Swerve Drive Controllers
         public static final FieldCentricDrive FIELD_CENTRIC_DRIVE = new FieldCentricDrive(
-                        RobotContainer.getDriverController(), SWERVE_CONSTANTS);
+                        RobotContainer.getDriverController(), SWERVE_CONSTANTS, () -> Swerve.getInstance().getGyroData());
 
         public static final AngleAdjustController ANGLE_ADJUST_CONTROLLER = new AngleAdjustController(SWERVE_CONSTANTS,
                         ABS_PID_CONTROLLER);

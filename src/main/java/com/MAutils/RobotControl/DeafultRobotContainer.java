@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public abstract class DeafultRobotContainer {
 
-    protected static MRobotState currentRobotState;
+    protected static MRobotState currentRobotState = new MRobotState("IDLE");
     protected static MRobotState lastRobotState;
     protected static MAController driverController;
     protected static MAController operatorController;

@@ -47,7 +47,7 @@ public class SandwichCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL2()) {
-            sandwich.setVoltage(7); //TODO move to constants
+            sandwich.setVoltage(12); 
         } else {
             sandwich.setVoltage(0);
         }

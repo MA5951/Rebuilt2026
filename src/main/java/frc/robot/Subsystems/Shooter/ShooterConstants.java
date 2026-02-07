@@ -18,10 +18,10 @@ public class ShooterConstants {
         public static final double WARMUP_VELOCITY = 0;
 
         public static final double MAX_VELOCITY = 0;
-        public static final double GEAR = 0;
+        public static final double GEAR = 1;
         public static final double TOLERANCE = 0;
-        public static final double CURRENT_LIMIT = 0;
-        public static final double STATOR_CURRENT_LIMIT = 0;
+        public static final double CURRENT_LIMIT = 40;
+        public static final double STATOR_CURRENT_LIMIT = 30;
         public static final double RAMP_RATE = 0.1;
 
         public static final double AT_POINT_FOR_FEEDING_TOLERANCE = 300;

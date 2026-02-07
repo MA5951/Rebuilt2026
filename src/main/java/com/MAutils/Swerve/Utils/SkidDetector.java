@@ -28,7 +28,7 @@ public class SkidDetector {
 
     private Translation2d swerveStateMeasuredAsVector;
     private Translation2d swerveStatesRotationalPartAsVector;
-    private Translation2d swerveStatesTranslationalPartAsVector;
+    private Translation2d swerveStatesTranslationalPartAsVector = new Translation2d();
     private double minimumTranslationalSpeed = 0;
     private int numOfSkiddingModules = 0;
 
@@ -45,6 +45,7 @@ public class SkidDetector {
 
         // Calculate translational magnitudes and find minimum in one loop
         for (int i = 0; i < 4; i++) { //TODO change to statesSupplier.lenght
+            
             swerveStateMeasuredAsVector = VectorUtil.getVectorFromSwerveState(statesSupplier.get()[i]);
             swerveStatesRotationalPartAsVector = VectorUtil.getVectorFromSwerveState(swerveStatesRotationalPart[i]);
             swerveStatesTranslationalPartAsVector = swerveStateMeasuredAsVector 

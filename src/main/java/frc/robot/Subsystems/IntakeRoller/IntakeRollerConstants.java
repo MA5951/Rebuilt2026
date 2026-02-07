@@ -16,7 +16,7 @@ public class IntakeRollerConstants {
      public static final double BACKWARD_VOLTAGE = -5;
      public static final double IDLE_VOLTAGE = 0;
 
-     public static final double GEAR = 1;
+     public static final double GEAR = 2;
      public static final double CURRENT_LIMIT = 35;
      public static final double STATOR_CURRENT_LIMIT = 40;
      public static final double RAMP_RATE = 0.2;

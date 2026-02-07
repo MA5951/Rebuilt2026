@@ -24,11 +24,11 @@ public class SixBarConstants {
 
     public static final double MINUMUM_ANGLE = 0.0;
     public static final double MAXIMUM_ANGLE = 0.0;
-    public static final double GEAR = 0.0;
-    public static final double CAN_CODER_GEAR = 2;
+    public static final double GEAR = 24;
+    public static final double CAN_CODER_GEAR = 12;
     public static final double TOLERANCE = 0.0;
-    public static final double CURRENT_LIMIT = 35;
-    public static final double STATOR_CURRENT_LIMIT = 30;
+    public static final double CURRENT_LIMIT = 50;
+    public static final double STATOR_CURRENT_LIMIT =35;
 
     public static final double TOLERANCE_IN_ARM_BRAKE = 0.0;
     public static final double COLLISION_DETECTION  = 0.0;

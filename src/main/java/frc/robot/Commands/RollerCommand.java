@@ -46,7 +46,7 @@ public class RollerCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL2()) {
-            roller.setVoltage(4); //TODO move to constants
+            roller.setVoltage(6.5); //TODO move to constants
         } else {
             roller.setVoltage(0);
         }

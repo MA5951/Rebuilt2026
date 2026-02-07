@@ -124,9 +124,9 @@ public class DeafultRobot extends TimedRobot {
         TelemetryLogger.logRio("CPU Usage", RobotController.getCPUTemp() * 100);// TODO cheack how to do
         TelemetryLogger.logCanRio("TX", RobotController.getCANStatus().transmitErrorCount);
         TelemetryLogger.logCanRio("RX", RobotController.getCANStatus().receiveErrorCount);
-        TelemetryLogger.logCanCanivore("TX", null);// TODO cheack how to do
-        TelemetryLogger.logCanCanivore("RX", null);// TODO cheack how to do
-        TelemetryLogger.logCanCanivore("Status", null);// TODO cheack how to do
+        TelemetryLogger.logCanCanivore("TX", "");// TODO cheack how to do
+        TelemetryLogger.logCanCanivore("RX", "");// TODO cheack how to do
+        TelemetryLogger.logCanCanivore("Status","");// TODO cheack how to do
         TelemetryLogger.logPower("Voltage", pdh.getVoltage());
         TelemetryLogger.logPower("Amp", pdh.getTotalCurrent());
 

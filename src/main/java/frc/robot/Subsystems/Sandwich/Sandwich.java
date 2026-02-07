@@ -17,7 +17,7 @@ public class Sandwich extends PowerControlledSystem {
     private double lastMAcamDistance;
     private double deltaMAcamDistance;
 
-    private MACam macam = new MACam(PortMap.Sandwich_Ports.MACAM);
+    //private MACam macam = new MACam(PortMap.Sandwich_Ports.MACAM);
     private DigitalInput ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
 
     private Sandwich() {
@@ -26,10 +26,11 @@ public class Sandwich extends PowerControlledSystem {
                 SandwichConstants.FEEDING_IN_MOTION, SandwichConstants.EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
 
-        macam = new MACam(PortMap.Sandwich_Ports.MACAM);
-        ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
+        //macam = new MACam(PortMap.Sandwich_Ports.MACAM);
 
-        lastMAcamDistance = macam.getDistance();
+        //lastMAcamDistance = macam.getDistance();
+
+        System.out.println("Sandwich initialized");
 
     }
 
@@ -69,7 +70,8 @@ public class Sandwich extends PowerControlledSystem {
     }
 
     public double getMACamDistance() {
-        return macam.getDistance();
+        //return macam.getDistance();
+        return 0;
     }
 
     public boolean getEndSensor() {
@@ -77,9 +79,10 @@ public class Sandwich extends PowerControlledSystem {
     }
 
     public double getDeltaMAcamDistance() {
-        deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
-        lastMAcamDistance = macam.getDistance();
-        return deltaMAcamDistance;
+        //deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
+        //lastMAcamDistance = macam.getDistance();
+        //return deltaMAcamDistance;
+        return 0;
     }
 
     @Override

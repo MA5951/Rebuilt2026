@@ -45,7 +45,7 @@ public abstract class SubsystemCommand extends Command {
 
     @Override
     public void execute() {
-        if (subsystem.CAN_MOVE()) {
+        if (subsystem.CAN_MOVE() || subsystem.getSystemMode() == RobotControlConstants.SystemMode.MANUAL) {
             switch (RobotControlConstants.getRobotMode()) {
                 case TELEOP:
                     switch (subsystem.getSystemMode()) {

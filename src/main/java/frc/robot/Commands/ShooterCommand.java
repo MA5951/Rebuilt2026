@@ -48,12 +48,17 @@ public class ShooterCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getDpadLeft()) {
-            manuelRPM = 0;
-        } else if (RobotContainer.getOperatorController().getDpadRight()) {
-            manuelRPM = SuperStructure.getCurrentShootingPreset().shooterRPM;
+            //manuelRPM = 0;
+            shooter.setVoltage(5);
+        } else {
+            shooter.setVoltage(0);
         }
+        
+        // if (RobotContainer.getOperatorController().getDpadRight()) {
+        //     manuelRPM = SuperStructure.getCurrentShootingPreset().shooterRPM;
+        // }
 
-        shooter.setVelocity(manuelRPM);
+        // shooter.setVelocity(manuelRPM);
     }
 
     @Override

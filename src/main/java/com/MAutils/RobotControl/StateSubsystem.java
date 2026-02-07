@@ -30,7 +30,7 @@ public abstract class StateSubsystem extends SubsystemBase {
         selfSystemTest = new SelfSystemTest(this);
 
         currentState = new State("IDLE", this); //TODO why not init it in the constace at the subsystemsStates and just get it from the array 
-        systemMode = SystemMode.AUTOMATIC;
+        systemMode = SystemMode.MANUAL;
 
         this.subsystemName = name;
 
@@ -72,7 +72,7 @@ public abstract class StateSubsystem extends SubsystemBase {
     public void periodic() {
         MALog.log("/RobotControl/" + subsystemName + "/Current State", currentState.stateName);
         MALog.log("/RobotControl/" + subsystemName + "/System Function State", getSystemMode().name());
-        MALog.log("/RobotControl/" + subsystemName + "/Can Move", CAN_MOVE());
+        MALog.log("/RobotControl/" + subsystemName + "/Can Move", CAN_MOVE() || getSystemMode() == SystemMode.MANUAL);
     }
 
 }

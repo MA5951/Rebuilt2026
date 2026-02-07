@@ -22,7 +22,7 @@ public class Hood extends PositionControlledSystem {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
                 HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION);
 
-        canCoder = new CANcoder(PortMap.HoodPorts.CAN_CODER, PortMap.CAN_BUS.RIO_BUS);
+        canCoder = new CANcoder(PortMap.HoodPorts.CAN_CODER, PortMap.CAN_BUS.CANIVORE_BUS);
 
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
@@ -60,7 +60,7 @@ public class Hood extends PositionControlledSystem {
 
     @Override
     public void periodic() {
-        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble());
+        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() * 360 / HoodConstants.CAN_CODER_GEAR);
         super.periodic();
     }
 

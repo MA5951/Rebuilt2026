@@ -44,11 +44,9 @@ public class TransferCommand extends SubsystemCommand {
 
     @Override
     public void Manual() {
-        if (RobotContainer.getOperatorController().getR2()) {
-            transfer.setVoltage(TransferConstants.MANUAL_VOLTAGE);
-        } else {
-            transfer.setVoltage(0);
-        }
+
+
+        transfer.setVoltage(TransferConstants.MANUAL_VOLTAGE * RobotContainer.getOperatorController().getRightY(true,1));
 
     }
 

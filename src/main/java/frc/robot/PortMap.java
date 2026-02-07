@@ -11,46 +11,52 @@ public class PortMap {
         public static final CANBus RIO_BUS = new CANBus("rio");
         public static final CANBus CANIVORE_BUS = new CANBus("*");
 
-        
+    }
+
+    public static class Kicker_Ports {
+        public static final CANBusID KICKER_MOTOR = new CANBusID(26, CAN_BUS.CANIVORE_BUS);
+
     }
 
     public static class HoodPorts {
-        public static final CANBusID HOOD_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
-        public static final int CAN_CODER = 0;
+        public static final CANBusID HOOD_MOTOR = new CANBusID(28, CAN_BUS.CANIVORE_BUS);
+        public static final int CAN_CODER = 19;
     }
 
     public class SixBarPorts {
-        public static final CANBusID SIXBAR_MOTOR = new CANBusID(1, CAN_BUS.RIO_BUS);
-        public static final int CAN_CODER = 0;
+        public static final CANBusID SIXBAR_MOTOR = new CANBusID(39, CAN_BUS.RIO_BUS);
+        public static final int CAN_CODER = 27;
     }
-    
-    public class Sandwich_Ports {
-        public static final CANBusID SANDWICH_MOTOR = new CANBusID(15, CAN_BUS.RIO_BUS);
-        public static final int MACAM = 11;
-        public static final int IR = 1;
-    }
-    public class RollerPorts {
-        public static final CANBusID ROLLER_MOTOR = new CANBusID(21, CAN_BUS.RIO_BUS);
-    }
-public class Intake_Roller_Ports{
-            public static final CANBusID INTAKE_ROLLER_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
-        }
-    public class ClimbPorts{
-            public static final CANBusID CLIMB_MOTOR = new CANBusID(0, CAN_BUS.RIO_BUS);
-            public static final int MACAM = 0;
-            public static final int LOCK_SENSOR = 0;
-            public static int LOCK_SERVO;
-        }
 
-public class Transfer_Ports {
-        public static final CANBusID TRANSFER_MOTOR = new CANBusID(11, CAN_BUS.RIO_BUS);
+    public class Sandwich_Ports {
+        public static final CANBusID SANDWICH_MOTOR = new CANBusID(16, CAN_BUS.RIO_BUS);
+        public static final CANBusID SANDWICH_MOTOR_2 = new CANBusID(44, CAN_BUS.RIO_BUS);
+        public static final int MACAM = 11;
+        public static final int IR = 6;
+    }
+
+    public class RollerPorts {
+        public static final CANBusID ROLLER_MOTOR = new CANBusID(15, CAN_BUS.RIO_BUS);
+    }
+
+    public class Intake_Roller_Ports {
+        public static final CANBusID INTAKE_ROLLER_MOTOR = new CANBusID(40, CAN_BUS.RIO_BUS);
+    }
+
+    public class ClimbPorts {
+        public static final CANBusID CLIMB_MOTOR = new CANBusID(14, CAN_BUS.CANIVORE_BUS);
+        public static final int MACAM = 0;
+        public static final int LOCK_SENSOR = 3;
+        public static int LOCK_SERVO = 8;
+    }
+
+    public class Transfer_Ports {
+        public static final CANBusID TRANSFER_MOTOR = new CANBusID(13, CAN_BUS.RIO_BUS);
 
         public static final int FIRST_LEVEL_SENSOR = 0;
         public static final int SECOND_LEVEL_SENSOR = 1;
         public static final int THIRD_LEVEL_SENSOR = 2;
-}
-
-    
+    }
 
     public static class SwervePorts {
 
@@ -58,7 +64,6 @@ public class Transfer_Ports {
         private static final CANBusID LEFT_FRONT_DRIVE = new CANBusID(8, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_FRONT_TURNING = new CANBusID(5, CAN_BUS.CANIVORE_BUS);
 
-  
         private static final CANBusID LEFT_BACK_ENCODER = new CANBusID(21, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_BACK_DRIVE = new CANBusID(4, CAN_BUS.CANIVORE_BUS);
         private static final CANBusID LEFT_BACK_TURNING = new CANBusID(9, CAN_BUS.CANIVORE_BUS);
@@ -82,11 +87,10 @@ public class Transfer_Ports {
 
     }
 
-
     public class ShooterPorts {
-        public static final CANBusID SHOOTER_MASTER = new CANBusID(1, CAN_BUS.RIO_BUS);
-        public static final CANBusID SHOOTER_SLAVE = new CANBusID(2, CAN_BUS.RIO_BUS);
-        public static final int IR = 0;
+        public static final CANBusID SHOOTER_MASTER = new CANBusID(42, CAN_BUS.CANIVORE_BUS);
+        public static final CANBusID SHOOTER_SLAVE = new CANBusID(41, CAN_BUS.CANIVORE_BUS);
+        public static final int IR = 5;
     }
 
 }

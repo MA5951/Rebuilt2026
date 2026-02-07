@@ -14,20 +14,20 @@ public class TransferConstants {
         public static final double INTAKE_VOLTAGE = 8.0;
         public static final double FEEDING_IN_MOTION_VOLTAGE = 8.0;
         public static final double FEEDING_EJECT_VOLTAGE = 8.0;
-        public static final double FEEDING_VOLTAGE = 8.0;
+        public static final double FEEDING_VOLTAGE = 8.0;       
         public static final double SHOOTING_VOLTAGE = 8.0;
         public static final double UNSTUCK_VOLTAGE = -8.0;
-        public static final double MANUAL_VOLTAGE = 5.0;
+        public static final double MANUAL_VOLTAGE = 7.0;
 
 
-        public static final double GEAR = 1;
+        public static final double GEAR = 1.5;
         public static final double RAMP_RATE = 0.2;
-        public static final int CURRENT_LIMIT = 30;
-        public static final int STATOR_CURRENT_LIMIT = 40;
+        public static final int CURRENT_LIMIT = 70;
+        public static final int STATOR_CURRENT_LIMIT = 25;
 
         private static final Motor TRA_MOTOR = new Motor(
                         PortMap.Transfer_Ports.TRANSFER_MOTOR, MotorType.KRAKEN, "Transfer Motor",
-                        InvertedValue.Clockwise_Positive);
+                        InvertedValue.CounterClockwise_Positive);
 
         public static PowerSystemConstants TRANSFER_CONSTANTS = PowerSystemConstants.builder("Transfer", TRA_MOTOR)
                         .gear(GEAR)

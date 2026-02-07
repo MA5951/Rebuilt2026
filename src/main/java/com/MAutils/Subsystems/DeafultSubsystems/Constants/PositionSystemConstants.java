@@ -92,7 +92,6 @@ public class PositionSystemConstants extends DeafultSystemConstants<PositionSyst
         private double jerk = 0;
 
         private double mass = -1;
-         //TODO add ff
 
         private Builder(String name, GainConfig realGains ,Motor master, Motor... motors) {
             this.base = DeafultSystemConstants.builder(name, master, motors);
@@ -136,6 +135,11 @@ public class PositionSystemConstants extends DeafultSystemConstants<PositionSyst
 
         public Builder mass(double mass) {
             this.mass = mass;
+            return this;
+        }
+
+        public Builder rampRate(double rampRate) {
+            base.rampRate(rampRate);
             return this;
         }
 

@@ -31,7 +31,8 @@ public class SixBar extends PositionControlledSystem {
 
         resetPosition((absPosition.getValueAsDouble() * 360) / SixBarConstants.CAN_CODER_GEAR);
 
-        StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts, absPosition);
+        StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
+        StatusSignalsRunner.registerSignals(true,  absPosition);
     }
 
     public double getCloseLoopVolts() {

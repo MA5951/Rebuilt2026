@@ -1,5 +1,5 @@
 
-package frc.robot.Subsystems.Sandwich;
+package frc.robot.Subsystems.Kicker;
 
 import com.MAutils.Components.Motor;
 import com.MAutils.Components.Motor.MotorType;
@@ -9,7 +9,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 import frc.robot.PortMap;
 
-public class SandwichConstants {
+public class KickerConstants {
 
         public static final double IDLE_VOLTAGE = 0;
         public static final double INTAKE_VOLTAGE = 8.0;
@@ -19,24 +19,20 @@ public class SandwichConstants {
         public static final double SHOOTING_VOLTAGE = 8.0;
         public static final double UNSTUCK_VOLTAGE = -8.0;
 
-        public static final double GEAR = 1.5;
+        public static final double GEAR = 1;
         public static final double RAMP_RATE = 0.2;
-        public static final int CURRENT_LIMIT = 40;
-        public static final int STATOR_CURRENT_LIMIT = 40;
+        public static final int CURRENT_LIMIT = 30;
+        public static final int STATOR_CURRENT_LIMIT = 30;
 
-        public static final double IS_BALLS_DISTANCE = 0.1;
+       
 
-        private static final Motor SANDWICH_MOTOR = new Motor(
-                        PortMap.Sandwich_Ports.SANDWICH_MOTOR, MotorType.KRAKEN, "Sandwich Motor",
-                        InvertedValue.Clockwise_Positive);
-
-        private static final Motor SANDWICH_MOTOR2 = new Motor(
-                        PortMap.Sandwich_Ports.SANDWICH_MOTOR_2, MotorType.KRAKEN, "Sandwich Motor 2",
+        private static final Motor KICKER_MOTOR = new Motor(
+                        PortMap.Kicker_Ports.KICKER_MOTOR, MotorType.KRAKEN, "Kicker Motor",
                         InvertedValue.Clockwise_Positive);
 
         
 
-        public static PowerSystemConstants SANDWICH_CONSTANTS = PowerSystemConstants.builder("Sandwich", SANDWICH_MOTOR, SANDWICH_MOTOR2)
+        public static PowerSystemConstants KICKER_CONSTANTS = PowerSystemConstants.builder("Kicker", KICKER_MOTOR)
                         .gear(GEAR)
                         .isBrake(true)
                         .rampRate(RAMP_RATE)
