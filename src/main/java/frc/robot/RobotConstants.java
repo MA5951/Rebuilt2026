@@ -28,7 +28,7 @@ public class RobotConstants {
         public static final MRobotState IDLE_SHOOTER = new MRobotState("IDLEֹֹ_SHOOTER",
                         ShooterConstants.IDLE, HoodConstants.IDLE);
 
-        public static final MRobotState INTAKE_DEPLOY = new MRobotState("IDLE_DEPLOY",
+        public static final MRobotState INTAKE_DEPLOY = new MRobotState("INTAKE_DEPLOY",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, SixBarConstants.DEPLOY,
                         RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE);
 
@@ -64,8 +64,8 @@ public class RobotConstants {
                         TransferConstants.SHOOTING,
                         HoodConstants.SHOOTING, SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE, KickerConstants.SHOOTING);
 
-        public static final MRobotState EJECT = new MRobotState("EJECT",() -> {},() -> {
-                SixBar.getInstance().setState(SixBar.getInstance().getLastState());},
+        public static final MRobotState EJECT = new MRobotState("EJECT",() -> {},() -> 
+                SixBar.getInstance().setState(SixBar.getInstance().getLastState()),
                         SandwichConstants.EJECT, RollerConstants.EJECT, TransferConstants.EJECT, HoodConstants.EJECT, ShooterConstants.EJECT, KickerConstants.EJECT);
 
         public static final MRobotState UNSTUCK = new MRobotState("UNSTUCK",

@@ -1,12 +1,17 @@
 
 package frc.robot;
 
+import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Util.ActiveUtil;
+import frc.robot.Util.Field;
 
 public class Robot extends DeafultRobot {
 
@@ -16,11 +21,21 @@ public class Robot extends DeafultRobot {
   public Robot() {
     super();
     m_robotContainer = new RobotContainer();
+    PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
   }
 
   @Override
   public void robotPeriodic() {
     super.robotPeriodic();
+    MALog.log("/RobotControl/Current RobotState", RobotContainer.getRobotState().getStateName());
+    MALog.log("/RobotControl/Last RobotState", RobotContainer.getLastRobotState().getStateName());
+    MALog.log("/RobotControl/Test", (((!SuperStructure.isBalls()) || (!SuperStructure.isInTheAlinceZone())
+        || (ActiveUtil.getTimePastActive() > RobotContainer.TIME_PAST_ACTIVE)
+        || (RobotContainer.getLastRobotState() == RobotConstants.EJECT && !RobotContainer.getDriverController().getActionsRight())))
+           && RobotContainer.getRobotState() != RobotConstants.SHOOTING
+            && RobotContainer.getRobotState() != RobotConstants.SHOOTING_PRESETS
+            && RobotContainer.getRobotState() != RobotConstants.FEEDING && RobotContainer.getRobotState() != RobotConstants.FEEDING_IN_MOTION
+            && RobotContainer.getRobotState() != RobotConstants.EJECT);
     SuperStructure.update();
   }
 

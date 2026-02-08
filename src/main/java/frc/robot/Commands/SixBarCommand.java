@@ -5,6 +5,8 @@ import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
+import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 

@@ -13,9 +13,9 @@ import frc.robot.PortMap;
 
 public class ShooterConstants {
 
-        public static final double EJECT_VELOCITY = 0;
+        public static final double EJECT_VELOCITY = 800;
         public static final double IDLE_VELOCITY = 0;
-        public static final double WARMUP_VELOCITY = 0;
+        public static final double WARMUP_VELOCITY = 300;
 
         public static final double MAX_VELOCITY = 6060;
         public static final double GEAR = 1;

@@ -30,7 +30,6 @@ public class Sandwich extends PowerControlledSystem {
 
         //lastMAcamDistance = macam.getDistance();
 
-        System.out.println("Sandwich initialized");
 
     }
 

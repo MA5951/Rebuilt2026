@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public abstract class StateSubsystem extends SubsystemBase {
 
     private State currentState;
-    private State lastState;
+    private State lastState ;
     private SystemMode systemMode;
     public final String subsystemName;
     public final SelfSystemTest selfSystemTest;
@@ -29,17 +29,21 @@ public abstract class StateSubsystem extends SubsystemBase {
 
         selfSystemTest = new SelfSystemTest(this);
 
-        currentState = new State("IDLE", this); //TODO why not init it in the constace at the subsystemsStates and just get it from the array 
-        systemMode = SystemMode.MANUAL;
+        currentState = new State("IDLE", this); 
+        lastState = currentState;
+        systemMode = SystemMode.AUTOMATIC;
 
         this.subsystemName = name;
 
         LOG_PATH = "Subsystems/" + subsystemName + "/";
 
         createSelfTest();
+
+        MRobotState.addSubsystem(this);
     }
 
     public void setState(State state) {
+        System.out.println("Setting state of " + subsystemName + " to " + state.stateName);
         if (state != currentState) {
             currentState.runEndRunnable();
         }

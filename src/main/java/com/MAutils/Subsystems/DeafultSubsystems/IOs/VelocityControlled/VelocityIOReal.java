@@ -80,7 +80,6 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
             //TODO clamp it dowm dont throw exeption
             throw new IllegalArgumentException("Velocity exceeds maximum limit: " + systemConstants.MAX_VELOCITY);
         }
-        System.out.println(Velocity+ " " +  systemConstants.getGainConfig().Kv);
 
         systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity / 60)
                 .withSlot(0) //TODO constance 

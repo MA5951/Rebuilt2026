@@ -13,11 +13,11 @@ public class RollerConstants {
 
         public static final double IDLE_VOLTAGE = 0;
         public static final double INTAKE_VOLTAGE = 8.0;
-        public static final double FEEDING_IN_MOTION_VOLTAGE = 8.0;
-        public static final double EJECT_VOLTAGE = 8.0;
-        public static final double FEEDING_VOLTAGE = 8.0;
-        public static final double SHOOTING_VOLTAGE = 8.0;
-        public static final double UNSTUCK_VOLTAGE = -8.0;
+        public static final double FEEDING_IN_MOTION_VOLTAGE = 3.0;
+        public static final double EJECT_VOLTAGE = 3.0;
+        public static final double FEEDING_VOLTAGE = 6.0;
+        public static final double SHOOTING_VOLTAGE = 6.0;
+        public static final double UNSTUCK_VOLTAGE = -0.0;
 
         public static final double GEAR = 1.5;
         public static final double CURRENT_LIMIT = 35;
@@ -41,7 +41,7 @@ public class RollerConstants {
         public static final State IDLE = new State("IDLE");
         public static final State INTAKE = new State("INTAKE");
         public static final State FEEDING = new State("FEEDING");
-        public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
+        public static final State FEEDING_IN_MOTION = new State("FEDDING_IN_MOTION");
         public static final State EJECT = new State("EJECT");
         public static final State SHOOTING = new State("SHOOTING");
         public static final State UNSTUCK = new State("UNSTUCK");

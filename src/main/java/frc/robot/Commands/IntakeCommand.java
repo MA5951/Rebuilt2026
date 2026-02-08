@@ -6,6 +6,7 @@ import com.MAutils.RobotControl.SubsystemCommand;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
+import frc.robot.Subsystems.SixBar.SixBar;
 
 public class IntakeCommand extends SubsystemCommand {
     private static IntakeRoller intakeroller = IntakeRoller.getInstance();
@@ -19,8 +20,13 @@ public class IntakeCommand extends SubsystemCommand {
     public void Automatic() {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
-                intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
+                if (!SixBar.getInstance().atPoint(15)) {
+                    intakeroller.setVoltage(IntakeRollerConstants.FORWARD_VOLTAGE);
+                } else {
+                    intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
+                }
                 break;
+
             case "FORWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.FORWARD_VOLTAGE);
                 break;

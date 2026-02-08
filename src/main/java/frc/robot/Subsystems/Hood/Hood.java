@@ -29,7 +29,7 @@ public class Hood extends PositionControlledSystem {
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
 
-        //resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
+        resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
 
         StatusSignalsRunner.registerSignals(PortMap.HoodPorts.HOOD_MOTOR, absPosition);
 

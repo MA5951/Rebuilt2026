@@ -22,7 +22,8 @@ public class IntakeRoller extends PowerControlledSystem {
                 || RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER)
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                 || RobotContainer.getRobotState() == RobotConstants.IDLE
-                || RobotContainer.getRobotState() == RobotConstants.SHOOTING;
+                || RobotContainer.getRobotState() == RobotConstants.SHOOTING
+                || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION;
     }
 
     @Override

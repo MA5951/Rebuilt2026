@@ -11,15 +11,15 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import frc.robot.PortMap;
 
 public class SixBarConstants {
-    public static final double COLLISION_VOLTS_INSIDE = -1.0;
-    public static final double COLLISION_VOLTS_OUTSIDE = -1.0;
+    public static final double COLLISION_VOLTS_INSIDE = -0.5;
+    public static final double COLLISION_VOLTS_OUTSIDE = -0.20;
     public static final double DEPLOY_ANGLE = 67;
     public static final double IDLE_ANGLE = 8;
-    public static final double BUMPER_ZONE_ANGLE = 0.0;
+    public static final double BUMPER_ZONE_ANGLE = IDLE_ANGLE;
     public static final double FRAME_PARIMETER_ANGLE = 1;
-    public static final double COLLISION_TOLERANCE = 0.0;
-    public static final double SHOOTING_ANGLE = 0.0;
-    public static final double COLLISION_POWER_ANGLE = 10;
+    public static final double COLLISION_TOLERANCE = 10;
+    public static final double SHOOTING_ANGLE = 8;
+    public static final double COLLISION_POWER_ANGLE = 5;
     public static final double CANT_MOVE_VOLTAGE = 0.0;
 
     public static final double MINUMUM_ANGLE = -68;
@@ -32,9 +32,9 @@ public class SixBarConstants {
     public static final double CRUSIE_VELO = 0.8;
     public static final double ACCELERATION = 20;
 
-    public static final double TOLERANCE_IN_ARM_BRAKE = 0.0;
-    public static final double COLLISION_DETECTION  = 0.0;
-    public static final double CLOSE_LOOP_TOLERANCE  = 0.0;
+    public static final double TOLERANCE_IN_ARM_BRAKE = 15;
+    public static final double COLLISION_DETECTION  = 10;
+    public static final double CLOSE_LOOP_TOLERANCE  = 0.3;
 
 
     private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
