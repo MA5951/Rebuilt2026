@@ -43,10 +43,10 @@ public class SwerveController extends SwerveSystemController {
         //     }
         // }
 
-        if (RobotContainer.getDriverController().getR2()) {
-            setState(SwerveConstants.FIELD_CENTRIC_40);
+        if (RobotContainer.getDriverController().getL2()) {
+            setState(SwerveConstants.SHOOTING_REL);
         } else {
-            setState(SwerveConstants.FIELD_CENTRIC);
+            setState(SwerveConstants.FIELD_CENTRIC_40);
         }
 
     }

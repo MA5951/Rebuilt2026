@@ -37,7 +37,7 @@ public class PositionIOReal extends PowerIOReal implements PositionSystemIO {
         this.systemConstants = systemConstants;
 
         motorError = systemConstants.master.motorController.getClosedLoopError(false);
-        motorSetPoint = systemConstants.master.motorController.getClosedLoopReferenceSlope(false); //TODO this is not the right signal
+        motorSetPoint = systemConstants.master.motorController.getClosedLoopReference(false); //TODO this is not the right signal
         motionMagiPose = systemConstants.master.motorController.getClosedLoopReference(false); 
         motionMagiVelocity = systemConstants.master.motorController.getVelocity(false); //TODO this is not the right signal
         StatusSignalsRunner.registerSignals(systemConstants.master.canBusID, motorSetPoint, motorError, motionMagiPose, motionMagiVelocity);

@@ -4,7 +4,6 @@ package com.MAutils.Swerve.Utils;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 
 public class ProfiledPIDController extends edu.wpi.first.math.controller.ProfiledPIDController {
-    //TODO same as the pidcontroller
 
     public ProfiledPIDController(double Kp, double Ki, double Kd, Constraints constraints) {
         super(Kp, Ki, Kd, constraints);

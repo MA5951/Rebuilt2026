@@ -183,7 +183,7 @@ public class SwerveModuleTalonFX implements SwerveModuleIO {
 
     public void setDriveVelocity(double metersPerSecond) {
         driveTalon.setControl(velocityVoltageRequest.withVelocity(metersPerSecond / constants.WHEEL_CIRCUMFERENCE)// Meters Per Second to Rotations Per Second
-                .withSlot(SwerveSystemConstants.getControlSlot()));
+                .withSlot(SwerveSystemConstants.getControlSlot()).withEnableFOC(true));
     }
 
     public void setSteerPosition(Rotation2d rotation) {
