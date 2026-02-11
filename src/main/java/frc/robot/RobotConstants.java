@@ -56,7 +56,7 @@ public class RobotConstants {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());},
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,
-                        SixBarConstants.SHOOTING,IntakeRollerConstants.IDLE, KickerConstants.SHOOTING);
+                        SixBarConstants.SHOOTING,IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING);
 
         public static final MRobotState SHOOTING_PRESETS = new MRobotState("SHOOTING_PRESETS",() -> {},() -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());},

@@ -15,7 +15,7 @@ public class TransferConstants {
         public static final double FEEDING_IN_MOTION_VOLTAGE = 3.0;
         public static final double EJECT_VOLTAGE = 2.0;
         public static final double FEEDING_VOLTAGE = 7.0;       
-        public static final double SHOOTING_VOLTAGE = 7.0;
+        public static final double SHOOTING_VOLTAGE = 9.0;
         public static final double UNSTUCK_VOLTAGE = 0.0;
         public static final double MANUAL_VOLTAGE = 7.0;
 

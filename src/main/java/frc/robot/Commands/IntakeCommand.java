@@ -33,6 +33,9 @@ public class IntakeCommand extends SubsystemCommand {
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);
                 break;
+            case "SHOOTING":
+                intakeroller.setVoltage(3);
+            break;
         }
     }
 

@@ -12,7 +12,7 @@ public class IntakeRoller extends PowerControlledSystem {
 
     private IntakeRoller() {
         super(IntakeRollerConstants.INTAKE_ROLLER_CONSTANTS, IntakeRollerConstants.IDLE,
-                IntakeRollerConstants.FORWARD, IntakeRollerConstants.BACKWARD);
+                IntakeRollerConstants.FORWARD, IntakeRollerConstants.BACKWARD, IntakeRollerConstants.SHOOTING);
 
     }
 

@@ -42,7 +42,7 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(3);
 
-        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.035, 0, 0)
+        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.007, 0, 0)
                         .withContinuesInput(-180, 180)
                         .withTolerance(1.5);
 
@@ -84,8 +84,8 @@ public class SwerveConstants {
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> 180d);// SuperStructure.getRelAngleToTarget()
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> 0d);
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(() -> -SuperStructure.getAFTERANGLE()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 

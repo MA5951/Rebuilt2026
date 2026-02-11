@@ -12,7 +12,7 @@ import frc.robot.PortMap;
 
 public class IntakeRollerConstants {
 
-     public static final double FORWARD_VOLTAGE = 5;
+     public static final double FORWARD_VOLTAGE = 7;
      public static final double BACKWARD_VOLTAGE = -5;
      public static final double IDLE_VOLTAGE = 0;
 
@@ -36,4 +36,5 @@ public class IntakeRollerConstants {
      public static final State IDLE = new State("IDLE");
      public static final State FORWARD = new State("FORWARD");
      public static final State BACKWARD = new State("BACKWARD");
+     public static final State SHOOTING = new State("SHOOTING");
 }

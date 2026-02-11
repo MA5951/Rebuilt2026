@@ -4,6 +4,8 @@ package frc.robot.Commands;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotContainer;
+import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
+import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Transfer.TransferConstants;
 
@@ -19,7 +21,11 @@ public class TransferCommand extends SubsystemCommand {
     public void Automatic() {
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
-                transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
+                if (!SixBar.getInstance().atPoint(15)) {
+                    transfer.setVoltage(3);
+                } else {
+                    transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
+                }
                 break;
             case "INTAKE":
                 transfer.setVoltage(TransferConstants.INTAKE_VOLTAGE);
@@ -46,9 +52,7 @@ public class TransferCommand extends SubsystemCommand {
     public void Manual() {
         if (RobotContainer.getOperatorController().getR2()) {
 
-
-
-        transfer.setVoltage(TransferConstants.MANUAL_VOLTAGE);
+            transfer.setVoltage(TransferConstants.MANUAL_VOLTAGE);
 
         } else {
             transfer.setVoltage(0);
