@@ -8,12 +8,14 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 
 public class HoodCommand extends SubsystemCommand {
     private static final Hood hood = Hood.getInstance();
 
     private double manuelPosition = 20;
+
 
     public HoodCommand() {
         super(hood);
@@ -27,7 +29,7 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
             case "SHOOTING":
-                hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
+                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
                 break;
             case "FEEDING":
                 hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());

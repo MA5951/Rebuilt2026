@@ -8,6 +8,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Kicker extends PowerControlledSystem {
     private static Kicker kicker;
@@ -27,7 +28,7 @@ public class Kicker extends PowerControlledSystem {
     private boolean canShoot() {
         return (SuperStructure.atPointForShooting()) &&
                 (RobotContainer.getRobotState() == RobotConstants.SHOOTING
-                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS);
+                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS) ;
     }
 
     private boolean canIntake() {

@@ -7,6 +7,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
+import frc.robot.Subsystems.SixBar.SixBarConstants;
 
 public class IntakeCommand extends SubsystemCommand {
     private static IntakeRoller intakeroller = IntakeRoller.getInstance();
@@ -20,21 +21,27 @@ public class IntakeCommand extends SubsystemCommand {
     public void Automatic() {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
-                if (!SixBar.getInstance().atPoint(15)) {
-                    intakeroller.setVoltage(IntakeRollerConstants.FORWARD_VOLTAGE);
+                if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
+                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
+                    intakeroller.setVoltage(11);
                 } else {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 }
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage(IntakeRollerConstants.FORWARD_VOLTAGE);
+                intakeroller.setVoltage(7);//9
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);
                 break;
             case "SHOOTING":
-                intakeroller.setVoltage(3);
+                if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
+                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
+                    intakeroller.setVoltage(11);
+                } else {
+                    intakeroller.setVoltage(3);
+                }
             break;
         }
     }

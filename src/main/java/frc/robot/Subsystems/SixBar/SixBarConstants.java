@@ -11,30 +11,30 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import frc.robot.PortMap;
 
 public class SixBarConstants {
-    public static final double COLLISION_VOLTS_INSIDE = -0.5;
-    public static final double COLLISION_VOLTS_OUTSIDE = -0.20;
-    public static final double DEPLOY_ANGLE = 67;
+    public static final double COLLISION_VOLTS_INSIDE = 0.7;
+    public static final double COLLISION_VOLTS_OUTSIDE = 0;
+    public static final double DEPLOY_ANGLE = 60;
     public static final double IDLE_ANGLE = 8;
     public static final double BUMPER_ZONE_ANGLE = IDLE_ANGLE;
     public static final double FRAME_PARIMETER_ANGLE = 1;
     public static final double COLLISION_TOLERANCE = 10;
     public static final double SHOOTING_ANGLE = 8;
-    public static final double COLLISION_POWER_ANGLE = 5;
+    public static final double COLLISION_POWER_ANGLE = -59      ;
     public static final double CANT_MOVE_VOLTAGE = 0.0;
 
     public static final double MINUMUM_ANGLE = -68;
     public static final double MAXIMUM_ANGLE = 2;
     public static final double GEAR = 24;
     public static final double CAN_CODER_GEAR = 2;
-    public static final double TOLERANCE = 2;
+    public static final double TOLERANCE = 3;
     public static final double CURRENT_LIMIT = 55;
     public static final double STATOR_CURRENT_LIMIT =50;
     public static final double CRUSIE_VELO = 0.8;
     public static final double ACCELERATION = 20;
 
     public static final double TOLERANCE_IN_ARM_BRAKE = 15;
-    public static final double COLLISION_DETECTION  = 10;
-    public static final double CLOSE_LOOP_TOLERANCE  = 0.3;
+    public static final double COLLISION_DETECTION  = 1.5;
+    public static final double CLOSE_LOOP_TOLERANCE  = -0.5;
 
 
     private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
@@ -45,7 +45,7 @@ public class SixBarConstants {
     public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
             .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
             .gear(GEAR)
-            .isBrake(true)
+            .isBrake(false)
             .tolerance(TOLERANCE)
             .range(MINUMUM_ANGLE, MAXIMUM_ANGLE)
             .motionMagic(CRUSIE_VELO, ACCELERATION, 0)
@@ -60,7 +60,7 @@ public class SixBarConstants {
     public static final State DEPLOY = new State("DEPLOY");
     public static final State ARMBRAKS = new State("ARMBRAKS");
     public static final State COLLISION = new State("COLLISION",() -> {
-        //Recorsiv//TODO talk with rader
+
     }, () -> {});
     public static final State SHOOTING = new State("SHOOTING");
 }

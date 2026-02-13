@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Hood extends PositionControlledSystem {
 
@@ -37,7 +38,7 @@ public class Hood extends PositionControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return true;
+        return atPoint();
     }
 
     public boolean atPointForFeeding() {

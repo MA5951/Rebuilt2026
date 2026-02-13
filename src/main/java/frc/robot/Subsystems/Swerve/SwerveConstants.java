@@ -3,7 +3,6 @@ package frc.robot.Subsystems.Swerve;
 
 import com.MAutils.Swerve.Controllers.AngleAdjustController;
 import com.MAutils.Swerve.Controllers.FieldCentricDrive;
-import com.MAutils.Swerve.Controllers.ProfiledAngleAdjustController;
 import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.SwerveSystemConstants.GearRatio;
 import com.MAutils.Swerve.SwerveSystemConstants.WheelType;
@@ -42,9 +41,9 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(3);
 
-        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.007, 0, 0)
+        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.043, 0, 0)
                         .withContinuesInput(-180, 180)
-                        .withTolerance(1.5);
+                        .withTolerance(2);
 
         public static final ProfiledPIDController PROFILED_REL_PID_CONTROLLER = new ProfiledPIDController(5, 0, 0, new Constraints(1000, 3300))//a= 500
                         .withContinuesInput(-180, 180)
@@ -84,8 +83,8 @@ public class SwerveConstants {
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> 0d);
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(() -> -SuperStructure.getAFTERANGLE()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAFTERANGLE());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 

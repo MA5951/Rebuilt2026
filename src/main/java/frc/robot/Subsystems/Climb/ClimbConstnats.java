@@ -14,32 +14,34 @@ import frc.robot.PortMap;
 
 public class ClimbConstnats {
 
-        public static final double OPEN_POSITION = 10;
-        public static final double CLOSE_POSITION = 50;
-        public static final double IDLE_POSITION = 20;
+        public static final double OPEN_POSITION = 0.185;
+        public static final double CLOSE_POSITION = 0;
+        public static final double IDLE_POSITION = 0;
         public static final double MIN_POSITION = 0;
-        public static final double MAX_POSITION = 0;
+        public static final double MAX_POSITION = 0.187;
         public static final double START_POSITION = 0;
-        public static final double TOLERANCE = 3;
-        public static final double CURRENT_LIMIT = 35;
+        public static final double TOLERANCE = 0.02;
+        public static final double CURRENT_LIMIT = 50;
         public static final double STATOR_CURRENT_LIMIT = 40;
         public static final double CRUISE_VELOCITY = 0;
         public static final double ACCELERATION = 0;
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
-        public static final double INTAKE_OPEN_POSITION = 30;
+        public static final double INTAKE_OPEN_POSITION = -55;
         public static double LOCK_SERVO_LOCKED_ANGLE = 0;
         public static double LOCK_SERVO_UNLOCKED_ANGLE = 0;
         public static double LOCK_VOLTAGE = 0;
         public static double LOCK_POSITION = 0;
 
-        public static final double KP = 0.1;;
+        public static final double KP = 7;
         public static final double KI = 0;
         public static final double KD = 0;
 
-        public static final double GEAR = 1;
+        public static final double POSITION_FACTOR = 0.143 / (360);
 
-        public static final double TOLERANCE_FOR_OPENCLOSE_TRIGGER = 3;
+        public static final double GEAR = 25;
+
+        public static final double TOLERANCE_FOR_OPENCLOSE_TRIGGER = 0.03;
 
 
         private static final Motor CLIMB_MOTOR = new Motor(PortMap.ClimbPorts.CLIMB_MOTOR, MotorType.KRAKEN,
@@ -48,18 +50,16 @@ public class ClimbConstnats {
 
         private static final GainConfig GAIN_CONFIG = new GainConfig().withKP(KP).withKI(KI).withKD(KD);
 
-        private static final GainConfig CLOSE_GAIN_CONFIG = new GainConfig().withKP(KP).withKI(KI).withKD(KD);
-
         public static final PositionSystemConstants CLIMB_CONSTANTS = PositionSystemConstants
                         .newBuilder("Climb", GAIN_CONFIG, CLIMB_MOTOR)
                         .gear(GEAR)
                         .isBrake(true)
                         .tolerance(TOLERANCE)
                         .motorCurrentLimit(CURRENT_LIMIT)
-                        .motionMagic(CRUISE_VELOCITY, ACCELERATION, 0)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
                         .range(MIN_POSITION, MAX_POSITION)
                         .startPose(START_POSITION)
+                        .positionFactor(POSITION_FACTOR)
                         .build();
 
         public static final State IDLE = new State("IDLE");

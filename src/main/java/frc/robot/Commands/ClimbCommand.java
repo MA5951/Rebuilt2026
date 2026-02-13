@@ -19,22 +19,24 @@ public class ClimbCommand extends SubsystemCommand {
     public void Automatic() {
         switch (climb.getCurrentState().stateName) {
             case "IDLE":
-                climb.unlockClimb();
+                // climb.unlockClimb();
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
-                climb.setPosition(ClimbConstnats.OPEN_POSITION);
+                climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
                 break;
             case "CLIMB":
-                if (climb.getPosition() > ClimbConstnats.LOCK_POSITION) {
-                    climb.setPosition(ClimbConstnats.CLOSE_POSITION);
-                } else {
-                    climb.lockClimb();
-                    climb.setVoltage(ClimbConstnats.LOCK_VOLTAGE);
-                }
+                // if (climb.getPosition() > ClimbConstnats.LOCK_POSITION) {
+                //     climb.setPosition(ClimbConstnats.CLOSE_POSITION);
+                // } else {
+                //     climb.lockClimb();
+                //     climb.setVoltage(ClimbConstnats.LOCK_VOLTAGE);
+                // }
+
+                climb.setPosition(ClimbConstnats.CLOSE_POSITION);
                 break;
             case "DOWN":
-                climb.unlockClimb();
+                // climb.unlockClimb();
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
         }

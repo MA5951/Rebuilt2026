@@ -23,6 +23,7 @@ public class Climb extends PositionControlledSystem{
 
         lockServo = new Servo(PortMap.ClimbPorts.LOCK_SERVO);
         lockSensor = new DigitalInput(PortMap.ClimbPorts.LOCK_SENSOR);
+        resetPosition(0);
     }
 
     @Override
@@ -40,9 +41,8 @@ public class Climb extends PositionControlledSystem{
 
     @Override
     public boolean CAN_MOVE() {
-       return false;
-        //return (DriverStation.isAutonomous() && getCurrentState() == ClimbConstnats.PRECLIMB || getCurrentState() == ClimbConstnats.IDLE) || (DriverStation.isAutonomous() && macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE) && SixBar.getInstance().getPosition() > ClimbConstnats.INTAKE_OPEN_POSITION && (lockSensor.get() || lockServo.getAngle() == ClimbConstnats.LOCK_SERVO_UNLOCKED_ANGLE);
-    }
+        return SixBar.getInstance().getPosition() < ClimbConstnats.INTAKE_OPEN_POSITION;
+    }//(DriverStation.isAutonomous() && getCurrentState() == ClimbConstnats.PRECLIMB || getCurrentState() == ClimbConstnats.IDLE) || (DriverStation.isAutonomous() && macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE) && 
 
     public boolean isOnBar() {
         //return macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE;

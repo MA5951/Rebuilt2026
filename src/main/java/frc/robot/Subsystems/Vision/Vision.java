@@ -15,10 +15,16 @@ import frc.robot.Util.Field;
 
 public class Vision {
     private static Vision instance;
+    private double lastTX;
+    private double delta = 0;
+
+    double distance = 0;
 
     private Vision() {
         VisionSystem.getInstance()
                 .setCameras(VisionConstants.FRONT_LL, VisionConstants.BACK_LL);
+
+        lastTX = VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
     }
 
     public boolean isMainTag() {
@@ -26,26 +32,39 @@ public class Vision {
     }
 
     public double getDistanceTryg() {
-        MALog.log("Subsystems/Vision/Roll",-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
+        distance = getRawTrigDistance();
+        return distance;
+    }
+
+    public double getRawTrigDistance() {
+        MALog.log("Subsystems/Vision/Roll", -VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
         return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
                 / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch) + getCOrrectedTy()));
-        // ARI'S SHIT
-        // double pitch = VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch;
-        // double yaw = Swerve.getInstance().getGyroData().yaw;
-        // Rotation3d Rpitch = new Rotation3d(Math.toRadians(pitch), 0, 0);
-        // Rotation3d Ryaw = new Rotation3d(0, 0, Math.toRadians(yaw-90));
-        // Matrix<N3, N3> R = Rpitch.rotateBy(Ryaw).toMatrix();
-        // Matrix<N3, N1> vc = new Matrix<N3,N1>(Nat.N3(), Nat.N1(), new double[] {
-        //     Math.tan(Math.toRadians(VisionConstants.FRONT_LL.getCameraIO().getTag().txnc)),
-        //     Math.tan(Math.toRadians(VisionConstants.FRONT_LL.getCameraIO().getTag().tync)),
-        //     1});
-        // Matrix<N3, N1> vw = R.times(vc);
-        // return vw.get(2, 0);
+
+    }
+
+    public double getFilteredTx() {
+        return VisionConstants.FRONT_LL.getCameraIO().getTag().txnc > -0.8 &&
+                VisionConstants.FRONT_LL.getCameraIO().getTag().txnc < 0 ? 0
+                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
     }
 
     public double getCOrrectedTy() {
-        //VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch
-        return VisionConstants.FRONT_LL.getCameraIO().getTag().tync * Math.cos(Math.toRadians(-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch))- VisionConstants.FRONT_LL.getCameraIO().getTag().txnc * Math.sin(Math.toRadians(-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch));
+        // VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch
+        return VisionConstants.FRONT_LL.getCameraIO().getTag().tync
+                * Math.cos(Math.toRadians(-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch))
+                - VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
+                        * Math.sin(Math.toRadians(-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch));
+    }
+
+    public boolean isDeltaTx() {
+        return Math.abs(getDeltaTX()) < 2.5;
+    }
+
+    public double getDeltaTX() {
+        delta = VisionConstants.FRONT_LL.getCameraIO().getTag().txnc - lastTX;
+        lastTX = VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
+        return delta;
     }
 
     public static Vision getInstance() {

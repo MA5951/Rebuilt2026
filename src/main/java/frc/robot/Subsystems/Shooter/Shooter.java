@@ -24,15 +24,15 @@ public class Shooter extends VelocityControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return getError() < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
+        return Math.abs(getError()) < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
     }
 
     public boolean atPointForFeeding() {
-        return getError() < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
+        return Math.abs(getError()) < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
     }
 
     public boolean atPointForFeedingInMotion() {
-        return getError() < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
+        return Math.abs(getError()) < ShooterConstants.AT_POINT_FOR_FEEDING_TOLERANCE;
     }
 
     public boolean getSensor() {

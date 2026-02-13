@@ -77,6 +77,7 @@ public abstract class StateSubsystem extends SubsystemBase {
         MALog.log("/RobotControl/" + subsystemName + "/Current State", currentState.stateName);
         MALog.log("/RobotControl/" + subsystemName + "/System Function State", getSystemMode().name());
         MALog.log("/RobotControl/" + subsystemName + "/Can Move", CAN_MOVE() || getSystemMode() == SystemMode.MANUAL);
+        MALog.log("/RobotControl/" + subsystemName + "/Last State", lastState.stateName);
     }
 
 }

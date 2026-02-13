@@ -10,6 +10,9 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
+import frc.robot.Subsystems.SixBar.SixBar;
+import frc.robot.Subsystems.SixBar.SixBarConstants;
+import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Util.ActiveUtil;
 import frc.robot.Util.Field;
 
@@ -20,6 +23,7 @@ public class Robot extends DeafultRobot {
 
   public Robot() {
     super();
+    Vision.getInstance();
     m_robotContainer = new RobotContainer();
     PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
   }
@@ -31,12 +35,19 @@ public class Robot extends DeafultRobot {
     MALog.log("/RobotControl/Last RobotState", RobotContainer.getLastRobotState().getStateName());
     MALog.log("/RobotControl/Test", (((!SuperStructure.isBalls()) || (!SuperStructure.isInTheAlinceZone())
         || (ActiveUtil.getTimePastActive() > RobotContainer.TIME_PAST_ACTIVE)
-        || (RobotContainer.getLastRobotState() == RobotConstants.EJECT && !RobotContainer.getDriverController().getActionsRight())))
-           && RobotContainer.getRobotState() != RobotConstants.SHOOTING
-            && RobotContainer.getRobotState() != RobotConstants.SHOOTING_PRESETS
-            && RobotContainer.getRobotState() != RobotConstants.FEEDING && RobotContainer.getRobotState() != RobotConstants.FEEDING_IN_MOTION
-            && RobotContainer.getRobotState() != RobotConstants.EJECT);
+        || (RobotContainer.getLastRobotState() == RobotConstants.EJECT
+            && !RobotContainer.getDriverController().getActionsRight())))
+        && RobotContainer.getRobotState() != RobotConstants.SHOOTING
+        && RobotContainer.getRobotState() != RobotConstants.SHOOTING_PRESETS
+        && RobotContainer.getRobotState() != RobotConstants.FEEDING
+        && RobotContainer.getRobotState() != RobotConstants.FEEDING_IN_MOTION
+        && RobotContainer.getRobotState() != RobotConstants.EJECT);
     SuperStructure.update();
+    MALog.log("/SuperStructure/Intake Stuck", (RobotContainer.getRobotState() != RobotConstants.IDLE &&
+        (Math.abs(SixBar.getInstance().getPosition())
+            - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
+    MALog.log("/SuperStructure/Intake Tolorance",
+        Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
   }
 
   @Override
@@ -49,12 +60,10 @@ public class Robot extends DeafultRobot {
     }
   }
 
-
   @Override
   public void teleopPeriodic() {
     super.teleopPeriodic();
     ActiveUtil.checkShift();
   }
 
-  
 }

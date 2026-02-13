@@ -1,7 +1,6 @@
 
 package frc.robot.Subsystems.SixBar;
 
-
 import com.MAutils.CanBus.StatusSignalsRunner;
 import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
@@ -17,22 +16,25 @@ public class SixBar extends PositionControlledSystem {
 
     private StatusSignal<Double> closedLoopVolts;
     private StatusSignal<Angle> absPosition;
-    private final CANcoder canCoder;
+    // private final CANcoder canCoder;
 
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
                 SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
-        canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER, PortMap.CAN_BUS.CANIVORE_BUS);
+        // canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,
+        // PortMap.CAN_BUS.CANIVORE_BUS);
 
-        absPosition = canCoder.getAbsolutePosition();
-        absPosition.refresh();
+        // absPosition = canCoder.getAbsolutePosition();
+        // absPosition.refresh();
 
-        resetPosition(-(absPosition.getValueAsDouble() * 360) / SixBarConstants.CAN_CODER_GEAR);
+        // resetPosition(-(absPosition.getValueAsDouble() * 360) /
+        // SixBarConstants.CAN_CODER_GEAR);
+        resetPosition(0);
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
-        StatusSignalsRunner.registerSignals(true,  absPosition);
+        // StatusSignalsRunner.registerSignals(true, absPosition);
     }
 
     public double getCloseLoopVolts() {
@@ -42,6 +44,10 @@ public class SixBar extends PositionControlledSystem {
     @Override
     public void setPosition(double position) {
         super.setPosition(-position, 0.3);
+    }
+
+    public void setPositionClose(double position) {
+        super.setPosition(-position, -0.2);
     }
 
     @Override
@@ -60,9 +66,11 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public void periodic() {
-        MALog.log(LOG_PATH + "PID Voltage", getCloseLoopVolts());
-        MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() * 360 / 2);
         super.periodic();
+        MALog.log(LOG_PATH + "PID Voltage", getCloseLoopVolts());
+        // MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() *
+        // 360 / 2);
+
     }
 
     public static SixBar getInstance() {

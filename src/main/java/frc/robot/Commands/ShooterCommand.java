@@ -7,6 +7,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class ShooterCommand extends SubsystemCommand {
     private static final Shooter shooter = Shooter.getInstance();
@@ -27,8 +28,11 @@ public class ShooterCommand extends SubsystemCommand {
                 shooter.setVelocity(ShooterConstants.WARMUP_VELOCITY);
                 break;
             case "SHOOTING":
+               
+
+
                 if (SuperStructure.isAutomatic()) {
-                    shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
+                   shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
                 } else {
                     shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
                 }

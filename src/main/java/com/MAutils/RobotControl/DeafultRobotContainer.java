@@ -18,14 +18,12 @@ public abstract class DeafultRobotContainer {
 
     protected static MRobotState currentRobotState = new MRobotState("IDLE");
     protected static MRobotState lastRobotState = currentRobotState;
-    protected static MAController driverController;
-    protected static MAController operatorController;
+    protected static MAController driverController = new PS5MAController(Constants.DRIVER_CONTROLLER_PORT);;
+    protected static MAController operatorController = new PS5MAController(Constants.OPERATOR_CONTROLLER_PORT);;
 
 
     public DeafultRobotContainer() {
         setRobotState(MRobotState.IDLE);
-        driverController = new PS5MAController(Constants.DRIVER_CONTROLLER_PORT);
-        operatorController = new PS5MAController(Constants.OPERATOR_CONTROLLER_PORT);
 
         configAuto();
         configBinding();

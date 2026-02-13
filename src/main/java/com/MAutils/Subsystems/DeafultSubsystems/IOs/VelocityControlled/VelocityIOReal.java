@@ -17,6 +17,7 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
 
     private StatusSignal<Double> motorError;
     private StatusSignal<Double> motorSetPoint;
+    private double setPoint = 0;
 
     private VelocitySystemConstants systemConstants;
 
@@ -61,12 +62,12 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
 
     @Override
     public double getError() {
-        return motorError.getValueAsDouble() * systemConstants.VELOCITY_FACTOR;
+        return getSetPoint() - getVelocity();
     }
 
     @Override
     public double getSetPoint() {
-        return motorSetPoint.getValueAsDouble() * systemConstants.VELOCITY_FACTOR;
+        return setPoint;
     }
 
     @Override
@@ -81,6 +82,8 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
             throw new IllegalArgumentException("Velocity exceeds maximum limit: " + systemConstants.MAX_VELOCITY);
         }
 
+        setPoint = Velocity;
+
         systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity / 60)
                 .withSlot(0) //TODO constance 
                 .withLimitForwardMotion(getCurrent() > systemConstants.MOTOR_LIMIT_CURRENT)
@@ -92,7 +95,7 @@ public class VelocityIOReal extends PowerIOReal implements VelocitySystemIO {
         if (Velocity > systemConstants.MAX_VELOCITY) {
             throw new IllegalArgumentException("Velocity exceeds maximum limit: " + systemConstants.MAX_VELOCITY);
         }
-
+        setPoint = Velocity;
 
         systemConstants.master.motorController.setControl(velocityRequest.withVelocity(Velocity / 60)
                 .withSlot(0)

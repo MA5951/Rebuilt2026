@@ -10,6 +10,7 @@ import frc.robot.PortMap;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
@@ -39,8 +40,8 @@ public class Sandwich extends PowerControlledSystem {
 
     private boolean canShoot() {
         return (SuperStructure.atPointForShooting()) &&
-                (RobotContainer.getRobotState() == RobotConstants.SHOOTING
-                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS);
+                ((RobotContainer.getRobotState() == RobotConstants.SHOOTING
+                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS)) ;
     }
 
     private boolean canIntake() {

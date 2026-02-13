@@ -3,7 +3,10 @@ package frc.robot;
 
 import com.MAutils.RobotControl.MRobotState;
 
+import frc.robot.Commands.HoodCommand;
+import frc.robot.Commands.ShooterCommand;
 import frc.robot.Commands.SwerveController;
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
@@ -52,7 +55,8 @@ public class RobotConstants {
                         RollerConstants.FEEDING, TransferConstants.FEEDING, HoodConstants.FEEDING,
                         SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE, KickerConstants.FEEDING);
 
-        public static final MRobotState SHOOTING = new MRobotState("SHOOTING",() -> {SwerveController.isAbs = false;},() -> {
+        public static final MRobotState SHOOTING = new MRobotState("SHOOTING",() -> {SwerveController.isAbs = false;
+        SuperStructure.atPointLatch.reset(); SuperStructure.isLocked = false;},() -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());},
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,
