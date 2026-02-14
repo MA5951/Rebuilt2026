@@ -57,11 +57,11 @@ public class SwerveDriveEstimator {
         totalDelta = new Translation2d(); //TODO is better to 0 the values then creat a new one totalDelta = vector zero;
         numOfSkiddingModules = 0;
 
-        if (skidDetector.getNumOfSkiddingModules() >= 2) {
-            totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getLowestIndex()], currentPositions[skidDetector.getLowestIndex()]));
-            totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getSecoundLowestIndex()], currentPositions[skidDetector.getSecoundLowestIndex()]));
-            numOfSkiddingModules = 2;
-        } else {
+        // if (skidDetector.getNumOfSkiddingModules() >= 2) {
+        //     totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getLowestIndex()], currentPositions[skidDetector.getLowestIndex()]));
+        //     totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getSecoundLowestIndex()], currentPositions[skidDetector.getSecoundLowestIndex()]));
+        //     numOfSkiddingModules = 2;
+        // } else {
             for (int i = 0; i < currentPositions.length; i++) {
                 deltaDistance = currentPositions[i].distanceMeters - lastPositions[i].distanceMeters;
                 prevAngle = lastPositions[i].angle;
@@ -77,13 +77,14 @@ public class SwerveDriveEstimator {
 
                     arcDelta = v2.minus(v1);
                 }
+                totalDelta = totalDelta.plus(arcDelta);
 
-                if (!skidDetector.getIsSkidding()[i] && numOfSkiddingModules < 2) { // TODO you dont need to check numOfSkiddingModules < 2 its in the else
-                    totalDelta = totalDelta.plus(arcDelta);
-                    numOfSkiddingModules++; //TODO why you add one? why you dont just use getNumOfSkiddingModules()
-                }
+                // if (!skidDetector.getIsSkidding()[i] && numOfSkiddingModules < 2) { // TODO you dont need to check numOfSkiddingModules < 2 its in the else
+                //     totalDelta = totalDelta.plus(arcDelta);
+                //     numOfSkiddingModules++; //TODO why you add one? why you dont just use getNumOfSkiddingModules()
+                // }
 
-            }
+            // }
         }
 
         lastPositions = currentPositions;

@@ -23,7 +23,7 @@ public class IntakeCommand extends SubsystemCommand {
             case "IDLE":
                 if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
                 (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
-                    intakeroller.setVoltage(11);
+                    intakeroller.setVoltage(10);
                 } else {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 }

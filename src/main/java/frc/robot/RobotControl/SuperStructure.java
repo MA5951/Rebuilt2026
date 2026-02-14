@@ -418,7 +418,7 @@ private static double[][] shooterTableData = {
 
         MALog.log("/SuperStructure/G Right", 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180));
 
-        double totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
+        double totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 
                 + (Vision.getInstance().getFilteredTx()));
         double Y = Vision.getInstance().getDistanceTryg() * Math.sin(Math.toRadians(totAngle));
         double X = Vision.getInstance().getDistanceTryg() * Math.cos(Math.toRadians(totAngle));
