@@ -103,10 +103,11 @@ public class AprilTagCamera extends Camera {
     //TODO need to also consider isValidForHeadingReset
     @Override
     public void update() {
+        aprilTagFilters.update();
         cameraIO.update();
         logIO();
 
-        aprilTagFilters.updateFiltersConfig(getFiltersConfig());
+        //aprilTagFilters.updateFiltersConfig(getFiltersConfig());//TODO GALDO TEST
 
         if (updatePoseEstiamte) {
             xyFom = aprilTagFilters.getXyFOM(); // CHANGED: now computed by yaw/motion gates
