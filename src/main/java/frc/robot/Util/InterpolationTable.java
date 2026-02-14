@@ -19,6 +19,9 @@ public class InterpolationTable {
     }
 
     public double interpolate(double distance) {
+        if (Double.isNaN(distance) || Double.isInfinite(distance) ) {
+            return 0;
+        }
 
         // Find closest point index
         minAbs = Double.MAX_VALUE;

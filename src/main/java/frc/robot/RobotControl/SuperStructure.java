@@ -87,14 +87,52 @@ public class SuperStructure extends DeafultSuperStructure {
     {1.344, 6.0},
 };
 
+private static double[][] shooterTableData = {
+    {5.676, 4150.0},
+    {5.436, 4055.0},
+    {5.216, 4000.0},
+    {4.996, 3875.0},
+    {4.816, 3825.0},
+    {4.616, 3800.0},
+    {4.446, 3720.0},
+    {4.276, 3705.0},
+    {4.086, 3595.0},
+    {3.936, 3600.0},
+    {3.756, 3600.0},
+    {3.587, 3550.0},
+    {3.428, 3550.0},
+    {3.244, 3500.0},
+    {3.109, 3250.0},
+    {2.986, 3200.0},
+    {2.892, 3200.0},
+    {2.795, 3200.0},
+    {2.691, 3200.0},
+    {2.551, 3200.0},
+    {2.468, 3100.0},
+    {2.374, 3075.0},
+    {2.278, 3050.0},
+    {2.184, 3000.0},
+    {2.090, 3000.0},
+    {2.014, 2950.0},
+    {1.887, 2750.0},
+    {1.783, 2750.0},
+    {1.697, 2700.0},
+    {1.591, 2700.0},
+    {1.514, 2700.0},
+    {1.344, 2650.0},
+};
+
+
 
     private static Result lastFeedingResult = new Result(false, -1, new Translation2d());
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
+    private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
     private static boolean defence = false;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
+    public static boolean atPointLatch = false;
 
     private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
     private static Debouncer sandwichStuckDebouncer = new Debouncer(0.6);
@@ -102,7 +140,6 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double distance = 0;
 
-    public static BooleanLatch atPointLatch = new BooleanLatch();
 
     public enum ShootingPreset {
         CLOSE(10.0, 2000.0, new Pose2d()),
@@ -234,7 +271,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
               //2761 + -309x + 192x^2 + -17.4x^3
 
-        return 420*x + 2036 + 175;
+        return shooterTable.interpolate(x) ;
     }
 
     private static double getHoodAngle(double distance) {
@@ -293,7 +330,7 @@ public class SuperStructure extends DeafultSuperStructure {
         // !isAutomatic()) && Shooter.getInstance().atPointForShooting() &&
         // Hood.getInstance().atPointForShooting()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPoint() && Shooter.getInstance().getVelocity() > 1000)
+        return  (atPointLatch || Shooter.getInstance().atPointForShooting())
                 && Hood.getInstance().atPointForShooting()
                 && (Vision.getInstance().isDeltaTx() || SwerveConstants.REL_PID_CONTROLLER.atSetpoint() || !isAutomatic()); // Intiligent Latch
 
@@ -307,13 +344,13 @@ public class SuperStructure extends DeafultSuperStructure {
         // !isAutomatic()) && Shooter.getInstance().atPointForFeeding() &&
         // Hood.getInstance().atPointForFeeding()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding())
-                && Hood.getInstance().atPointForFeeding()
-                && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()); // Intiligent Latch
+        // return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding())
+        //         && Hood.getInstance().atPointForFeeding()
+        //         && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()); // Intiligent Latch
 
-        // return (Swerve.getInstance().atPointForFeeding()) &&
-        // Shooter.getInstance().atPointForFeeding() &&
-        // Hood.getInstance().atPointForFeeding(); //No Latch
+        return (Swerve.getInstance().atPointForFeeding()) &&
+        Shooter.getInstance().atPointForFeeding() &&
+        Hood.getInstance().atPointForFeeding(); //No Latch
     }
 
     public static boolean atPointForFeedingInMotion() {
@@ -322,13 +359,13 @@ public class SuperStructure extends DeafultSuperStructure {
         // !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() &&
         // Hood.getInstance().atPointForFeedingInMotion()); //Full Latch
 
-        return atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion())
-                && Hood.getInstance().atPointForFeedingInMotion()
-                && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()); // Intiligent Latch
+        // return atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion())
+        //         && Hood.getInstance().atPointForFeedingInMotion()
+        //         && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()); // Intiligent Latch
 
-        // return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic())
-        // && Shooter.getInstance().atPointForFeedingInMotion() &&
-        // Hood.getInstance().atPointForFeedingInMotion(); //No Latch
+        return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic())
+        && Shooter.getInstance().atPointForFeedingInMotion() &&
+        Hood.getInstance().atPointForFeedingInMotion(); //No Latch
     }
 
     public static ShootingPreset getCurrentShootingPreset() {
@@ -352,6 +389,10 @@ public class SuperStructure extends DeafultSuperStructure {
         if (Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) {
             isLocked = true;
         } 
+
+        if (Shooter.getInstance().atPointForShooting()) {
+            atPointLatch = true;
+        }
 
       
 

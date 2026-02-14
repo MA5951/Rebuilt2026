@@ -7,6 +7,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.VelocityControlledSystem
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.PortMap;
+import frc.robot.RobotControl.SuperStructure;
 
 public class Shooter extends VelocityControlledSystem {
 
@@ -24,7 +25,7 @@ public class Shooter extends VelocityControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return Math.abs(getError()) < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
+        return Math.abs(getVelocity() - SuperStructure.getShootingParameters().shooterRPM()) < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
     }
 
     public boolean atPointForFeeding() {

@@ -43,7 +43,6 @@ public abstract class StateSubsystem extends SubsystemBase {
     }
 
     public void setState(State state) {
-        System.out.println("Setting state of " + subsystemName + " to " + state.stateName);
         if (state != currentState) {
             currentState.runEndRunnable();
         }

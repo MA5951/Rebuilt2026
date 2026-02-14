@@ -106,7 +106,6 @@ public class MALog {
     }
 
     public static NetworkTableEntry get(String key) {
-        System.out.println("Getting entry for key: " + key);
         return getEntry(key);
     }
 
@@ -204,7 +203,7 @@ public class MALog {
     }
 
     private static NetworkTableEntry getEntry(String key) {
-        return entries.computeIfAbsent("/" + key, k -> malogTable.getEntry(k));
+        return entries.computeIfAbsent("/" +key, k -> malogTable.getEntry(k));
     }
 
     public static NetworkTableEntry getReplayEntry(String key) {

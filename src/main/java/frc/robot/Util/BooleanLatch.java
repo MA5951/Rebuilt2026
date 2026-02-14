@@ -1,6 +1,7 @@
 
 package frc.robot.Util;
 
+import com.MAutils.Logger.MALog;
 
 public class BooleanLatch {
 
@@ -20,6 +21,7 @@ public class BooleanLatch {
 
     public void reset() {
         value = false;
+        MALog.log("/SuperStructure/Boolean Latch", "Latch");
     }
 
 }
