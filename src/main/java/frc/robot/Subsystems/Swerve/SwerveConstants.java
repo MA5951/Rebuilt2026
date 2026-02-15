@@ -37,7 +37,7 @@ public class SwerveConstants {
                         .withGearRatio(GearRatio.L2);
 
         // PID Controllers
-        public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.09, 0, 0)
+        public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.06, 0, 0)
                         .withContinuesInput(-180, 180)
                         .withTolerance(3);
 
@@ -73,8 +73,8 @@ public class SwerveConstants {
 
         public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); //TODO we need to talk about when we enter tha shooting state 
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); 
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
@@ -91,7 +91,7 @@ public class SwerveConstants {
 
         public static final SwerveState FEEDING = new SwerveState("Feeding")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAngleToFeeding());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
                         })

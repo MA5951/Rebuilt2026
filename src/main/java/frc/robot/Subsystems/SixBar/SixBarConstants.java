@@ -19,7 +19,7 @@ public class SixBarConstants {
     public static final double FRAME_PARIMETER_ANGLE = 1;
     public static final double COLLISION_TOLERANCE = 10;
     public static final double SHOOTING_ANGLE = 8;
-    public static final double COLLISION_POWER_ANGLE = -59      ;
+    public static final double COLLISION_POWER_ANGLE = -58;
     public static final double CANT_MOVE_VOLTAGE = 0.0;
 
     public static final double MINUMUM_ANGLE = -68;

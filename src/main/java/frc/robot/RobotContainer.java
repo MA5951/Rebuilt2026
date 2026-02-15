@@ -3,9 +3,11 @@ package frc.robot;
 
 import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.MRobotState;
 import com.MAutils.RobotControl.StateTrigger;
+import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -37,6 +39,7 @@ import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
+import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
 
 public class RobotContainer extends DeafultRobotContainer {
@@ -50,12 +53,14 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+        // SixBar.getInstance();
 
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
+        // IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                 new IntakeCommand());
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
@@ -191,10 +196,11 @@ public class RobotContainer extends DeafultRobotContainer {
                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.IDLE)).alongWith(
                         new InstantCommand(() -> MALog.log("/Subsystems/SixBar/IDLE Trigger", "On"))));
 
-        // new Trigger(() -> (getRobotState() != RobotConstants.IDLE
-        // && SixBar.getInstance().getVelocity() > 2 &&
+        // new Trigger(() -> (getRobotState() != RobotConstants.IDLE&&
+        //  SixBar.getInstance().getVelocity() > 2 &&
+        //  SixBar.getInstance().getVelocity() > 2 &&
         // SixBar.getInstance().getAppliedVolts() < 0.4 &&
-        // SixBar.getInstance().getPosition() < -57) )
+        // SixBar.getInstance().getPosition() > -58) )
         // .onTrue(new InstantCommand(() ->
         // SixBar.getInstance().setState(SixBarConstants.COLLISION)));
 
@@ -204,6 +210,10 @@ public class RobotContainer extends DeafultRobotContainer {
 
         new Trigger(() -> (getOperatorController().getActionsDown()))
                 .onTrue(new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
+
+        new Trigger(() -> getDriverController().getDpadDown()).onTrue(
+                new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose))
+        );
 
     }
 }

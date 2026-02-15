@@ -38,7 +38,7 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "COLLISION":
                 if (sixbar.getPosition() > SixBarConstants.COLLISION_POWER_ANGLE) {
-                    sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_INSIDE);
+                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 } else {
                     sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_OUTSIDE);
                 }

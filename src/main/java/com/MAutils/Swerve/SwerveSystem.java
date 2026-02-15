@@ -168,9 +168,9 @@ public class SwerveSystem extends SubsystemBase {
 
     public double getAbsYaw() {
         if (DriverStationUtil.getAlliance() == Alliance.Blue) {
-            return getGyroData().yaw + 180;
+            return getGyroData().yaw ;
         }
-        return getGyroData().yaw;
+        return getGyroData().yaw+ 180;
 
     }
 

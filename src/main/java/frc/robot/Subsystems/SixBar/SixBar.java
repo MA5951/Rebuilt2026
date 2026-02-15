@@ -17,6 +17,7 @@ public class SixBar extends PositionControlledSystem {
     private StatusSignal<Double> closedLoopVolts;
     private StatusSignal<Angle> absPosition;
     // private final CANcoder canCoder;
+    private double lastVelo = 0;
 
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
@@ -64,10 +65,13 @@ public class SixBar extends PositionControlledSystem {
         return true;
     }
 
+
     @Override
     public void periodic() {
         super.periodic();
         MALog.log(LOG_PATH + "PID Voltage", getCloseLoopVolts());
+        MALog.log(LOG_PATH + "Acceleratin", lastVelo - getVelocity());
+        lastVelo = getVelocity();
         // MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() *
         // 360 / 2);
 
