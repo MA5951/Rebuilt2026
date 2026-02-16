@@ -29,8 +29,6 @@ public class ShooterCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                
-
-
                 if (SuperStructure.isAutomatic()) {
                    shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
                 } else {

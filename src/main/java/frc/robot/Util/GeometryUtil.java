@@ -181,8 +181,8 @@ public class GeometryUtil {
 
     // Shot direction in FIELD coordinates (unit vector)
     Rotation2d heading = robotPoseField.getRotation().plus(shooterYawRobot);
-    double dx = heading.getCos();
-    double dy = heading.getSin();
+    double dy = heading.getCos();
+    double dx = heading.getSin();
 
     // If dx == 0, shot is parallel to x=constant lines -> never intersects (unless already on the line).
     if (Math.abs(dx) < 1e-12) {

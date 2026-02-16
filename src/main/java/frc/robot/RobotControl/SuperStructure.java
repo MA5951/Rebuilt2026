@@ -40,13 +40,14 @@ import frc.robot.Util.GeometryUtil.Result;
 import frc.robot.Util.InterpolationTable;
 
 public class SuperStructure extends DeafultSuperStructure {
-    public static final Translation2d FEEDING_POSE = new Translation2d(2, 2);
+    public static final Translation2d FEEDING_POSE = new Translation2d(14.4, 3.83);
 
     public static final double IN_THE_AIR_CURRENT_THRESHOLD = 40.0;
     public static final double CLIMB_POSITION_THRESHOLD = 0.15;
 
-    public static final double FEEDING_ANGLE_OFFSET = 5;
-    public static final double FEEDING_SHOOTER_OFFSET = 300;
+    public static final double FEEDING_ANGLE_OFFSET = 0;
+    public static final double FEEDING_SHOOTER_OFFSET = -300;
+    public static final double FEEDING_DISTANCE_OFFSET = -1.5;
 
     public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1;
     public static final double FEEDING_IN_MOTION_NET_MARGIN = 0.5;
@@ -273,28 +274,25 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getShootingRPM(double x) {
-        // return (2761
-        // -290* x
-        // + 192 * Math.pow(x, 2)
-        // - 17.4 * Math.pow(x, 3)
-        // ) + 175;
-
-        // 2761 + -309x + 192x^2 + -17.4x^3
-
-        if (SwerveController.isAbs) {
-                return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 60;
+    
+        if (SwerveController.isAbs < 50) {
+                return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 90;
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x);
     }
 
     private static double getHoodAngle(double distance) {
-        // return -7.75
-        // + 11.6 * distance
-        // - 0.989 * Math.pow(distance, 2);
+        
+
+        if (hoodTable.interpolate(distance) < 6) {
+            return 6;
+        }
+
 
         return hoodTable.interpolate(distance);
-    }// -7.75 + 11.6x + -0.989x^2
+
+    }
 
     public static ShootingParameters getShootingParameters() {
         return currentShootingParameters;
@@ -306,7 +304,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getDistanceToTargetShooting() {
-        if (Vision.getInstance().isMainTag() && !SwerveController.isAbs) {
+        if (Vision.getInstance().isMainTag() && !(SwerveController.isAbs < 50)) {
             distance = Math.sqrt(Math.pow(Vision.getInstance().getDistanceTryg(), 2) +
                     Math.pow(Field.HUB_WIDTH / 2, 2)
                     + (2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) *
@@ -330,6 +328,8 @@ public class SuperStructure extends DeafultSuperStructure {
             lastFeedingResult = GeometryUtil.distanceToVerticalLineX(
                     PoseEstimator.getCurrentPose(), VisionConstants.FRONTLL_OFFSET,
                     Swerve.getInstance().getRobotRotation2d(), Field.getAllianceXLine());
+            MALog.log("/Superstructure/Feeding In Motion Distance", lastFeedingResult.distanceMeters);
+            MALog.log("/Superstructure/X Line", Field.getAllianceXLine());
             return lastFeedingResult.distanceMeters;
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING) {
             return GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(), VisionConstants.FRONTLL_OFFSET)
@@ -404,14 +404,15 @@ public class SuperStructure extends DeafultSuperStructure {
         currentShootingPreset = preset;
     }
 
+
     public static void update() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && !isLocked) {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
                     getHoodAngle(getDistanceToTargetShooting()));
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING
                 || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
-            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()),
-                    getHoodAngle(getDistanceToTargetFeeding()));
+            currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET),
+                    getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
         if (Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) {

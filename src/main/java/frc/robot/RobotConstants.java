@@ -17,6 +17,7 @@ import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Transfer.TransferConstants;
+import frc.robot.Subsystems.Vision.Vision;
 
 public class RobotConstants {
 
@@ -62,11 +63,14 @@ public class RobotConstants {
                         SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE, KickerConstants.FEEDING);
 
         public static final MRobotState SHOOTING = new MRobotState("SHOOTING", () -> {
-                SwerveController.isAbs = false;
+                SwerveController.isAbs = 0;
                 SuperStructure.atPointLatch = false;
                 SuperStructure.isLocked = false;
+                Vision.getInstance().filterMainTag();
         }, () -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());
+                Vision.getInstance().resetFilter();
+                SwerveController.isAbs = 0;
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,

@@ -81,7 +81,7 @@ public class AprilTagCamera extends Camera {
                 this.chassisSpeedsSupplier,
                 () -> Math.toRadians(this.robotAngleSupplier.get())); // ADDED
 
-        poseEstimatorSource = new PoseEstimatorSource(name,
+        poseEstimatorSource = new PoseEstimatorSource("LL",
                 () -> getRobotRelaticTwist(poseEstimate, visionTs),
                 () -> xyFom,
                 () -> oFom,
@@ -107,7 +107,6 @@ public class AprilTagCamera extends Camera {
         cameraIO.update();
         logIO();
 
-        //aprilTagFilters.updateFiltersConfig(getFiltersConfig());//TODO GALDO TEST
 
         if (updatePoseEstiamte) {
             xyFom = aprilTagFilters.getXyFOM(); // CHANGED: now computed by yaw/motion gates
@@ -119,7 +118,6 @@ public class AprilTagCamera extends Camera {
             visionTs = getVisionTimetemp();
 
             if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0) && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
-                //TODO why you check this? the fom should hendel it that the whole point of the filter
                 poseEstimatorSource.capture();
             } else {
                 oFom = 0;
@@ -157,20 +155,18 @@ public class AprilTagCamera extends Camera {
     private Twist2d getRobotRelaticTwist(PoseEstimate poseEstimator, double timestemp) {
         visionPose = poseEstimate.pose;
         prior = PoseEstimator.getPoseAt(timestemp);
+        MALog.log("/OdometryDebug/PriorPose", prior);
 
         delta = new Transform2d(prior, visionPose);
+        // MALog.log("/OdometryDebug/Delta", new Pose2d(new Translation2d(de),new Rotation2d(0)));
 
         fieldDx = delta.getTranslation().getX();
         fieldDy = delta.getTranslation().getY();
         fieldDtheta = delta.getRotation().getRadians();
-        heading = Rotation2d.fromDegrees(robotAngleSupplier.get());
-        robotDx = heading.getCos() * fieldDx
-                + heading.getSin() * fieldDy;
-        robotDy = -heading.getSin() * fieldDx
-                + heading.getCos() * fieldDy;
+        
 
-        visionTwsit.dx = robotDx;
-        visionTwsit.dy = robotDy;
+        visionTwsit.dx = fieldDx;
+        visionTwsit.dy = fieldDy;
         visionTwsit.dtheta = fieldDtheta;
 
         return visionTwsit;

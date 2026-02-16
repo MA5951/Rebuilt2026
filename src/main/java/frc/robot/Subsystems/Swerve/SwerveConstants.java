@@ -64,11 +64,11 @@ public class SwerveConstants {
         public static final SwerveState NONE = new SwerveState("NONE").withXY(0, 0).withOmega(0);
 
         public static final SwerveState FIELD_CENTRIC = new SwerveState("Field Centric")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.4, 0.4))
+                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.9, 0.49))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
         public static final SwerveState FIELD_CENTRIC_40 = new SwerveState("Field Centric 40 Precent")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.9, 0.6))
+                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.4, 0.35))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
         public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
@@ -86,6 +86,7 @@ public class SwerveConstants {
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAFTERANGLE());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier()); 
                         })
+                        
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
 
