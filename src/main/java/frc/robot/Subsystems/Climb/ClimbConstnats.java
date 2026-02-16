@@ -39,7 +39,7 @@ public class ClimbConstnats {
 
         public static final double POSITION_FACTOR = 0.143 / (360);
 
-        public static final double GEAR = 25;
+        public static final double GEAR = 48;
 
         public static final double TOLERANCE_FOR_OPENCLOSE_TRIGGER = 0.03;
 
