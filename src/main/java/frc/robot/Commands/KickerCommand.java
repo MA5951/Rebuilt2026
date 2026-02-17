@@ -30,7 +30,7 @@ public class KickerCommand extends SubsystemCommand {
                 kicker.setVoltage(KickerConstants.FEEDING_VOLTAGE);
                 break;
             case "FEEDING_IN_MOTION":
-                kicker.setVoltage(KickerConstants.FEDDING_IN_MOTION_VOLTAGE);
+                kicker.setVoltage(KickerConstants.SHOOTING_VOLTAGE);
                 break;
             case "EJECT":
                 kicker.setVoltage(KickerConstants.EJECT_VOLTAGE);

@@ -22,13 +22,14 @@ public class TransferCommand extends SubsystemCommand {
     public void Automatic() {
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
-                if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
-                ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
-                    transfer.setVoltage(3);
-                } else {
-                    transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
-                }
+                // if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
+                // ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
+                //     transfer.setVoltage(3);
+                // } else {
+                //     transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
+                // }
 
+                transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
                 break;
             case "INTAKE":
                 transfer.setVoltage(TransferConstants.INTAKE_VOLTAGE);
@@ -37,7 +38,7 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.FEEDING_VOLTAGE);
                 break;
             case "FEEDING_IN_MOTION":
-                transfer.setVoltage(TransferConstants.FEEDING_IN_MOTION_VOLTAGE);
+                transfer.setVoltage(TransferConstants.SHOOTING_VOLTAGE);
                 break;
             case "EJECT":
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);

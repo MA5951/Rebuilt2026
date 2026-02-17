@@ -25,7 +25,7 @@ public class SixBarCommand extends SubsystemCommand {
         switch (sixbar.getCurrentState().stateName) {
             case "IDLE":
                 if (SuperStructure.isDefenceMode()) {
-                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE - 1);
                 } else {
                     sixbar.setPositionClose(SixBarConstants.BUMPER_ZONE_ANGLE);
                 }

@@ -12,17 +12,15 @@ public class GeometryUtil {
     public static boolean willShotHitNet(
             Pose2d robotPoseField,
             Translation2d shooterOffsetRobot,
-            Rotation2d shooterYawRobot,
             Translation2d netA,
             Translation2d netB,
             double maxRangeMeters,
             double hitToleranceMeters) {
         // 1) Shooter exit point in FIELD coordinates
-        Translation2d shooterPosField = robotPoseField.getTranslation()
-                .plus(shooterOffsetRobot.rotateBy(robotPoseField.getRotation()));
+        Translation2d shooterPosField = GeometryUtil.poseAdjust(robotPoseField, shooterOffsetRobot);
 
         // 2) Shot direction in FIELD coordinates
-        Rotation2d shotHeadingField = robotPoseField.getRotation().plus(shooterYawRobot);
+        Rotation2d shotHeadingField = robotPoseField.getRotation();
         Translation2d dir = new Translation2d(shotHeadingField.getCos(), shotHeadingField.getSin());
 
         // Ray: P(t) = shooterPosField + dir * t, t >= 0
@@ -172,15 +170,12 @@ public class GeometryUtil {
     public static Result distanceToVerticalLineX(
       Pose2d robotPoseField,
       Translation2d shooterOffsetRobot,
-      Rotation2d shooterYawRobot,
       double xLine
   ) {
-    // Shooter exit point in FIELD coordinates
     Translation2d p0 =
-        robotPoseField.getTranslation().plus(shooterOffsetRobot.rotateBy(robotPoseField.getRotation()));
+        GeometryUtil.poseAdjust(robotPoseField, shooterOffsetRobot);
 
-    // Shot direction in FIELD coordinates (unit vector)
-    Rotation2d heading = robotPoseField.getRotation().plus(shooterYawRobot);
+    Rotation2d heading = robotPoseField.getRotation();
     double dy = heading.getCos();
     double dx = heading.getSin();
 

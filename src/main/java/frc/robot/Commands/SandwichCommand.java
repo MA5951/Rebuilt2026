@@ -23,14 +23,13 @@ public class SandwichCommand extends SubsystemCommand {
                 sandwich.setVoltage(SandwichConstants.IDLE_VOLTAGE);
                 break;
             case "INTAKE":
-            //TODO here i think we whant the logic of moveing the ball to the end of the sandwich to let other balls in 
                 sandwich.setVoltage(SandwichConstants.INTAKE_VOLTAGE);
                 break;
             case "FEEDING":
                 sandwich.setVoltage(SandwichConstants.FEEDING_VOLTAGE);
                 break;
             case "FEEDING_IN_MOTION":
-                sandwich.setVoltage(SandwichConstants.FEDDING_IN_MOTION_VOLTAGE);
+                sandwich.setVoltage(SandwichConstants.SHOOTING_VOLTAGE);
                 break;
             case "EJECT":
                 sandwich.setVoltage(SandwichConstants.EJECT_VOLTAGE);

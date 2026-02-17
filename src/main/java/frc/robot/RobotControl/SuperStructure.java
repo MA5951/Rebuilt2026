@@ -3,6 +3,8 @@ package frc.robot.RobotControl;
 
 import static edu.wpi.first.units.Units.Meters;
 
+import java.time.chrono.IsoChronology;
+
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultSuperStructure;
@@ -40,14 +42,15 @@ import frc.robot.Util.GeometryUtil.Result;
 import frc.robot.Util.InterpolationTable;
 
 public class SuperStructure extends DeafultSuperStructure {
-    public static final Translation2d FEEDING_POSE = new Translation2d(14.4, 3.83);
+    public static final Translation2d FEEDING_POSE = new Translation2d(1.3, 3.6);
 
     public static final double IN_THE_AIR_CURRENT_THRESHOLD = 40.0;
     public static final double CLIMB_POSITION_THRESHOLD = 0.15;
 
     public static final double FEEDING_ANGLE_OFFSET = 0;
     public static final double FEEDING_SHOOTER_OFFSET = -300;
-    public static final double FEEDING_DISTANCE_OFFSET = -1.5;
+    public static final double FEEDING_DISTANCE_OFFSET = -1.2;
+    
 
     public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1;
     public static final double FEEDING_IN_MOTION_NET_MARGIN = 0.5;
@@ -126,12 +129,12 @@ public class SuperStructure extends DeafultSuperStructure {
             { 1.344, 2650.0 },
     };
 
-    private static Result lastFeedingResult = new Result(false, -1, new Translation2d());
+    private static double lastFeedingResult = 0;
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
-    private static boolean defence = false;
+    private static boolean defence = true;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
     public static boolean atPointLatch = false;
@@ -192,27 +195,30 @@ public class SuperStructure extends DeafultSuperStructure {
         double angle = Math.atan2(yDis, xDis);
 
         return Math.toDegrees(angle);
-        // return GeometryUtil.angleTo(new
-        // Pose2d(GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(),
-        // VisionConstants.FRONTLL_OFFSET),
-        // PoseEstimator.getCurrentPose().getRotation()), Field.getHub());
+     
     }
 
     public static double getAngleToFeeding() {
-        return GeometryUtil.angleTo(PoseEstimator.getCurrentPose(), FEEDING_POSE);
+         double xDis = FEEDING_POSE.getX() - GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(),
+                VisionConstants.FRONTLL_OFFSET).getX();
+        double yDis = FEEDING_POSE.getY() - GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(),
+                VisionConstants.FRONTLL_OFFSET).getY();
+        double angle = Math.atan2(yDis, xDis);
+
+        return Math.toDegrees(angle);
     }
 
     public static boolean isHittingNet() {
         return GeometryUtil.willShotHitNet(PoseEstimator.getCurrentPose(), ShooterConstants.SHOOTER_OFFSET,
-                Swerve.getInstance().getRobotRotation2d(), Field.getNetA(),
+                Field.getNetA(),
                 Field.getNetB(),
                 20, FEEDING_IN_MOTION_NET_MARGIN);
     }
 
-    public static boolean outSideField() {
-        return lastFeedingResult.valid && Field.FIELD_RECTANGLE.contains(lastFeedingResult.hitPointField)
-                && lastFeedingResult.distanceMeters < FEEDING_IN_MOTION_MIN_DISTANCE;
-    }
+    // public static boolean outSideField() {
+    //     return lastFeedingResult.valid && Field.FIELD_RECTANGLE.contains(lastFeedingResult.hitPointField)
+    //             && lastFeedingResult.distanceMeters < FEEDING_IN_MOTION_MIN_DISTANCE;
+    // }
 
     public static boolean isFull() {
         return false;
@@ -275,11 +281,11 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double getShootingRPM(double x) {
     
-        if (SwerveController.isAbs < 50) {
-                return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 90;
+        if (SwerveController.isAbs < 50) {//Relativ
+                return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x);
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x);
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) ;
     }
 
     private static double getHoodAngle(double distance) {
@@ -325,12 +331,10 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double getDistanceToTargetFeeding() {
         if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
-            lastFeedingResult = GeometryUtil.distanceToVerticalLineX(
-                    PoseEstimator.getCurrentPose(), VisionConstants.FRONTLL_OFFSET,
-                    Swerve.getInstance().getRobotRotation2d(), Field.getAllianceXLine());
-            MALog.log("/Superstructure/Feeding In Motion Distance", lastFeedingResult.distanceMeters);
-            MALog.log("/Superstructure/X Line", Field.getAllianceXLine());
-            return lastFeedingResult.distanceMeters;
+            lastFeedingResult = distanceToMotionFeeding(PoseEstimator.getCurrentPose().getX() - Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
+            MALog.log("/Superstructure/Feeding In Motion Distance", lastFeedingResult);
+            MALog.log("/Superstructure/X Line", Field.getFeedingLine());
+            return lastFeedingResult;
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING) {
             return GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(), VisionConstants.FRONTLL_OFFSET)
                     .getDistance(FEEDING_POSE);
@@ -350,50 +354,30 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean atPointForShooting() {
-        // return atPointLatch.calculate((Swerve.getInstance().atPointForShooting() ||
-        // !isAutomatic()) && Shooter.getInstance().atPointForShooting() &&
-        // Hood.getInstance().atPointForShooting()); //Full Latch
+       
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
                 && Hood.getInstance().atPointForShooting()
-                && (Vision.getInstance().isDeltaTx() || SwerveConstants.REL_PID_CONTROLLER.atSetpoint()
+                && (Vision.getInstance().isDeltaTx() || SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
                         || !isAutomatic()); // Intiligent Latch
 
-        // return (Swerve.getInstance().atPointForShooting() ) &&
-        // Shooter.getInstance().atPointForShooting() &&
-        // Hood.getInstance().atPointForShooting();//No Latch
+      
     }
 
     public static boolean atPointForFeeding() {
-        // return atPointLatch.calculate((Swerve.getInstance().atPointForFeeding() ||
-        // !isAutomatic()) && Shooter.getInstance().atPointForFeeding() &&
-        // Hood.getInstance().atPointForFeeding()); //Full Latch
+      
 
-        // return atPointLatch.calculate(Shooter.getInstance().atPointForFeeding())
-        // && Hood.getInstance().atPointForFeeding()
-        // && (Swerve.getInstance().atPointForFeeding() || !isAutomatic()); //
-        // Intiligent Latch
-
-        return (Swerve.getInstance().atPointForFeeding()) &&
-                Shooter.getInstance().atPointForFeeding() &&
-                Hood.getInstance().atPointForFeeding(); // No Latch
+        return (atPointLatch || Shooter.getInstance().atPointForFeeding())
+                && Hood.getInstance().atPointForFeeding()
+                && (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+                        )&& !isHittingNet() && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
     }
 
     public static boolean atPointForFeedingInMotion() {
-        // return
-        // atPointLatch.calculate((Swerve.getInstance().atPointForFeedingInMotion() ||
-        // !isAutomatic()) && Shooter.getInstance().atPointForFeedingInMotion() &&
-        // Hood.getInstance().atPointForFeedingInMotion()); //Full Latch
+       
 
-        // return
-        // atPointLatch.calculate(Shooter.getInstance().atPointForFeedingInMotion())
-        // && Hood.getInstance().atPointForFeedingInMotion()
-        // && (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic()); //
-        // Intiligent Latch
-
-        return (Swerve.getInstance().atPointForFeedingInMotion() || !isAutomatic())
-                && Shooter.getInstance().atPointForFeedingInMotion() &&
-                Hood.getInstance().atPointForFeedingInMotion(); // No Latch
+        return (atPointLatch || Shooter.getInstance().atPointForShooting())
+                && Hood.getInstance().atPointForFeedingInMotion() && !isHittingNet() && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
     }
 
     public static ShootingPreset getCurrentShootingPreset() {
@@ -403,6 +387,18 @@ public class SuperStructure extends DeafultSuperStructure {
     public static void setCurrentShootingPreset(ShootingPreset preset) {
         currentShootingPreset = preset;
     }
+
+    public static double distanceToMotionFeeding(double Xline, double relativGyro) {
+        return Math.abs(Xline* Math.cos(Math.toRadians(relativGyro - 180)) );
+    }
+    public static boolean distanceYToMotionFeeding(double Xline, double relativGyro) {
+        MALog.log("/SuperStructure/Y Distance", Math.abs(Xline* Math.sin(Math.toRadians(relativGyro - 180))));
+       if (PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0) {
+         return  PoseEstimator.getCurrentPose().getY() + Math.abs(Xline *  Math.sin(Math.toRadians(relativGyro - 180))) < Field.WIDTH - FEEDING_IN_MOTION_FIELD_MARGIN;
+       }
+
+       return  PoseEstimator.getCurrentPose().getY() - Math.abs(Xline *  Math.sin(Math.toRadians(relativGyro - 180))) > 0 + FEEDING_IN_MOTION_FIELD_MARGIN;
+    }   
 
 
     public static void update() {
@@ -464,6 +460,11 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/At Point For Shooting", atPointForShooting());
         MALog.log("/SuperStructure/Hub Pose", Field.getHub());
+
+        MALog.log("/SuperStructure/Feeding Pose", FEEDING_POSE);
+        MALog.log("/SuperStructure/Feeding Distance", getDistanceToTargetFeeding());
+        MALog.log("/SuperStructure/Is Net", isHittingNet());
+        MALog.log("/SuperStructure/Is Y In Field", distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get()));
 
     }
 

@@ -63,4 +63,8 @@ public class Field {
         return DriverStationUtil.getAlliance() == DriverStation.Alliance.Blue ? ALLIANCE_WIDTH : LENGTH - ALLIANCE_WIDTH;
     }   
 
+    public static double getFeedingLine() {
+        return DriverStationUtil.getAlliance() == DriverStation.Alliance.Blue ? 2 : LENGTH - 2;
+    } 
+
 }
