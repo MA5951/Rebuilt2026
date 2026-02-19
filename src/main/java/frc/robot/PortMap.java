@@ -90,7 +90,7 @@ public class PortMap {
     public class ShooterPorts {
         public static final CANBusID SHOOTER_MASTER = new CANBusID(42, CAN_BUS.CANIVORE_BUS);
         public static final CANBusID SHOOTER_SLAVE = new CANBusID(41, CAN_BUS.CANIVORE_BUS);
-        public static final int IR = 5;
+        public static final int IR = 7;
     }
 
 }

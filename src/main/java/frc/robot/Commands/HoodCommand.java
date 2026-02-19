@@ -29,7 +29,8 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
             case "SHOOTING":
-                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
+                    //hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
+                    hood.setPosition(15);
                 break;
             case "FEEDING":
                 hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());

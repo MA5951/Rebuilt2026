@@ -12,11 +12,14 @@ import com.MAutils.Logger.TelemetryLogger;
 import com.MAutils.Vision.Filters.FiltersConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rectangle2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
+import frc.robot.Util.Field;
 
 /**
  * PoseEstimator holds any number of PoseEstimatorSource,
@@ -182,7 +185,9 @@ public class PoseEstimator {
         }
 
         // Validate reconstructed pose
-        if (FiltersConfig.fieldRactangle.contains(pose.getTranslation())) {
+        if (Field.ALLOWED_FIELD.contains(pose.getTranslation()) && 
+        !Field.HUB_BLUE.contains(pose.getTranslation()) &&
+        !Field.HUB_RED.contains(pose.getTranslation())) {
             history.clear();
             history.addAll(newHist);
             currentPose = pose;
@@ -215,7 +220,9 @@ public class PoseEstimator {
 
         Pose2d candidate = currentPose.exp(fused);
 
-        if (FiltersConfig.fieldRactangle.contains(candidate.getTranslation())) {
+        if (Field.ALLOWED_FIELD.contains(candidate.getTranslation()) && 
+        !Field.HUB_BLUE.contains(candidate.getTranslation()) &&
+        !Field.HUB_RED.contains(candidate.getTranslation())) {
             currentPose = candidate;
             targetHist.addLast(new HistoryEntry(timestamp, fused));
             lastUpdateTime = timestamp;

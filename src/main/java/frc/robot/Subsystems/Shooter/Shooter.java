@@ -25,7 +25,7 @@ public class Shooter extends VelocityControlledSystem {
     }
 
     public boolean atPointForShooting() {
-        return Math.abs(getVelocity() - SuperStructure.getShootingParameters().shooterRPM()) < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;
+        return Math.abs(getVelocity() - 1000) < ShooterConstants.AT_POINT_FOR_SHOOTING_TOLERANCE;//SuperStructure.getShootingParameters().shooterRPM(
     }
 
     public boolean atPointForFeeding() {
@@ -37,7 +37,7 @@ public class Shooter extends VelocityControlledSystem {
     }
 
     public boolean getSensor() {
-        return ir.get();
+        return !ir.get();
     }
 
     @Override

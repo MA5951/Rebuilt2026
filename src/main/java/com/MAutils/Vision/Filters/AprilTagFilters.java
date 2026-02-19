@@ -53,7 +53,7 @@ public class AprilTagFilters {
         double geomTrust = calculateGeometricTrust();
 
         // 3. Final Combined XY FOM
-        return clamp01(motionTrust * geomTrust);
+        return clamp01((motionTrust + geomTrust) / 2 );//m
     }
 
     /** Calculates FOM for Omega Rotation (0..1) */

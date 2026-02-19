@@ -4,6 +4,7 @@ package frc.robot.Commands;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Roller.RollerConstants;
 
@@ -34,7 +35,7 @@ public class RollerCommand extends SubsystemCommand {
                 roller.setVoltage(RollerConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                roller.setVoltage(RollerConstants.SHOOTING_VOLTAGE);
+                roller.setVoltage(8);
                 break;
             case "UNSTUCK":
                 roller.setVoltage(RollerConstants.UNSTUCK_VOLTAGE);

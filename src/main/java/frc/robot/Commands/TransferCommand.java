@@ -4,6 +4,7 @@ package frc.robot.Commands;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
@@ -44,7 +45,8 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                transfer.setVoltage(TransferConstants.SHOOTING_VOLTAGE);
+                transfer.setVoltage(SuperStructure.getTransferSinVoltage());
+                // transfer.setVoltage(5.5);
                 break;
             case "UNSTUCK":
                 transfer.setVoltage(TransferConstants.UNSTUCK_VOLTAGE);

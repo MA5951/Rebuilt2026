@@ -21,6 +21,7 @@ import frc.robot.Commands.RollerCommand;
 import frc.robot.Commands.SandwichCommand;
 import frc.robot.Commands.ShooterCommand;
 import frc.robot.Commands.SixBarCommand;
+import frc.robot.Commands.StartingActiveCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.TransferCommand;
 import frc.robot.RobotControl.SuperStructure;
@@ -46,6 +47,7 @@ public class RobotContainer extends DeafultRobotContainer {
 
     public static final double TIME_UNTIL_ACTIVE = 1;
     public static final double TIME_PAST_ACTIVE = 1;
+    public static boolean isStartActive = false;
 
     public RobotContainer() {
         super();
@@ -53,16 +55,16 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         //CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
-        SixBar.getInstance();
+        // SixBar.getInstance();
 
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        //IntakeRoller.getInstance();
-        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-                new IntakeCommand());
+        IntakeRoller.getInstance();
+        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+        //         new IntakeCommand());
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
     }
@@ -214,6 +216,10 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger(() -> getDriverController().getDpadDown()).onTrue(
                 new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose))
         );
+
+        new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new InstantCommand(() -> new StartingActiveCommand()));
+
+        new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 
     }
 }
