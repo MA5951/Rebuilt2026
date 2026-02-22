@@ -287,10 +287,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 50) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) +30;
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) ;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 30;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) ;
     }
 
     private static double getHoodAngle(double distance) {
@@ -388,8 +388,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
         return (atPointLatch || Shooter.getInstance().atPointForFeeding())
                 && Hood.getInstance().atPointForFeeding()
-                && (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) && !isHittingNet()
-                && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
+                 && !isHittingNet() && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+               ;
     }
 
     public static boolean atPointForFeedingInMotion() {

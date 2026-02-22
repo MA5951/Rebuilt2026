@@ -16,7 +16,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import frc.robot.PortMap;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Vision.VisionConstants;
 
 public class SwerveConstants {  
 

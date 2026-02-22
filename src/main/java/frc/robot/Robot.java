@@ -4,6 +4,8 @@ package frc.robot;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobot;
+import com.MAutils.Swerve.SwerveSystem;
+import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -13,7 +15,9 @@ import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
+import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Vision.Vision;
+import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
 import frc.robot.Util.Field;
 
@@ -57,6 +61,11 @@ public class Robot extends DeafultRobot {
           Vision.getInstance().filterMainTag();
         } else {
           Vision.getInstance().resetFilter();
+        }
+
+        if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+          Swerve.getInstance().resetRampFlag();
+          PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
         }
   }
 
