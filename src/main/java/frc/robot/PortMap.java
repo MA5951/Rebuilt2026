@@ -46,8 +46,6 @@ public class PortMap {
     public class ClimbPorts {
         public static final CANBusID CLIMB_MOTOR = new CANBusID(14, CAN_BUS.CANIVORE_BUS);
         public static final int MACAM = 0;
-        public static final int LOCK_SENSOR = 3;
-        public static int LOCK_SERVO = 8;
     }
 
     public class Transfer_Ports {

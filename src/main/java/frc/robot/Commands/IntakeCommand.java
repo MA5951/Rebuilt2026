@@ -21,18 +21,18 @@ public class IntakeCommand extends SubsystemCommand {
     public void Automatic() {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
-                // if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
-                // (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
-                //     intakeroller.setVoltage(7);
-                // } else {
-                //     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
-                // }
+                if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
+                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
+                    intakeroller.setVoltage(8);
+                } else {
+                    intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
+                }
 
-                intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
+                //intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage(7);//9
+                intakeroller.setVoltage(5.5);//9
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);

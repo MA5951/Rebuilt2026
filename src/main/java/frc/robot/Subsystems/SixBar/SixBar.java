@@ -16,7 +16,7 @@ public class SixBar extends PositionControlledSystem {
 
     private StatusSignal<Double> closedLoopVolts;
     private StatusSignal<Angle> absPosition;
-    // private final CANcoder canCoder;
+    private final CANcoder canCoder;
     private double lastVelo = 0;
 
     private SixBar() {
@@ -24,18 +24,19 @@ public class SixBar extends PositionControlledSystem {
                 SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
-        // canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,
-        // PortMap.CAN_BUS.CANIVORE_BUS);
+        canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,
+        PortMap.CAN_BUS.CANIVORE_BUS);
 
-        // absPosition = canCoder.getAbsolutePosition();
-        // absPosition.refresh();
+        absPosition = canCoder.getAbsolutePosition();
+        absPosition.refresh();
 
-        // resetPosition(-(absPosition.getValueAsDouble() * 360) /
-        // SixBarConstants.CAN_CODER_GEAR);
-        resetPosition(0);
+        resetPosition(-(absPosition.getValueAsDouble() * 360) /
+        SixBarConstants.CAN_CODER_GEAR);
+        // resetPosition(-SixBarConstants.BUMPER_ZONE_ANGLE);
+        // resetPosition(0);
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
-        // StatusSignalsRunner.registerSignals(true, absPosition);
+        StatusSignalsRunner.registerSignals(true, absPosition);
     }
 
     public double getCloseLoopVolts() {

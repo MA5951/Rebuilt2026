@@ -16,7 +16,7 @@ public class SixBarConstants {
     public static final double DEPLOY_ANGLE = 60;
     public static final double IDLE_ANGLE = 8;
     public static final double BUMPER_ZONE_ANGLE = IDLE_ANGLE;
-    public static final double FRAME_PARIMETER_ANGLE = 1;
+    public static final double FRAME_PARIMETER_ANGLE = IDLE_ANGLE;
     public static final double COLLISION_TOLERANCE = 10;
     public static final double SHOOTING_ANGLE = 8;
     public static final double COLLISION_POWER_ANGLE = -58;

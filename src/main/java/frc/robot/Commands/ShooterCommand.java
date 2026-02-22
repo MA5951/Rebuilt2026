@@ -29,13 +29,12 @@ public class ShooterCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                
-                // if (SuperStructure.isAutomatic()) {
-                //    shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
-                // } else {
-                //     shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
-                // }
+                if (SuperStructure.isAutomatic()) {
+                   shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
+                } else {
+                    shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
+                }
 
-                shooter.setVelocity(2000);
                 break;
             case "FEEDING":
                 shooter.setVelocity(SuperStructure.getFeedingParameters().shooterRPM());
