@@ -36,7 +36,7 @@ import frc.robot.Robot;
 public class SwerveSystem extends SubsystemBase {
     //private static SwerveSystem instance;
 
-    private SwerveState currentState;
+    private SwerveState currentState = new SwerveState("NONE");
     private SwerveDriveEstimator swerveDriveEstimator;
 
     private SwerveSetpoint currentSetpointMA = new SwerveSetpoint(
