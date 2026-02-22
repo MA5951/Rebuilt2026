@@ -287,10 +287,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 50) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) + 55;
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) +30;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 55;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 30;
     }
 
     private static double getHoodAngle(double distance) {
