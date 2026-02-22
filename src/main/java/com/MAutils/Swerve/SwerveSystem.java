@@ -56,8 +56,8 @@ public class SwerveSystem extends SubsystemBase {
     private SwerveModuleData[] swerveModuleData = new SwerveModuleData[4];
     private final Gyro gyro;
     private ChassisSpeeds currentSpeeds;
-    // private SwerveSetpoint swerveSetpoint;
-    // private final SwerveSetPointGeneratorMA swerveSetPointGeneratorMA;
+    private SwerveSetpoint swerveSetpoint;
+    private final SwerveSetPointGeneratorMA swerveSetPointGeneratorMA;
     private final SwerveModuleState[] currentStates = new SwerveModuleState[4];
     private final SwerveModulePosition[] currentPositions = new SwerveModulePosition[4];
 
@@ -110,8 +110,8 @@ public class SwerveSystem extends SubsystemBase {
         // swerveSetpoint = new SwerveSetpoint(new ChassisSpeeds(0, 0, 0),
         // currentStates, DriveFeedforwards.zeros(4));
 
-        // swerveSetPointGeneratorMA = new SwerveSetPointGeneratorMA(swerveConstants.kinematics,
-        //         swerveConstants.modulesLocationArry);
+        swerveSetPointGeneratorMA = new SwerveSetPointGeneratorMA(swerveConstants.kinematics,
+                swerveConstants.modulesLocationArry);
     }
 
     public SwerveSystemConstants getSwerveConstants() {
@@ -200,18 +200,18 @@ public class SwerveSystem extends SubsystemBase {
         speeds = new ChassisSpeeds();
         }
 
-        currSetpoint = swerveSetpointGenerator.generateSetpoint(currSetpoint, speeds, Constants.LOOP_TIME);
+        // currSetpoint = swerveSetpointGenerator.generateSetpoint(currSetpoint, speeds, Constants.LOOP_TIME);
 
-        MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
-        currSetpoint.moduleStates());
-        runSwerveStates(currSetpoint.moduleStates());
-
-        // currentSetpointMA = swerveSetPointGeneratorMA.generateSetpoint(
-        // currentLimits.get(), currentSetpointMA, speeds, Constants.LOOP_TIME);
-        
         // MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
-        // currentSetpointMA.moduleStates());
-        // runSwerveStates(currentSetpointMA.moduleStates());
+        // currSetpoint.moduleStates());
+        // runSwerveStates(currSetpoint.moduleStates());
+
+        currentSetpointMA = swerveSetPointGeneratorMA.generateSetpoint(
+        currentLimits.get(), currentSetpointMA, speeds, Constants.LOOP_TIME);
+        
+        MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
+        currentSetpointMA.moduleStates());
+        runSwerveStates(currentSetpointMA.moduleStates());
 
         // MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
         // swerveConstants.kinematics.toSwerveModuleStates(speeds));

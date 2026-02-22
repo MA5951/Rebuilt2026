@@ -1,7 +1,6 @@
 
 package frc.robot.Subsystems.Sandwich;
 
-import com.MAutils.Components.MACam;
 import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
@@ -18,8 +17,9 @@ public class Sandwich extends PowerControlledSystem {
     private double lastMAcamDistance;
     private double deltaMAcamDistance;
 
-    //private MACam macam = new MACam(PortMap.Sandwich_Ports.MACAM);
-    private DigitalInput ir = new DigitalInput(PortMap.Sandwich_Ports.IR);
+    private DigitalInput leftIr;
+    private DigitalInput rightIr;
+    private DigitalInput middleIr;
 
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE,
@@ -27,11 +27,9 @@ public class Sandwich extends PowerControlledSystem {
                 SandwichConstants.FEEDING_IN_MOTION, SandwichConstants.EJECT,
                 SandwichConstants.SHOOTING, SandwichConstants.UNSTUCK);
 
-        //macam = new MACam(PortMap.Sandwich_Ports.MACAM);
-
-        //lastMAcamDistance = macam.getDistance();
-
-
+        leftIr = new DigitalInput(PortMap.Sandwich_Ports.LEFT_IR);
+        rightIr = new DigitalInput(PortMap.Sandwich_Ports.RIGHT_IR);
+        middleIr = new DigitalInput(PortMap.Sandwich_Ports.MIDDLE_IR);
     }
 
     @Override
@@ -69,27 +67,26 @@ public class Sandwich extends PowerControlledSystem {
 
     }
 
-    public double getMACamDistance() {
-        //return macam.getDistance();
-        return 0;
+    public boolean getLeftIr() {
+        return leftIr.get();
     }
 
-    public boolean getEndSensor() {
-        return ir.get();
+    public boolean getRightIr() {
+        return rightIr.get();
     }
 
-    public double getDeltaMAcamDistance() {
-        //deltaMAcamDistance = macam.getDistance() - lastMAcamDistance;
-        //lastMAcamDistance = macam.getDistance();
-        //return deltaMAcamDistance;
-        return 0;
+    public boolean getMiddleIr() {
+        return middleIr.get();
     }
 
     @Override
     public void periodic() {
         super.periodic();
-        MALog.log("Subsystems/Sandwich/MACam Distance", getMACamDistance()); 
-        MALog.log("Subsystems/Sandwich/End Sensor", getEndSensor());   
+
+        MALog.log("/Subsystems/Sandwich/ left ir", getLeftIr());
+        MALog.log("/Subsystems/Sandwich/ right ir", getRightIr());
+        MALog.log("/Subsystems/Sandwich/ middle ir", getMiddleIr());
+
 
     }
 

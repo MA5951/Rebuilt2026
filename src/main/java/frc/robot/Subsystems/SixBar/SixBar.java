@@ -30,9 +30,9 @@ public class SixBar extends PositionControlledSystem {
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
 
-        resetPosition(-(absPosition.getValueAsDouble() * 360) /
-        SixBarConstants.CAN_CODER_GEAR);
-        // resetPosition(-SixBarConstants.BUMPER_ZONE_ANGLE);
+        // resetPosition(-(absPosition.getValueAsDouble() * 360) /
+        // SixBarConstants.CAN_CODER_GEAR);
+        resetPosition(-SixBarConstants.DEPLOY_ANGLE);
         // resetPosition(0);
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);

@@ -7,6 +7,7 @@ import com.MAutils.RobotControl.DeafultRobot;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.Commands.SwerveController;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
@@ -48,6 +49,15 @@ public class Robot extends DeafultRobot {
             - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
     MALog.log("/SuperStructure/Intake Tolorance",
         Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
+        
+        
+
+
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && !(SwerveController.isAbs < 50)) {
+          Vision.getInstance().filterMainTag();
+        } else {
+          Vision.getInstance().resetFilter();
+        }
   }
 
   @Override

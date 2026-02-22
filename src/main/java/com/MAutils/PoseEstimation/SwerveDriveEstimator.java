@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Estimates the robot's pose using swerve drive odometry.
  */
 public class SwerveDriveEstimator {
-    private final double MAX_UPDATE_ANGLE = 10.0;
+    private final double MAX_UPDATE_ANGLE = 5;
     private final double SKIP_ODOMETRY_Gs = 3;
 
     private SwerveModulePosition[] lastPositions = new SwerveModulePosition[] {
@@ -55,13 +55,13 @@ public class SwerveDriveEstimator {
     // Deltas
     private Twist2d getTranslationDelta(SwerveModulePosition[] currentPositions) {
         totalDelta = new Translation2d(); //TODO is better to 0 the values then creat a new one totalDelta = vector zero;
-        numOfSkiddingModules = 0;
+        // numOfSkiddingModules = 0;
 
-        if (skidDetector.getNumOfSkiddingModules() >= 2) {
-            totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getLowestIndex()], currentPositions[skidDetector.getLowestIndex()]));
-            totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getSecoundLowestIndex()], currentPositions[skidDetector.getSecoundLowestIndex()]));
-            numOfSkiddingModules = 2;
-        } else {
+        // if (skidDetector.getNumOfSkiddingModules() >= 2) {
+        //     totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getLowestIndex()], currentPositions[skidDetector.getLowestIndex()]));
+        //     totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getSecoundLowestIndex()], currentPositions[skidDetector.getSecoundLowestIndex()]));
+        //     numOfSkiddingModules = 2;
+        // } else {
             for (int i = 0; i < currentPositions.length; i++) {
                 deltaDistance = currentPositions[i].distanceMeters - lastPositions[i].distanceMeters;
                 prevAngle = lastPositions[i].angle;
@@ -79,19 +79,21 @@ public class SwerveDriveEstimator {
                 }
                 totalDelta = totalDelta.plus(arcDelta);
 
-                if (!skidDetector.getIsSkidding()[i] && numOfSkiddingModules < 2) { // TODO you dont need to check numOfSkiddingModules < 2 its in the else
-                    totalDelta = totalDelta.plus(arcDelta);
-                    numOfSkiddingModules++; //TODO why you add one? why you dont just use getNumOfSkiddingModules()
-                }
+                // if (!skidDetector.getIsSkidding()[i] && numOfSkiddingModules < 2) { // TODO you dont need to check numOfSkiddingModules < 2 its in the else
+                //     totalDelta = totalDelta.plus(arcDelta);
+                //     numOfSkiddingModules++; //TODO why you add one? why you dont just use getNumOfSkiddingModules()
+                // }
 
             }
-        }
+        // }
 
         lastPositions = currentPositions;
 
+        
+
         return new Twist2d(
-                totalDelta.getX() / (4 - numOfSkiddingModules), //TODO change the 4 to currentPositions.length
-                totalDelta.getY() / (4 - numOfSkiddingModules),
+                totalDelta.getX() / (4), //TODO change the 4 to currentPositions.length
+                totalDelta.getY() / (4 ),
                 0); //TODO why you dont just edite the odometryTwist her
     }
 
@@ -148,6 +150,10 @@ public class SwerveDriveEstimator {
             odometrySource.capture();
 
         } else {
+            loopTwistSum.dx = 0;
+            loopTwistSum.dy = 0;
+            loopTwistSum.dtheta = 0;
+            odometrySource.capture();
             TelemetryLogger.logSwerve("Ignoring odometry data, collision or tilt detected");
         }
     }

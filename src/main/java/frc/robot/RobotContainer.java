@@ -58,7 +58,7 @@ public class RobotContainer extends DeafultRobotContainer {
         SixBar.getInstance();
 
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
+        CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
         Transfer.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
@@ -66,7 +66,7 @@ public class RobotContainer extends DeafultRobotContainer {
         //IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                 new IntakeCommand());
-        CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
+        // CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
     }
 

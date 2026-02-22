@@ -287,10 +287,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 50) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x);
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) + 55;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x);
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 55;
     }
 
     private static double getHoodAngle(double distance) {
@@ -377,9 +377,10 @@ public class SuperStructure extends DeafultSuperStructure {
     public static boolean atPointForShooting() {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
-                && Hood.getInstance().atPointForShooting(); // && (Vision.getInstance().isDeltaTx() ||
-                                                            // SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
-                                                            // || !isAutomatic())
+                && Hood.getInstance().atPointForShooting() && (Vision.getInstance().isDeltaTx() ||
+                                                            SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+                                                            || !isAutomatic()); 
+                
 
     }
 
@@ -447,7 +448,7 @@ public class SuperStructure extends DeafultSuperStructure {
             isLocked = true;
         }
 
-        if (Shooter.getInstance().atPointForShooting()) {
+        if (Shooter.getInstance().atPoint()) {
             atPointLatch = true;
         }
 
@@ -460,6 +461,7 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/X Dis", Vision.getInstance().getDistanceTryg());
         MALog.log("/SuperStructure/Shooter Velo", currentShootingParameters.shooterRPM());
         MALog.log("/SuperStructure/Hood Angle", currentShootingParameters.hoodAngle());
+        MALog.log("/SuperStructure/Shooting Latch", atPointLatch);
 
         MALog.log("/SuperStructure/Offset Pose",
                 new Pose2d(GeometryUtil.poseAdjust(

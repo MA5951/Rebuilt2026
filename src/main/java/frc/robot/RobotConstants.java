@@ -48,6 +48,7 @@ public class RobotConstants {
                 if (SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS) {
                         SixBar.getInstance().setState(SixBarConstants.DEPLOY);
                 }
+                SuperStructure.atPointLatch = false;
         },
 
                         ShooterConstants.FEEDING_IN_MOTION, SandwichConstants.FEEDING_IN_MOTION,
@@ -56,8 +57,9 @@ public class RobotConstants {
                         KickerConstants.FEEDING_IN_MOTION);
 
         public static final MRobotState FEEDING = new MRobotState("FEEDING", () -> {
+                SuperStructure.atPointLatch = false;
         }, () -> {
-                SixBar.getInstance().setState(SixBar.getInstance().getLastState());
+                SixBar.getInstance(     ).setState(SixBar.getInstance().getLastState());
         },
                         ShooterConstants.FEEDING, SandwichConstants.FEEDING,
                         RollerConstants.FEEDING, TransferConstants.FEEDING, HoodConstants.FEEDING,
@@ -67,12 +69,12 @@ public class RobotConstants {
                 SwerveController.isAbs = 0;
                 SuperStructure.atPointLatch = false;
                 SuperStructure.isLocked = false;
-                Vision.getInstance().filterMainTag();
+                
                 SuperStructure.ballsShot = 0;
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
         }, () -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());
-                Vision.getInstance().resetFilter();
+                
                 SwerveController.isAbs = 0;
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,

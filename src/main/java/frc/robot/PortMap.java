@@ -31,8 +31,9 @@ public class PortMap {
     public class Sandwich_Ports {
         public static final CANBusID SANDWICH_MOTOR = new CANBusID(16, CAN_BUS.RIO_BUS);
         public static final CANBusID SANDWICH_MOTOR_2 = new CANBusID(44, CAN_BUS.RIO_BUS);
-        public static final int MACAM = 11;
-        public static final int IR = 6;
+        public static final int LEFT_IR = 6;
+        public static final int RIGHT_IR = 5;
+        public static final int MIDDLE_IR = 8;
     }
 
     public class RollerPorts {

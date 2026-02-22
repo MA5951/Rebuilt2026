@@ -46,7 +46,12 @@ public class SixBarCommand extends SubsystemCommand {
                
                 break;
             case "SHOOTING":
-                sixbar.setPosition(SixBarConstants.SHOOTING_ANGLE);
+                
+                if (SixBar.getInstance().getPosition() < 21) {
+                    sixbar.setPosition(8);
+                } else {
+                    sixbar.setPosition(20);
+                }
                 break;
         }
     }
