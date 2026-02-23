@@ -234,7 +234,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getRightIr() || Sandwich.getInstance().getMiddleIr();
+        return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getMiddleIr();
     }
 
     public static boolean isAutomatic() {

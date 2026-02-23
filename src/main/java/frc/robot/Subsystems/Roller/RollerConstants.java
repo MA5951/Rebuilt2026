@@ -31,7 +31,7 @@ public class RollerConstants {
 
         public static final PowerSystemConstants ROLLER_CONSTANTS = PowerSystemConstants
                         .builder("Roller", ROLLER_MOTOR)
-                        .isBrake(false)
+                        .isBrake(true)
                         .gear(GEAR)
                         .rampRate(RAMP_RATE)
                         .motorCurrentLimit(CURRENT_LIMIT)

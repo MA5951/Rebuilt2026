@@ -31,7 +31,7 @@ public class TransferConstants {
 
         public static PowerSystemConstants TRANSFER_CONSTANTS = PowerSystemConstants.builder("Transfer", TRA_MOTOR)
                         .gear(GEAR)
-                        .isBrake(true)
+                        .isBrake(false)
                         .rampRate(RAMP_RATE)
                         .motorCurrentLimit(CURRENT_LIMIT)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)

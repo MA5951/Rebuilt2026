@@ -45,12 +45,13 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                transfer.setVoltage(SuperStructure.getTransferSinVoltage());
-                 //if (!SuperStructure.isBallsInSandwich()) {
-                //    transfer.setVoltage(4);
-                //} else {
-                //    transfer.setVoltage(0);
-                //}
+                //transfer.setVoltage(SuperStructure.getTransferSinVoltage());
+                 if (!SuperStructure.isBallsInSandwich()) {
+                   transfer.setVoltage(5);
+                } else {
+                   transfer.setVoltage(0);
+                }
+                //transfer.setVoltage(10);
                 break;
             case "UNSTUCK":
                 transfer.setVoltage(TransferConstants.UNSTUCK_VOLTAGE);
