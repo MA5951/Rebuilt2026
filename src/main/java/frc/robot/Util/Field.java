@@ -34,7 +34,7 @@ public class Field {
     public static final Translation2d RED_ALLIANCE_CORNER = new Translation2d(LENGTH - ALLIANCE_WIDTH, WIDTH);
     public static final double NET_LENGTH = Units.inchesToMeters(58.41);
     public static final double NET_X_OFFSET = Units.inchesToMeters(10.26);
-    public static final int[] MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG };
+    public static final int[] MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG, 21, 18, 2, 5};
     public static final int[] ALL_TAGS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
             22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
 
