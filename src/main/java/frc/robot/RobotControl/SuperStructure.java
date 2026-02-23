@@ -234,10 +234,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        // return Sandwich.getInstance().getMACamDistance() <
-        // SandwichConstants.IS_BALLS_DISTANCE
-        // || Sandwich.getInstance().getEndSensor();
-        return true;
+        return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getRightIr() || Sandwich.getInstance().getMiddleIr();
     }
 
     public static boolean isAutomatic() {

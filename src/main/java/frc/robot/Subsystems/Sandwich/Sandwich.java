@@ -79,6 +79,8 @@ public class Sandwich extends PowerControlledSystem {
         return middleIr.get();
     }
 
+    
+
     @Override
     public void periodic() {
         super.periodic();
