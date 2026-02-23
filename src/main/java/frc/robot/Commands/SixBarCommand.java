@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
@@ -14,6 +15,7 @@ public class SixBarCommand extends SubsystemCommand {
 
     private static final SixBar sixbar = SixBar.getInstance();
     private double manuelPosition = SixBarConstants.IDLE_ANGLE;
+    private static Debouncer homingDebouncer = new Debouncer(0.2);
 
     public SixBarCommand() {
         super(sixbar);
@@ -43,17 +45,24 @@ public class SixBarCommand extends SubsystemCommand {
                     sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_OUTSIDE);
                 }
 
-               
                 break;
             case "SHOOTING":
-                
+
                 if (SixBar.getInstance().getPosition() < 21) {
                     sixbar.setPosition(8);
                 } else {
-                    sixbar.setPosition(20);
+                    sixbar.setPosition(20); 
+                }
+                break;
+            case "HOMING":
+                sixbar.setVoltage(SixBarConstants.HOMING_VOLTAGE);
+                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > SixBarConstants.HOMING_CURRENT)) {
+                    sixbar.resetPosition(0);
+                    sixbar.setState(SixBarConstants.IDLE);
                 }
                 break;
         }
+
     }
 
     @Override
@@ -64,7 +73,7 @@ public class SixBarCommand extends SubsystemCommand {
         } else if (RobotContainer.getOperatorController().getActionsDown()) {
             manuelPosition = SixBarConstants.IDLE_ANGLE;
             // sixbar.setVoltage(-1);
-        } 
+        }
         sixbar.setPosition(manuelPosition);
     }
 

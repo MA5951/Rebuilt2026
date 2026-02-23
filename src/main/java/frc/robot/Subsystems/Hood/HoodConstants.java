@@ -21,6 +21,8 @@ public class HoodConstants {
         public static final double MOTOR_CURRENT_LIMIT = 20;
         public static final double STATOR_CURRENT_LIMIT = 20;
         public static final double TOLERANCE = 1;
+        public static final double HOMING_VOLTAGE = 0.0;
+        public static final double HOMING_CURRENT = 0.0;
 
         private static final Motor HOOD_MOTOR = new Motor(PortMap.HoodPorts.HOOD_MOTOR, MotorType.KRAKEN, "Hood Motor",
                         InvertedValue.CounterClockwise_Positive);
@@ -43,6 +45,7 @@ public class HoodConstants {
         public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
         public static final State FEEDING = new State("FEEDING");
         public static final State EJECT = new State("EJECT");
+        public static final State HOMING = new State("HOMING");
         public static final double MANUAL_INCREMENT = 0;
 
 }

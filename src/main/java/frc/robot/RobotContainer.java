@@ -222,5 +222,10 @@ public class RobotContainer extends DeafultRobotContainer {
 
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 
+        new Trigger (() -> getOperatorController().getActionsRight()).onTrue
+        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.HOMING)));
+
+        new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
+        (new InstantCommand(() -> Hood.getInstance().setState(HoodConstants.HOMING)));
     }
 }

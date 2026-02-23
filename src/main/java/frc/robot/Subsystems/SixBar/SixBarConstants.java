@@ -21,6 +21,8 @@ public class SixBarConstants {
     public static final double SHOOTING_ANGLE = 8;
     public static final double COLLISION_POWER_ANGLE = -58;
     public static final double CANT_MOVE_VOLTAGE = 0.0;
+    public static final double HOMING_VOLTAGE = 0.0;
+    public static final double HOMING_CURRENT = 0.0;
 
     public static final double MINUMUM_ANGLE = -68;
     public static final double MAXIMUM_ANGLE = 2;
@@ -63,4 +65,5 @@ public class SixBarConstants {
 
     }, () -> {});
     public static final State SHOOTING = new State("SHOOTING");
+    public static final State HOMING = new State("HOMING");
 }
