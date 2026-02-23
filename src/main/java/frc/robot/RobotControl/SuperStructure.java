@@ -51,10 +51,10 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static final double FEEDING_ANGLE_OFFSET = 0;
     public static final double FEEDING_SHOOTER_OFFSET = -300;
-    public static final double FEEDING_DISTANCE_OFFSET = -1.2;
+    public static final double FEEDING_DISTANCE_OFFSET = -1.6;
 
     public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1;
-    public static final double FEEDING_IN_MOTION_NET_MARGIN = 0.5;
+    public static final double FEEDING_IN_MOTION_NET_MARGIN = 0;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
