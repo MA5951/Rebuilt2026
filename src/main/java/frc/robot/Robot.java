@@ -57,10 +57,11 @@ public class Robot extends DeafultRobot {
         
 
 
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && !(SwerveController.isAbs < 50)) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 50)) {
           Vision.getInstance().filterMainTag();
         } else {
           Vision.getInstance().resetFilter();
+          
         }
 
         if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {

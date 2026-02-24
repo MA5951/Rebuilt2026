@@ -21,7 +21,7 @@ public class SixBar extends PositionControlledSystem {
 
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
-                SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY);
+                SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY, SixBarConstants.HOMING);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
         canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,

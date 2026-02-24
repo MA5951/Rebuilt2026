@@ -56,7 +56,7 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
-        SixBar.getInstance();
+        // SixBar.getInstance();
 
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
@@ -64,7 +64,7 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        //IntakeRoller.getInstance();
+        // IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                 new IntakeCommand());
         // CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
@@ -101,7 +101,7 @@ public class RobotContainer extends DeafultRobotContainer {
                                 && (!getDriverController().getL1() || !SuperStructure.isBalls()
                                         || (!ActiveUtil.isActive()
                                                 && ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE)))
-                        || getRobotState() == RobotConstants.SHOOTING_PRESETS && !getDriverController().getR2(),
+                        || getRobotState() == RobotConstants.SHOOTING_PRESETS && !getDriverController().getL1(),
                 RobotConstants.IDLE_INTAKE));
 
         T(StateTrigger.T(
@@ -132,7 +132,7 @@ public class RobotContainer extends DeafultRobotContainer {
                 RobotConstants.FEEDING_IN_MOTION));
 
         T(StateTrigger.T(
-                () -> getDriverController().getL2() && !SuperStructure.isAutomatic()
+                () -> getDriverController().getL1() && !SuperStructure.isAutomatic()
                         && getRobotState() != RobotConstants.UNSTUCK,
                 RobotConstants.SHOOTING_PRESETS));
 
@@ -225,6 +225,12 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new InstantCommand(() -> new StartingActiveCommand()));
 
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
+
+        new Trigger (() -> getOperatorController().getActionsRight()).onTrue
+        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.HOMING)));
+
+        new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
+        (new InstantCommand(() -> Hood.getInstance().setState(HoodConstants.HOMING)));
 
     }
 }

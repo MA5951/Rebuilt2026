@@ -23,7 +23,7 @@ public class Hood extends PositionControlledSystem {
 
     private Hood() {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
-                HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION);
+                HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION, HoodConstants.HOMING);
 
         canCoder = new CANcoder(PortMap.HoodPorts.CAN_CODER, PortMap.CAN_BUS.CANIVORE_BUS);
 

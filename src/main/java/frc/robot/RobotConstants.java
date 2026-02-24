@@ -69,7 +69,7 @@ public class RobotConstants {
                 SwerveController.isAbs = 0;
                 SuperStructure.atPointLatch = false;
                 SuperStructure.isLocked = false;
-                
+                Vision.getInstance().filterMainTag();
                 SuperStructure.ballsShot = 0;
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
         }, () -> {
@@ -82,6 +82,7 @@ public class RobotConstants {
                         SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING);
 
         public static final MRobotState SHOOTING_PRESETS = new MRobotState("SHOOTING_PRESETS", () -> {
+                SuperStructure.atPointLatch = false;
         }, () -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());
         },

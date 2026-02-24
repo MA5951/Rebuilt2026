@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
@@ -14,6 +15,7 @@ public class SixBarCommand extends SubsystemCommand {
 
     private static final SixBar sixbar = SixBar.getInstance();
     private double manuelPosition = SixBarConstants.IDLE_ANGLE;
+    private static Debouncer homingDebouncer = new Debouncer(0.6);
 
     public SixBarCommand() {
         super(sixbar);
@@ -51,6 +53,13 @@ public class SixBarCommand extends SubsystemCommand {
                     sixbar.setPosition(8);
                 } else {
                     sixbar.setPosition(20);
+                }
+                break;
+            case "HOMING":
+                sixbar.setVoltage(1.5);
+                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 15)) {
+                    sixbar.resetPosition(2.73);
+                    sixbar.setState(SixBarConstants.IDLE);
                 }
                 break;
         }

@@ -23,7 +23,7 @@ public class SixBarConstants {
     public static final double CANT_MOVE_VOLTAGE = 0.0;
 
     public static final double MINUMUM_ANGLE = -68;
-    public static final double MAXIMUM_ANGLE = 2;
+    public static final double MAXIMUM_ANGLE = 5;
     public static final double GEAR = 24;
     public static final double CAN_CODER_GEAR = 2;
     public static final double TOLERANCE = 3;
@@ -40,7 +40,7 @@ public class SixBarConstants {
     private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
             "SixBar Motor", InvertedValue.Clockwise_Positive);
 
-    private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(36).withKI(0).withKD(0);
+    private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(30).withKI(0).withKD(0);// kp = 36
 
     public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
             .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
@@ -63,4 +63,5 @@ public class SixBarConstants {
 
     }, () -> {});
     public static final State SHOOTING = new State("SHOOTING");
+    public static final State HOMING = new State("HOMING");
 }

@@ -4,6 +4,7 @@ package frc.robot.RobotControl;
 import static edu.wpi.first.units.Units.Meters;
 
 import java.time.chrono.IsoChronology;
+import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
@@ -53,7 +54,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_SHOOTER_OFFSET = -300;
     public static final double FEEDING_DISTANCE_OFFSET = -1.6;
 
-    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1;
+    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1.3;
     public static final double FEEDING_IN_MOTION_NET_MARGIN = 0;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
@@ -150,8 +151,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double distance = 0;
 
     public enum ShootingPreset {
-        CLOSE(10.0, 2000.0, new Pose2d()),
-        CLIMB(15.0, 2500.0, new Pose2d());
+        CLOSE(0, 3800, new Pose2d()),
+        CLIMB(15.5, 3200, new Pose2d()),
+        TRENCH(17.5, 3150, new Pose2d());
+
 
         public final double hoodAngle;
         public final double shooterRPM;
@@ -284,10 +287,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 50) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) ;
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x);
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) ;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x);
     }
 
     private static double getHoodAngle(double distance) {
@@ -344,10 +347,30 @@ public class SuperStructure extends DeafultSuperStructure {
         return -1;
     }
 
-    public static double getAFTERANGLE() {
+    public static Supplier<Double> getGyroSUpplierFOrRelativAlign() {
+        if (Vision.getInstance().getTagID() == 21 ||Vision.getInstance().getTagID() == 5) {
+            return () -> Swerve.getInstance().getGyroYawSupplier().get() + 90;
+        } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
+            return () -> Swerve.getInstance().getGyroYawSupplier().get() - 90;
+        } else {
+            return Swerve.getInstance().getGyroYawSupplier();
+        }
+    }
 
-        double totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
-                + (Vision.getInstance().getFilteredTx()));
+    public static double getAFTERANGLE() {
+        double totAngle = 0;
+
+        if (Vision.getInstance().getTagID() == 21 ||Vision.getInstance().getTagID() == 5) {
+            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 + 90
+                    + (Vision.getInstance().getFilteredTx()));
+        } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
+            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
+                    + (Vision.getInstance().getFilteredTx())) - 90;
+        } else {
+            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 
+                    + (Vision.getInstance().getFilteredTx()));
+        }
+
         double Y = Vision.getInstance().getDistanceTryg() * Math.sin(Math.toRadians(totAngle));
         double X = Vision.getInstance().getDistanceTryg() * Math.cos(Math.toRadians(totAngle));
         double YL = Y + Field.HUB_WIDTH / 2;
@@ -374,10 +397,9 @@ public class SuperStructure extends DeafultSuperStructure {
     public static boolean atPointForShooting() {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
-                && Hood.getInstance().atPointForShooting() && (Vision.getInstance().isDeltaTx() ||
-                                                            SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
-                                                            || !isAutomatic()); 
-                
+                && Hood.getInstance().atPointForShooting() && ((
+                        SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+                        || !isAutomatic()));
 
     }
 
@@ -385,8 +407,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
         return (atPointLatch || Shooter.getInstance().atPointForFeeding())
                 && Hood.getInstance().atPointForFeeding()
-                 && !isHittingNet() && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
-               ;
+                && !isHittingNet() && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint();
     }
 
     public static boolean atPointForFeedingInMotion() {
@@ -412,21 +433,22 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Y Distance", Math.abs(Xline * Math.sin(Math.toRadians(relativGyro - 180))));
         if (PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0) {
             return PoseEstimator.getCurrentPose().getY()
-                    + Math.abs(Xline * Math.sin(Math.toRadians(relativGyro - 180))) < Field.WIDTH
-                            - FEEDING_IN_MOTION_FIELD_MARGIN;
+                    + Math.abs(Xline * Math.sin(Math.toRadians(relativGyro - 180))) < (Field.WIDTH
+                            - FEEDING_IN_MOTION_FIELD_MARGIN);
         }
 
-        return PoseEstimator.getCurrentPose().getY() - Math.abs(Xline * Math.sin(Math.toRadians(relativGyro - 180))) > 0
-                + FEEDING_IN_MOTION_FIELD_MARGIN;
+        return PoseEstimator.getCurrentPose().getY()
+                - Math.abs(Xline * Math.sin(Math.toRadians(relativGyro - 180))) > (0
+                        + FEEDING_IN_MOTION_FIELD_MARGIN);
     }
 
     public static double getTransferSinVoltage() {
-            double f = 1;
+        double f = 1;
         return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * -1.5 + 8.5);
     }
 
     public static double getRollerSinVoltage() {
-            double f = 1;
+        double f = 1;
         return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * 0.75 + 8.5);
     }
 
@@ -472,20 +494,24 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Feeding Pose", FEEDING_POSE);
         MALog.log("/SuperStructure/Feeding Distance", getDistanceToTargetFeeding());
         MALog.log("/SuperStructure/Is Net", isHittingNet());
+        MALog.log("/SuperStructure/Is at point - angle adjust controller", SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint());
+        MALog.log("/SuperStructure/Is delta tx", Vision.getInstance().isDeltaTx() );
+
+
         MALog.log("/SuperStructure/Is Y In Field",
                 distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get()));
 
         // if (ballsShot == 0 && Shooter.getInstance().getSensor() && !isLocked) {
-        //     startShootingTime = Timer.getFPGATimestamp();
+        // startShootingTime = Timer.getFPGATimestamp();
         // }
 
         // if (!isLocked && Shooter.getInstance().getSensor()) {
-        //     ballsShot++;
-        //     isLocked = true;
+        // ballsShot++;
+        // isLocked = true;
         // }
 
         // if (!Shooter.getInstance().getSensor()) {
-        //     isLocked = false;
+        // isLocked = false;
         // }
 
         MALog.log("/SuperStructure/Aavrage BPS", ballsShot / (Timer.getFPGATimestamp() - startShootingTime));
@@ -494,12 +520,11 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/Time left in teleop", DriverStation.getMatchTime());
 
-        if(ActiveUtil.isActive()) {
+        if (ActiveUtil.isActive()) {
             MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
         } else {
             MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
         }
-
 
     }
 

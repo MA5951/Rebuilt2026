@@ -38,11 +38,11 @@ public class SwerveConstants {
         // PID Controllers
         public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.06, 0, 0)
                         .withContinuesInput(-180, 180)
-                        .withTolerance(3);
+                        .withTolerance(5);
 
         public static final PIDController REL_PID_CONTROLLER = new PIDController(0.043, 0, 0)
                         .withContinuesInput(-180, 180)
-                        .withTolerance(2);
+                        .withTolerance(6);
 
         public static final ProfiledPIDController PROFILED_REL_PID_CONTROLLER = new ProfiledPIDController(5, 0, 0, new Constraints(1000, 3300))//a= 500
                         .withContinuesInput(-180, 180)
@@ -83,7 +83,7 @@ public class SwerveConstants {
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAFTERANGLE());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getGyroYawSupplier()); 
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(SuperStructure.getGyroSUpplierFOrRelativAlign()); 
                         })
                         
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);

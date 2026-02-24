@@ -9,7 +9,6 @@ import frc.robot.RobotConstants;
 import frc.robot.Commands.SwerveAutoController;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
-import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 
 public class TwoMagazine extends SequentialCommandGroup {

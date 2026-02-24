@@ -6,6 +6,7 @@ import edu.wpi.first.math.Nat;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.Vision.VisionSystem;
+import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
 
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.numbers.N1;
@@ -17,19 +18,24 @@ public class Vision {
     private static Vision instance;
     private double lastTX;
     private double delta = 0;
+    private int tagId = 0;
 
     double distance = 0;
 
     private Vision() {
         VisionSystem.getInstance()
-                .setCameras(VisionConstants.FRONT_LL,  VisionConstants.BACK_LL);
-                
+                .setCameras(VisionConstants.FRONT_LL, VisionConstants.BACK_LL);
 
         lastTX = VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
     }
 
     public boolean isMainTag() {
-        return VisionConstants.FRONT_LL.getCameraIO().getTag().id == Field.getMainTagID();
+        tagId = VisionConstants.FRONT_LL.getCameraIO().getTag().id;
+        return tagId == 21 || tagId == 26 || tagId == 18 || tagId == 10 || tagId == 2 || tagId == 5;
+    }
+
+    public int getTagID() {
+        return VisionConstants.FRONT_LL.getCameraIO().getTag().id;
     }
 
     public double getDistanceTryg() {
@@ -82,7 +88,5 @@ public class Vision {
         }
         return instance;
     }
-
-    
 
 }

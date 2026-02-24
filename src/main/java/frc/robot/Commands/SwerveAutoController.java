@@ -10,10 +10,10 @@ import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
 import frc.robot.Subsystems.Vision.Vision;
 
-public class SwerveController extends SwerveSystemController {
+public class SwerveAutoController extends SwerveSystemController {
     public static int isAbs = 0;
 
-    public SwerveController() {
+    public SwerveAutoController() {
         super(Swerve.getInstance(), SwerveConstants.SWERVE_CONSTANTS, RobotContainer.getDriverController());
     }
 
