@@ -520,6 +520,9 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/Time left in teleop", DriverStation.getMatchTime());
 
+        MALog.log("/SuperStructure/is active", ActiveUtil.isActive());
+
+
         if (ActiveUtil.isActive()) {
             MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
         } else {

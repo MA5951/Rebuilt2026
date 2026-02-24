@@ -25,6 +25,7 @@ import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.StartingActiveCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.TransferCommand;
+import frc.robot.Commands.Auto.test;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
@@ -39,6 +40,7 @@ import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
+import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Vision.VisionConstants;
@@ -222,7 +224,10 @@ public class RobotContainer extends DeafultRobotContainer {
                 new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose))
         );
 
-        new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new InstantCommand(() -> new StartingActiveCommand()));
+        new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new StartingActiveCommand());
+
+        new Trigger(() -> getDriverController().getDpadLeft()).onTrue(new test());
+
 
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 

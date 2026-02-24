@@ -9,6 +9,7 @@ import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Commands.SwerveController;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -16,6 +17,7 @@ import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
+import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
@@ -29,6 +31,7 @@ public class Robot extends DeafultRobot {
   public Robot() {
     super();
     Vision.getInstance();
+    SwerveAutoFollower.buildAuto("test");
     m_robotContainer = new RobotContainer();
     PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
   }
@@ -68,6 +71,7 @@ public class Robot extends DeafultRobot {
           Swerve.getInstance().resetRampFlag();
           PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
         }
+
   }
 
   @Override
@@ -84,6 +88,7 @@ public class Robot extends DeafultRobot {
   public void teleopPeriodic() {
     super.teleopPeriodic();
     ActiveUtil.checkShift();
+
   }
 
 }

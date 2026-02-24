@@ -67,12 +67,10 @@ public class DeafultRobot extends TimedRobot {
             SimulationManager.autoInit();
         }
 
-        AutoManager.autoInit();
     }
 
     @Override
     public void autonomousPeriodic() {
-        AutoManager.autoPeriodic();
     }
 
     @Override
