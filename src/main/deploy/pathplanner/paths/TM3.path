@@ -1,0 +1,59 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.4004910714314378,
+        "y": 5.986063988098713
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.4004910714314378,
+        "y": 5.986063988098713
+      },
+      "isLocked": false,
+      "linkedName": "TM2 End"
+    },
+    {
+      "anchor": {
+        "x": 2.221049107142857,
+        "y": 5.633697916666668
+      },
+      "prevControl": {
+        "x": 1.6272470238095238,
+        "y": 5.92733630952381
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4293248945147665,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 4.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 11.5,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -29.999999999999996
+  },
+  "reversed": false,
+  "folder": "Two Magazine",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -90.0
+  },
+  "useDefaultConstraints": true
+}

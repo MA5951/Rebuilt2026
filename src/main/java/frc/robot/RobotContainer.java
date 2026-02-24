@@ -8,6 +8,7 @@ import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.MRobotState;
 import com.MAutils.RobotControl.StateTrigger;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -72,7 +73,10 @@ public class RobotContainer extends DeafultRobotContainer {
 
     @Override
     public void configAuto() {
-
+        NamedCommands.registerCommand("Intake", new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
+        NamedCommands.registerCommand("Shooting", new InstantCommand(() -> RobotConstants.SHOOTING.setState()));
+        NamedCommands.registerCommand("Feeding", new InstantCommand(() -> RobotConstants.FEEDING.setState()));
+        NamedCommands.registerCommand("FeedingInMotion", new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
     }
 
     @Override
