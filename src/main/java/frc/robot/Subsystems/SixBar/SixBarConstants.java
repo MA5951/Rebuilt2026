@@ -29,8 +29,8 @@ public class SixBarConstants {
     public static final double TOLERANCE = 3;
     public static final double CURRENT_LIMIT = 55;
     public static final double STATOR_CURRENT_LIMIT =50;
-    public static final double CRUSIE_VELO = 0.8;
-    public static final double ACCELERATION = 20;
+    public static final double CRUSIE_VELO = 1.3;
+    public static final double ACCELERATION = 50;
 
     public static final double TOLERANCE_IN_ARM_BRAKE = 15;
     public static final double COLLISION_DETECTION  = 1.5;
@@ -40,7 +40,7 @@ public class SixBarConstants {
     private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
             "SixBar Motor", InvertedValue.Clockwise_Positive);
 
-    private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(30).withKI(0).withKD(0);// kp = 36
+    private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(39).withKI(0).withKD(0);// kp = 36
 
     public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
             .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)

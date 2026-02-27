@@ -58,8 +58,10 @@ public class RobotConstants {
 
         public static final MRobotState FEEDING = new MRobotState("FEEDING", () -> {
                 SuperStructure.atPointLatch = false;
+                SwerveController.atPointLock = false;
         }, () -> {
                 SixBar.getInstance(     ).setState(SixBar.getInstance().getLastState());
+                SwerveController.atPointLock = false;
         },
                         ShooterConstants.FEEDING, SandwichConstants.FEEDING,
                         RollerConstants.FEEDING, TransferConstants.FEEDING, HoodConstants.FEEDING,
@@ -72,9 +74,10 @@ public class RobotConstants {
                 Vision.getInstance().filterMainTag();
                 SuperStructure.ballsShot = 0;
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
+               SwerveController.atPointLock = false;
         }, () -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());
-                
+                SwerveController.atPointLock = false;
                 SwerveController.isAbs = 0;
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,

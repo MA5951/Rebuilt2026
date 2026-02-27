@@ -3,6 +3,9 @@ package frc.robot.Subsystems.Swerve;
 
 import com.MAutils.Swerve.Controllers.AngleAdjustController;
 import com.MAutils.Swerve.Controllers.FieldCentricDrive;
+
+import java.security.PublicKey;
+
 import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.SwerveSystemConstants.GearRatio;
 import com.MAutils.Swerve.SwerveSystemConstants.WheelType;
@@ -24,7 +27,7 @@ public class SwerveConstants {
 
         // Swerve System Constants
         public static final SwerveSystemConstants SWERVE_CONSTANTS = new SwerveSystemConstants()
-                        .withPyshicalParameters(0.551, 0.551, 62, WheelType.BLACK_TREAD, 6.25)
+                        .withPyshicalParameters(0.551, 0.551, 65, WheelType.BLACK_TREAD, 3.05)
                         .withMotors(DCMotor.getKrakenX60Foc(1), DCMotor.getFalcon500(1),
                                         PortMap.SwervePorts.SWERVE_MODULE_IDS,
                                         PortMap.SwervePorts.PIGEON2)
@@ -47,6 +50,9 @@ public class SwerveConstants {
         public static final ProfiledPIDController PROFILED_REL_PID_CONTROLLER = new ProfiledPIDController(5, 0, 0, new Constraints(1000, 3300))//a= 500
                         .withContinuesInput(-180, 180)
                         .withTolerance(1.5);
+
+
+        
  
                         
         

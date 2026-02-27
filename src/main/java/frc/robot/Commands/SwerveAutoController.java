@@ -31,7 +31,10 @@ public class SwerveAutoController extends SwerveSystemController {
                 setState(SwerveConstants.SHOOTING_ABS);
             }
         } 
-        else if (RobotContainer.getRobotState() == RobotConstants.FEEDING || 
+        else 
+        
+        
+        if (RobotContainer.getRobotState() == RobotConstants.FEEDING || 
         (RobotContainer.getRobotState() == RobotConstants.UNSTUCK && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
             setState(SwerveConstants.FEEDING);
         } 

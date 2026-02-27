@@ -12,6 +12,7 @@ import frc.robot.Subsystems.Vision.Vision;
 
 public class SwerveController extends SwerveSystemController {
     public static int isAbs = 0;
+    public static boolean atPointLock = false;
 
     public SwerveController() {
         super(Swerve.getInstance(), SwerveConstants.SWERVE_CONSTANTS, RobotContainer.getDriverController());
@@ -22,20 +23,21 @@ public class SwerveController extends SwerveSystemController {
 
     public void SetSwerveState() {
 
-        if (swerveSystem.getState() == SwerveConstants.SHOOTING_REL
-                || swerveSystem.getState() == SwerveConstants.SHOOTING_ABS && (
-                        SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) && SuperStructure.isAutomatic()) {
-            setState(SwerveConstants.NONE);
-        } else {
+        // if ( ((swerveSystem.getState() == SwerveConstants.SHOOTING_REL
+        //         || swerveSystem.getState() == SwerveConstants.SHOOTING_ABS) && ((
+        //                 SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) && SuperStructure.isAutomatic()) || atPointLock )) {
+        //     setState(SwerveConstants.NONE);
+        //     atPointLock = true;
+        // } else {
             if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
                 if (SuperStructure.isMainTag() && isAbs < 50) {
                     setState(SwerveConstants.SHOOTING_REL);
                 } else {
-                    isAbs++;
                     setState(SwerveConstants.SHOOTING_ABS);
                 }
+                isAbs++;
             } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
@@ -51,7 +53,7 @@ public class SwerveController extends SwerveSystemController {
                     setState(SwerveConstants.FIELD_CENTRIC);
                 }
             }
-        }
+        // }
 
     }
 

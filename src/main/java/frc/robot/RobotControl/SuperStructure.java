@@ -54,7 +54,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_SHOOTER_OFFSET = -300;
     public static final double FEEDING_DISTANCE_OFFSET = -1.6;
 
-    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1.3;
+    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 0.7;//1.3
     public static final double FEEDING_IN_MOTION_NET_MARGIN = 0;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
@@ -524,7 +524,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
 
         if (ActiveUtil.isActive()) {
-            MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
+            MALog.log("/SuperStructure/Time in Active",  ActiveUtil.getTimeInActive());
         } else {
             MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
         }

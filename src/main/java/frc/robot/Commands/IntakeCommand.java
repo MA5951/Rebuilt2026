@@ -8,6 +8,7 @@ import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class IntakeCommand extends SubsystemCommand {
     private static IntakeRoller intakeroller = IntakeRoller.getInstance();
@@ -28,11 +29,10 @@ public class IntakeCommand extends SubsystemCommand {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 }
 
-                //intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage(5.5);//9
+                intakeroller.setVoltage(6.5);//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);

@@ -31,7 +31,7 @@ public class Robot extends DeafultRobot {
   public Robot() {
     super();
     Vision.getInstance();
-    SwerveAutoFollower.buildAuto("test");
+    
     m_robotContainer = new RobotContainer();
     PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
   }

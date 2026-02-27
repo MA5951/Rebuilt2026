@@ -10,6 +10,7 @@ import com.MAutils.RobotControl.StateTrigger;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -55,6 +56,7 @@ public class RobotContainer extends DeafultRobotContainer {
     public RobotContainer() {
         super();
 
+        
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
@@ -71,10 +73,13 @@ public class RobotContainer extends DeafultRobotContainer {
                 new IntakeCommand());
         // CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
+        
+
     }
 
     @Override
     public void configAuto() {
+        new SwerveAutoFollower();
         NamedCommands.registerCommand("Intake", new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
         NamedCommands.registerCommand("Shooting", new InstantCommand(() -> RobotConstants.SHOOTING.setState()));
         NamedCommands.registerCommand("Feeding", new InstantCommand(() -> RobotConstants.FEEDING.setState()));
@@ -94,15 +99,17 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(
                 () -> ((getRobotState() == RobotConstants.INTAKE_DEPLOY
                         || getRobotState() == RobotConstants.INTAKE_ROLLER)
-                        && (!getDriverController().getR1()) || SuperStructure.isFull()) ||
-                        (getRobotState() == RobotConstants.EJECT && !getDriverController().getActionsRight())
+                        && ((!getDriverController().getR1()) || SuperStructure.isFull() ) ) ||//&& !DriverStation.isTeleop()
+                        (getRobotState() == RobotConstants.EJECT && (!getDriverController().getActionsRight() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.FEEDING
-                                && (!getDriverController().getActionsDown() || !SuperStructure.isBalls()))
-                        || (getRobotState() == RobotConstants.FEEDING_IN_MOTION && !getDriverController().getR2())
+                                && ((!getDriverController().getActionsDown() || !SuperStructure.isBalls()) ))//&& !DriverStation.isTeleop()
+                        || (getRobotState() == RobotConstants.FEEDING_IN_MOTION && (!getDriverController().getR2() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.SHOOTING
-                                && (!getDriverController().getL1() || !SuperStructure.isBalls()
-                                        || (!ActiveUtil.isActive()
-                                                && ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE)))
+                                && ((!getDriverController().getL1() || !SuperStructure.isBalls()
+                                        ) ))//&& !DriverStation.isTeleop()
+
+                                        //|| (!ActiveUtil.isActive()
+                                        //        && ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE)
                         || getRobotState() == RobotConstants.SHOOTING_PRESETS && !getDriverController().getL1(),
                 RobotConstants.IDLE_INTAKE));
 
@@ -116,10 +123,13 @@ public class RobotContainer extends DeafultRobotContainer {
                         && SixBar.getInstance().getCurrentState() == SixBarConstants.ARMBRAKS,
                 RobotConstants.INTAKE_ROLLER));
 
+        //&& (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                          //      || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)&& (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                           //     || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
+
         T(StateTrigger.T(
                 () -> getDriverController().getL1()
-                        && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
-                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
+                        
                         &&
                         getRobotState() != RobotConstants.UNSTUCK && SuperStructure.isAutomatic(),
                 RobotConstants.SHOOTING));
@@ -202,8 +212,7 @@ public class RobotContainer extends DeafultRobotContainer {
 
                         && SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS)
                 && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
-                .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.IDLE)).alongWith(
-                        new InstantCommand(() -> MALog.log("/Subsystems/SixBar/IDLE Trigger", "On"))));
+                .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.IDLE)));
 
         // new Trigger(() -> (getRobotState() != RobotConstants.IDLE&&
         //  SixBar.getInstance().getVelocity() > 2 &&

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.230848214285714,
-        "y": 0.6157440476190481
+        "x": 8.125137533274179,
+        "y": 0.884241348713398
       },
       "isLocked": false,
       "linkedName": null
@@ -20,28 +20,23 @@
         "y": 4.211183035714286
       },
       "prevControl": {
-        "x": 7.767552083333333,
-        "y": 1.3726785714285725
+        "x": 7.899795918367348,
+        "y": 0.3128393966282159
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "F1 End"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5238500851788757,
-      "rotationDegrees": 180.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.4227848101265823,
+      "minWaypointRelativePos": 0.6126543209876546,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 0.7,
-        "maxAcceleration": 5.0,
+        "maxAcceleration": 3.5,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -53,7 +48,7 @@
   "eventMarkers": [
     {
       "name": "FeedingInMotion",
-      "waypointRelativePos": 0.310126582278481,
+      "waypointRelativePos": 0.24845679012345667,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",
@@ -65,7 +60,7 @@
   ],
   "globalConstraints": {
     "maxVelocity": 4.0,
-    "maxAcceleration": 5.0,
+    "maxAcceleration": 4.5,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
@@ -79,7 +74,7 @@
   "folder": "Feeding ",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": false
 }

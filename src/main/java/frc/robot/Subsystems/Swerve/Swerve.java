@@ -12,6 +12,8 @@ public class Swerve extends SwerveSystem{
 
     private Swerve() {
         super(SwerveConstants.SWERVE_CONSTANTS);
+
+        
     }
 
 
@@ -27,6 +29,9 @@ public class Swerve extends SwerveSystem{
         return true;
     }
 
+    public double getVelocityVector() {
+        return Math.sqrt(Math.pow(getChassisSpeeds().vxMetersPerSecond,2) + Math.pow(getChassisSpeeds().vyMetersPerSecond,2));
+    }
 
 
     @Override

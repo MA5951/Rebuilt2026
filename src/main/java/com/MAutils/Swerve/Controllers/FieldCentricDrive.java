@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import com.MAutils.Controllers.MAController;
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.Swerve.IOs.Gyro.GyroIO.GyroData;
 import com.MAutils.Swerve.SwerveSystem;
 import com.MAutils.Swerve.SwerveSystemConstants;
@@ -12,6 +13,8 @@ import com.MAutils.Swerve.Utils.SwerveController;
 import com.MAutils.Utils.ChassisSpeedsUtil;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.RobotConstants;
+import frc.robot.RobotContainer;
 
 public class FieldCentricDrive extends SwerveController {
 
@@ -54,6 +57,13 @@ public class FieldCentricDrive extends SwerveController {
         speeds.vyMetersPerSecond = -controller.getLeftX(true, xyScaler) * constants.MAX_VELOCITY;
         speeds.omegaRadiansPerSecond = -controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY;
 
+
+        if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
+            if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0 && PoseEstimator.getCurrentPose().getRotation().getDegrees() < 180 && RobotContainer.getDriverController().getRightX(true, 1) > 0)) {// || (PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0 && PoseEstimator.getCurrentPose().getRotation().getDegrees() > -180 && RobotContainer.getDriverController().getRightX(true, 1) < 0) 
+                speeds.omegaRadiansPerSecond =0;
+            }
+                
+        }
 
         speeds = ChassisSpeedsUtil.FromFieldToRobot(speeds,
                 Rotation2d.fromDegrees(gyroDataSupplier.get().yaw - angleOffset));

@@ -16,7 +16,7 @@ public class test extends SequentialCommandGroup {
   public test() {
 
     addCommands(
-      SwerveAutoFollower.followPath("test")
+      SwerveAutoFollower.followPath("F1")
     );
   }
 }
