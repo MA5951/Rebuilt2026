@@ -3,12 +3,14 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 
 public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();
+    private static Debouncer debouncer = new Debouncer(0.2);
 
     public ClimbCommand() {
         super(climb);
@@ -19,7 +21,6 @@ public class ClimbCommand extends SubsystemCommand {
     public void Automatic() {
         switch (climb.getCurrentState().stateName) {
             case "IDLE":
-                // climb.unlockClimb();
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
@@ -33,9 +34,16 @@ public class ClimbCommand extends SubsystemCommand {
                 }
                 break;
             case "DOWN":
-                // climb.unlockClimb();
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
+            case "HOMING":
+                climb.setVoltage(ClimbConstnats.HOMING_VOLTAGE);
+                if(debouncer.calculate(Math.abs(climb.getCurrent()) > ClimbConstnats.HOMING_CURRENT_TOLRANCE)) {
+                    climb.resetPosition(ClimbConstnats.CLOSE_POSITION);
+                    climb.setState(ClimbConstnats.IDLE);
+                }
+                break;
+                
         }
     }
 

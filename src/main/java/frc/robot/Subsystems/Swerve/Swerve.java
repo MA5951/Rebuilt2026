@@ -3,7 +3,6 @@ package frc.robot.Subsystems.Swerve;
 
 import com.MAutils.Swerve.SwerveSystem;
 
-import frc.robot.Subsystems.Vision.Vision;
 
 public class Swerve extends SwerveSystem{
     private static Swerve instance;

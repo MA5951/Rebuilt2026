@@ -3,11 +3,9 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
-import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class ShooterCommand extends SubsystemCommand {
     private static final Shooter shooter = Shooter.getInstance();

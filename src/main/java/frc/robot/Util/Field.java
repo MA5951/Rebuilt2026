@@ -1,9 +1,6 @@
 
 package frc.robot.Util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.MAutils.Utils.DriverStationUtil;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;

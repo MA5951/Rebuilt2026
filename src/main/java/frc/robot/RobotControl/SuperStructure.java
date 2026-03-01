@@ -1,9 +1,7 @@
 
 package frc.robot.RobotControl;
 
-import static edu.wpi.first.units.Units.Meters;
 
-import java.time.chrono.IsoChronology;
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
@@ -11,7 +9,6 @@ import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultSuperStructure;
 import com.MAutils.Utils.ChassisSpeedsUtil;
 import com.MAutils.Utils.DriverStationUtil;
-import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -26,22 +23,17 @@ import frc.robot.RobotContainer;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Hood.Hood;
-import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.Sandwich.Sandwich;
-import frc.robot.Subsystems.Sandwich.SandwichConstants;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
-import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
-import frc.robot.Util.BooleanLatch;
 import frc.robot.Util.Field;
 import frc.robot.Util.GeometryUtil;
 import frc.robot.Util.ShootingParameters;
-import frc.robot.Util.GeometryUtil.Result;
 import frc.robot.Util.InterpolationTable;
 
 public class SuperStructure extends DeafultSuperStructure {

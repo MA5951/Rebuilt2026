@@ -13,7 +13,7 @@ public class Climb extends PositionControlledSystem{
     //private MACam macam = new MACam(PortMap.ClimbPorts.MACAM);
 
     private Climb() {
-        super(ClimbConstnats.CLIMB_CONSTANTS, ClimbConstnats.IDLE, ClimbConstnats.CLIMB, ClimbConstnats.DOWN, ClimbConstnats.PRECLIMB);
+        super(ClimbConstnats.CLIMB_CONSTANTS, ClimbConstnats.IDLE, ClimbConstnats.CLIMB, ClimbConstnats.DOWN, ClimbConstnats.PRECLIMB, ClimbConstnats.HOMING);
         resetPosition(0);
     }
 

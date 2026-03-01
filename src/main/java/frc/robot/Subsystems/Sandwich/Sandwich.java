@@ -9,13 +9,10 @@ import frc.robot.PortMap;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Sandwich extends PowerControlledSystem {
     private static Sandwich sandwich;
 
-    private double lastMAcamDistance;
-    private double deltaMAcamDistance;
 
     private DigitalInput leftIr;
     private DigitalInput rightIr;

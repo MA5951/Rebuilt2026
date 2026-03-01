@@ -1,17 +1,8 @@
 
 package frc.robot.Subsystems.Vision;
 
-import edu.wpi.first.math.Matrix;
-import edu.wpi.first.math.Nat;
-
 import com.MAutils.Logger.MALog;
 import com.MAutils.Vision.VisionSystem;
-import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
-
-import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.numbers.N1;
-import edu.wpi.first.math.numbers.N3;
-import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Util.Field;
 
 public class Vision {

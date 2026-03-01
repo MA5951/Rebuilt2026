@@ -12,7 +12,6 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Hood extends PositionControlledSystem {
 
@@ -30,7 +29,6 @@ public class Hood extends PositionControlledSystem {
         absPosition = canCoder.getAbsolutePosition();
         absPosition.refresh();
 
-        // resetPosition((absPosition.getValueAsDouble() * 360) / HoodConstants.CAN_CODER_GEAR);
         resetPosition(0);
 
         StatusSignalsRunner.registerSignals(PortMap.HoodPorts.HOOD_MOTOR, absPosition);

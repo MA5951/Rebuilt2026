@@ -1,7 +1,6 @@
 
 package frc.robot.Subsystems.Climb;
 
-import java.util.zip.GZIPInputStream;
 
 import com.MAutils.Components.Motor;
 import com.MAutils.RobotControl.State;
@@ -26,8 +25,8 @@ public class ClimbConstnats {
         public static final double CRUISE_VELOCITY = 0;
         public static final double ACCELERATION = 0;
 
-        public static final double START_CLOSE_VOLTAGE = 2;
-        public static final double END_CLOSE_VOLTAGE = 1;
+        public static final double START_CLOSE_VOLTAGE = -2;
+        public static final double END_CLOSE_VOLTAGE = -1;
 
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
@@ -36,6 +35,8 @@ public class ClimbConstnats {
         public static double LOCK_SERVO_UNLOCKED_ANGLE = 0;
         public static double LOCK_VOLTAGE = 0;
         public static double LOCK_POSITION = 0;
+        public static final double HOMING_CURRENT_TOLRANCE = 10;
+        public static final double HOMING_VOLTAGE = -1;
 
         public static final double KP = 7;
         public static final double KI = 0;
@@ -70,6 +71,8 @@ public class ClimbConstnats {
         public static final State PRECLIMB = new State("PRECLIMB");
         public static final State CLIMB = new State("CLIMB");
         public static final State DOWN = new State("DOWN");
+        public static final State HOMING = new State("HOMING");
+
         
         
 

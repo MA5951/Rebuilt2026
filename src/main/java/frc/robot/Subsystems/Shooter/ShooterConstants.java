@@ -10,7 +10,6 @@ import com.ctre.phoenix6.signals.InvertedValue;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import frc.robot.PortMap;
-import frc.robot.Commands.ShooterCommand;
 
 public class ShooterConstants {
 

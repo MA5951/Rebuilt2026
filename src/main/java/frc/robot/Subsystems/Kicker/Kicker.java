@@ -8,7 +8,6 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 public class Kicker extends PowerControlledSystem {
     private static Kicker kicker;

@@ -1,17 +1,12 @@
 
 package frc.robot;
 
-import com.MAutils.DashBoard.DashBoard;
-import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
-import com.MAutils.RobotControl.MRobotState;
 import com.MAutils.RobotControl.StateTrigger;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -29,7 +24,6 @@ import frc.robot.Commands.TransferCommand;
 import frc.robot.Commands.Auto.test;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
-import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
@@ -60,18 +54,14 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
-        // SixBar.getInstance();
-
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
-        Transfer.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        // IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                 new IntakeCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
+        CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
 
@@ -165,16 +155,14 @@ public class RobotContainer extends DeafultRobotContainer {
                 &&
                 Climb.getInstance().getPosition() > 0.15, RobotConstants.CLIMB));
 
-        // // Internal climb stats
+        // Internal climb stats
+
         // new Trigger(() -> getDriverController().getActionsLeft()
         // && SuperStructure.getTimeLeft() < 30 && SuperStructure.isRobotInAir()
-        // && (Math.abs(
-        // Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) <
-        // ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
-        // || SuperStructure.getTimeLeft() > 20))
-        // .onTrue(new InstantCommand(() ->
-        // Climb.getInstance().setState(ClimbConstnats.DOWN))); //TODO what return it to
-        // idle?
+        // && (Math.abs(Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
+        // || SuperStructure.getTimeLeft() > 20)).onTrue(new InstantCommand(() ->
+        // Climb.getInstance().setState(ClimbConstnats.DOWN)));
+        //TODO what return it to idle?
 
         // Internal shooter stats
 

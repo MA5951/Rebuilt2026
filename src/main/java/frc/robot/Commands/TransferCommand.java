@@ -30,7 +30,6 @@ public class TransferCommand extends SubsystemCommand {
                     transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
                 }
 
-                // transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
                 break;
             case "INTAKE":
                 transfer.setVoltage(TransferConstants.INTAKE_VOLTAGE);

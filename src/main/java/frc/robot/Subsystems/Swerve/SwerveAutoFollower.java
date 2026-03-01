@@ -7,21 +7,15 @@ import org.json.simple.parser.ParseException;
 
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.Swerve.Utils.PPHolonomicDriveController;
-import com.fasterxml.jackson.databind.node.POJONode;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.config.PIDConstants;
 import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PathFollowingController;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
-import com.pathplanner.lib.pathfinding.LocalADStar;
-import com.pathplanner.lib.pathfinding.Pathfinding;
 
 import com.pathplanner.lib.util.FileVersionException;
-import com.pathplanner.lib.util.PathPlannerLogging;
 
-import edu.wpi.first.math.controller.HolonomicDriveController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -56,7 +50,6 @@ public class SwerveAutoFollower {
                     return false;
                 }, swerve);
 
-        // Pathfinding.setPathfinder(new LocalADStar());
 
     }
 

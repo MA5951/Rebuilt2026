@@ -1,9 +1,6 @@
 
 package frc.robot.Subsystems.Vision;
 
-import java.lang.reflect.Field;
-import java.util.zip.GZIPInputStream;
-
 import com.MAutils.Vision.Filters.FiltersConfig;
 import com.MAutils.Vision.IOs.AprilTagCamera;
 import com.MAutils.Vision.IOs.LimelightIO;

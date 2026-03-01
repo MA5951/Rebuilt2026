@@ -5,11 +5,9 @@ package frc.robot.Commands;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
-import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
-import frc.robot.Subsystems.Swerve.Swerve;
 
 
 public class HoodCommand extends SubsystemCommand {
