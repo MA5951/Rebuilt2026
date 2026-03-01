@@ -78,6 +78,10 @@ public class Vision {
         VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.MAIN_TAGS);
     }
 
+    public void filterCenterMainTag() {
+        VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.CENTER_MAIN_TAGS);
+    }
+
     public void resetFilter() {
         VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.ALL_TAGS);
     }

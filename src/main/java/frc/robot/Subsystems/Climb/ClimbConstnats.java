@@ -26,8 +26,8 @@ public class ClimbConstnats {
         public static final double CRUISE_VELOCITY = 0;
         public static final double ACCELERATION = 0;
 
-        public static final double START_CLOSE_VOLTAGE = 0;
-        public static final double END_CLOSE_VOLTAGE = 0;
+        public static final double START_CLOSE_VOLTAGE = 2;
+        public static final double END_CLOSE_VOLTAGE = 1;
 
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;

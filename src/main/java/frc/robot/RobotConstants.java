@@ -75,6 +75,7 @@ public class RobotConstants {
                 SuperStructure.ballsShot = 0;
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
                SwerveController.atPointLock = false;
+               Robot.counter = 0;
         }, () -> {
                 SixBar.getInstance().setState(SixBar.getInstance().getLastState());
                 SwerveController.atPointLock = false;

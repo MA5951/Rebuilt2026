@@ -12,6 +12,7 @@ import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.Utils.SwerveController;
 import com.MAutils.Utils.ChassisSpeedsUtil;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
@@ -26,6 +27,7 @@ public class FieldCentricDrive extends SwerveController {
 
     private Supplier<GyroData> gyroDataSupplier;
     private double angleOffset = 0;
+    private SlewRateLimiter tunrLimite = new SlewRateLimiter(0.1);
 
     public FieldCentricDrive(MAController controller, SwerveSystemConstants constants, Supplier<GyroData> gyroDataSupplier) {
         super("Field Centric Drive");
@@ -55,7 +57,7 @@ public class FieldCentricDrive extends SwerveController {
     public void updateSpeeds() {
         speeds.vxMetersPerSecond = -controller.getLeftY(true, xyScaler) * constants.MAX_VELOCITY;
         speeds.vyMetersPerSecond = -controller.getLeftX(true, xyScaler) * constants.MAX_VELOCITY;
-        speeds.omegaRadiansPerSecond = -controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY;
+        speeds.omegaRadiansPerSecond = (Math.pow(-controller.getRightX(true, omegaScaler),2)*(Math.abs(-controller.getRightX(true, omegaScaler) ) *  (1/-controller.getRightX(true, omegaScaler))))  * constants.MAX_ANGULAR_VELOCITY;
 
 
         if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {

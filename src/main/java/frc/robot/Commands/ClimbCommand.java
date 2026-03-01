@@ -31,8 +31,6 @@ public class ClimbCommand extends SubsystemCommand {
                 } else {
                     climb.setVoltage(ClimbConstnats.END_CLOSE_VOLTAGE);
                 }
-
-                climb.setPosition(ClimbConstnats.CLOSE_POSITION);
                 break;
             case "DOWN":
                 // climb.unlockClimb();

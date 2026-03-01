@@ -27,6 +27,7 @@ public class Robot extends DeafultRobot {
 
   @SuppressWarnings("unused")
   private final RobotContainer m_robotContainer;
+  public static int counter = 0;
 
   public Robot() {
     super();
@@ -62,9 +63,14 @@ public class Robot extends DeafultRobot {
 
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 50)) {
           Vision.getInstance().filterMainTag();
+          counter++;
         } else {
           Vision.getInstance().resetFilter();
           
+        }
+
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 50) && counter > 10 && VisionConstants.FRONT_LL.getCameraIO().getFiducials().length > 1) {
+          Vision.getInstance().filterCenterMainTag();
         }
 
         if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
