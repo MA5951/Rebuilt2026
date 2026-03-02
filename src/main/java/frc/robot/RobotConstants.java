@@ -4,8 +4,10 @@ package frc.robot;
 import com.MAutils.RobotControl.MRobotState;
 
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
@@ -102,7 +104,8 @@ public class RobotConstants {
                         SandwichConstants.UNSTUCK, RollerConstants.UNSTUCK, TransferConstants.UNSTUCK,
                         IntakeRollerConstants.IDLE, KickerConstants.UNSTUCK);
 
-        public static final MRobotState PRECLIMB = new MRobotState("PRECLIMB",
+        public static final MRobotState PRECLIMB = new MRobotState("PRECLIMB",() -> {ClimbCommand.isAtPosition = false;
+        },
                         ClimbConstnats.PRECLIMB, SixBarConstants.DEPLOY, IntakeRollerConstants.IDLE, HoodConstants.IDLE,
                         ShooterConstants.IDLE, SandwichConstants.IDLE, RollerConstants.IDLE, TransferConstants.IDLE,
                         KickerConstants.IDLE);

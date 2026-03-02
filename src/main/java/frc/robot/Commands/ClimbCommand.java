@@ -11,6 +11,7 @@ import frc.robot.Subsystems.Climb.ClimbConstnats;
 public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();
     private static Debouncer debouncer = new Debouncer(0.2);
+    public static boolean isAtPosition = false;
 
     public ClimbCommand() {
         super(climb);
@@ -24,7 +25,15 @@ public class ClimbCommand extends SubsystemCommand {
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
-                climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
+                if (isAtPosition) {
+                    climb.setVoltage(0);
+                } else {
+                    climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
+                }
+
+                if (climb.atPoint()) {
+                    isAtPosition = true;
+                }
                 break;
             case "CLIMB":
                 if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.02) {
@@ -32,6 +41,8 @@ public class ClimbCommand extends SubsystemCommand {
                 } else {
                     climb.setVoltage(ClimbConstnats.END_CLOSE_VOLTAGE);
                 }
+
+                climb.setBrakeMode(true);
                 break;
             case "DOWN":
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);

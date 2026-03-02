@@ -15,7 +15,8 @@ public class SixBarCommand extends SubsystemCommand {
 
     private static final SixBar sixbar = SixBar.getInstance();
     private double manuelPosition = SixBarConstants.IDLE_ANGLE;
-    private static Debouncer homingDebouncer = new Debouncer(0.6);
+    private static Debouncer homingDebouncer = new Debouncer(0.2);
+    public static boolean isAtPosition = false;
 
     public SixBarCommand() {
         super(sixbar);
@@ -45,20 +46,19 @@ public class SixBarCommand extends SubsystemCommand {
                     sixbar.setVoltage(SixBarConstants.COLLISION_VOLTS_OUTSIDE);
                 }
 
-               
                 break;
             case "SHOOTING":
-                
-                if (SixBar.getInstance().getPosition() < 21) {
-                    sixbar.setPosition(8);
+
+                if (SixBar.getInstance().getPosition() < -36) {
+                    sixbar.setPosition(34.5);
                 } else {
-                    sixbar.setPosition(20);
+                    sixbar.setPosition(8);
                 }
                 break;
             case "HOMING":
-                sixbar.setVoltage(1.5);
-                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 15)) {
-                    sixbar.resetPosition(2.73);
+                sixbar.setVoltage(0.7);
+                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 32)) {
+                    sixbar.resetPosition(4.5);
                     sixbar.setState(SixBarConstants.IDLE);
                 }
                 break;
@@ -73,7 +73,7 @@ public class SixBarCommand extends SubsystemCommand {
         } else if (RobotContainer.getOperatorController().getActionsDown()) {
             manuelPosition = SixBarConstants.IDLE_ANGLE;
             // sixbar.setVoltage(-1);
-        } 
+        }
         sixbar.setPosition(manuelPosition);
     }
 

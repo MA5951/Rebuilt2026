@@ -13,8 +13,9 @@ import frc.robot.PortMap;
 
 public class ClimbConstnats {
 
-        public static final double OPEN_POSITION = 0.185;
+        public static final double OPEN_POSITION = 0.17;
         public static final double CLOSE_POSITION = 0;
+        public static final double CLIMB_INTAKE_POSE = 0.05;
         public static final double IDLE_POSITION = 0;
         public static final double MIN_POSITION = 0;
         public static final double MAX_POSITION = 0.187;
@@ -51,14 +52,14 @@ public class ClimbConstnats {
 
         private static final Motor CLIMB_MOTOR = new Motor(PortMap.ClimbPorts.CLIMB_MOTOR, MotorType.KRAKEN,
                         "Climb Motor",
-                        InvertedValue.Clockwise_Positive);
+                        InvertedValue.CounterClockwise_Positive);
 
         private static final GainConfig GAIN_CONFIG = new GainConfig().withKP(KP).withKI(KI).withKD(KD);
 
         public static final PositionSystemConstants CLIMB_CONSTANTS = PositionSystemConstants
                         .newBuilder("Climb", GAIN_CONFIG, CLIMB_MOTOR)
                         .gear(GEAR)
-                        .isBrake(true)
+                        .isBrake(false)
                         .tolerance(TOLERANCE)
                         .motorCurrentLimit(CURRENT_LIMIT)
                         .statorCurrentLimit(false, STATOR_CURRENT_LIMIT)
@@ -67,11 +68,23 @@ public class ClimbConstnats {
                         .positionFactor(POSITION_FACTOR)
                         .build();
 
+        public static final PositionSystemConstants HOMING_CLIMB_CONSTANTS = PositionSystemConstants
+                        .newBuilder("Climb", GAIN_CONFIG, CLIMB_MOTOR)
+                        .gear(GEAR)
+                        .isBrake(false)
+                        .tolerance(TOLERANCE)
+                        .motorCurrentLimit(CURRENT_LIMIT)
+                        .statorCurrentLimit(false, STATOR_CURRENT_LIMIT)
+                        .range(-0.18, MAX_POSITION)
+                        .startPose(START_POSITION)
+                        .positionFactor(POSITION_FACTOR)
+                        .build();
+
         public static final State IDLE = new State("IDLE");
         public static final State PRECLIMB = new State("PRECLIMB");
         public static final State CLIMB = new State("CLIMB");
         public static final State DOWN = new State("DOWN");
-        public static final State HOMING = new State("HOMING");
+        
 
         
         

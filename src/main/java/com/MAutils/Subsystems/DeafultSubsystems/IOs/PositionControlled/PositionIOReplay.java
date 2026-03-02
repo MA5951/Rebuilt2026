@@ -46,7 +46,7 @@ public class PositionIOReplay extends PowerIOReplay implements PositionSystemIO 
     }
 
     @Override
-    public void setSystemConstants(PositionSystemConstants systemConstants) {
+    public void setSystemConstants(PositionSystemConstants systemConstants, boolean burnMotor) {
     }
 
     @Override

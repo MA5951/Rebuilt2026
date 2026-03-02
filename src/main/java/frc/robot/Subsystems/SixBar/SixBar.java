@@ -3,12 +3,15 @@ package frc.robot.Subsystems.SixBar;
 
 import com.MAutils.CanBus.StatusSignalsRunner;
 import com.MAutils.Logger.MALog;
+import com.MAutils.RobotControl.State;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
+import frc.robot.Subsystems.Climb.Climb;
+import frc.robot.Subsystems.Climb.ClimbConstnats;
 
 public class SixBar extends PositionControlledSystem {
 
@@ -19,9 +22,11 @@ public class SixBar extends PositionControlledSystem {
     private final CANcoder canCoder;
     private double lastVelo = 0;
 
+    public static final State HOMING = new State("HOMING");
+
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
-                SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY, SixBarConstants.HOMING);
+                SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY, HOMING);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
         canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,
@@ -31,6 +36,9 @@ public class SixBar extends PositionControlledSystem {
         absPosition.refresh();
 
         resetPosition(-SixBarConstants.DEPLOY_ANGLE);
+
+        HOMING.setOnStateSet(() -> setConstants(SixBarConstants.HOMING_SIXBAR_CONSTANTS, false));
+        HOMING.setOnStateEnd(() -> setConstants(SixBarConstants.SIXBAR_CONSTANTS, false));
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
         StatusSignalsRunner.registerSignals(true, absPosition);
@@ -60,7 +68,7 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return true;
+        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE;
     }
 
 

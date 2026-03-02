@@ -9,6 +9,7 @@ import com.MAutils.Utils.ConvUtil;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.CoastOut;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.controls.VoltageOut;
@@ -18,6 +19,7 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.Timer;
 
 public class PowerIOReal implements PowerSystemIO {
 
@@ -85,6 +87,7 @@ public class PowerIOReal implements PowerSystemIO {
 
         motorConfig.CurrentLimits.StatorCurrentLimit = systemConstants.STATOR_CURRENT_LIMIT;
         motorConfig.CurrentLimits.StatorCurrentLimitEnable = systemConstants.CURRENT_LIMIT_ENABLED;
+        
 
         //TODO add limit revers and fowerd
         //TODO ramp rate
@@ -122,16 +125,22 @@ public class PowerIOReal implements PowerSystemIO {
 
     @Override
     public void setBrakeMode(boolean isBrake) {
-        brakeConfig.NeutralMode = isBrake
-                ? NeutralModeValue.Brake
-                : NeutralModeValue.Coast;
+        // motorConfig.MotorOutput.NeutralMode = isBrake
+        //         ? NeutralModeValue.Brake
+        //         : NeutralModeValue.Coast;
 
-        motorConfig.MotorOutput.Inverted = systemConstants.master.invert;
-        systemConstants.master.motorController.getConfigurator().apply(brakeConfig);
-        for (Motor motor : systemConstants.MOTORS) {
-            motorConfig.MotorOutput.Inverted = motor.invert;
-            motor.motorController.getConfigurator().apply(brakeConfig);
-        }
+        // motorConfig.MotorOutput.Inverted = systemConstants.master.invert;
+        // systemConstants.master.motorController.getConfigurator().apply(motorConfig);  
+
+        // MALog.log(logPath + "/Brake Config Master", Timer.getFPGATimestamp());  
+        // for (Motor motor : systemConstants.MOTORS) {
+        //     motorConfig.MotorOutput.Inverted = motor.invert;
+        //     MALog.log(logPath + "/Brake Config Slave", Timer.getFPGATimestamp()); 
+        //     motor.motorController.getConfigurator().apply(motorConfig);
+        // }
+
+        motorConfig.Slot0.kP = 7.1;
+        systemConstants.master.motorController.getConfigurator().apply(motorConfig);
     }
 
     @Override

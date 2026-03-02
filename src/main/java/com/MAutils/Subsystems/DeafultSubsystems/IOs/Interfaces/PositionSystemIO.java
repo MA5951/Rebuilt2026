@@ -13,7 +13,7 @@ public interface PositionSystemIO extends PowerSystemIO {
 
     void resetPosition(double pose);
 
-    void setSystemConstants(PositionSystemConstants systemConstants);
+    void setSystemConstants(PositionSystemConstants systemConstants, boolean burnMotor);
 
     void setPosition(double position);
 

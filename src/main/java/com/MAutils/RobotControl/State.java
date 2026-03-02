@@ -47,6 +47,14 @@ public class State {
         }
     }
 
+    public void setOnStateSet(Runnable onStateSet) {
+        this.onStateSet = onStateSet;
+    }
+
+    public void setOnStateEnd(Runnable onStateEnd) {
+        this.onStateEnd = onStateEnd;
+    }
+
     public StateSubsystem getSubsystem() {
         return subsystem;
     }

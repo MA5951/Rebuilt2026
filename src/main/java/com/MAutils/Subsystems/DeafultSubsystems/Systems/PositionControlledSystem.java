@@ -1,6 +1,7 @@
 
 package com.MAutils.Subsystems.DeafultSubsystems.Systems;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.RobotControl.State;
 import com.MAutils.Simulation.Simulatables.SubsystemSimulation;
 import com.MAutils.Simulation.SimulationManager;
@@ -46,8 +47,8 @@ public abstract class PositionControlledSystem extends PowerControlledSystem {
 
     }
 
-    public void setConstants(PositionSystemConstants systemConstants) {
-        systemIO.setSystemConstants(systemConstants);
+    public void setConstants(PositionSystemConstants systemConstants, boolean burnMotor) {
+        systemIO.setSystemConstants(systemConstants, burnMotor);
     }
 
     public double getRawPosition() {
@@ -84,6 +85,7 @@ public abstract class PositionControlledSystem extends PowerControlledSystem {
 
     public void setBrakeMode(boolean isBrake) {
         systemIO.setBrakeMode(isBrake);
+        MALog.log(LOG_PATH + "Brake Mode", isBrake);
     }
 
     public double getSetPoint() {

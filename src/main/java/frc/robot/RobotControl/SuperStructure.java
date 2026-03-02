@@ -127,7 +127,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
-    private static boolean automatic = true;
+    private static boolean automatic = false;
     private static boolean defence = true;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;

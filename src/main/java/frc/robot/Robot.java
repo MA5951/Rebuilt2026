@@ -78,9 +78,16 @@ public class Robot extends DeafultRobot {
   }
 
   @Override
+  public void autonomousInit() {
+    super.autonomousInit();
+    SixBar.getInstance().setState(SixBar.HOMING);
+  }
+
+  @Override
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();
+    SixBar.getInstance().setState(SixBar.HOMING);
 
     if (SuperStructure.isRobotInAir()) {
       Climb.getInstance().setState(ClimbConstnats.DOWN);
@@ -92,6 +99,12 @@ public class Robot extends DeafultRobot {
     super.teleopPeriodic();
     ActiveUtil.checkShift();
 
+  }
+
+  @Override
+  public void teleopExit() {
+    super.teleopExit();
+    Climb.getInstance().setBrakeMode(true);
   }
 
 }

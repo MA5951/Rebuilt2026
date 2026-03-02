@@ -24,6 +24,7 @@ import frc.robot.Commands.TransferCommand;
 import frc.robot.Commands.Auto.test;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
+import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
@@ -54,19 +55,21 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+        // SixBar.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-                new IntakeCommand());
+        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+        //         new IntakeCommand());
+        IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
 
     }
-
+ 
     @Override
     public void configAuto() {
         new SwerveAutoFollower();
@@ -153,7 +156,7 @@ public class RobotContainer extends DeafultRobotContainer {
 
         T(StateTrigger.T(() -> getDriverController().getActionsLeft()
                 &&
-                Climb.getInstance().getPosition() > 0.15, RobotConstants.CLIMB));
+                ClimbCommand.isAtPosition, RobotConstants.CLIMB));
 
         // Internal climb stats
 
@@ -229,10 +232,13 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 
         new Trigger (() -> getOperatorController().getActionsRight()).onTrue
-        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.HOMING)));
+        (new InstantCommand(() -> SixBar.getInstance().setState(SixBar.HOMING)));
 
         new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
         (new InstantCommand(() -> Hood.getInstance().setState(HoodConstants.HOMING)));
+
+        new Trigger (() -> getOperatorController().getActionsDown()).onTrue
+        (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
 
     }
 }
