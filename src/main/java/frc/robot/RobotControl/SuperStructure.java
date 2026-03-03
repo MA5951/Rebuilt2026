@@ -43,11 +43,11 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double CLIMB_POSITION_THRESHOLD = 0.15;
 
     public static final double FEEDING_ANGLE_OFFSET = 0;
-    public static final double FEEDING_SHOOTER_OFFSET = -300;
-    public static final double FEEDING_DISTANCE_OFFSET = -1.6;
+    public static final double FEEDING_SHOOTER_OFFSET = -700;
+    public static final double FEEDING_DISTANCE_OFFSET = -2;
 
-    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 0.7;//1.3
-    public static final double FEEDING_IN_MOTION_NET_MARGIN = 0;
+    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1.2;//1.3
+    public static final double FEEDING_IN_MOTION_NET_MARGIN = -0.2;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
@@ -127,7 +127,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
-    private static boolean automatic = false;
+    private static boolean automatic = true;
     private static boolean defence = true;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
@@ -278,11 +278,11 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double getShootingRPM(double x) {
 
-        if (SwerveController.isAbs < 50) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x);
+        if (SwerveController.isAbs < 3) {// Relativ
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 60;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x);
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 60;
     }
 
     private static double getHoodAngle(double distance) {
@@ -305,7 +305,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getDistanceToTargetShooting() {
-        if (Vision.getInstance().isMainTag() && !(SwerveController.isAbs < 50)) {
+        if (Vision.getInstance().isMainTag() && !(SwerveController.isAbs < 3)) {
             distance = Math.sqrt(Math.pow(Vision.getInstance().getDistanceTryg(), 2) +
                     Math.pow(Field.HUB_WIDTH / 2, 2)
                     + (2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) *
@@ -520,6 +520,9 @@ public class SuperStructure extends DeafultSuperStructure {
         } else {
             MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
         }
+
+            MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
+
 
     }
 

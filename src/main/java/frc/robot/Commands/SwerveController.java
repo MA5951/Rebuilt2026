@@ -32,12 +32,21 @@ public class SwerveController extends SwerveSystemController {
             if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
-                if (SuperStructure.isMainTag() && isAbs < 50) {
+
+                if (SuperStructure.isMainTag() && isAbs < 3) {
                     setState(SwerveConstants.SHOOTING_REL);
+                    if (isAbs == 1) {
+                        isAbs = 2;
+                    }
                 } else {
                     setState(SwerveConstants.SHOOTING_ABS);
+                    if (isAbs == 2 || isAbs == 3) {
+                        isAbs = 3;
+                    } else {
+                        isAbs = 1;
+                    }
                 }
-                isAbs++;
+                
             } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
@@ -52,8 +61,10 @@ public class SwerveController extends SwerveSystemController {
                 } else {
                     setState(SwerveConstants.FIELD_CENTRIC);
                 }
-            }
-        // }
+            // }
+        }
+
+
 
     }
 

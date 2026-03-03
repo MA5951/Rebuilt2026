@@ -8,6 +8,7 @@ import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -58,7 +59,7 @@ public class Robot extends DeafultRobot {
         
 
 
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 50)) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
           Vision.getInstance().filterMainTag();
           counter++;
         } else {
@@ -66,7 +67,7 @@ public class Robot extends DeafultRobot {
           
         }
 
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 50) && counter > 10 && VisionConstants.FRONT_LL.getCameraIO().getFiducials().length > 1) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3) && counter > 10 && VisionConstants.FRONT_LL.getCameraIO().getFiducials().length > 1) {
           Vision.getInstance().filterCenterMainTag();
         }
 
@@ -80,14 +81,18 @@ public class Robot extends DeafultRobot {
   @Override
   public void autonomousInit() {
     super.autonomousInit();
-    SixBar.getInstance().setState(SixBar.HOMING);
+    if (!SixBarCommand.isReset) {
+      SixBar.getInstance().setState(SixBar.HOMING);
+    }
   }
 
   @Override
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();
-    SixBar.getInstance().setState(SixBar.HOMING);
+    if (!SixBarCommand.isReset) {
+      SixBar.getInstance().setState(SixBar.HOMING);
+    }
 
     if (SuperStructure.isRobotInAir()) {
       Climb.getInstance().setState(ClimbConstnats.DOWN);

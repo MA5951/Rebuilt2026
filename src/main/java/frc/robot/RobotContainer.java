@@ -21,6 +21,7 @@ import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.StartingActiveCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.TransferCommand;
+import frc.robot.Commands.Auto.FeedingAuto;
 import frc.robot.Commands.Auto.test;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -61,9 +62,9 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-        //         new IntakeCommand());
-        IntakeRoller.getInstance();
+        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+                new IntakeCommand());
+        // IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
@@ -226,9 +227,9 @@ public class RobotContainer extends DeafultRobotContainer {
 
         new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new StartingActiveCommand());
 
-        new Trigger(() -> getDriverController().getDpadLeft()).onTrue(new test());
+        new Trigger(() -> getDriverController().getDpadLeft()).onTrue(new FeedingAuto());
 
-
+        
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 
         new Trigger (() -> getOperatorController().getActionsRight()).onTrue

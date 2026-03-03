@@ -17,6 +17,7 @@ public class SixBarCommand extends SubsystemCommand {
     private double manuelPosition = SixBarConstants.IDLE_ANGLE;
     private static Debouncer homingDebouncer = new Debouncer(0.2);
     public static boolean isAtPosition = false;
+    public static boolean isReset = false;
 
     public SixBarCommand() {
         super(sixbar);
@@ -56,8 +57,9 @@ public class SixBarCommand extends SubsystemCommand {
                 }
                 break;
             case "HOMING":
+                isReset = true;
                 sixbar.setVoltage(0.7);
-                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 32)) {
+                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 35)) {
                     sixbar.resetPosition(4.5);
                     sixbar.setState(SixBarConstants.IDLE);
                 }

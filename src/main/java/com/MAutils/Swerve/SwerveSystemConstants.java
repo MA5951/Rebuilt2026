@@ -151,7 +151,7 @@ public class SwerveSystemConstants {
         // Kinamtics
         public double MAX_VELOCITY = 4.1;
         public double MAX_ACCELERATION = 5;
-        public double MAX_ANGULAR_VELOCITY = MAX_VELOCITY / RADIUS;// Radians
+        public double MAX_ANGULAR_VELOCITY = MAX_VELOCITY / RADIUS * 0.9;// Radians
         public SwerveDriveKinematics kinematics = new SwerveDriveKinematics(
                         frontLeftLocation, frontRightLocation,
                         rearLeftLocation, rearRightLocation);
