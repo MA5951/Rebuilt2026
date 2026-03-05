@@ -16,16 +16,12 @@ public class TwoMagazine extends SequentialCommandGroup {
 
     public TwoMagazine() {
         addCommands(
-                new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
-                new ParallelRaceGroup(new SwerveAutoController(), new WaitCommand(1.5)),
-
-                SwerveAutoFollower.followPath("TM1"),
+                SwerveAutoFollower.followPath("TM5"),
                 new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.ARMBRAKS)),
                 new InstantCommand(() -> RobotConstants.IDLE_INTAKE.setState()),
                 SwerveAutoFollower.followPath("TM2"),
                 new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.ARMBRAKS)),
                 new InstantCommand(() -> RobotConstants.IDLE_INTAKE.setState()),
-                SwerveAutoFollower.followPath("TM3"),
                 new InstantCommand(() -> RobotConstants.SHOOTING.setState()));
     }
 }

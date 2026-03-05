@@ -3,37 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.4004910714314378,
-        "y": 5.986063988098713
+        "x": 0.3106122448979586,
+        "y": 6.8155545696459106
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4004910714314378,
-        "y": 5.986063988098713
+        "x": 1.3106122448979587,
+        "y": 6.8155545696459106
       },
       "isLocked": false,
       "linkedName": "TM2 End"
     },
     {
       "anchor": {
-        "x": 2.221049107142857,
-        "y": 5.633697916666668
+        "x": 2.008722271517302,
+        "y": 5.463504880212954
       },
       "prevControl": {
-        "x": 1.6272470238095238,
-        "y": 5.92733630952381
+        "x": 1.4149201881839688,
+        "y": 5.757143273070096
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": null
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.4293248945147665,
-      "rotationDegrees": -90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -53,7 +48,7 @@
   "folder": "Two Magazine",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

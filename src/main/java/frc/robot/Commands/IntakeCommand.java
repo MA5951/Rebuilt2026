@@ -32,7 +32,7 @@ public class IntakeCommand extends SubsystemCommand {
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage((Swerve.getInstance().getVelocityVector() * 0.45 + 4)*  0.9);//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4
+                intakeroller.setVoltage((Swerve.getInstance().getVelocityVector() * 0.55 + 4)*  0.9);//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);

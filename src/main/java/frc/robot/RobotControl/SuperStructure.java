@@ -228,7 +228,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean isBallsInSandwich() {
         //return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getMiddleIr();
-        return false;
+        return true;
     }
 
     public static boolean isAutomatic() {
@@ -389,7 +389,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
                 && Hood.getInstance().atPointForShooting() && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
-                        || !isAutomatic()));
+                        || (!isAutomatic() || DriverStation.isAutonomous())));
 
     }
 
@@ -464,7 +464,7 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if (Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && !DriverStation.isAutonomous()) {
+        if ((Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) ) {//&& !DriverStation.isAutonomous()//|| DriverStation.isAutonomous()
             isLocked = true;
         }
 

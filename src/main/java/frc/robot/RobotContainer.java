@@ -104,14 +104,14 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(
                 () -> ((getRobotState() == RobotConstants.INTAKE_DEPLOY
                         || getRobotState() == RobotConstants.INTAKE_ROLLER)
-                        && ((!getDriverController().getR1()) || SuperStructure.isFull() ) ) ||//&& !DriverStation.isTeleop()
-                        (getRobotState() == RobotConstants.EJECT && (!getDriverController().getActionsRight() ))//&& !DriverStation.isTeleop()
+                        && ((!getDriverController().getR1()) || SuperStructure.isFull() ) && !DriverStation.isAutonomous() ) ||//&& !DriverStation.isTeleop()
+                        (getRobotState() == RobotConstants.EJECT && (!getDriverController().getActionsRight() && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.FEEDING
-                                && ((!getDriverController().getActionsDown() || !SuperStructure.isBalls()) ))//&& !DriverStation.isTeleop()
-                        || (getRobotState() == RobotConstants.FEEDING_IN_MOTION && (!getDriverController().getR2() ))//&& !DriverStation.isTeleop()
+                                && ((!getDriverController().getActionsDown() || !SuperStructure.isBalls()) && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
+                        || (getRobotState() == RobotConstants.FEEDING_IN_MOTION && (!getDriverController().getR2() && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.SHOOTING
                                 && ((!getDriverController().getL1() || !SuperStructure.isBalls()
-                                        ) ))//&& !DriverStation.isTeleop()
+                                        ) && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
 
                                         //|| (!ActiveUtil.isActive()
                                         //        && ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE)
