@@ -40,7 +40,7 @@ public class SwerveAutoFollower {
                 pose -> PoseEstimator.resetPose(pose),
                 () -> swerve.getChassisSpeeds(),
                 (speeds, feedforwards) -> swerve.drive(speeds),
-                new PPHolonomicDriveController(new PIDConstants(0.3), new PIDConstants(0.2)),
+                new PPHolonomicDriveController(new PIDConstants(0.3), new PIDConstants(0.5)),
                 config,
                 () -> {
                     var alliance = DriverStation.getAlliance();

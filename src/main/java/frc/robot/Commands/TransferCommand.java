@@ -38,7 +38,7 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.FEEDING_VOLTAGE);
                 break;
             case "FEEDING_IN_MOTION":
-                transfer.setVoltage(TransferConstants.SHOOTING_VOLTAGE);
+                transfer.setVoltage(SuperStructure.getTransferSinVoltage());
                 break;
             case "EJECT":
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);

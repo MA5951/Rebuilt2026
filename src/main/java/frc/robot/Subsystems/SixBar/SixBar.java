@@ -12,6 +12,7 @@ import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class SixBar extends PositionControlledSystem {
 
@@ -50,11 +51,11 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public void setPosition(double position) {
-        super.setPosition(-position, 0.3);
+        super.setPosition(-position, 0.3  - (Math.abs(Swerve.getInstance().getChassisSpeeds().vxMetersPerSecond) * 0.1));
     }
 
     public void setPositionClose(double position) {
-        super.setPosition(-position, -0.2);
+        super.setPosition(-position, -0.2 + (Math.abs(Swerve.getInstance().getChassisSpeeds().vxMetersPerSecond)));
     }
 
     @Override

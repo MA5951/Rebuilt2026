@@ -8,8 +8,11 @@ import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.SwerveController;
+import frc.robot.Commands.Auto.FeedingAuto;
+import frc.robot.Commands.Auto.TwoMagazine;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
@@ -84,6 +87,9 @@ public class Robot extends DeafultRobot {
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
     }
+
+
+    CommandScheduler.getInstance().schedule(new TwoMagazine());
   }
 
   @Override

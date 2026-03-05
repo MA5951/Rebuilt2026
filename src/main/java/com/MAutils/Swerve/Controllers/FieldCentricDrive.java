@@ -29,7 +29,8 @@ public class FieldCentricDrive extends SwerveController {
     private double angleOffset = 0;
     private SlewRateLimiter tunrLimite = new SlewRateLimiter(12);
 
-    public FieldCentricDrive(MAController controller, SwerveSystemConstants constants, Supplier<GyroData> gyroDataSupplier) {
+    public FieldCentricDrive(MAController controller, SwerveSystemConstants constants,
+            Supplier<GyroData> gyroDataSupplier) {
         super("Field Centric Drive");
         this.constants = constants;
         this.controller = controller;
@@ -50,21 +51,38 @@ public class FieldCentricDrive extends SwerveController {
         this.angleOffset = angleOffset;
     }
 
-    public double  getOffset() {
-        return angleOffset ;
+    public double getOffset() {
+        return angleOffset;
     }
 
     public void updateSpeeds() {
         speeds.vxMetersPerSecond = -controller.getLeftY(true, xyScaler) * constants.MAX_VELOCITY;
         speeds.vyMetersPerSecond = -controller.getLeftX(true, xyScaler) * constants.MAX_VELOCITY;
-        speeds.omegaRadiansPerSecond = tunrLimite.calculate(-controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY);//(Math.pow(-controller.getRightX(true, omegaScaler),2)*(Math.abs(-controller.getRightX(true, omegaScaler) ) *  (1/-controller.getRightX(true, omegaScaler))))  * constants.MAX_ANGULAR_VELOCITY;
-
+        speeds.omegaRadiansPerSecond = tunrLimite
+                .calculate(-controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY);// (Math.pow(-controller.getRightX(true,
+                                                                                                      // omegaScaler),2)*(Math.abs(-controller.getRightX(true,
+                                                                                                      // omegaScaler) )
+                                                                                                      // *
+                                                                                                      // (1/-controller.getRightX(true,
+                                                                                                      // omegaScaler))))
+                                                                                                      // *
+                                                                                                      // constants.MAX_ANGULAR_VELOCITY;
 
         if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION) {
-            if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0 && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -160 && RobotContainer.getDriverController().getRightX(true, 1) > 0)) {// || (PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0 && PoseEstimator.getCurrentPose().getRotation().getDegrees() > -180 && RobotContainer.getDriverController().getRightX(true, 1) < 0) 
-                speeds.omegaRadiansPerSecond =0;
+            if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0
+                    && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -160
+                    && RobotContainer.getDriverController().getRightX(true, 1) > 0
+                    || RobotContainer.getDriverController().getRightX(true, 1) == 0)) {// ||
+                                                                                       // (PoseEstimator.getCurrentPose().getRotation().getDegrees()
+                                                                                       // < 0 &&
+                                                                                       // PoseEstimator.getCurrentPose().getRotation().getDegrees()
+                                                                                       // > -180 &&
+                                                                                       // RobotContainer.getDriverController().getRightX(true,
+                                                                                       // 1) < 0)
+                speeds.omegaRadiansPerSecond = 0;
             }
-                
+            
+            
         }
 
         speeds = ChassisSpeedsUtil.FromFieldToRobot(speeds,

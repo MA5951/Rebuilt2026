@@ -6,7 +6,9 @@ import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.events.EventTrigger;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -68,6 +70,7 @@ public class RobotContainer extends DeafultRobotContainer {
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
+        
 
     }
  
@@ -78,6 +81,14 @@ public class RobotContainer extends DeafultRobotContainer {
         NamedCommands.registerCommand("Shooting", new InstantCommand(() -> RobotConstants.SHOOTING.setState()));
         NamedCommands.registerCommand("Feeding", new InstantCommand(() -> RobotConstants.FEEDING.setState()));
         NamedCommands.registerCommand("FeedingInMotion", new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
+
+
+        // new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
+        // ).onTrue(new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
+
+        new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
+        ).onTrue(new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
+        
     }
 
     @Override
@@ -131,8 +142,8 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(() -> getDriverController().getActionsRight() && getRobotState() != RobotConstants.UNSTUCK,
                 RobotConstants.EJECT));
 
-        T(StateTrigger.T(() -> getDriverController().getActionsDown() && getRobotState() != RobotConstants.UNSTUCK,
-                RobotConstants.FEEDING));
+        // T(StateTrigger.T(() -> getDriverController().getActionsDown() && getRobotState() != RobotConstants.UNSTUCK,
+        //         RobotConstants.FEEDING));
 
         T(StateTrigger.T(() -> getDriverController().getR2() && getRobotState() != RobotConstants.UNSTUCK,
                 RobotConstants.FEEDING_IN_MOTION));
@@ -189,11 +200,10 @@ public class RobotContainer extends DeafultRobotContainer {
                 .onTrue(new InstantCommand(() -> Shooter.getInstance().setState(ShooterConstants.IDLE)));
 
         // Internal sixbar stats
-        new Trigger(() -> getDriverController().getR3()
-                && (getRobotState() == RobotConstants.INTAKE_DEPLOY))
+        new Trigger(() -> (getRobotState() == RobotConstants.INTAKE_DEPLOY))
                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.ARMBRAKS)));
 
-        new Trigger(() -> (((getDriverController().getR3() && SixBar.getInstance().atPoint(10))
+        new Trigger(() -> (((getDriverController().getActionsDown() && SixBar.getInstance().atPoint(10))
                 && getRobotState() != RobotConstants.INTAKE_DEPLOY && getRobotState() != RobotConstants.INTAKE_ROLLER)
                 || (!getDriverController().getR1()
                         && (getLastRobotState() == RobotConstants.INTAKE_DEPLOY

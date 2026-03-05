@@ -1,7 +1,6 @@
 
 package frc.robot.RobotControl;
 
-
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
@@ -46,8 +45,8 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_SHOOTER_OFFSET = -700;
     public static final double FEEDING_DISTANCE_OFFSET = -2;
 
-    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1.2;//1.3
-    public static final double FEEDING_IN_MOTION_NET_MARGIN = -0.2;
+    public static final double FEEDING_IN_MOTION_FIELD_MARGIN = 1.2;// 1.3
+    public static final double FEEDING_IN_MOTION_NET_MARGIN = 0;
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
@@ -147,7 +146,6 @@ public class SuperStructure extends DeafultSuperStructure {
         CLIMB(15.5, 3200, new Pose2d()),
         TRENCH(17.5, 3150, new Pose2d());
 
-
         public final double hoodAngle;
         public final double shooterRPM;
         public final Pose2d pose;
@@ -229,7 +227,8 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getMiddleIr();
+        //return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getMiddleIr();
+        return false;
     }
 
     public static boolean isAutomatic() {
@@ -340,7 +339,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static Supplier<Double> getGyroSUpplierFOrRelativAlign() {
-        if (Vision.getInstance().getTagID() == 21 ||Vision.getInstance().getTagID() == 5) {
+        if (Vision.getInstance().getTagID() == 21 || Vision.getInstance().getTagID() == 5) {
             return () -> Swerve.getInstance().getGyroYawSupplier().get() + 90;
         } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
             return () -> Swerve.getInstance().getGyroYawSupplier().get() - 90;
@@ -352,14 +351,14 @@ public class SuperStructure extends DeafultSuperStructure {
     public static double getAFTERANGLE() {
         double totAngle = 0;
 
-        if (Vision.getInstance().getTagID() == 21 ||Vision.getInstance().getTagID() == 5) {
+        if (Vision.getInstance().getTagID() == 21 || Vision.getInstance().getTagID() == 5) {
             totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 + 90
                     + (Vision.getInstance().getFilteredTx()));
         } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
             totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
                     + (Vision.getInstance().getFilteredTx())) - 90;
         } else {
-            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 
+            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
                     + (Vision.getInstance().getFilteredTx()));
         }
 
@@ -389,8 +388,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static boolean atPointForShooting() {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
-                && Hood.getInstance().atPointForShooting() && ((
-                        SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+                && Hood.getInstance().atPointForShooting() && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
                         || !isAutomatic()));
 
     }
@@ -399,14 +397,25 @@ public class SuperStructure extends DeafultSuperStructure {
 
         return (atPointLatch || Shooter.getInstance().atPointForFeeding())
                 && Hood.getInstance().atPointForFeeding()
-                && !isHittingNet() && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint();
+                && !isHittingNet();
     }
 
     public static boolean atPointForFeedingInMotion() {
 
-        return (atPointLatch || Shooter.getInstance().atPointForShooting())
+        return (atPointLatch || Shooter.getInstance().atPointForShooting()) && isOkAngleForFeeding()
                 && Hood.getInstance().atPointForFeedingInMotion() && !isHittingNet()
                 && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
+    }
+
+    public static boolean isOkAngleForFeeding() {
+        if (PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0
+                && PoseEstimator.getCurrentPose().getRotation().getDegrees() > 135
+                || PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0
+                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -135) {
+            return true;
+        }
+
+        return false;
     }
 
     public static ShootingPreset getCurrentShootingPreset() {
@@ -455,7 +464,7 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if (Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) {
+        if (Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && !DriverStation.isAutonomous()) {
             isLocked = true;
         }
 
@@ -486,9 +495,9 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Feeding Pose", FEEDING_POSE);
         MALog.log("/SuperStructure/Feeding Distance", getDistanceToTargetFeeding());
         MALog.log("/SuperStructure/Is Net", isHittingNet());
-        MALog.log("/SuperStructure/Is at point - angle adjust controller", SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint());
-        MALog.log("/SuperStructure/Is delta tx", Vision.getInstance().isDeltaTx() );
-
+        MALog.log("/SuperStructure/Is at point - angle adjust controller",
+                SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint());
+        MALog.log("/SuperStructure/Is delta tx", Vision.getInstance().isDeltaTx());
 
         MALog.log("/SuperStructure/Is Y In Field",
                 distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get()));
@@ -514,15 +523,13 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/is active", ActiveUtil.isActive());
 
-
         if (ActiveUtil.isActive()) {
-            MALog.log("/SuperStructure/Time in Active",  ActiveUtil.getTimeInActive());
+            MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
         } else {
             MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
         }
 
-            MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
-
+        MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
 
     }
 

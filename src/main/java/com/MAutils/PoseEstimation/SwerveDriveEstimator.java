@@ -63,39 +63,47 @@ public class SwerveDriveEstimator {
         //     totalDelta = totalDelta.plus(calculateModuleDisplysment(lastPositions[skidDetector.getSecoundLowestIndex()], currentPositions[skidDetector.getSecoundLowestIndex()]));
         //     numOfSkiddingModules = 2;
         // } else {
-            for (int i = 0; i < currentPositions.length; i++) {
-                deltaDistance = currentPositions[i].distanceMeters - lastPositions[i].distanceMeters;
-                prevAngle = lastPositions[i].angle;
-                currAngle = currentPositions[i].angle;
-                deltaTheta = currAngle.minus(prevAngle).getRadians();
+            // for (int i = 0; i < currentPositions.length; i++) {
+            //     deltaDistance = currentPositions[i].distanceMeters - lastPositions[i].distanceMeters;
+            //     prevAngle = lastPositions[i].angle;
+            //     currAngle = currentPositions[i].angle;
+            //     deltaTheta = currAngle.minus(prevAngle).getRadians();
 
-                if (Math.abs(deltaTheta) < 1e-5) { //TODO you duplicate code her just call calculateModuleDisplysment()
-                    arcDelta = new Translation2d(deltaDistance, currAngle); 
-                } else {
-                    Translation2d v1 = new Translation2d(deltaDistance / deltaTheta,
-                            prevAngle.minus(Rotation2d.fromRadians(Math.PI / 2)));
-                    Translation2d v2 = v1.rotateBy(Rotation2d.fromRadians(deltaTheta));
+            //     if (Math.abs(deltaTheta) < 1e-5) { //TODO you duplicate code her just call calculateModuleDisplysment()
+            //         arcDelta = new Translation2d(deltaDistance, currAngle); 
+            //     } else {
+            //         Translation2d v1 = new Translation2d(deltaDistance / deltaTheta,
+            //                 prevAngle.minus(Rotation2d.fromRadians(Math.PI / 2)));
+            //         Translation2d v2 = v1.rotateBy(Rotation2d.fromRadians(deltaTheta));
 
-                    arcDelta = v2.minus(v1);
-                }
-                totalDelta = totalDelta.plus(arcDelta);
+            //         arcDelta = v2.minus(v1);
+            //     }
+            //     totalDelta = totalDelta.plus(arcDelta);
 
                 // if (!skidDetector.getIsSkidding()[i] && numOfSkiddingModules < 2) { // TODO you dont need to check numOfSkiddingModules < 2 its in the else
                 //     totalDelta = totalDelta.plus(arcDelta);
                 //     numOfSkiddingModules++; //TODO why you add one? why you dont just use getNumOfSkiddingModules()
                 // }
 
-            }
+      //      }
         // }
-
-        lastPositions = currentPositions;
 
         
 
+
+        Twist2d twist = swerveSystem.getSwerveConstants().kinematics.toTwist2d(currentPositions, lastPositions);
+        lastPositions = currentPositions;
         return new Twist2d(
-                totalDelta.getX() / (4), //TODO change the 4 to currentPositions.length
-                totalDelta.getY() / (4 ),
-                0); //TODO why you dont just edite the odometryTwist her
+                -twist.dx, 
+                -twist.dy,
+                0); 
+
+        
+
+        // return new Twist2d(
+        //         totalDelta.getX() / (4), //TODO change the 4 to currentPositions.length
+        //         totalDelta.getY() / (4 ),
+        //         0); //TODO why you dont just edite the odometryTwist her
     }
 
     private double getGyroDelta(Rotation2d currentGyro) {
