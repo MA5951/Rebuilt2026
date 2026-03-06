@@ -524,9 +524,9 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/is active", ActiveUtil.isActive());
 
         if (ActiveUtil.isActive()) {
-            MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
+            MALog.log("/SuperStructure/Active Time",  ActiveUtil.getTimeInActive());
         } else {
-            MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
+            MALog.log("/SuperStructure/Active Time", ActiveUtil.getTimeUntilActive());
         }
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);

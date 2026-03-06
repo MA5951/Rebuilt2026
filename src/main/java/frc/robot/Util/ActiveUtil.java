@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ActiveUtil {
 
-    private static Boolean isMyFirstShift; 
+    private static Boolean isMyFirstShift = false; 
     private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
     
     
@@ -65,20 +65,20 @@ public class ActiveUtil {
 
         if(isMyFirstShift != null) {
             if (isMyFirstShift) {
-                if (matchTimer.get() < 35) {
-                    return matchTimer.get();
+                if (matchTimer.get() < 35) {                    
+                    return 35 - matchTimer.get();
                 } else if (matchTimer.get() > 60 && matchTimer.get() < 85) {
-                    return matchTimer.get() - 60;
+                    return 25 - (matchTimer.get() - 60);
                 } else if(matchTimer.get() > 110) {
-                    return matchTimer.get() - 110;
+                    return 30 - (matchTimer.get() - 110);
                 } 
             } else {
                 if(matchTimer.get() < 10) {
-                    return matchTimer.get();
+                    return 10 - matchTimer.get();
                 } else if ((matchTimer.get() > 35 && matchTimer.get() < 60)) {
-                    return matchTimer.get() - 35;
+                    return 25 - (matchTimer.get() - 35);
                 } else if (matchTimer.get() > 85) {
-                    return matchTimer.get() - 85;
+                    return 55 - (matchTimer.get() - 85);
                 }
             }
         }
