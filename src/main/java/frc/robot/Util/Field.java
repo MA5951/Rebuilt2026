@@ -37,7 +37,7 @@ public class Field {
     public static final int[] MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG , 18, 21, 2, 5};
     public static final int[] CENTER_MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG};
     public static final int[] RED_MAIN_TAGS = {2,5,10};
-    public static final int[] ALL_TAGS = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    public static final int[] ALL_TAGS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
             22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
 
     public static final Rectangle2d FIELD_RECTANGLE = new Rectangle2d(new Translation2d(0, 0), FIELD_CORNER);

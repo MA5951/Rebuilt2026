@@ -13,6 +13,7 @@ import com.MAutils.Swerve.Utils.ProfiledPIDController;
 import com.MAutils.Swerve.Utils.SwerveState;
 import com.MAutils.Utils.GainConfig;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import frc.robot.PortMap;
@@ -21,8 +22,13 @@ import frc.robot.RobotControl.SuperStructure;
 
 public class SwerveConstants {  
 
+        public static double relSetPoint;
+
         public static final GainConfig driveGainConfig = new GainConfig().withKV(0.765).withKS(0.23).withKP(0.5);
         public static final GainConfig turnGainConfig = new GainConfig().withKP(150).withKS(0.23);
+
+        public static final SlewRateLimiter setPointLimiterAbs = new SlewRateLimiter(1);
+        public static final SlewRateLimiter setPointLimiterRel = new SlewRateLimiter(1);
 
         // Swerve System Constants
         public static final SwerveSystemConstants SWERVE_CONSTANTS = new SwerveSystemConstants()
@@ -68,17 +74,17 @@ public class SwerveConstants {
         public static final SwerveState NONE = new SwerveState("NONE").withXY(0, 0).withOmega(0);
 
         public static final SwerveState FIELD_CENTRIC = new SwerveState("Field Centric")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.9, 0.49))
+                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
         public static final SwerveState FIELD_CENTRIC_40 = new SwerveState("Field Centric 40 Precent")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.4, 0.35))
+                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.3, 0.20))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
         public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); //setPointLimiterAbs.calculate(
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
@@ -87,8 +93,9 @@ public class SwerveConstants {
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAFTERANGLE());
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAFTERANGLE());//setPointLimiterRel.calculate()
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(SuperStructure.getGyroSUpplierFOrRelativAlign()); 
+                                
                         })
                         
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
@@ -102,8 +109,8 @@ public class SwerveConstants {
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
-        public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding In Motion")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.6, 0.4))
-                        .withSpeeds(FIELD_CENTRIC_DRIVE);
+        // public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding In Motion")
+        //                 .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.6, 0.4))
+        //                 .withSpeeds(FIELD_CENTRIC_DRIVE);
 
 }

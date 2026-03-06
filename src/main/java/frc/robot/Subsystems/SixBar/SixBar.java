@@ -51,7 +51,7 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public void setPosition(double position) {
-        super.setPosition(-position, 0.3  - (Math.abs(Swerve.getInstance().getChassisSpeeds().vxMetersPerSecond) * 0.17));
+        super.setPosition(-position, 0.3  - (Math.abs(Swerve.getInstance().getChassisSpeeds().vxMetersPerSecond) * 0.22));
     }
 
     public void setPositionClose(double position) {

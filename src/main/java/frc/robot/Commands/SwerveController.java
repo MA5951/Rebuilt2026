@@ -13,6 +13,7 @@ import frc.robot.Subsystems.Vision.Vision;
 public class SwerveController extends SwerveSystemController {
     public static int isAbs = 0;
     public static boolean atPointLock = false;
+    private static double alignSetPoint = 0;
 
     public SwerveController() {
         super(Swerve.getInstance(), SwerveConstants.SWERVE_CONSTANTS, RobotContainer.getDriverController());
@@ -51,10 +52,6 @@ public class SwerveController extends SwerveSystemController {
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
                 setState(SwerveConstants.FEEDING);
-            } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.FEEDING_IN_MOTION)) {
-                setState(SwerveConstants.FEEDING_IN_MOTION);
             } else {
                 if (RobotContainer.getDriverController().getL2()) {
                     setState(SwerveConstants.FIELD_CENTRIC_40);

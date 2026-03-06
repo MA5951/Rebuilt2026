@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobot;
@@ -14,9 +15,12 @@ import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.Auto.FeedingAuto;
 import frc.robot.Commands.Auto.TwoMagazine;
+import frc.robot.RobotControl.Dashboard;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
+import frc.robot.Subsystems.Hood.Hood;
+import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.Swerve;
@@ -80,6 +84,8 @@ public class Robot extends DeafultRobot {
           PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
         }
 
+        ActiveUtil.setIsMyFirstShift(Dashboard.isFirstShift());
+
   }
 
   @Override
@@ -87,6 +93,7 @@ public class Robot extends DeafultRobot {
     super.autonomousInit();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
+      Hood.getInstance().setState(HoodConstants.HOMING);
     }
 
 
@@ -99,6 +106,7 @@ public class Robot extends DeafultRobot {
     ActiveUtil.startTeleop();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
+      Hood.getInstance().setState(HoodConstants.HOMING);
     }
 
     if (SuperStructure.isRobotInAir()) {

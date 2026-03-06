@@ -44,7 +44,7 @@ public class Vision {
     public double getFilteredTx() {
         return VisionConstants.FRONT_LL.getCameraIO().getTag().txnc > -0.8 &&
                 VisionConstants.FRONT_LL.getCameraIO().getTag().txnc < 0 ? 0
-                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
+                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;//TODO Try withut
     }
 
     public double getCOrrectedTy() {

@@ -134,6 +134,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static double startShootingTime = 0;
     public static int ballsShot = 0;
     private static boolean ballLock = false;
+    private static double setPointAlign = 0;
 
     private static Debouncer inTheAirDebouncer = new Debouncer(0.8);
     private static Debouncer sandwichStuckDebouncer = new Debouncer(0.6);
@@ -170,6 +171,14 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean isMainTag() {
         return Vision.getInstance().isMainTag();
+    }
+
+    public static double getSetPointAlign() {
+        return setPointAlign;
+    }
+
+    public static void setSetPointAlign(double setPoiint) {
+        setPointAlign = setPoiint;
     }
 
     public static double getRelAngleToTarget() {
@@ -227,7 +236,8 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        //return Sandwich.getInstance().getLeftIr() || Sandwich.getInstance().getMiddleIr();
+        // return Sandwich.getInstance().getLeftIr() ||
+        // Sandwich.getInstance().getMiddleIr();
         return true;
     }
 
@@ -351,6 +361,8 @@ public class SuperStructure extends DeafultSuperStructure {
     public static double getAFTERANGLE() {
         double totAngle = 0;
 
+        
+
         if (Vision.getInstance().getTagID() == 21 || Vision.getInstance().getTagID() == 5) {
             totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 + 90
                     + (Vision.getInstance().getFilteredTx()));
@@ -464,7 +476,9 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if ((Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) ) {//&& !DriverStation.isAutonomous()//|| DriverStation.isAutonomous()
+        if ((Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint())) {// &&
+                                                                                                                // !DriverStation.isAutonomous()//||
+                                                                                                                // DriverStation.isAutonomous()
             isLocked = true;
         }
 
@@ -524,9 +538,9 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/is active", ActiveUtil.isActive());
 
         if (ActiveUtil.isActive()) {
-            MALog.log("/SuperStructure/Time in Active", ActiveUtil.getTimeInActive());
+            MALog.log("/SuperStructure/Active Time", ActiveUtil.getTimeInActive());
         } else {
-            MALog.log("/SuperStructure/Time until Active", ActiveUtil.getTimeUntilActive());
+            MALog.log("/SuperStructure/Active Time", ActiveUtil.getTimeUntilActive());
         }
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
