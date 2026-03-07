@@ -34,19 +34,19 @@ public class SwerveController extends SwerveSystemController {
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                             && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
 
-                if (SuperStructure.isMainTag() && isAbs < 3) {
-                    setState(SwerveConstants.SHOOTING_REL);
-                    if (isAbs == 1) {
-                        isAbs = 2;
-                    }
-                } else {
+                 if (SuperStructure.isMainTag() && isAbs < 3) {
+                     setState(SwerveConstants.SHOOTING_REL);
+                     if (isAbs == 1) {
+                         isAbs = 2;
+                     }
+                 } else {
                     setState(SwerveConstants.SHOOTING_ABS);
-                    if (isAbs == 2 || isAbs == 3) {
-                        isAbs = 3;
-                    } else {
-                        isAbs = 1;
-                    }
-                }
+                     if (isAbs == 2 || isAbs == 3) {
+                         isAbs = 3;
+                     } else {
+                     isAbs = 1;
+                     }
+                 }
                 
             } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
                     (RobotContainer.getRobotState() == RobotConstants.UNSTUCK

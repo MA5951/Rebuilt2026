@@ -1,6 +1,7 @@
 
 package frc.robot.Util;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Utils.DriverStationUtil;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -10,11 +11,9 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ActiveUtil {
 
-    private static Boolean isMyFirstShift = false; 
+    private static Boolean isMyFirstShift; 
     private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
-    
-    
-
+    private static int currentShift = 0;
 
     public static void startTeleop() {
         matchTimer.reset();
@@ -145,5 +144,32 @@ public class ActiveUtil {
             }
         }
         return -1;   
+    }
+
+    public static void getGameMode() {
+        if (matchTimer.get() < 10) {
+            MALog.log("/ActiveUtil/GameMode", "Transfer" );
+        } else if (matchTimer.get() > 110) {
+            MALog.log("/ActiveUtil/GameMode", "Endgame" );
+        } else if (isMyShift()) {
+            MALog.log("/ActiveUtil/GameMode", "Active -  Shift: " + getCurrentShift());
+        } else if(!isMyShift()) {
+            MALog.log("/ActiveUtil/GameMode", "Inactive -  Shift: " + getCurrentShift());
+        } 
+    }
+
+    public static int getCurrentShift() {
+        if (matchTimer.get() < 35 && matchTimer.get() > 10) {
+            currentShift = 1;
+        } else if (matchTimer.get() > 35 && matchTimer.get() < 60) {
+            currentShift = 2;
+        } else if (matchTimer.get() > 60 && matchTimer.get() < 85) {
+            currentShift = 3;
+        } else if (matchTimer.get() > 85 && matchTimer.get() < 110) {
+            currentShift = 4;
+        } else {
+            currentShift = 0; 
+        }
+        return currentShift;
     }
 } 

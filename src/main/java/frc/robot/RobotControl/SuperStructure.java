@@ -67,13 +67,13 @@ public class SuperStructure extends DeafultSuperStructure {
             { 3.587, 22.0 },
             { 3.428, 21.0 },
             { 3.244, 20.0 },
-            { 3.109, 20.0 },
-            { 2.986, 19.0 },
-            { 2.892, 18.0 },
-            { 2.795, 17.0 },
-            { 2.691, 16.0 },
-            { 2.551, 15.5 },
-            { 2.468, 15.0 },
+            { 3.109, 18.5 },
+            { 2.986, 17.5 },
+            { 2.892, 16.5 },
+            { 2.795, 15.5 },
+            { 2.691, 14.5 },
+            { 2.551, 14.5 },
+            { 2.468, 14.0 },
             { 2.374, 14.0 },
             { 2.278, 13.0 },
             { 2.184, 13.0 },
@@ -98,10 +98,10 @@ public class SuperStructure extends DeafultSuperStructure {
             { 4.276, 3705.0 },
             { 4.086, 3595.0 },
             { 3.936, 3600.0 },
-            { 3.756, 3600.0 },
-            { 3.587, 3550.0 },
-            { 3.428, 3550.0 },
-            { 3.244, 3500.0 },
+            { 3.756, 3550.0 },
+            { 3.587, 3500.0 },
+            { 3.428, 3490.0 },
+            { 3.244, 3490.0 },
             { 3.109, 3250.0 },
             { 2.986, 3200.0 },
             { 2.892, 3200.0 },
@@ -181,16 +181,6 @@ public class SuperStructure extends DeafultSuperStructure {
         setPointAlign = setPoiint;
     }
 
-    public static double getRelAngleToTarget() {
-        return 90 + Math.toDegrees(Math.atan2(
-                Vision.getInstance().getDistanceTryg()
-                        * Math.sin(Math.toRadians(90 - VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
-                                - Swerve.getInstance().getGyroData().yaw + 90))
-                        + Field.HUB_WIDTH / 2,
-                Vision.getInstance().getDistanceTryg()
-                        * Math.cos(Math.toRadians(90 - VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
-                                - Swerve.getInstance().getGyroData().yaw + 90))));
-    }
 
     public static double getAbsAngleToTarget() {
 
@@ -288,10 +278,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 60;
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30; //- 60;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 60;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30; //- 60;
     }
 
     private static double getHoodAngle(double distance) {
@@ -369,7 +359,7 @@ public class SuperStructure extends DeafultSuperStructure {
         } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
             totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
                     + (Vision.getInstance().getFilteredTx())) - 90;
-        } else {
+        } else if (Vision.getInstance().getTagID() == 26 || Vision.getInstance().getTagID() == 10){
             totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
                     + (Vision.getInstance().getFilteredTx()));
         }
@@ -534,14 +524,6 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Sin Voltage", getTransferSinVoltage());
 
         MALog.log("/SuperStructure/Time left in teleop", DriverStation.getMatchTime());
-
-        MALog.log("/SuperStructure/is active", ActiveUtil.isActive());
-
-        if (ActiveUtil.isActive()) {
-            MALog.log("/SuperStructure/Active Time", ActiveUtil.getTimeInActive());
-        } else {
-            MALog.log("/SuperStructure/Active Time", ActiveUtil.getTimeUntilActive());
-        }
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
 

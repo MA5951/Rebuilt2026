@@ -23,6 +23,7 @@ public class AprilTagCamera extends Camera {
 
     private final PoseEstimatorSource poseEstimatorSource;
     public final Supplier<Double> robotAngleSupplier; // degrees
+    public final Supplier<Double> robotAngleVelocitySupplier; // degrees/sec
 
     private FiltersConfig teleopConfig, autoConfig;
     private AprilTagFilters aprilTagFilters;
@@ -41,22 +42,21 @@ public class AprilTagCamera extends Camera {
     // =====
 
     //TODO need to add filter of more then one camrea that check if the dis bettwen the src are in tolorecn
-    public AprilTagCamera(VisionCameraIO cameraIO, FiltersConfig filterConfig, Supplier<Double> robotAngleSupplier) {
-        this(cameraIO, filterConfig, filterConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
-    }
+    
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier) {
-        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
+        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds(), () -> 0.0); // CHANGED
     }
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
             Supplier<Double> robotAngleSupplier,
-            Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
-        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier); // CHANGED
+            Supplier<ChassisSpeeds> chassisSpeedsSupplier,
+            Supplier<Double> robotAngleVelocitySupplier) { // ADDED
+        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier, robotAngleVelocitySupplier); // CHANGED
     }
 
     // ===== ADDED: new ctor that accepts a ChassisSpeeds supplier =====
@@ -64,12 +64,14 @@ public class AprilTagCamera extends Camera {
             FiltersConfig teleopConfig,
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier,
-            Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
+            Supplier<ChassisSpeeds> chassisSpeedsSupplier,
+            Supplier<Double> robotAngleVelocitySupplier) { // ADDED
         super(cameraIO);
 
         this.teleopConfig = teleopConfig;
         this.autoConfig = autoConfig;
 
+        this.robotAngleVelocitySupplier = robotAngleVelocitySupplier;
         this.robotAngleSupplier = robotAngleSupplier;
         this.chassisSpeedsSupplier = chassisSpeedsSupplier != null
                 ? chassisSpeedsSupplier
@@ -79,7 +81,8 @@ public class AprilTagCamera extends Camera {
         this.aprilTagFilters = new AprilTagFilters(getFiltersConfig(),
                 cameraIO,
                 this.chassisSpeedsSupplier,
-                () -> Math.toRadians(this.robotAngleSupplier.get())); // ADDED
+                () -> Math.toRadians(this.robotAngleSupplier.get()),
+                robotAngleVelocitySupplier); // ADDED
 
         poseEstimatorSource = new PoseEstimatorSource("LL",
                 () -> getRobotRelaticTwist(poseEstimate, visionTs),

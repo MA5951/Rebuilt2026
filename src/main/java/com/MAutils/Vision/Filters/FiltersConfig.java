@@ -7,7 +7,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 
 public class FiltersConfig {
 
-    public double maxAmbiguity = 0.25; // Reject if ambiguity > this
+    public double maxAmbiguity = 0.4; // Reject if ambiguity > this
     public double maxDistanceMeters = 6.0; // Reject if pose is too far
 
     public double maxPoseJumpMeters = 0.7; // Reject if new pose is too far from current

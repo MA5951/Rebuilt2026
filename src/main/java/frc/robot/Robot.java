@@ -86,6 +86,7 @@ public class Robot extends DeafultRobot {
 
         ActiveUtil.setIsMyFirstShift(Dashboard.isFirstShift());
 
+
   }
 
   @Override
@@ -118,6 +119,14 @@ public class Robot extends DeafultRobot {
   public void teleopPeriodic() {
     super.teleopPeriodic();
     ActiveUtil.checkShift();
+    ActiveUtil.getGameMode();
+    MALog.log("ActiveUtil/is active", ActiveUtil.isActive());
+
+    if (ActiveUtil.isActive()) {
+      MALog.log("ActiveUtil/Active Time", ActiveUtil.getTimeInActive());
+    } else {
+      MALog.log("ActiveUtil/Active Time", ActiveUtil.getTimeUntilActive());
+    }
 
   }
 

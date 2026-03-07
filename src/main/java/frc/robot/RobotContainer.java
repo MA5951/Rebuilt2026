@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
@@ -8,7 +9,9 @@ import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
 
+import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -57,17 +60,17 @@ public class RobotContainer extends DeafultRobotContainer {
         
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
-        //CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
-        SixBar.getInstance();
+        CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+        //SixBar.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
-        //CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
-        Transfer.getInstance();
+        CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
+        //Transfer.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-        //         new IntakeCommand());
-        IntakeRoller.getInstance();
+        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+                new IntakeCommand());
+        //IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
@@ -238,7 +241,9 @@ public class RobotContainer extends DeafultRobotContainer {
 
         new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new StartingActiveCommand());
 
-        new Trigger(() -> getDriverController().getDpadLeft()).onTrue(new FeedingAuto());
+        new Trigger(() -> getDriverController().getDpadLeft()).onTrue(new InstantCommand(() -> MALog.log("Flags/Align Flag", Timer.getFPGATimestamp())));
+
+        new Trigger(() -> getDriverController().getDpadRight()).onTrue(new InstantCommand(() -> MALog.log("Flags/Miss Flag", Timer.getFPGATimestamp())));
 
         
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));

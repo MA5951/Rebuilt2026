@@ -78,6 +78,8 @@ public class SixBar extends PositionControlledSystem {
         super.periodic();
         MALog.log(LOG_PATH + "PID Voltage", getCloseLoopVolts());
         MALog.log(LOG_PATH + "Acceleratin", lastVelo - getVelocity());
+        MALog.log(LOG_PATH + "HommingCondition", Math.abs(sixbar.getCurrent()) > 35);
+
         lastVelo = getVelocity();
 
     }
