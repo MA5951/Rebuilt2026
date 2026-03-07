@@ -352,7 +352,8 @@ public class PoseEstimator {
 
   public record OdometryObservation(
       double timestamp,
-      SwerveModulePosition[] wheelPositions,
+      SwerveModulePosition[] startWheelPositions,
+      SwerveModulePosition[] endWheelPositions,
       Optional<Rotation2d> roll,
       Optional<Rotation2d> pitch,
       Optional<Rotation2d> yaw) {
@@ -375,12 +376,7 @@ public class PoseEstimator {
 
   private static Rotation2d gyroOffset = Rotation2d.kZero;
 
-  public static SwerveModulePosition[] lastWheelPositions = new SwerveModulePosition[] {
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition()
-  };
+  
 
   public static void init() {
     for (int i = 0; i < 3; ++i) {
@@ -410,13 +406,13 @@ public class PoseEstimator {
 
   public static void addOdometryObservation(OdometryObservation observation) {
     // Update odometry pose
-    MALog.log("/Pose Testing/0 Distance", observation.wheelPositions()[0].distanceMeters);
-    MALog.log("/Pose Testing/0 Last Distance", lastWheelPositions[0].distanceMeters);
-    MALog.log("/Pose Testing/0 Delta Distance", lastWheelPositions[0].distanceMeters - observation.wheelPositions()[0].distanceMeters);
+    MALog.log("/Pose Testing/0 Distance", observation.startWheelPositions()[0].distanceMeters);
+    MALog.log("/Pose Testing/0 Last Distance", observation.endWheelPositions()[0].distanceMeters);
+    MALog.log("/Pose Testing/0 Delta Distance", observation.endWheelPositions()[0].distanceMeters - observation.startWheelPositions()[0].distanceMeters);
 
 
-    Twist2d twist = SwerveConstants.SWERVE_CONSTANTS.kinematics.toTwist2d(lastWheelPositions,
-        observation.wheelPositions());
+    Twist2d twist = SwerveConstants.SWERVE_CONSTANTS.kinematics.toTwist2d(
+        observation.startWheelPositions(), observation.endWheelPositions());
     
     Pose2d lastOdometryPose = odometryPose;
     odometryPose = odometryPose.exp(twist);
