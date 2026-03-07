@@ -150,6 +150,8 @@ public class SwerveDriveEstimator {
 
             odometrySource.capture();
 
+            TelemetryLogger.logSwerve("Odometry Captured");
+
         } else {
             loopTwistSum.dx = 0;
             loopTwistSum.dy = 0;

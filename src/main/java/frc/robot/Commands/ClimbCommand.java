@@ -12,6 +12,7 @@ public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();
     private static Debouncer debouncer = new Debouncer(0.2);
     public static boolean isAtPosition = false;
+    private static boolean climbLatch = false;
 
     public ClimbCommand() {
         super(climb);
@@ -34,16 +35,17 @@ public class ClimbCommand extends SubsystemCommand {
                 if (climb.atPoint()) {
                     isAtPosition = true;
                 }
+                climbLatch = false;
                 break;
             case "CLIMB":
-                if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.02) {
+                if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.02 && !climbLatch) {
                     climb.setVoltage(ClimbConstnats.START_CLOSE_VOLTAGE);
                 } else {
+                    climbLatch = true;
                     climb.setVoltage(ClimbConstnats.END_CLOSE_VOLTAGE);
                 }
 
-                climb.setBrakeMode(true);
-                break;
+              break;
             case "DOWN":
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;

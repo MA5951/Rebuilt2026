@@ -252,11 +252,4 @@ public class SwerveSystem extends SubsystemBase {
         MALog.log("/Subsystems/Swerve/States/Current State", currentState.getStateName());
     }
 
-    // public static SwerveSystem getInstance(SwerveSystemConstants swerveConstants) {
-    //     if (instance == null) {
-    //         instance = new SwerveSystem(swerveConstants);
-    //     }
-    //     return instance;
-    // }
-
 }
