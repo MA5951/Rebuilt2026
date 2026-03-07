@@ -40,8 +40,8 @@ import edu.wpi.first.wpilibj.RobotBase;
 public class MALog {
 
     private static final NetworkTableInstance nt = NetworkTableInstance.getDefault();
-    private static final NetworkTable malogTable = NetworkTableInstance.getDefault().getTable("/MALog");
-    private static final NetworkTable replayTable = NetworkTableInstance.getDefault().getTable("/Replay/NT:/MALog");
+    private static final NetworkTable malogTable = NetworkTableInstance.getDefault().getTable("/Real/MALog");
+    private static final NetworkTable replayTable = NetworkTableInstance.getDefault().getTable("/MALog");
     private static final Map<String, NetworkTableEntry> entries = new HashMap<>();
     private static final Map<String, NetworkTableEntry> entriesReplay = new HashMap<>();
     private static final Map<String, StructPublisher<Pose2d>> pose2dPublishers = new HashMap<>();
@@ -117,11 +117,12 @@ public class MALog {
 
         StructArrayPublisher<SwerveModuleState> publisher = swerveModuleStatePublishers.computeIfAbsent(key,
                 k -> nt
-                        .getStructArrayTopic("MALog/" + k, SwerveModuleState.struct)
+                        .getStructArrayTopic("Real/MALog/" + k, SwerveModuleState.struct)
                         .publish());
 
         publisher.set(states);
     }
+
 
     public static void logSwerveModulePositions(String key, SwerveModulePosition[] states) {
         if (states == null) {
@@ -131,7 +132,7 @@ public class MALog {
 
         StructArrayPublisher<SwerveModulePosition> publisher = swerveModulePositionPublishers.computeIfAbsent(key,
                 k -> nt
-                        .getStructArrayTopic("MALog/" + k, SwerveModulePosition.struct)
+                        .getStructArrayTopic("Real/MALog/" + k, SwerveModulePosition.struct)
                         .publish());
 
         publisher.set(states);
@@ -145,7 +146,7 @@ public class MALog {
 
         StructArrayPublisher<Pose3d> publisher = pose3dPublishersArry.computeIfAbsent(
                 key,
-                k -> nt.getStructArrayTopic("MALog/" + k, Pose3d.struct).publish());
+                k -> nt.getStructArrayTopic("Real/MALog/" + k, Pose3d.struct).publish());
 
         publisher.set(poses);
     }
@@ -158,7 +159,7 @@ public class MALog {
 
         StructPublisher<Pose2d> publisher = pose2dPublishers.computeIfAbsent(
                 key,
-                k -> nt.getStructTopic("MALog/" + k, Pose2d.struct).publish());
+                k -> nt.getStructTopic("Real/MALog/" + k, Pose2d.struct).publish());
 
         publisher.set(pose);
     }
@@ -171,7 +172,7 @@ public class MALog {
 
         StructPublisher<Pose3d> publisher = pose3dPublishers.computeIfAbsent(
                 key,
-                k -> nt.getStructTopic("MALog/" + k, Pose3d.struct).publish());
+                k -> nt.getStructTopic("Real/MALog/" + k, Pose3d.struct).publish());
 
         publisher.set(pose);
     }
@@ -184,7 +185,7 @@ public class MALog {
 
         StructPublisher<ChassisSpeeds> publisher = chassisSpeedsPublishersArry.computeIfAbsent(
                 key,
-                k -> nt.getStructTopic("MALog/" + k, ChassisSpeeds.struct).publish());
+                k -> nt.getStructTopic("Real/MALog/" + k, ChassisSpeeds.struct).publish());
 
         publisher.set(chassisSpeeds);
     }
@@ -197,7 +198,7 @@ public class MALog {
 
         StructPublisher<Translation2d> publisher = trans2dPublishers.computeIfAbsent(
                 key,
-                k -> nt.getStructTopic("MALog/" + k, Translation2d.struct).publish());
+                k -> nt.getStructTopic("Real/MALog/" + k, Translation2d.struct).publish());
 
         publisher.set(translation2d);
     }

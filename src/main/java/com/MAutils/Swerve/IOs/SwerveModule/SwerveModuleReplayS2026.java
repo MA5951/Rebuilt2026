@@ -6,12 +6,12 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
-public class SwerveModuleReplayS2025 implements SwerveModuleIO {
+public class SwerveModuleReplayS2026 implements SwerveModuleIO {
     //TODO same as the gyro
 
     private String name;
 
-    public SwerveModuleReplayS2025(String name) {
+    public SwerveModuleReplayS2026(String name) {
         this.name = name;
     }
 
@@ -19,14 +19,14 @@ public class SwerveModuleReplayS2025 implements SwerveModuleIO {
 
 
         moduleData.isDriveConnected = true;
-        moduleData.drivePosition = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Drive Position").getDouble(0);
-        moduleData.driveVelocity = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Drive Velocity").getDouble(0);//Drive Velocity
-        moduleData.driveVolts = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Drive Volts").getDouble(0);//Drive Volts
-        moduleData.driveCurrent = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Drive Current").getDouble(0);//Drive Current
+        moduleData.drivePosition = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Drive Position").getDouble(0);
+        moduleData.driveVelocity = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Drive Velocity").getDouble(0);//Drive Velocity
+        moduleData.driveVolts = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Drive Volts").getDouble(0);//Drive Volts
+        moduleData.driveCurrent = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Drive Current").getDouble(0);//Drive Current
 
         moduleData.isSteerConnected = true;
-        moduleData.steerPosition = Rotation2d.fromRadians(NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Steer Position").getDouble(0));//Steer Position
-        moduleData.steerVelocity = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Modules/" + name + "/Steer Velocity").getDouble(0);//Steer Velocity
+        moduleData.steerPosition = Rotation2d.fromDegrees(NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Steer Position").getDouble(0));//Steer Position
+        moduleData.steerVelocity = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Modules/" + name + "/Steer Velocity").getDouble(0);//Steer Velocity
         moduleData.steerVolts = 0;
         moduleData.steerCurrent = 0;
 

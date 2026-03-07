@@ -15,7 +15,7 @@ import com.MAutils.Swerve.IOs.Gyro.GyroReplayS2025;
 import com.MAutils.Swerve.IOs.Gyro.GyroSim;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModule;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleReplay;
-import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleReplayS2025;
+import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleReplayS2026;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleSim;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleTalonFX;
 import com.MAutils.Swerve.Utils.ModuleLimits;
@@ -296,13 +296,13 @@ public class SwerveSystemConstants {
                                                                         .getModules()[3])) }
                                         : new SwerveModule[] {
                                                         new SwerveModule("Front Left", this,
-                                                                        new SwerveModuleReplayS2025("Front Left")),
+                                                                        new SwerveModuleReplayS2026("Front Left")),
                                                         new SwerveModule("Front Right", this,
-                                                                        new SwerveModuleReplayS2025("Front Right")),
+                                                                        new SwerveModuleReplayS2026("Front Right")),
                                                         new SwerveModule("Rear Left", this,
-                                                                        new SwerveModuleReplayS2025("Rear Left")),
+                                                                        new SwerveModuleReplayS2026("Rear Left")),
                                                         new SwerveModule("Rear Right", this,
-                                                                        new SwerveModuleReplayS2025("Rear Right")) };
+                                                                        new SwerveModuleReplayS2026("Rear Right")) };
                 }
 
                 return new SwerveModule[] {

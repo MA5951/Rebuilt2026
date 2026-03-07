@@ -40,7 +40,9 @@ public class Robot extends DeafultRobot {
     Vision.getInstance();
     
     m_robotContainer = new RobotContainer();
-    PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
+    //PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
+    PoseEstimator.init();
+    PoseEstimator.resetPose(new Pose2d(2.429, 3.007, Rotation2d.fromDegrees(5.65)));//X: 2.429m, Y: 3.007m, θ: 5.65°
   }
 
   @Override
@@ -63,6 +65,8 @@ public class Robot extends DeafultRobot {
             - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
     MALog.log("/SuperStructure/Intake Tolorance",
         Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
+
+      MALog.log("/Pose Test",new Pose2d(2,2, new Rotation2d()));
         
         
 

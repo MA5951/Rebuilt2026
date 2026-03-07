@@ -53,7 +53,7 @@ public class AprilTagFilters {
         double geomTrust = calculateGeometricTrust();
 
         // 3. Final Combined XY FOM
-        return clamp01((motionTrust + geomTrust) / 2 );//m
+        return clamp01((motionTrust + geomTrust) / 2 ) ;//m
     }
 
     /** Calculates FOM for Omega Rotation (0..1) */
@@ -94,7 +94,8 @@ public class AprilTagFilters {
 
     /** Logic for the "Motion Cone" / Teleportation check */
     private double calculateMotionTrust() {
-        Pose2d predicted = PoseEstimator.getPoseAt(lastCaptureTime);
+        //Pose2d predicted = PoseEstimator.getPoseAt(lastCaptureTime);
+        Pose2d predicted = new Pose2d();
         double dist = lastEstimate.pose.getTranslation().getDistance(predicted.getTranslation());
 
         ChassisSpeeds speeds = chassisSpeeds.get();

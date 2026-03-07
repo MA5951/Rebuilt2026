@@ -28,7 +28,7 @@ public class AprilTagCamera extends Camera {
     private AprilTagFilters aprilTagFilters;
     private Transform2d delta;
     private PoseEstimate poseEstimate;
-    private Pose2d visionPose, prior;
+    private Pose2d visionPose, prior = new Pose2d();
     private Rotation2d heading;
     private Twist2d visionTwsit = new Twist2d();
     private boolean updatePoseEstiamte = true;
@@ -87,7 +87,7 @@ public class AprilTagCamera extends Camera {
                 () -> oFom,
                 () -> visionTs);
 
-        PoseEstimator.addSource(poseEstimatorSource);
+        //PoseEstimator.addSource(poseEstimatorSource);
     }
 
     
@@ -118,11 +118,11 @@ public class AprilTagCamera extends Camera {
             visionTs = getVisionTimetemp();
 
             if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0) && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
-                poseEstimatorSource.capture();
+                //poseEstimatorSource.capture();
             } else {
                 oFom = 0;
                 xyFom = 0;
-                poseEstimatorSource.capture();
+                //poseEstimatorSource.capture();
             }
             
         }
@@ -154,7 +154,7 @@ public class AprilTagCamera extends Camera {
     
     private Twist2d getRobotRelaticTwist(PoseEstimate poseEstimator, double timestemp) {
         visionPose = poseEstimate.pose;
-        prior = PoseEstimator.getPoseAt(timestemp);
+        //prior = PoseEstimator.getPoseAt(timestemp);
         MALog.log("/OdometryDebug/PriorPose", prior);
 
         delta = new Transform2d(prior, visionPose);

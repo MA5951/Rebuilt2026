@@ -21,12 +21,12 @@ public class GyroReplayS2025 implements GyroIO {
 
     public void updateGyroData(GyroData gyroData) {
         gyroData.isConnected = true;
-        gyroData.yaw = NetworkTableInstance.getDefault().getEntry("/Replay//MALog//Subsystems/Swerve/Piegon 2/Yaw").getDouble(0); //TODO the // inst consistent check if there arnt any typo
+        gyroData.yaw = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Piegon/Yaw").getDouble(0);
         gyroData.yawVelocity = 0;
-        gyroData.pitch = MALog.getReplayEntry("Subsystems/Swerve/" + "Piegon 2" + "/Pitch").getDouble(0);
-        gyroData.roll = MALog.getReplayEntry("Subsystems/Swerve/" + "Piegon 2" + "/Roll").getDouble(0);
-        gyroData.accelX = MALog.getReplayEntry("Subsystems/Swerve/" + "Piegon 2" + "/Accel X").getDouble(0);
-        gyroData.accelY = MALog.getReplayEntry("Subsystems/Swerve/" + "Piegon 2" + "/Accel Y").getDouble(0);
+        gyroData.pitch = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Piegon/Pitch").getDouble(0);
+        gyroData.roll = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Piegon/Roll").getDouble(0);
+        gyroData.accelX = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Piegon/Accel X").getDouble(0);
+        gyroData.accelY = NetworkTableInstance.getDefault().getEntry("/MALog//Subsystems/Swerve/Piegon/Accel Y").getDouble(0);
 
         gyroData.odometryYawTimestamps = new double[] {
             Timer.getFPGATimestamp()

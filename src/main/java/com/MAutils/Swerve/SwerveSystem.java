@@ -1,12 +1,14 @@
 
 package com.MAutils.Swerve;
 
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
+import com.MAutils.PoseEstimation.PoseEstimator.OdometryObservation;
 import com.MAutils.PoseEstimation.SwerveDriveEstimator;
 import com.MAutils.Simulation.Simulatables.SwerveSimulation;
 import com.MAutils.Simulation.SimulationManager;
@@ -30,6 +32,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
@@ -85,7 +88,7 @@ public class SwerveSystem extends SubsystemBase {
 
         if (!Robot.isReal()) {
             SimulationManager.registerSimulatable(new SwerveSimulation(swerveConstants));
-            PoseEstimator.setSwerveSim(swerveConstants.SWERVE_DRIVE_SIMULATION);
+            //PoseEstimator.setSwerveSim(swerveConstants.SWERVE_DRIVE_SIMULATION);
         }
 
         swerveDriveEstimator = new SwerveDriveEstimator(swerveConstants, this);
@@ -144,13 +147,21 @@ public class SwerveSystem extends SubsystemBase {
 
         for (int i = 0; i < swerveModules.length; i++) {
             currentPositions[i] = swerveModules[i].getPosition();
+            
         }
 
         currentSpeeds = swerveConstants.kinematics.toChassisSpeeds(currentStates);
 
-        swerveDriveEstimator.updateOdometry();
+        //swerveDriveEstimator.updateOdometry();
+        PoseEstimator.addOdometryObservation(
+                        new OdometryObservation(Timer.getTimestamp(), getCurrentPositions(),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().yaw)),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().pitch)),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().roll))));
         logSwerve();
 
+
+        PoseEstimator.lastWheelPositions = currentPositions;
     }
 
     // Public Methods
@@ -250,6 +261,7 @@ public class SwerveSystem extends SubsystemBase {
         MALog.log("/Subsystems/Swerve/Chassis Speeds/Current", currentSpeeds);
         MALog.logSwerveModuleStates("/Subsystems/Swerve/States/Current", currentStates);
         MALog.log("/Subsystems/Swerve/States/Current State", currentState.getStateName());
+        MALog.logSwerveModulePositions("/Subsystems/Swerve/States/Positions", currentPositions);
     }
 
     // public static SwerveSystem getInstance(SwerveSystemConstants swerveConstants) {
