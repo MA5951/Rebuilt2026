@@ -16,6 +16,7 @@ public class ShooterConstants {
         public static final double EJECT_VELOCITY = 800;
         public static final double IDLE_VELOCITY = 0;
         public static final double WARMUP_VELOCITY = 2000;
+        public static final double FEEDING_PRESET = 3000;
 
         public static final double MAX_VELOCITY = 6060;
         public static final double GEAR = 1;

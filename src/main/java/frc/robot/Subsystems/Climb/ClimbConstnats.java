@@ -28,6 +28,10 @@ public class ClimbConstnats {
 
         public static final double START_CLOSE_VOLTAGE = -4;
         public static final double END_CLOSE_VOLTAGE = -1.2;
+        public static final double OPEN_MENUAL_VOLTAGE = 2;
+        public static final double CLOSE_MENUAL_VOLTAGE = -2;
+
+
 
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;

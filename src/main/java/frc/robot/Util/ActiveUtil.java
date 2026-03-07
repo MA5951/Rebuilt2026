@@ -24,6 +24,10 @@ public class ActiveUtil {
     public static void setIsMyFirstShift(Boolean isMyFirstShift) {
         ActiveUtil.isMyFirstShift = isMyFirstShift;
     }
+
+    public static Boolean getIsMyFirstShift() {
+        return isMyFirstShift;
+    }
     //TODO you dont consider the dashboard override here
     //TODO also what about the code that get the data from the fms
 

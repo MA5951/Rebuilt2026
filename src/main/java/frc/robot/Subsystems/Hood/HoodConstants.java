@@ -22,6 +22,8 @@ public class HoodConstants {
         public static final double STATOR_CURRENT_LIMIT = 20;
         public static final double TOLERANCE = 1;
 
+        public static final double FEEDING_PRESET = 15;
+
         private static final Motor HOOD_MOTOR = new Motor(PortMap.HoodPorts.HOOD_MOTOR, MotorType.KRAKEN, "Hood Motor",
                         InvertedValue.CounterClockwise_Positive);
 

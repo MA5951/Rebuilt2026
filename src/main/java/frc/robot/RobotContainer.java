@@ -254,8 +254,17 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
         (new InstantCommand(() -> Hood.getInstance().setState(HoodConstants.HOMING)));
 
-        new Trigger (() -> getOperatorController().getActionsDown()).onTrue
+        new Trigger (() -> getOperatorController().getActionsUp()).onTrue
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
+
+        new Trigger (() -> getOperatorController().getL1()).onTrue
+        (new InstantCommand(() ->ActiveUtil.setIsMyFirstShift(!ActiveUtil.getIsMyFirstShift())));
+
+        new Trigger (() -> getOperatorController().getDpadUp()).whileTrue
+        (new InstantCommand(() -> Climb.getInstance().setVoltage(ClimbConstnats.OPEN_MENUAL_VOLTAGE)));
+
+        new Trigger (() -> getOperatorController().getDpadDown()).whileTrue
+        (new InstantCommand(() -> Climb.getInstance().setVoltage(ClimbConstnats.CLOSE_MENUAL_VOLTAGE)));
 
     }
 }

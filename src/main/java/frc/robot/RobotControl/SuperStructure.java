@@ -22,6 +22,7 @@ import frc.robot.RobotContainer;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Hood.Hood;
+import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
@@ -52,6 +53,8 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double SANDWICH_STUCK_DELTA = 10;
 
     public static double AFTER_ANGLE = 0;
+
+    public static double SHOOTER_FACTOR = 1;
 
     private static double[][] hoodTableData = {
             { 5.676, 27.0 },
@@ -278,10 +281,18 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30; //- 60;
+            return (shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30) * SHOOTER_FACTOR; //- 60;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30; //- 60;
+        return (shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30)* SHOOTER_FACTOR; //- 60;
+    }
+
+    public static double getShooterFactor() {
+        return SHOOTER_FACTOR;
+    }
+
+    public static void setShooterFactor(double shooterFactor) {
+        SHOOTER_FACTOR = shooterFactor;
     }
 
     private static double getHoodAngle(double distance) {
@@ -299,6 +310,9 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static ShootingParameters getFeedingParameters() {
+        if(isAutomatic()) {
+            return new ShootingParameters(ShooterConstants.FEEDING_PRESET, HoodConstants.FEEDING_PRESET);
+        }
         return new ShootingParameters(getShootingRPM(getDistanceToTargetFeeding()) + FEEDING_SHOOTER_OFFSET,
                 getHoodAngle(getDistanceToTargetFeeding()) + FEEDING_ANGLE_OFFSET);
     }
