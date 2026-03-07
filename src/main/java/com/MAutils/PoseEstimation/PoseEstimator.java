@@ -353,14 +353,20 @@ public class PoseEstimator {
   public record OdometryObservation(
       double timestamp,
       SwerveModulePosition[] startWheelPositions,
-      SwerveModulePosition[] endWheelPositions,
       Optional<Rotation2d> roll,
       Optional<Rotation2d> pitch,
       Optional<Rotation2d> yaw) {
   }
 
-  public record VisionObservation(double timestamp, Pose3d visionPose, Matrix<N3, N1> stdDevs) {
+  public record VisionObservation(double timestamp, Pose2d visionPose, Matrix<N3, N1> stdDevs) {
   }
+
+  public static SwerveModulePosition[] lastWheelPositions = new SwerveModulePosition[] {
+      new SwerveModulePosition(),
+      new SwerveModulePosition(),
+      new SwerveModulePosition(),
+      new SwerveModulePosition()
+  };
 
   private static final double poseBufferSizeSec = 2.0;
   private static final Matrix<N3, N1> odometryStateStdDevs = new Matrix<>(VecBuilder.fill(0.003, 0.003, 0.002));
@@ -376,14 +382,12 @@ public class PoseEstimator {
 
   private static Rotation2d gyroOffset = Rotation2d.kZero;
 
-  
-
   public static void init() {
     for (int i = 0; i < 3; ++i) {
       qStdDevs.set(i, 0, Math.pow(odometryStateStdDevs.get(i, 0), 2));
     }
 
-    //lastWheelPositions = Swerve.getInstance().getCurrentPositions();
+    // lastWheelPositions = Swerve.getInstance().getCurrentPositions();
   }
 
   public static void resetPose(Pose2d pose) {
@@ -406,19 +410,15 @@ public class PoseEstimator {
 
   public static void addOdometryObservation(OdometryObservation observation) {
     // Update odometry pose
-    MALog.log("/Pose Testing/0 Distance", observation.startWheelPositions()[0].distanceMeters);
-    MALog.log("/Pose Testing/0 Last Distance", observation.endWheelPositions()[0].distanceMeters);
-    MALog.log("/Pose Testing/0 Delta Distance", observation.endWheelPositions()[0].distanceMeters - observation.startWheelPositions()[0].distanceMeters);
+    Twist2d twist = SwerveConstants.SWERVE_CONSTANTS.kinematics.toTwist2d(lastWheelPositions,
+        observation.startWheelPositions());
 
+    lastWheelPositions = observation.startWheelPositions().clone();
 
-    Twist2d twist = SwerveConstants.SWERVE_CONSTANTS.kinematics.toTwist2d(
-        observation.startWheelPositions(), observation.endWheelPositions());
-    
     Pose2d lastOdometryPose = odometryPose;
+    MALog.log("Pose Estimator/Last Odometry", lastOdometryPose);
     odometryPose = odometryPose.exp(twist);
-    MALog.log("/Pose Testing/Odometry Pose", odometryPose);
-    MALog.log("/Pose Testing/Last Odometry Pose", lastOdometryPose);
-    
+    MALog.log("Pose Estimator/Updated Odometry", odometryPose);
 
     // Replace odometry pose with gyro if present
     observation.yaw.ifPresent(
@@ -442,8 +442,14 @@ public class PoseEstimator {
     }
     // Apply odometry delta to vision pose estimate
     Twist2d finalTwist = lastOdometryPose.log(odometryPose);
-    estimatedPose = estimatedPose.exp(finalTwist);
-    MALog.log("/Pose Testing/Estimated Pose", estimatedPose);
+    Pose2d tempPose1 =  estimatedPose.exp(finalTwist);
+
+    if (validatePose(tempPose1)) {
+      estimatedPose = tempPose1;
+      MALog.log("Pose Estimator/Odometry Status", "Applied odometry pose estimate");
+    } else {
+      MALog.log("Pose Estimator/Odometry Status", "Invalid odometry pose estimate received; ignoring.");
+    }
   }
 
   /** Adds a new vision pose observation from the vision subsystem. */
@@ -490,7 +496,7 @@ public class PoseEstimator {
     }
 
     // Calculate the transform from the shifted estimate to the observation pose
-    Transform2d transform = new Transform2d(estimateAtTime, observation.visionPose().toPose2d());
+    Transform2d transform = new Transform2d(estimateAtTime, observation.visionPose());
 
     // Scale the transform by the Kalman gain
     var kTimesTransform = visionK.times(
@@ -504,6 +510,19 @@ public class PoseEstimator {
     // Recalculate the current estimate by applying the scaled transform to the old
     // estimate
     // then shifting forwards using odometry data
-    estimatedPose = estimateAtTime.plus(scaledTransform).plus(sampleToOdometryTransform);
+    Pose2d tempPose = estimateAtTime.plus(scaledTransform).plus(sampleToOdometryTransform);
+    if (validatePose(tempPose)) {
+      estimatedPose = tempPose;
+      MALog.log("Pose Estimator/Vision Status", "Applied vision pose estimate with Kalman gain");
+      
+    } else {
+      MALog.log("Pose Estimator/Vision Status", "Invalid vision pose estimate received; ignoring.");
+    }
+    
+    
+  }
+
+  public static boolean validatePose(Pose2d pose) {
+    return !Double.isNaN(pose.getX()) && !Double.isNaN(pose.getY()) && !Double.isNaN(pose.getRotation().getRadians()) && !Double.isInfinite(pose.getX()) && !Double.isInfinite(pose.getY()) && !Double.isInfinite(pose.getRotation().getRadians());
   }
 }

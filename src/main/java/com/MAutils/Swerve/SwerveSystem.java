@@ -74,12 +74,7 @@ public class SwerveSystem extends SubsystemBase {
                     new SwerveModuleState()
             }, DriveFeedforwards.zeros(4));
 
-    public static SwerveModulePosition[] lastWheelPositions = new SwerveModulePosition[] {
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition(),
-      new SwerveModulePosition()
-  };
+    
 
     public SwerveSystem(SwerveSystemConstants swerveConstants) {
         super();
@@ -160,15 +155,21 @@ public class SwerveSystem extends SubsystemBase {
         currentSpeeds = swerveConstants.kinematics.toChassisSpeeds(currentStates);
 
         //swerveDriveEstimator.updateOdometry();
-        PoseEstimator.addOdometryObservation(
-                        new OdometryObservation(Timer.getTimestamp(),lastWheelPositions, getCurrentPositions(),
-                                Optional.of(Rotation2d.fromDegrees(getGyroData().yaw)),
-                                Optional.of(Rotation2d.fromDegrees(getGyroData().pitch)),
-                                Optional.of(Rotation2d.fromDegrees(getGyroData().roll))));
-        logSwerve();
+      
 
-    
-        lastWheelPositions = currentPositions;
+
+        PoseEstimator.addOdometryObservation(
+                        new OdometryObservation(Timer.getTimestamp(), getCurrentPositions(),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().roll)),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().pitch)),
+                                Optional.of(Rotation2d.fromDegrees(getGyroData().yaw))));
+        logSwerve();
+        
+       
+
+
+      
+
         
     }
 
