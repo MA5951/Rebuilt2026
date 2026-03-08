@@ -30,9 +30,7 @@ public class SwerveController extends SwerveSystemController {
         //     setState(SwerveConstants.NONE);
         //     atPointLock = true;
         // } else {
-            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
+            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
 
                  if (SuperStructure.isMainTag() && isAbs < 3) {
                      setState(SwerveConstants.SHOOTING_REL);
@@ -48,9 +46,7 @@ public class SwerveController extends SwerveSystemController {
                      }
                  }
                 
-            } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
+            } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING) {
                 setState(SwerveConstants.FEEDING);
             } else {
                 if (RobotContainer.getDriverController().getL2()) {

@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
+import frc.robot.RobotControl.SuperStructure;
 
 public class Hood extends PositionControlledSystem {
 
@@ -59,7 +60,7 @@ public class Hood extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return true;
+        return !SuperStructure.isHoodStack();
     }
 
     public double getHoodPosition() {
@@ -70,6 +71,14 @@ public class Hood extends PositionControlledSystem {
     public void periodic() {
         MALog.log(LOG_PATH + "Absolute Position", absPosition.getValueAsDouble() * 360 / HoodConstants.CAN_CODER_GEAR);
         super.periodic();
+    }
+
+    @Override
+    public boolean atPoint() {
+        if(SuperStructure.isHoodStack()) {
+            return true;
+        }
+        return super.atPoint();
     }
 
     public static Hood getInstance() {

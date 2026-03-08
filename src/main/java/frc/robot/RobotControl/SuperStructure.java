@@ -56,6 +56,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double SHOOTER_FACTOR = 1;
 
+    public static boolean HOOD_STACK = false;
+
     private static double[][] hoodTableData = {
             { 5.676, 27.0 },
             { 5.436, 27.0 },
@@ -467,6 +469,14 @@ public class SuperStructure extends DeafultSuperStructure {
     public static double getRollerSinVoltage() {
         double f = 1;
         return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * 0.75 + 8.5);
+    }
+
+    public static void setHoodStack(boolean hoodStack) {
+        HOOD_STACK = hoodStack;
+    }
+    
+    public static boolean isHoodStack() {
+        return HOOD_STACK;
     }
 
     public static void update() {

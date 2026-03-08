@@ -23,9 +23,7 @@ public class SwerveAutoController extends SwerveSystemController {
     public void SetSwerveState() {
 
         if (SuperStructure.isAutomatic()) {
-            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
+            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING) {
                 if (SuperStructure.isMainTag() && isAbs < 50) {
                     setState(SwerveConstants.SHOOTING_REL);
                 } else {
@@ -34,9 +32,7 @@ public class SwerveAutoController extends SwerveSystemController {
                 }
             } else
 
-            if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
+            if (RobotContainer.getRobotState() == RobotConstants.FEEDING) {
                 setState(SwerveConstants.FEEDING);
             } 
             // else if (RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION ||

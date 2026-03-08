@@ -137,34 +137,21 @@ public class RobotContainer extends DeafultRobotContainer {
                            //     || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
 
         T(StateTrigger.T(
-                () -> getDriverController().getL1()
-                        
-                        &&
-                        getRobotState() != RobotConstants.UNSTUCK && SuperStructure.isAutomatic(),
+                () -> getDriverController().getL1() && SuperStructure.isAutomatic(),
                 RobotConstants.SHOOTING));
 
-        T(StateTrigger.T(() -> getDriverController().getActionsRight() && getRobotState() != RobotConstants.UNSTUCK,
+        T(StateTrigger.T(() -> getDriverController().getActionsRight(),
                 RobotConstants.EJECT));
 
         // T(StateTrigger.T(() -> getDriverController().getActionsDown() && getRobotState() != RobotConstants.UNSTUCK,
         //         RobotConstants.FEEDING));
 
-        T(StateTrigger.T(() -> getDriverController().getR2() && getRobotState() != RobotConstants.UNSTUCK,
+        T(StateTrigger.T(() -> getDriverController().getR2(),
                 RobotConstants.FEEDING_IN_MOTION));
 
         T(StateTrigger.T(
-                () -> getDriverController().getL1() && !SuperStructure.isAutomatic()
-                        && getRobotState() != RobotConstants.UNSTUCK,
+                () -> getDriverController().getL1() && !SuperStructure.isAutomatic(),
                 RobotConstants.SHOOTING_PRESETS));
-
-        T(StateTrigger.T(
-                () -> (getRobotState() == RobotConstants.SHOOTING || getRobotState() == RobotConstants.SHOOTING_PRESETS
-                        || getRobotState() == RobotConstants.EJECT || getRobotState() == RobotConstants.FEEDING
-                        || getRobotState() == RobotConstants.FEEDING_IN_MOTION) && SuperStructure.isTransferStuck(),
-                RobotConstants.UNSTUCK));
-
-        T(StateTrigger.T(() -> getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isTransferStuck(),
-                getLastRobotState()));
 
         T(StateTrigger.T(() -> getDriverController().getActionsLeft() 
                 &&
@@ -258,13 +245,18 @@ public class RobotContainer extends DeafultRobotContainer {
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
 
         new Trigger (() -> getOperatorController().getL1()).onTrue
-        (new InstantCommand(() ->ActiveUtil.setIsMyFirstShift(!ActiveUtil.getIsMyFirstShift())));
+        (new InstantCommand(() -> ActiveUtil.setIsMyFirstShift(!ActiveUtil.getIsMyFirstShift())));
 
         new Trigger (() -> getOperatorController().getDpadUp()).whileTrue
         (new InstantCommand(() -> Climb.getInstance().setVoltage(ClimbConstnats.OPEN_MENUAL_VOLTAGE)));
 
         new Trigger (() -> getOperatorController().getDpadDown()).whileTrue
         (new InstantCommand(() -> Climb.getInstance().setVoltage(ClimbConstnats.CLOSE_MENUAL_VOLTAGE)));
+
+        new Trigger (() -> getOperatorController().getR1()).onTrue
+        (new InstantCommand(() -> SuperStructure.setHoodStack(!SuperStructure.isHoodStack())));
+
+        T(StateTrigger.T(() -> getOperatorController().getL2(), RobotConstants.UNSTUCK));
 
     }
 }

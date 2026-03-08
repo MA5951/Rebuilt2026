@@ -16,7 +16,7 @@ public class Kicker extends PowerControlledSystem {
         super(KickerConstants.KICKER_CONSTANTS, KickerConstants.IDLE, KickerConstants.INTAKE,
                 KickerConstants.FEEDING,
                 KickerConstants.FEEDING_IN_MOTION, KickerConstants.EJECT,
-                KickerConstants.SHOOTING, KickerConstants.UNSTUCK);
+                KickerConstants.SHOOTING);
 
     }
 
@@ -47,7 +47,6 @@ public class Kicker extends PowerControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return canShoot() || canIntake() || canFeedingInMotion() || canFeeding()
-                || RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                 || RobotContainer.getRobotState() == RobotConstants.EJECT
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_INTAKE
                 || RobotContainer.getRobotState() == RobotConstants.IDLE_SHOOTER

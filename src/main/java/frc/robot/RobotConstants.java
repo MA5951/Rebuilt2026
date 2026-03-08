@@ -103,8 +103,7 @@ public class RobotConstants {
                         ShooterConstants.EJECT, KickerConstants.EJECT);
 
         public static final MRobotState UNSTUCK = new MRobotState("UNSTUCK",
-                        SandwichConstants.UNSTUCK, RollerConstants.UNSTUCK, TransferConstants.UNSTUCK,
-                        IntakeRollerConstants.IDLE, KickerConstants.UNSTUCK);
+                        SandwichConstants.UNSTUCK, RollerConstants.UNSTUCK, TransferConstants.UNSTUCK, KickerConstants.IDLE, HoodConstants.IDLE, ShooterConstants.IDLE);
 
         public static final MRobotState PRECLIMB = new MRobotState("PRECLIMB",() -> {ClimbCommand.isAtPosition = false;
         },
