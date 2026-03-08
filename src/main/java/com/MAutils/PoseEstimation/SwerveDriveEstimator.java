@@ -3,7 +3,7 @@ package com.MAutils.PoseEstimation;
 import java.util.Optional;
 
 import com.MAutils.Logger.TelemetryLogger;
-import com.MAutils.PoseEstimation.PoseEstimator.OdometryObservation;
+import com.MAutils.PoseEstimation.PoseEstimatorMA.OdometryObservation;
 import com.MAutils.Swerve.SwerveSystem;
 import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.Utils.CollisionDetector;
@@ -52,7 +52,7 @@ public class SwerveDriveEstimator {
         this.odometrySource = new PoseEstimatorSource("Swerve Odometry",
                 () -> loopTwistSum, () -> getTranslationFOM(), () -> getRotationFOM(), () -> Timer.getFPGATimestamp());
 
-        // PoseEstimator.addSource(odometrySource);
+        PoseEstimator.addSource(odometrySource);
 
     }
 
@@ -157,13 +157,13 @@ public class SwerveDriveEstimator {
                 
             }
 
-            // odometrySource.capture();
+            odometrySource.capture();
 
         } else {
             loopTwistSum.dx = 0;
             loopTwistSum.dy = 0;
             loopTwistSum.dtheta = 0;
-            // odometrySource.capture();
+            odometrySource.capture();
             TelemetryLogger.logSwerve("Ignoring odometry data, collision or tilt detected");
         }
     }

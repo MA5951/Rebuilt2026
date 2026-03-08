@@ -8,7 +8,8 @@ import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
-import com.MAutils.PoseEstimation.PoseEstimator.OdometryObservation;
+import com.MAutils.PoseEstimation.PoseEstimatorMA;
+import com.MAutils.PoseEstimation.PoseEstimatorMA.OdometryObservation;
 import com.MAutils.PoseEstimation.SwerveDriveEstimator;
 import com.MAutils.Simulation.Simulatables.SwerveSimulation;
 import com.MAutils.Simulation.SimulationManager;
@@ -154,11 +155,11 @@ public class SwerveSystem extends SubsystemBase {
 
         currentSpeeds = swerveConstants.kinematics.toChassisSpeeds(currentStates);
 
-        //swerveDriveEstimator.updateOdometry();
+        swerveDriveEstimator.updateOdometry();
       
 
 
-        PoseEstimator.addOdometryObservation(
+        PoseEstimatorMA.addOdometryObservation(
                         new OdometryObservation(Timer.getTimestamp(), getCurrentPositions(),
                                 Optional.of(Rotation2d.fromDegrees(getGyroData().roll)),
                                 Optional.of(Rotation2d.fromDegrees(getGyroData().pitch)),

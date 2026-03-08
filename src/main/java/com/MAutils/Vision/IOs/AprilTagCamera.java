@@ -4,7 +4,8 @@ import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
-import com.MAutils.PoseEstimation.PoseEstimator.VisionObservation;
+import com.MAutils.PoseEstimation.PoseEstimatorMA;
+import com.MAutils.PoseEstimation.PoseEstimatorMA.VisionObservation;
 import com.MAutils.PoseEstimation.PoseEstimatorSource;
 import com.MAutils.Vision.Filters.AprilTagFilters;
 import com.MAutils.Vision.Filters.FiltersConfig;
@@ -23,8 +24,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class AprilTagCamera extends Camera {
 
-    // private final PoseEstimatorSource poseEstimatorSource;
+    private final PoseEstimatorSource poseEstimatorSource;
     public final Supplier<Double> robotAngleSupplier; // degrees
+    public final Supplier<Double> robotAngularVelocitySupplier; // degrees per second
+    
 
     private FiltersConfig teleopConfig, autoConfig;
     private AprilTagFilters aprilTagFilters;
@@ -45,21 +48,22 @@ public class AprilTagCamera extends Camera {
     // TODO need to add filter of more then one camrea that check if the dis bettwen
     // the src are in tolorecn
     public AprilTagCamera(VisionCameraIO cameraIO, FiltersConfig filterConfig, Supplier<Double> robotAngleSupplier) {
-        this(cameraIO, filterConfig, filterConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
+        this(cameraIO, filterConfig, filterConfig, robotAngleSupplier, () -> 0.0, () -> new ChassisSpeeds()); // CHANGED
     }
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier) {
-        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds()); // CHANGED
+        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> 0.0, () -> new ChassisSpeeds()); // CHANGED
     }
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
             Supplier<Double> robotAngleSupplier,
+            Supplier<Double> robotAngularVelocitySupplier,
             Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
-        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier); // CHANGED
+        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, robotAngularVelocitySupplier, chassisSpeedsSupplier); // CHANGED
     }
 
     // ===== ADDED: new ctor that accepts a ChassisSpeeds supplier =====
@@ -67,6 +71,7 @@ public class AprilTagCamera extends Camera {
             FiltersConfig teleopConfig,
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier,
+            Supplier<Double> robotAngularVelocitySupplier,
             Supplier<ChassisSpeeds> chassisSpeedsSupplier) { // ADDED
         super(cameraIO);
 
@@ -74,6 +79,7 @@ public class AprilTagCamera extends Camera {
         this.autoConfig = autoConfig;
 
         this.robotAngleSupplier = robotAngleSupplier;
+        this.robotAngularVelocitySupplier = robotAngularVelocitySupplier;
         this.chassisSpeedsSupplier = chassisSpeedsSupplier != null
                 ? chassisSpeedsSupplier
                 : () -> new ChassisSpeeds(); // ADDED
@@ -82,15 +88,16 @@ public class AprilTagCamera extends Camera {
         this.aprilTagFilters = new AprilTagFilters(getFiltersConfig(),
                 cameraIO,
                 this.chassisSpeedsSupplier,
-                () -> Math.toRadians(this.robotAngleSupplier.get())); // ADDED
+                () -> Math.toRadians(this.robotAngleSupplier.get()),
+                robotAngularVelocitySupplier); // ADDED
 
-        // poseEstimatorSource = new PoseEstimatorSource("LL",
-        // () -> getRobotRelaticTwist(poseEstimate, visionTs),
-        // () -> xyFom,
-        // () -> oFom,
-        // () -> visionTs);
+        poseEstimatorSource = new PoseEstimatorSource("LL",
+        () -> getRobotRelaticTwist(poseEstimate, visionTs),
+        () -> xyFom,
+        () -> oFom,
+        () -> visionTs);
 
-        // PoseEstimator.addSource(poseEstimatorSource);
+        PoseEstimator.addSource(poseEstimatorSource);
     }
 
     public void setUpdatePoseEstimate(boolean updatePoseEstiamte) {
@@ -119,8 +126,8 @@ public class AprilTagCamera extends Camera {
 
             if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0)
                     && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
-                // poseEstimatorSource.capture();
-                PoseEstimator.addVisionObservation(
+                poseEstimatorSource.capture();
+                PoseEstimatorMA.addVisionObservation(
                         new VisionObservation(cameraIO.getPoseEstimate(PoseEstimateType.MT2).timestampSeconds,
                                 cameraIO.getPoseEstimate(PoseEstimateType.MT2).pose,
                                 VecBuilder.fill(
@@ -145,7 +152,7 @@ public class AprilTagCamera extends Camera {
             } else {
                 oFom = 0;
                 xyFom = 0;
-                // poseEstimatorSource.capture();
+                poseEstimatorSource.capture();
                 MALog.log("Pose Estimator/Vision Status", "Invalid vision pose estimate received; ignoring.");
             }
 

@@ -16,6 +16,7 @@ public class AprilTagFilters {
     private final VisionCameraIO visionCameraIO;
     private final Supplier<ChassisSpeeds> chassisSpeeds;
     private final Supplier<Double> imuYawRadSupplier;
+    private final Supplier<Double> robotAngularVelocitySupplier;
 
     // Cache latest data to ensure XY and Omega use the same frame
     private PoseEstimate lastEstimate;
@@ -25,11 +26,13 @@ public class AprilTagFilters {
     public AprilTagFilters(FiltersConfig config, 
                            VisionCameraIO visionCameraIO, 
                            Supplier<ChassisSpeeds> chassisSpeedsSupplier, 
-                           Supplier<Double> imuYawRadSupplier) {
+                           Supplier<Double> imuYawRadSupplier,
+                           Supplier<Double> robotAngularVelocitySupplier) {
         this.config = config;
         this.visionCameraIO = visionCameraIO;
         this.chassisSpeeds = chassisSpeedsSupplier;
         this.imuYawRadSupplier = imuYawRadSupplier;
+        this.robotAngularVelocitySupplier = robotAngularVelocitySupplier;
     }
 
     /** Updates the internal state with the latest camera data. Call this once per loop. */
@@ -58,6 +61,7 @@ public class AprilTagFilters {
 
     /** Calculates FOM for Omega Rotation (0..1) */
     public double getOFOM() {
+        //return 0.0;
         if (!isBasicValid()) return 0.0;
 
         // Since you are certain in your angle, we compare Vision Yaw vs IMU Yaw
@@ -85,6 +89,7 @@ public class AprilTagFilters {
         if (lastEstimate.tagCount < config.minTagsSeen) return false;
         if (lastTag.ambiguity > config.maxAmbiguity) return false;
         if (!FiltersConfig.fieldRactangle.contains(lastEstimate.pose.getTranslation())) return false;
+        if (robotAngularVelocitySupplier.get() > 150) return false;
         
         // Zero-check (prevent Limelight boot-up glitches)
         if (Math.abs(lastEstimate.pose.getX()) < 1e-3) return false;

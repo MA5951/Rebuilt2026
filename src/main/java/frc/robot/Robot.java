@@ -4,6 +4,7 @@ package frc.robot;
 import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
+import com.MAutils.PoseEstimation.PoseEstimatorMA;
 import com.MAutils.RobotControl.DeafultRobot;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 
@@ -41,13 +42,15 @@ public class Robot extends DeafultRobot {
     
     m_robotContainer = new RobotContainer();
     //PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
-    PoseEstimator.init();
+    PoseEstimatorMA.init();
     PoseEstimator.resetPose(new Pose2d(2.429, 3.007, Rotation2d.fromDegrees(5.65)));//X: 2.429m, Y: 3.007m, θ: 5.65°
+    PoseEstimatorMA.resetPose(new Pose2d(2.429, 3.007, Rotation2d.fromDegrees(5.65)));//X: 2.429m, Y: 3.007m, θ: 5.65°
   }
 
   @Override
   public void robotPeriodic() {
     super.robotPeriodic();
+    PoseEstimatorMA.update();
     MALog.log("/RobotControl/Current RobotState", RobotContainer.getRobotState().getStateName());
     MALog.log("/RobotControl/Last RobotState", RobotContainer.getLastRobotState().getStateName());
     MALog.log("/RobotControl/Test", (((!SuperStructure.isBalls()) || (!SuperStructure.isInTheAlinceZone())
