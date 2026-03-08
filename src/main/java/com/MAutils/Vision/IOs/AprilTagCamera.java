@@ -131,17 +131,17 @@ public class AprilTagCamera extends Camera {
                         new VisionObservation(cameraIO.getPoseEstimate(PoseEstimateType.MT2).timestampSeconds,
                                 cameraIO.getPoseEstimate(PoseEstimateType.MT2).pose,
                                 VecBuilder.fill(
-                                        0.02 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
+                                        0.015 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
                                                 / Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).tagCount,
                                                         2.0),
-                                        0.02 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
+                                        0.015 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
                                                 / Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).tagCount,
                                                         2.0),
                                         0.03 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
                                                 / Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).tagCount,
                                                         2.0))));
                 MALog.log("Subsystems/Vision/Cameras/" + name + "/XY Std",
-                        0.02 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
+                        0.015 * Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).avgTagDist, 1.2)
                                 / Math.pow(cameraIO.getPoseEstimate(PoseEstimateType.MT2).tagCount,
                                         2.0));
 
