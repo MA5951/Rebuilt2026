@@ -3,6 +3,7 @@ package frc.robot.RobotControl;
 
 import java.util.function.Supplier;
 
+import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultSuperStructure;
@@ -54,9 +55,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double AFTER_ANGLE = 0;
 
-    public static double SHOOTER_FACTOR = 1;
 
-    public static boolean HOOD_STACK = false;
 
     private static double[][] hoodTableData = {
             { 5.676, 27.0 },
@@ -132,7 +131,6 @@ public class SuperStructure extends DeafultSuperStructure {
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
-    private static boolean defence = true;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
     public static boolean atPointLatch = false;
@@ -245,11 +243,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isDefenceMode() {
-        return defence;
-    }
-
-    public static void setDefenceMode(boolean update) {
-        defence = update;
+        return Dashboard.isDefenceMode();
     }
 
     public static boolean isTransferStuck() {
@@ -283,19 +277,14 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return (shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30) * SHOOTER_FACTOR; //- 60;
+            return (shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30) * Dashboard.getShooterFactor(); //- 60;
         }
 
-        return (shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30)* SHOOTER_FACTOR; //- 60;
+        return (shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30)* Dashboard.getShooterFactor(); //- 60;
     }
 
-    public static double getShooterFactor() {
-        return SHOOTER_FACTOR;
-    }
+    
 
-    public static void setShooterFactor(double shooterFactor) {
-        SHOOTER_FACTOR = shooterFactor;
-    }
 
     private static double getHoodAngle(double distance) {
 
@@ -470,13 +459,9 @@ public class SuperStructure extends DeafultSuperStructure {
         double f = 1;
         return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * 0.75 + 8.5);
     }
-
-    public static void setHoodStack(boolean hoodStack) {
-        HOOD_STACK = hoodStack;
-    }
     
     public static boolean isHoodStack() {
-        return HOOD_STACK;
+        return Dashboard.isHoodStuck();
     }
 
     public static void update() {
