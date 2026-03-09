@@ -219,9 +219,6 @@ public class RobotContainer extends DeafultRobotContainer {
                 && SixBar.getInstance().getPosition() < -60))
                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBar.getInstance().getLastState())));
 
-        new Trigger(() -> (getOperatorController().getActionsDown()))
-                .onTrue(new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
-
         new Trigger(() -> getDriverController().getDpadDown()).onTrue(
                 new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose))
         );
@@ -253,8 +250,6 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger (() -> getOperatorController().getDpadDown()).whileTrue
         (new InstantCommand(() -> Climb.getInstance().setVoltage(ClimbConstnats.CLOSE_MENUAL_VOLTAGE)));
 
-        new Trigger (() -> getOperatorController().getR1()).onTrue
-        (new InstantCommand(() -> SuperStructure.setHoodStack(!SuperStructure.isHoodStack())));
 
         T(StateTrigger.T(() -> getOperatorController().getL2(), RobotConstants.UNSTUCK));
 
