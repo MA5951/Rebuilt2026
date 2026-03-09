@@ -1,6 +1,7 @@
 
 package com.MAutils.Swerve;
 
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
@@ -29,6 +30,8 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.measure.Time;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -85,7 +88,6 @@ public class SwerveSystem extends SubsystemBase {
 
         if (!Robot.isReal()) {
             SimulationManager.registerSimulatable(new SwerveSimulation(swerveConstants));
-            PoseEstimator.setSwerveSim(swerveConstants.SWERVE_DRIVE_SIMULATION);
         }
 
         swerveDriveEstimator = new SwerveDriveEstimator(swerveConstants, this);
@@ -149,6 +151,8 @@ public class SwerveSystem extends SubsystemBase {
         currentSpeeds = swerveConstants.kinematics.toChassisSpeeds(currentStates);
 
         swerveDriveEstimator.updateOdometry();
+
+        
         logSwerve();
 
     }

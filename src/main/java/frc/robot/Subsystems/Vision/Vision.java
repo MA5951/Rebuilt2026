@@ -22,7 +22,7 @@ public class Vision {
 
     public boolean isMainTag() {
         tagId = VisionConstants.FRONT_LL.getCameraIO().getTag().id;
-        return tagId == 21 || tagId == 26 || tagId == 18 || tagId == 10 || tagId == 2 || tagId == 5;
+        return tagId == 21 || tagId == 26 || tagId == 18 || tagId == 10 || tagId == 2 || tagId == 5 || tagId == 24 || tagId == 27;//TODO Hanfel Red Side
     }
 
     public int getTagID() {
@@ -44,7 +44,7 @@ public class Vision {
     public double getFilteredTx() {
         return VisionConstants.FRONT_LL.getCameraIO().getTag().txnc > -0.8 &&
                 VisionConstants.FRONT_LL.getCameraIO().getTag().txnc < 0 ? 0
-                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;//TODO Try withut
+                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;// TODO Try withut
     }
 
     public double getCOrrectedTy() {
@@ -67,6 +67,14 @@ public class Vision {
 
     public void filterMainTag() {
         VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.MAIN_TAGS);
+    }
+
+    public void filterHubTags() {
+        VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.HUBS_TAGS);
+    }
+
+    public void filterCornerTags() {
+        VisionConstants.FRONT_LL.getCameraIO().allowTags(new int[] { 24, 27 });
     }
 
     public void filterCenterMainTag() {

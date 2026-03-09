@@ -38,7 +38,7 @@ public class Robot extends DeafultRobot {
   public Robot() {
     super();
     Vision.getInstance();
-    
+
     m_robotContainer = new RobotContainer();
     PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
   }
@@ -63,29 +63,25 @@ public class Robot extends DeafultRobot {
             - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
     MALog.log("/SuperStructure/Intake Tolorance",
         Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
-        
-        
 
+    if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)
+        && (VisionConstants.FRONT_LL.getCameraIO().getFiducials().length >= 2
+            || (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 24 ||
+                VisionConstants.FRONT_LL.getCameraIO().getTag().id == 27))) {// TODO Handel Red Side
 
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
-          Vision.getInstance().filterMainTag();
-          counter++;
-        } else {
-          Vision.getInstance().resetFilter();
-          
-        }
+      Vision.getInstance().filterCornerTags();
+    } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
+      Vision.getInstance().filterHubTags();
+    } else {
+      Vision.getInstance().resetFilter();
+    }
 
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3) && counter > 10 && VisionConstants.FRONT_LL.getCameraIO().getFiducials().length > 1) {
-          Vision.getInstance().filterCenterMainTag();
-        }
+    if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+      Swerve.getInstance().resetRampFlag();
+      PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
+    }
 
-        if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
-          Swerve.getInstance().resetRampFlag();
-          PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
-        }
-
-        ActiveUtil.setIsMyFirstShift(Dashboard.isFirstShift());
-
+    ActiveUtil.setIsMyFirstShift(Dashboard.isFirstShift());
 
   }
 
@@ -94,9 +90,7 @@ public class Robot extends DeafultRobot {
     super.autonomousInit();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
-      Hood.getInstance().setState(HoodConstants.HOMING);
     }
-
 
     CommandScheduler.getInstance().schedule(new FeedingAuto());
   }
@@ -107,7 +101,6 @@ public class Robot extends DeafultRobot {
     ActiveUtil.startTeleop();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
-      Hood.getInstance().setState(HoodConstants.HOMING);
     }
 
     if (SuperStructure.isRobotInAir()) {

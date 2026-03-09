@@ -35,6 +35,7 @@ public class Field {
     public static final double NET_LENGTH = Units.inchesToMeters(58.41);
     public static final double NET_X_OFFSET = Units.inchesToMeters(10.26);
     public static final int[] MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG , 18, 21, 2, 5};
+    public static final int[] HUBS_TAGS = { 18,27,26,21,24,2,11,5,8,10};
     public static final int[] CENTER_MAIN_TAGS = { BLUE_MAIN_TAG, RED_MAIN_TAG};
     public static final int[] RED_MAIN_TAGS = {2,5,10};
     public static final int[] ALL_TAGS = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,

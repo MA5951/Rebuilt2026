@@ -7,12 +7,14 @@ import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
+import frc.robot.Subsystems.Hood.HoodConstants;
 
 public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();
     private static Debouncer debouncer = new Debouncer(0.2);
     public static boolean isAtPosition = false;
     private static boolean climbLatch = false;
+    private double lastCurrent = 0;
 
     public ClimbCommand() {
         super(climb);
@@ -51,12 +53,11 @@ public class ClimbCommand extends SubsystemCommand {
                 break;
             case "HOMING":
                 climb.setVoltage(ClimbConstnats.HOMING_VOLTAGE);
-                if(debouncer.calculate(Math.abs(climb.getCurrent()) > ClimbConstnats.HOMING_CURRENT_TOLRANCE)) {
-                    climb.resetPosition(ClimbConstnats.CLOSE_POSITION);
-                    climb.setState(ClimbConstnats.IDLE);
+                if (climb.getCurrent()-lastCurrent > HoodConstants.DELTA_CURRENT && climb.getCurrent() < 45) {
+                    climb.resetPosition(0);
+                    climb.setState(HoodConstants.IDLE);
                 }
-                break;
-                
+                lastCurrent = climb.getCurrent();
         }
     }
 

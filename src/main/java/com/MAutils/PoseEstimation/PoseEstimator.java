@@ -184,6 +184,8 @@ public class PoseEstimator {
             pose = currentPose;
         }
 
+        MALog.log("Pose Estimator/Replayed Pose", pose);
+
         // Validate reconstructed pose
         if (Field.ALLOWED_FIELD.contains(pose.getTranslation()) && 
         !Field.HUB_BLUE.contains(pose.getTranslation()) &&
@@ -219,6 +221,7 @@ public class PoseEstimator {
         fused = clampTwistByDt(fused, dt);
 
         Pose2d candidate = currentPose.exp(fused);
+        MALog.log("Pose Estimator/Canidate", candidate);
 
         if (Field.ALLOWED_FIELD.contains(candidate.getTranslation()) && 
         !Field.HUB_BLUE.contains(candidate.getTranslation()) &&
@@ -231,7 +234,7 @@ public class PoseEstimator {
                 MALog.log("Pose Estimator/Current Pose", currentPose);
             }
         } else {
-            TelemetryLogger.logPoseEstimator("Update rejected because pose is outside the field");
+            TelemetryLogger.logPoseEstimator("Update rejected at apply at time because pose is outside the field");
         }
     }
 
@@ -292,9 +295,15 @@ public class PoseEstimator {
             return new Twist2d();
         }
 
+        
+
         double outDx = hasXY ? (dxAcc / sumFomXY) : 0.0;
         double outDy = hasXY ? (dyAcc / sumFomXY) : 0.0;
         double outDTh = hasTh ? (dThetaAcc / sumFomTheta) : 0.0;
+
+        MALog.log("Pose Estimator/Total Twist/X", outDx);
+        MALog.log("Pose Estimator/Total Twist/Y", outDy);
+        MALog.log("Pose Estimator/Total Twist/Theta", outDTh);
 
         return new Twist2d(outDx, outDy, outDTh);
     }

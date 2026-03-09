@@ -22,7 +22,7 @@ public class SandwichConstants {
         public static final double GEAR = 1;
         public static final double RAMP_RATE = 0.2;
         public static final int CURRENT_LIMIT = 60;
-        public static final int STATOR_CURRENT_LIMIT = 40;
+        public static final int STATOR_CURRENT_LIMIT = 43;
 
         public static final double IS_BALLS_DISTANCE = 0.1;
 

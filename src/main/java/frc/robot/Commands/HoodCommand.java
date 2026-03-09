@@ -2,6 +2,7 @@
 
 package frc.robot.Commands;
 
+import com.MAutils.DashBoard.Tunable;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
@@ -15,6 +16,8 @@ public class HoodCommand extends SubsystemCommand {
 
     private double manuelPosition = 20;
     private static Debouncer homingDebouncer = new Debouncer(0.2);
+
+    private double lastCurrent = 0;
 
 
     public HoodCommand() {
@@ -30,7 +33,7 @@ public class HoodCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 if (SuperStructure.isAutomatic()) {
-                   hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());
+                   hood.setPosition(hood.getHoodPosition());//SuperStructure.getShootingParameters().hoodAngle()
                 } else {
                     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
                 }
@@ -45,11 +48,12 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.EJECT_POSITION);
                 break;
             case "HOMING":
-                hood.setVoltage(-2);
-                if (homingDebouncer.calculate(Math.abs(hood.getCurrent()) > 10)) {
+                hood.setVoltage(HoodConstants.HOOMING_VOLTAGE);
+                if (hood.getCurrent()-lastCurrent > HoodConstants.DELTA_CURRENT) {
                     hood.resetPosition(0);
                     hood.setState(HoodConstants.IDLE);
                 }
+                lastCurrent = hood.getCurrent();
                 break;
         }
     }

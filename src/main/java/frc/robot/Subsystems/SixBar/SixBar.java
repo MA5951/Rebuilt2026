@@ -19,8 +19,6 @@ public class SixBar extends PositionControlledSystem {
     private static SixBar sixbar;
 
     private StatusSignal<Double> closedLoopVolts;
-    private StatusSignal<Angle> absPosition;
-    private final CANcoder canCoder;
     private double lastVelo = 0;
 
     public static final State HOMING = new State("HOMING");
@@ -30,11 +28,8 @@ public class SixBar extends PositionControlledSystem {
                 SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.DEPLOY, HOMING);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
-        canCoder = new CANcoder(PortMap.SixBarPorts.CAN_CODER,
-        PortMap.CAN_BUS.CANIVORE_BUS);
+        
 
-        absPosition = canCoder.getAbsolutePosition();
-        absPosition.refresh();
 
         resetPosition(-SixBarConstants.DEPLOY_ANGLE);
 
@@ -42,7 +37,6 @@ public class SixBar extends PositionControlledSystem {
         HOMING.setOnStateEnd(() -> setConstants(SixBarConstants.SIXBAR_CONSTANTS, false));
 
         StatusSignalsRunner.registerSignals(PortMap.SixBarPorts.SIXBAR_MOTOR, closedLoopVolts);
-        StatusSignalsRunner.registerSignals(true, absPosition);
     }
 
     public double getCloseLoopVolts() {

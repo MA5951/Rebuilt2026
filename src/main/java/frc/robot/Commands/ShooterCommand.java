@@ -1,6 +1,7 @@
 
 package frc.robot.Commands;
 
+import com.MAutils.DashBoard.Tunable;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotControl.SuperStructure;
@@ -10,6 +11,8 @@ import frc.robot.Subsystems.Shooter.ShooterConstants;
 public class ShooterCommand extends SubsystemCommand {
     private static final Shooter shooter = Shooter.getInstance();
     private double manuelRPM = 0;
+
+    private Tunable shooterTunable = new Tunable(0, "Shooter Shooting");
 
     public ShooterCommand() {
         super(shooter);
@@ -28,7 +31,7 @@ public class ShooterCommand extends SubsystemCommand {
             case "SHOOTING":
                
                 if (SuperStructure.isAutomatic()) {
-                   shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());
+                   shooter.setVelocity(shooter.getShooterVelo());//SuperStructure.getShootingParameters().shooterRPM()
                 } else {
                     shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
                 }

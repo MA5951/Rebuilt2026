@@ -22,6 +22,10 @@ public class HoodConstants {
         public static final double STATOR_CURRENT_LIMIT = 20;
         public static final double TOLERANCE = 1;
 
+        public static double DELTA_CURRENT = 15;
+        public static final double HOOMING_VOLTAGE = 0;
+
+
         private static final Motor HOOD_MOTOR = new Motor(PortMap.HoodPorts.HOOD_MOTOR, MotorType.KRAKEN, "Hood Motor",
                         InvertedValue.CounterClockwise_Positive);
 

@@ -15,9 +15,10 @@ public class SixBarCommand extends SubsystemCommand {
 
     private static final SixBar sixbar = SixBar.getInstance();
     private double manuelPosition = SixBarConstants.IDLE_ANGLE;
-    private static Debouncer homingDebouncer = new Debouncer(0.2);
+    private static Debouncer homingDebouncer = new Debouncer(0.1);
     public static boolean isAtPosition = false;
     public static boolean isReset = false;
+    public double lastCurrent = 0;
 
     public SixBarCommand() {
         super(sixbar);
@@ -29,7 +30,7 @@ public class SixBarCommand extends SubsystemCommand {
         switch (sixbar.getCurrentState().stateName) {
             case "IDLE":
                 if (SuperStructure.isDefenceMode()) {
-                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE - 1);
+                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 } else {
                     sixbar.setPositionClose(SixBarConstants.BUMPER_ZONE_ANGLE);
                 }
@@ -50,21 +51,24 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
 
-                if (SixBar.getInstance().getPosition() < -36) {
-                    sixbar.setPosition(34.5);
-                } else {
-                    sixbar.setPosition(8);
-                }
+                // if (SixBar.getInstance().getPosition() < -36) {
+                //     sixbar.setPosition(34.5);
+                // } else {
+                //     sixbar.setPosition(8);
+                // }
+
+                sixbar.setPosition(8);
                 break;
             case "HOMING":
                 isReset = true;
-                sixbar.setVoltage(0.7);
-                if (homingDebouncer.calculate(Math.abs(sixbar.getCurrent()) > 35)) {
-                    sixbar.resetPosition(4.5);
+                sixbar.setVoltage(1.3);
+                if (homingDebouncer.calculate(sixbar.getCurrent() > 50)) {
+                    sixbar.resetPosition(0);
                     sixbar.setState(SixBarConstants.IDLE);
                 }
+                lastCurrent = sixbar.getCurrent();
                 break;
-        }
+        } 
     }
 
     @Override

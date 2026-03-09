@@ -19,6 +19,8 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import frc.robot.PortMap;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Vision.Vision;
+import frc.robot.Subsystems.Vision.VisionConstants;
 
 public class SwerveConstants {  
 
@@ -92,9 +94,13 @@ public class SwerveConstants {
 
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
+                                // ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
+                                // ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAFTERANGLE());//setPointLimiterRel.calculate()
+                                // ANGLE_ADJUST_CONTROLLER.withGyroSupplier(SuperStructure.getGyroSUpplierFOrRelativAlign()); 
+
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getAFTERANGLE());//setPointLimiterRel.calculate()
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(SuperStructure.getGyroSUpplierFOrRelativAlign()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(VisionConstants.FRONT_LL.getCameraIO().getTag().id));//setPointLimiterRel.calculate()
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(() -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc); 
                                 
                         })
                         
