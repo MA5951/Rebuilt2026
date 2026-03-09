@@ -5,8 +5,8 @@ import com.MAutils.DashBoard.Tunable;
 import com.MAutils.DashBoard.TunableBoolean;
 
 public class Dashboard {
-    private static Tunable activeDisable = new Tunable(0, "/Dashboard/ActiveDisabled");
-    private static Tunable isFirstShift = new Tunable(0, "/Dashboard/Is First Shift");
+    private static TunableBoolean activeDisable = new TunableBoolean(false, "/Dashboard/ActiveDisabled");
+    private static TunableBoolean isFirstShift = new TunableBoolean(false, "/Dashboard/Is First Shift");
     private static TunableBoolean isHoodStuck = new TunableBoolean(false, "/Dashboard/Is Hood Stuck");
     private static TunableBoolean isDefenceMode = new TunableBoolean(false, "/Dashboard/Is Defence Mode");
     private static Tunable shooterFactor = new Tunable(1, "/Dashboard/Shooter Factor");
@@ -17,11 +17,11 @@ public class Dashboard {
     }
 
     public static boolean isActiveDisabled() {
-        return activeDisable.get() == 1;
+        return activeDisable.get();
     }
 
     public static boolean isFirstShift() {
-        return isFirstShift.get() == 1;
+        return isFirstShift.get();
     }
 
     public static boolean isHoodStuck() {
