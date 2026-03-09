@@ -55,7 +55,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double AFTER_ANGLE = 0;
 
-    private static double[][] hoodTableData = {
+    private static double[][] hoodTableDataOld = {
             { 5.676, 25.0 },
             { 5.436, 25.0 },
             { 5.126, 24.0 },
@@ -91,7 +91,33 @@ public class SuperStructure extends DeafultSuperStructure {
             { 1.1, 1 },
     };
 
-    private static double[][] shooterTableData = {
+    private static double[][] hoodTableDataNew = {
+    { 1.215, 2.0 },
+    { 1.500, 7.0 },
+    { 1.835, 10.0 },
+    { 2.160, 13.0 },
+    { 2.440, 14.0 },
+    { 2.645, 16.0 },
+    { 2.975, 18.0 },
+    { 3.600, 18.0 },
+    { 4.065, 20.0 },
+    { 4.605, 21.0 },
+};
+
+private static double[][] shooterTableData = {
+    { 1.215, 2800.0 },
+    { 1.500, 2660.0 },
+    { 1.835, 2730.0 },
+    { 2.160, 2790.0 },
+    { 2.440, 2890.0 },
+    { 2.645, 3025.0 },
+    { 2.975, 3200.0 },
+    { 3.600, 3370.0 },
+    { 4.065, 3500.0 },
+    { 4.605, 3650.0 },
+};
+
+    private static double[][] shooterTableDataOld = {
             { 5.676, 4150.0 },
             { 5.436, 4055.0 },
             { 5.216, 4000.0 },
@@ -130,7 +156,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double lastFeedingResult = 0;
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
-    private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
+    private static InterpolationTable hoodTable = new InterpolationTable(hoodTableDataNew);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
     private static boolean defence = false;

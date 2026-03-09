@@ -33,7 +33,7 @@ public class HoodCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 if (SuperStructure.isAutomatic()) {
-                   hood.setPosition(hood.getHoodPosition());//SuperStructure.getShootingParameters().hoodAngle()
+                   hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());//
                 } else {
                     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
                 }

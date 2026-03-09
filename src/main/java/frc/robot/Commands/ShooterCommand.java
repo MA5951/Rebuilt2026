@@ -31,7 +31,7 @@ public class ShooterCommand extends SubsystemCommand {
             case "SHOOTING":
                
                 if (SuperStructure.isAutomatic()) {
-                   shooter.setVelocity(shooter.getShooterVelo());//SuperStructure.getShootingParameters().shooterRPM()
+                   shooter.setVelocity(SuperStructure.getShootingParameters().shooterRPM());//
                 } else {
                     shooter.setVelocity(SuperStructure.getCurrentShootingPreset().shooterRPM);
                 }
