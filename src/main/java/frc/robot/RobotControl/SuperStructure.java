@@ -51,7 +51,6 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static final double SANDWICH_STUCK_DELTA = 10;
 
-    public static double INTAKE_FACTOR = 1;
 
     public static double AFTER_ANGLE = 0;
 
@@ -488,14 +487,6 @@ private static double[][] shooterTableData = {
     public static double getRollerSinVoltage() {
         double f = 1;
         return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * 0.75 + 8.5);
-    }
-
-    public static double getIntakeFactor() {
-        return INTAKE_FACTOR;
-    }
-
-    public static void getIntakeFactor(double intakeFactor) {
-        INTAKE_FACTOR = intakeFactor;
     }
 
     public static double getSetPointForShootingRel(double id) {
