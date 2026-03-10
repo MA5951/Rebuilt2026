@@ -1,9 +1,11 @@
 
 package frc.robot.Commands;
 
+import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.Dashboard;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
@@ -33,7 +35,7 @@ public class IntakeCommand extends SubsystemCommand {
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage(((Swerve.getInstance().getVelocityVector() * 0.55 + 4)*  0.9)*SuperStructure.INTAKE_FACTOR);//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4
+                intakeroller.setVoltage(((Swerve.getInstance().getVelocityVector() * 0.55 + 4)*  0.9)*Dashboard.getIntakeFactor());//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);

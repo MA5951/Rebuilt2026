@@ -108,12 +108,12 @@ public class RobotConstants {
 
         public static final MRobotState PRECLIMB = new MRobotState("PRECLIMB",() -> {ClimbCommand.isAtPosition = false;
         },
-                        ClimbConstnats.PRECLIMB, SixBarConstants.DEPLOY, IntakeRollerConstants.IDLE, HoodConstants.IDLE,
+                        Climb.PRECLIMB, SixBarConstants.DEPLOY, IntakeRollerConstants.IDLE, HoodConstants.IDLE,
                         ShooterConstants.IDLE, SandwichConstants.IDLE, RollerConstants.IDLE, TransferConstants.IDLE,
                         KickerConstants.IDLE);
 
         public static final MRobotState CLIMB = new MRobotState("CLIMB",
-                        ClimbConstnats.CLIMB, SixBarConstants.DEPLOY, IntakeRollerConstants.IDLE, HoodConstants.IDLE,
+                        Climb.CLIMB, SixBarConstants.DEPLOY, IntakeRollerConstants.IDLE, HoodConstants.IDLE,
                         ShooterConstants.IDLE, SandwichConstants.IDLE, RollerConstants.IDLE, TransferConstants.IDLE,
                         KickerConstants.IDLE);
 }

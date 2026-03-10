@@ -15,8 +15,6 @@ public class FeedingAuto extends SequentialCommandGroup {
 
     public FeedingAuto() {
         addCommands(
-                // new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
-                // new ParallelRaceGroup(new SwerveAutoController(), new WaitUntilCommand(1.5)),
 
                 SwerveAutoFollower.followPath("F1"),
                 new InstantCommand(() -> RobotConstants.FEEDING.setState()),

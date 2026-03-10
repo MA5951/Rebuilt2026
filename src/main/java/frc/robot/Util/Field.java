@@ -1,6 +1,8 @@
 
 package frc.robot.Util;
 
+import java.util.function.ObjDoubleConsumer;
+
 import com.MAutils.Utils.DriverStationUtil;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -85,5 +87,11 @@ public class Field {
     public static double getFeedingLine() {
         return DriverStationUtil.getAlliance() == DriverStation.Alliance.Blue ? 2 : LENGTH - 2;
     }
+
+    public static double getDistanceToCenterHub(int tagID) {
+        return getHub().getDistance(TAG_LAYOUT.getTagPose(tagID).get().toPose2d().getTranslation());
+    }
+
+     
 
 }

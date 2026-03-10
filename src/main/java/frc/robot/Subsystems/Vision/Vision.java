@@ -35,9 +35,9 @@ public class Vision {
     }
 
     public double getRawTrigDistance() {
-        MALog.log("Subsystems/Vision/Roll", -VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
+        MALog.log("Subsystems/Vision/Pitch", -VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
         return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
-                / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch) + getCOrrectedTy()));
+                / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch) + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
 
     }
 

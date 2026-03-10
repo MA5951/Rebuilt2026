@@ -21,21 +21,17 @@ public class ClimbConstnats {
         public static final double MAX_POSITION = 0.187;
         public static final double START_POSITION = 0;
         public static final double TOLERANCE = 0.02;
-        public static final double CURRENT_LIMIT = 90;
-        public static final double STATOR_CURRENT_LIMIT = 90;
+        public static final double CURRENT_LIMIT = 40;
+        public static final double STATOR_CURRENT_LIMIT = 40;
         public static final double CRUISE_VELOCITY = 0;
         public static final double ACCELERATION = 0;
 
         public static final double START_CLOSE_VOLTAGE = -4;
-        public static final double END_CLOSE_VOLTAGE = -1.2;
+        public static final double END_CLOSE_VOLTAGE = -1.6;
 
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
         public static final double INTAKE_OPEN_POSITION = -55;
-        public static double LOCK_SERVO_LOCKED_ANGLE = 0;
-        public static double LOCK_SERVO_UNLOCKED_ANGLE = 0;
-        public static double LOCK_VOLTAGE = 0;
-        public static double LOCK_POSITION = 0;
         public static final double HOMING_CURRENT_TOLRANCE = 10;
         public static final double HOMING_VOLTAGE = -1;
 
@@ -62,7 +58,7 @@ public class ClimbConstnats {
                         .isBrake(false)
                         .tolerance(TOLERANCE)
                         .motorCurrentLimit(CURRENT_LIMIT)
-                        .statorCurrentLimit(false, STATOR_CURRENT_LIMIT)
+                        .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
                         .range(MIN_POSITION, MAX_POSITION)
                         .startPose(START_POSITION)
                         .positionFactor(POSITION_FACTOR)
@@ -81,8 +77,7 @@ public class ClimbConstnats {
                         .build();
 
         public static final State IDLE = new State("IDLE");
-        public static final State PRECLIMB = new State("PRECLIMB");
-        public static final State CLIMB = new State("CLIMB");
+        
         public static final State DOWN = new State("DOWN");
         
 

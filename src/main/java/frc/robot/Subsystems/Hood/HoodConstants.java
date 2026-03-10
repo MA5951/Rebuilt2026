@@ -23,7 +23,7 @@ public class HoodConstants {
         public static final double TOLERANCE = 1;
 
         public static double DELTA_CURRENT = 15;
-        public static final double HOOMING_VOLTAGE = 0;
+        public static final double HOOMING_VOLTAGE = -1;
 
 
         private static final Motor HOOD_MOTOR = new Motor(PortMap.HoodPorts.HOOD_MOTOR, MotorType.KRAKEN, "Hood Motor",

@@ -125,22 +125,21 @@ public class PowerIOReal implements PowerSystemIO {
 
     @Override
     public void setBrakeMode(boolean isBrake) {
-        // motorConfig.MotorOutput.NeutralMode = isBrake
-        //         ? NeutralModeValue.Brake
-        //         : NeutralModeValue.Coast;
+        motorConfig.MotorOutput.NeutralMode = isBrake
+                ? NeutralModeValue.Brake
+                : NeutralModeValue.Coast;
 
-        // motorConfig.MotorOutput.Inverted = systemConstants.master.invert;
-        // systemConstants.master.motorController.getConfigurator().apply(motorConfig);  
+        motorConfig.MotorOutput.Inverted = systemConstants.master.invert;
+        systemConstants.master.motorController.getConfigurator().apply(motorConfig);  
 
-        // MALog.log(logPath + "/Brake Config Master", Timer.getFPGATimestamp());  
-        // for (Motor motor : systemConstants.MOTORS) {
-        //     motorConfig.MotorOutput.Inverted = motor.invert;
-        //     MALog.log(logPath + "/Brake Config Slave", Timer.getFPGATimestamp()); 
-        //     motor.motorController.getConfigurator().apply(motorConfig);
-        // }
+        MALog.log(logPath + "/Brake Config Master", Timer.getFPGATimestamp());  
+        for (Motor motor : systemConstants.MOTORS) {
+            motorConfig.MotorOutput.Inverted = motor.invert;
+            MALog.log(logPath + "/Brake Config Slave", Timer.getFPGATimestamp()); 
+            motor.motorController.getConfigurator().apply(motorConfig);
+        }
 
-        motorConfig.Slot0.kP = 7.1;
-        systemConstants.master.motorController.getConfigurator().apply(motorConfig);
+       
     }
 
     @Override

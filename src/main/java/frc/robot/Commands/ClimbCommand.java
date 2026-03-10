@@ -28,6 +28,7 @@ public class ClimbCommand extends SubsystemCommand {
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
+            
                 if (isAtPosition) {
                     climb.setVoltage(0);
                 } else {

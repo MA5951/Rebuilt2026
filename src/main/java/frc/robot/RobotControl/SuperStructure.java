@@ -51,111 +51,82 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static final double SANDWICH_STUCK_DELTA = 10;
 
-
     public static double AFTER_ANGLE = 0;
 
-    private static double[][] hoodTableDataOld = {
-            { 5.676, 25.0 },
-            { 5.436, 25.0 },
-            { 5.126, 24.0 },
-            { 4.996, 23.0 },
-            { 4.816, 21.0 },
-            { 4.616, 18.0 },
-            { 4.446, 18.0 },
-            { 4.276, 18.0 },
-            { 3.936, 18.0 },
-            { 3.756, 19.0 },
-            { 3.587, 18.0 },
-            { 3.428, 17.0 },
-            { 3.244, 17.0 },
-            { 3.109, 16.5 },
-            { 2.986, 15.5 },
-            { 2.892, 14.5 },
-            { 2.795, 13.5 },
-            { 2.691, 12.5 },
-            { 2.551, 12.5 },
-            { 2.468, 12.0 },
-            { 2.374, 12.0 },
-            { 2.278, 11.0 },
-            { 2.184, 11.0 },
-            { 2.090, 10.5 },
-            { 2.014, 10.0 },
-            { 1.887, 9.0 },
-            { 1.783, 8.0 },
-            { 1.697, 7.5 },
-            { 1.591, 7.0 },
+    private static double[][] hoodTableData = {
+            { 5.676, 27.0 },
+            { 5.436, 27.0 },
+            { 5.126, 26.0 },
+            { 4.996, 25.0 },
+            { 4.816, 25.0 },
+            { 4.616, 25.0 },
+            { 4.446, 25.0 },
+            { 4.276, 22.0 },
+            { 3.936, 22.0 },
+            { 3.756, 22.0 },
+            { 3.587, 22.0 },
+            { 3.428, 21.0 },
+            { 3.244, 20.0 },
+            { 3.109, 18.5 },
+            { 2.986, 17.5 },
+            { 2.892, 16.5 },
+            { 2.795, 15.5 },
+            { 2.691, 14.5 },
+            { 2.551, 14.5 },
+            { 2.468, 14.0 },
+            { 2.374, 14.0 },
+            { 2.278, 13.0 },
+            { 2.184, 13.0 },
+            { 2.090, 12.5 },
+            { 2.014, 12.0 },
+            { 1.887, 11.0 },
+            { 1.783, 10.0 },
+            { 1.697, 9.0 },
+            { 1.591, 8.0 },
             { 1.514, 7.0 },
-            { 1.344, 3.5 },
-            { 1.2, 1 },
-            { 1.1, 1 },
+            { 1.344, 6.0 },
     };
 
-    private static double[][] hoodTableDataNew = {
-    { 1.215, 2.0 },
-    { 1.500, 7.0 },
-    { 1.835, 10.0 },
-    { 2.160, 13.0 },
-    { 2.440, 14.0 },
-    { 2.645, 16.0 },
-    { 2.975, 18.0 },
-    { 3.600, 18.0 },
-    { 4.065, 20.0 },
-    { 4.605, 21.0 },
-};
-
-private static double[][] shooterTableData = {
-    { 1.215, 2800.0 },
-    { 1.500, 2660.0 },
-    { 1.835, 2730.0 },
-    { 2.160, 2790.0 },
-    { 2.440, 2890.0 },
-    { 2.645, 3025.0 },
-    { 2.975, 3200.0 },
-    { 3.600, 3370.0 },
-    { 4.065, 3500.0 },
-    { 4.605, 3650.0 },
-};
-
-    private static double[][] shooterTableDataOld = {
+    private static double[][] shooterTableData = {
             { 5.676, 4150.0 },
             { 5.436, 4055.0 },
             { 5.216, 4000.0 },
             { 4.996, 3875.0 },
             { 4.816, 3825.0 },
-            { 4.616, 3760.0 },
+            { 4.616, 3800.0 },
             { 4.446, 3720.0 },
-            { 4.276, 3720.0 },
-            { 4.086, 3700.0 },
-            { 3.936, 3650.0 },
+            { 4.276, 3705.0 },
+            { 4.086, 3595.0 },
+            { 3.936, 3600.0 },
             { 3.756, 3550.0 },
-            { 3.587, 3480.0 },
-            { 3.428, 3480.0 },
-            { 3.244, 3480.0 },
-            { 3.109, 3300.0 },
+            { 3.587, 3500.0 },
+            { 3.428, 3490.0 },
+            { 3.244, 3490.0 },
+            { 3.109, 3250.0 },
             { 2.986, 3200.0 },
-            { 2.892, 3150.0 },
-            { 2.795, 3150.0 },
-            { 2.691, 3150.0 },
-            { 2.551, 3150.0 },
-            { 2.468, 3050.0 },
-            { 2.374, 3025.0 },
-            { 2.278, 3000.0 },
-            { 2.184, 2950.0 },
-            { 2.090, 2950.0 },
-            { 2.014, 2920.0 },
-            { 1.887, 2820.0 },
-            { 1.783, 2820.0 },
-            { 1.697, 2820.0 },
-            { 1.591, 2820.0 },
-            { 1.514, 2820.0 },
-            { 1.344, 2750.0 },
-            { 1.2, 2750.0 },
-            { 1, 2750.0 }
+            { 2.892, 3200.0 },
+            { 2.795, 3200.0 },
+            { 2.691, 3200.0 },
+            { 2.551, 3200.0 },
+            { 2.468, 3100.0 },
+            { 2.374, 3075.0 },
+            { 2.278, 3050.0 },
+            { 2.184, 3000.0 },
+            { 2.090, 3000.0 },
+            { 2.014, 2950.0 },
+            { 1.887, 2750.0 },
+            { 1.783, 2750.0 },
+            { 1.697, 2700.0 },
+            { 1.591, 2700.0 },
+            { 1.514, 2700.0 },
+            { 1.344, 2650.0 },
+            { 1.2, 2700.0 },
+            { 1, 2700.0 },
     };
 
     private static double lastFeedingResult = 0;
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
-    private static InterpolationTable hoodTable = new InterpolationTable(hoodTableDataNew);
+    private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
     private static boolean defence = false;
@@ -316,11 +287,12 @@ private static double[][] shooterTableData = {
 
     private static double getHoodAngle(double distance) {
 
-        if (hoodTable.interpolate(distance) < 6 && (RobotContainer.getRobotState() == RobotConstants.FEEDING || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION)) {
+        if (hoodTable.interpolate(distance) < 6 && (RobotContainer.getRobotState() == RobotConstants.FEEDING
+                || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION)) {
             return 6;
         }
 
-        return hoodTable.interpolate(distance) ;
+        return hoodTable.interpolate(distance) - 2;
 
     }
 
@@ -334,28 +306,62 @@ private static double[][] shooterTableData = {
     }
 
     private static double getRelativDistanceToHub() {
-        distance = Math.sqrt(Math.pow(Vision.getInstance().getDistanceTryg(), 2) +
-                Math.pow(Field.HUB_WIDTH / 2, 2)
-                + (2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) *
-                        Math.cos(Math.toRadians(
-                                VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
-                                        + Swerve.getInstance().getGyroData().yaw))));
+        // distance = Math.sqrt(Math.pow(Vision.getInstance().getDistanceTryg(), 2) +
+        // Math.pow(Field.HUB_WIDTH / 2, 2)
+        // + (2 * Vision.getInstance().getDistanceTryg() * (Field.HUB_WIDTH / 2) *
+        // Math.cos(Math.toRadians(
+        // VisionConstants.FRONT_LL.getCameraIO().getTag().txnc
+        // + Swerve.getInstance().getGyroData().yaw))));
 
-        return (4.46 * Math.pow(10, -3) + -0.0138 * distance + 0.0383 *
-                Math.pow(distance, 2)) + distance;
+        // return (4.46 * Math.pow(10, -3) + -0.0138 * distance + 0.0383 *
+        // Math.pow(distance, 2)) + distance;
+        return Vision.getInstance().getDistanceTryg() + Field.getDistanceToCenterHub(26);
+    }
+
+    public static double getAbsDistanceToHub() {
+        // if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 26) {//TODO Handel Red Side
+        //     return GeometryUtil
+        //             .poseAdjust(PoseEstimator.getCurrentPose(),
+        //                     VisionConstants.FRONTLL_OFFSET)
+        //             .getDistance(Field.TAG_LAYOUT.getTagPose(26).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
+        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 24) {
+        //     return GeometryUtil
+        //             .poseAdjust(PoseEstimator.getCurrentPose(),
+        //                     VisionConstants.FRONTLL_OFFSET)
+        //             .getDistance(Field.TAG_LAYOUT.getTagPose(24).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
+        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 21) {
+        //     return GeometryUtil
+        //             .poseAdjust(PoseEstimator.getCurrentPose(),
+        //                     VisionConstants.FRONTLL_OFFSET)
+        //             .getDistance(Field.TAG_LAYOUT.getTagPose(21).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
+        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 27) {
+        //     return GeometryUtil
+        //             .poseAdjust(PoseEstimator.getCurrentPose(),
+        //                     VisionConstants.FRONTLL_OFFSET)
+        //             .getDistance(Field.TAG_LAYOUT.getTagPose(27).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
+        // } else {// VisionConstants.FRONT_LL.getCameraIO().getTag().id == 18
+        //     return GeometryUtil
+        //             .poseAdjust(PoseEstimator.getCurrentPose(),
+        //                     VisionConstants.FRONTLL_OFFSET)
+        //             .getDistance(Field.TAG_LAYOUT.getTagPose(18).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
+        // }
+
+
+        return GeometryUtil
+        .poseAdjust(PoseEstimator.getCurrentPose(),
+        VisionConstants.FRONTLL_OFFSET)
+        .getDistance(Field.getHub());
     }
 
     private static double getDistanceToTargetShooting() {
-        if (!(SwerveController.isAbs < 3) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
-            
+        // if (!(SwerveController.isAbs < 3) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
 
-            return getRelativDistanceToHub();
-        }
+        //     return getRelativDistanceToHub();
+        // }
 
-        return GeometryUtil
-                .poseAdjust(PoseEstimator.getCurrentPose(),
-                        VisionConstants.FRONTLL_OFFSET)
-                .getDistance(Field.getHub());
+        
+
+        return getAbsDistanceToHub();
 
     }
 
@@ -494,9 +500,9 @@ private static double[][] shooterTableData = {
             return 2;
         } else if (id == 24) {
             return -2;
-        } else {
-            return 0;
-        }
+        } 
+
+        return 0;
     }
 
     public static void update() {
@@ -510,9 +516,7 @@ private static double[][] shooterTableData = {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if ((Vision.getInstance().getDeltaTX() < 2.5 && SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint())) {// &&
-                                                                                                                // !DriverStation.isAutonomous()//||
-                                                                                                                // DriverStation.isAutonomous()
+        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) {
             isLocked = true;
         }
 
@@ -521,14 +525,8 @@ private static double[][] shooterTableData = {
         }
 
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
-        MALog.log("/SuperStructure/Distance/Abs",
-                GeometryUtil
-                        .poseAdjust(PoseEstimator.getCurrentPose(),
-                                VisionConstants.FRONTLL_OFFSET)
-                        .getDistance(Field.getHub()));
-        MALog.log("/SuperStructure/Distance/Trigo", Vision.getInstance().getDistanceTryg());
-        MALog.log("/SuperStructure/Distance/Trigo With Hub", Vision.getInstance().getDistanceTryg() + (Field.HUB_WIDTH / 2) + 0.2);
-        MALog.log("/SuperStructure/Distance/Full Trigo Distance", getRelativDistanceToHub());
+        MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());
+        MALog.log("/SuperStructure/Distance/Trigo Distance Tag", getRelativDistanceToHub());
         MALog.log("/SuperStructure/Shooter Velo", currentShootingParameters.shooterRPM());
         MALog.log("/SuperStructure/Hood Angle", currentShootingParameters.hoodAngle());
         MALog.log("/SuperStructure/Shooting Latch", atPointLatch);

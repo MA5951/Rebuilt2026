@@ -46,15 +46,13 @@ public class PortMap {
 
     public class ClimbPorts {
         public static final CANBusID CLIMB_MOTOR = new CANBusID(14, CAN_BUS.CANIVORE_BUS);
-        public static final int MACAM = 0;
+        public static final int IR = 8;//8
     }
 
     public class Transfer_Ports {
         public static final CANBusID TRANSFER_MOTOR = new CANBusID(13, CAN_BUS.RIO_BUS);
 
-        public static final int FIRST_LEVEL_SENSOR = 0;
-        public static final int SECOND_LEVEL_SENSOR = 1;
-        public static final int THIRD_LEVEL_SENSOR = 2;
+      
     }
 
     public static class SwervePorts {

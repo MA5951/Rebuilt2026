@@ -13,6 +13,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.SwerveController;
+import frc.robot.Commands.Auto.DepotClimb;
 import frc.robot.Commands.Auto.FeedingAuto;
 import frc.robot.Commands.Auto.TwoMagazine;
 import frc.robot.RobotControl.Dashboard;
@@ -92,7 +93,7 @@ public class Robot extends DeafultRobot {
       SixBar.getInstance().setState(SixBar.HOMING);
     }
 
-    CommandScheduler.getInstance().schedule(new FeedingAuto());
+    CommandScheduler.getInstance().schedule(new DepotClimb());
   }
 
   @Override
@@ -103,9 +104,7 @@ public class Robot extends DeafultRobot {
       SixBar.getInstance().setState(SixBar.HOMING);
     }
 
-    if (SuperStructure.isRobotInAir()) {
-      Climb.getInstance().setState(ClimbConstnats.DOWN);
-    }
+    
   }
 
   @Override
@@ -126,7 +125,6 @@ public class Robot extends DeafultRobot {
   @Override
   public void teleopExit() {
     super.teleopExit();
-    Climb.getInstance().setBrakeMode(true);
   }
 
   @Override
