@@ -13,7 +13,7 @@ import frc.robot.PortMap;
 public class HoodConstants {
 
         public static final double IDLE_POSITION = 0;
-        public static final double EJECT_POSITION = 10;
+        public static final double EJECT_POSITION = 15;
         public static final double MIN_POSITION = -1.5;
         public static final double MAX_POSITION = 28;
         public static final double GEAR = 185.185;

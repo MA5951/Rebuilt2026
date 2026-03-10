@@ -257,5 +257,13 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger (() -> getOperatorController().getActionsDown()).onTrue
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
 
+         new Trigger (() -> getOperatorController().getL1()).onTrue
+        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.FORCE_OPEN)));
+
+        new Trigger (() -> getOperatorController().getR1()).onTrue
+        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.FORCE_CLOSE)));
+
+      
+        
     }
 }

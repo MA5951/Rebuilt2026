@@ -67,6 +67,11 @@ public class SixBarCommand extends SubsystemCommand {
                     sixbar.setState(SixBarConstants.IDLE);
                 }
                 lastCurrent = sixbar.getCurrent();
+            case "FORCE_OPEN":
+                sixbar.setVoltage(-1.3);
+                break;
+            case "FORCE_CLOSE":
+                sixbar.setVoltage(1.3);
                 break;
         } 
     }

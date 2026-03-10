@@ -74,5 +74,6 @@ public class SixBarConstants {
         }, () -> {
         });
         public static final State SHOOTING = new State("SHOOTING");
-
+        public static final State FORCE_OPEN = new State("FORCE_OPEN");
+        public static final State FORCE_CLOSE = new State("FORCE_CLOSE");
 }
