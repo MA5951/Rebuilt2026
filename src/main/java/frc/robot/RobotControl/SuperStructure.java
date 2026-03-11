@@ -36,7 +36,7 @@ import frc.robot.Util.ShootingParameters;
 import frc.robot.Util.InterpolationTable;
 
 public class SuperStructure extends DeafultSuperStructure {
-    public static final Translation2d FEEDING_POSE = new Translation2d(1.3, 3.6);
+    public static final Translation2d FEEDING_POSE = Field.flipByAlliance(new Translation2d(Field.LENGTH - 1.3, 3.6));
 
     public static final double IN_THE_AIR_CURRENT_THRESHOLD = 40.0;
     public static final double CLIMB_POSITION_THRESHOLD = 0.15;
@@ -64,12 +64,12 @@ public class SuperStructure extends DeafultSuperStructure {
             { 4.276, 22.0 },
             { 3.936, 22.0 },
             { 3.756, 22.0 },
-            { 3.587, 22.0 },
-            { 3.428, 21.0 },
-            { 3.244, 20.0 },
-            { 3.109, 18.5 },
-            { 2.986, 17.5 },
-            { 2.892, 16.5 },
+            { 3.587, 21.0 },
+            { 3.428, 20.0 },
+            { 3.244, 19.5 },
+            { 3.109, 17.5 },
+            { 2.986, 17 },
+            { 2.892, 15.5 },
             { 2.795, 15.5 },
             { 2.691, 14.5 },
             { 2.551, 14.5 },
@@ -77,14 +77,16 @@ public class SuperStructure extends DeafultSuperStructure {
             { 2.374, 14.0 },
             { 2.278, 13.0 },
             { 2.184, 13.0 },
-            { 2.090, 12.5 },
-            { 2.014, 12.0 },
+            { 2.090, 13.0 },
+            { 2.014, 13.0 },
             { 1.887, 11.0 },
             { 1.783, 10.0 },
-            { 1.697, 9.0 },
-            { 1.591, 8.0 },
-            { 1.514, 7.0 },
-            { 1.344, 6.0 },
+            { 1.697, 10.0 },
+            { 1.591, 9.80 },
+            { 1.514, 9.8 },
+            { 1.344, 9.8 },
+            { 1.2, 8.5 },
+            { 1, 8.5 },
     };
 
     private static double[][] shooterTableData = {
@@ -102,26 +104,26 @@ public class SuperStructure extends DeafultSuperStructure {
             { 3.587, 3500.0 },
             { 3.428, 3490.0 },
             { 3.244, 3490.0 },
-            { 3.109, 3250.0 },
-            { 2.986, 3200.0 },
-            { 2.892, 3200.0 },
-            { 2.795, 3200.0 },
+            { 3.109, 3350.0 },
+            { 2.986, 3300.0 },
+            { 2.892, 3300.0 },
+            { 2.795, 3300.0 },
             { 2.691, 3200.0 },
             { 2.551, 3200.0 },
             { 2.468, 3100.0 },
-            { 2.374, 3075.0 },
-            { 2.278, 3050.0 },
+            { 2.374, 3100.0 },
+            { 2.278, 3070.0 },
             { 2.184, 3000.0 },
             { 2.090, 3000.0 },
-            { 2.014, 2950.0 },
-            { 1.887, 2750.0 },
-            { 1.783, 2750.0 },
-            { 1.697, 2700.0 },
-            { 1.591, 2700.0 },
-            { 1.514, 2700.0 },
-            { 1.344, 2650.0 },
-            { 1.2, 2700.0 },
-            { 1, 2700.0 },
+            { 2.014, 3000.0 },
+            { 1.887, 3000.0 },
+            { 1.783, 2900.0 },
+            { 1.697, 2900.0 },
+            { 1.591, 2900.0 },
+            { 1.514, 2900.0 },
+            { 1.344, 2850.0 },
+            { 1.2, 3000.0 },
+            { 1, 3000.0 },
     };
 
     private static double lastFeedingResult = 0;
@@ -319,34 +321,6 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getAbsDistanceToHub() {
-        // if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 26) {//TODO Handel Red Side
-        //     return GeometryUtil
-        //             .poseAdjust(PoseEstimator.getCurrentPose(),
-        //                     VisionConstants.FRONTLL_OFFSET)
-        //             .getDistance(Field.TAG_LAYOUT.getTagPose(26).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
-        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 24) {
-        //     return GeometryUtil
-        //             .poseAdjust(PoseEstimator.getCurrentPose(),
-        //                     VisionConstants.FRONTLL_OFFSET)
-        //             .getDistance(Field.TAG_LAYOUT.getTagPose(24).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
-        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 21) {
-        //     return GeometryUtil
-        //             .poseAdjust(PoseEstimator.getCurrentPose(),
-        //                     VisionConstants.FRONTLL_OFFSET)
-        //             .getDistance(Field.TAG_LAYOUT.getTagPose(21).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
-        // } else if (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 27) {
-        //     return GeometryUtil
-        //             .poseAdjust(PoseEstimator.getCurrentPose(),
-        //                     VisionConstants.FRONTLL_OFFSET)
-        //             .getDistance(Field.TAG_LAYOUT.getTagPose(27).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
-        // } else {// VisionConstants.FRONT_LL.getCameraIO().getTag().id == 18
-        //     return GeometryUtil
-        //             .poseAdjust(PoseEstimator.getCurrentPose(),
-        //                     VisionConstants.FRONTLL_OFFSET)
-        //             .getDistance(Field.TAG_LAYOUT.getTagPose(18).get().toPose2d().getTranslation()) + Field.getDistanceToCenterHub(26);
-        // }
-
-
         return GeometryUtil
         .poseAdjust(PoseEstimator.getCurrentPose(),
         VisionConstants.FRONTLL_OFFSET)
@@ -354,10 +328,10 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getDistanceToTargetShooting() {
-        // if (!(SwerveController.isAbs < 3) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+        if (!(SwerveController.isAbs < 3) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
 
-        //     return getRelativDistanceToHub();
-        // }
+            return getRelativDistanceToHub();
+        }
 
         
 
@@ -390,41 +364,16 @@ public class SuperStructure extends DeafultSuperStructure {
         }
     }
 
-    public static double getAFTERANGLE() {
-        double totAngle = 0;
-
-        if (Vision.getInstance().getTagID() == 21 || Vision.getInstance().getTagID() == 5) {
-            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180 + 90
-                    + (Vision.getInstance().getFilteredTx()));
-        } else if (Vision.getInstance().getTagID() == 18 || Vision.getInstance().getTagID() == 2) {
-            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
-                    + (Vision.getInstance().getFilteredTx())) - 90;
-        } else if (Vision.getInstance().getTagID() == 26 || Vision.getInstance().getTagID() == 10) {
-            totAngle = 360 - (90 - Swerve.getInstance().getGyroYawSupplier().get() + 180
-                    + (Vision.getInstance().getFilteredTx()));
-        }
-
-        double Y = Vision.getInstance().getDistanceTryg() * Math.sin(Math.toRadians(totAngle));
-        double X = Vision.getInstance().getDistanceTryg() * Math.cos(Math.toRadians(totAngle));
-        double YL = Y + Field.HUB_WIDTH / 2;
-
-        double finAngle = 90 - Math.toDegrees(Math.atan(YL / X));
-
-        if (Vision.getInstance().getFilteredTx() > 0 && AFTER_ANGLE < 110) {
-            MALog.log("/SuperStructure/After Angle", -finAngle);
-            AFTER_ANGLE = -finAngle;
-        } else {
-            MALog.log("/SuperStructure/After Angle", finAngle);
-            AFTER_ANGLE = finAngle;
-        }
-
-        return AFTER_ANGLE < 110 ? AFTER_ANGLE - 3 : 177 - AFTER_ANGLE;
-    }
-
     public static boolean isInTheAlinceZone() {
         return DriverStationUtil.getAlliance() == Alliance.Blue
                 ? PoseEstimator.getCurrentPose().getX() < Field.ALLIANCE_WIDTH
                 : PoseEstimator.getCurrentPose().getX() > Field.LENGTH - Field.ALLIANCE_WIDTH;
+    }
+
+    public static boolean isInWarmUpZone() {
+        return DriverStationUtil.getAlliance() == Alliance.Blue
+                ? PoseEstimator.getCurrentPose().getX() < Field.ALLIANCE_WIDTH + 2
+                : PoseEstimator.getCurrentPose().getX() > Field.LENGTH - Field.ALLIANCE_WIDTH - 2;
     }
 
     public static boolean atPointForShooting() {
@@ -526,6 +475,10 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
         MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());
+        MALog.log("/SuperStructure/Distance/Shooter Pose", GeometryUtil
+        .poseAdjust(PoseEstimator.getCurrentPose(),
+        VisionConstants.FRONTLL_OFFSET)
+        .getDistance(Field.getHub()));
         MALog.log("/SuperStructure/Distance/Trigo Distance Tag", getRelativDistanceToHub());
         MALog.log("/SuperStructure/Shooter Velo", currentShootingParameters.shooterRPM());
         MALog.log("/SuperStructure/Hood Angle", currentShootingParameters.hoodAngle());
@@ -570,6 +523,7 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Time left in teleop", DriverStation.getMatchTime());
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
+        MALog.log("/SuperStructure/Is In Warmup", isInWarmUpZone());
 
     }
 

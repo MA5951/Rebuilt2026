@@ -17,7 +17,6 @@ public class HoodCommand extends SubsystemCommand {
     private double manuelPosition = 20;
     private static Debouncer homingDebouncer = new Debouncer(0.2);
 
-    private double lastCurrent = 0;
 
 
     public HoodCommand() {
@@ -49,11 +48,10 @@ public class HoodCommand extends SubsystemCommand {
                 break;
             case "HOMING":
                 hood.setVoltage(HoodConstants.HOOMING_VOLTAGE);
-                if (hood.getCurrent()-lastCurrent > HoodConstants.DELTA_CURRENT) {
+                if (hood.getCurrent() > HoodConstants.DELTA_CURRENT) {
                     hood.resetPosition(0);
                     hood.setState(HoodConstants.IDLE);
                 }
-                lastCurrent = hood.getCurrent();
                 break;
         }
     }

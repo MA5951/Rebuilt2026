@@ -42,12 +42,23 @@ public class HoodConstants {
                         .tolerance(TOLERANCE)
                         .build();
 
+        public static PositionSystemConstants HOOD_CONSTANTS_HOMING = PositionSystemConstants
+                        .newBuilder("Hood", REAL_GAIN_CONFIG, HOOD_MOTOR)
+                        .gear(GEAR)
+                        .motorCurrentLimit(MOTOR_CURRENT_LIMIT)
+                        .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
+                        .startPose(IDLE_POSITION)
+                        .isBrake(true)
+                        .range(-10, MAX_POSITION)
+                        .tolerance(TOLERANCE)
+                        .build();
+
         public static final State IDLE = new State("IDLE");
         public static final State SHOOTING = new State("SHOOTING");
         public static final State FEEDING_IN_MOTION = new State("FEEDING_IN_MOTION");
         public static final State FEEDING = new State("FEEDING");
         public static final State EJECT = new State("EJECT");
         public static final double MANUAL_INCREMENT = 0;
-        public static final State HOMING = new State("HOMING");
+        
 
 }

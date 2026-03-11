@@ -21,18 +21,19 @@ public class AprilTagFilters {
     // Cache latest data to ensure XY and Omega use the same frame
     private PoseEstimate lastEstimate;
     private RawFiducial lastTag;
-    private double lastCaptureTime;
+    private double lastCaptureTime, fomCof;
 
     public AprilTagFilters(FiltersConfig config, 
                            VisionCameraIO visionCameraIO, 
                            Supplier<ChassisSpeeds> chassisSpeedsSupplier, 
                            Supplier<Double> imuYawRadSupplier,
-                           Supplier<Double> imuYawVelocitySupplier) {
+                           Supplier<Double> imuYawVelocitySupplier, double fomCOF) {
         this.config = config;
         this.visionCameraIO = visionCameraIO;
         this.chassisSpeeds = chassisSpeedsSupplier;
         this.imuYawRadSupplier = imuYawRadSupplier;
         this.imuYawVelocitySupplier = imuYawVelocitySupplier;
+        this.fomCof = fomCOF;
     }
 
     /** Updates the internal state with the latest camera data. Call this once per loop. */
@@ -56,7 +57,7 @@ public class AprilTagFilters {
         double geomTrust = calculateGeometricTrust();
 
         // 3. Final Combined XY FOM
-        return clamp01((motionTrust + geomTrust) / 2 );//m
+        return clamp01((motionTrust + geomTrust) / 2 ) * fomCof;//m
     }
 
     /** Calculates FOM for Omega Rotation (0..1) */
@@ -78,7 +79,7 @@ public class AprilTagFilters {
             trustTheta = 0.5 * (1.0 + Math.cos(Math.PI * norm));
         }
 
-        return clamp01(trustTheta * calculateGeometricTrust());
+        return clamp01(trustTheta * calculateGeometricTrust()) * fomCof;
     }
 
     // ===================== Modular Filter Blocks =====================

@@ -6,6 +6,7 @@ package frc.robot.Subsystems.Hood;
 import com.MAutils.CanBus.StatusSignalsRunner;
 import com.MAutils.DashBoard.Tunable;
 import com.MAutils.Logger.MALog;
+import com.MAutils.RobotControl.State;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PositionControlledSystem;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.hardware.CANcoder;
@@ -20,9 +21,11 @@ public class Hood extends PositionControlledSystem {
     private final CANcoder canCoder;
     private Tunable hoodPosition;
 
+    public static final State HOMING = new State("HOMING");
+
     private Hood() {
         super(HoodConstants.HOOD_CONSTANTS, HoodConstants.IDLE, HoodConstants.EJECT, HoodConstants.FEEDING,
-                HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION, HoodConstants.HOMING);
+                HoodConstants.SHOOTING, HoodConstants.FEEDING_IN_MOTION, HOMING);
 
         canCoder = new CANcoder(PortMap.HoodPorts.CAN_CODER, PortMap.CAN_BUS.CANIVORE_BUS);
 
@@ -34,6 +37,9 @@ public class Hood extends PositionControlledSystem {
         StatusSignalsRunner.registerSignals(PortMap.HoodPorts.HOOD_MOTOR, absPosition);
 
         hoodPosition = new Tunable(0, "Hood Position");
+
+        HOMING.setOnStateSet(() -> setConstants(HoodConstants.HOOD_CONSTANTS_HOMING, false));
+        HOMING.setOnStateEnd(() -> setConstants(HoodConstants.HOOD_CONSTANTS, false));
     }
 
     public boolean atPointForShooting() {

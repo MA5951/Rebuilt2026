@@ -23,12 +23,12 @@ public class TransferCommand extends SubsystemCommand {
     public void Automatic() {
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
-                if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
-                ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
-                    transfer.setVoltage(3);
-                } else {
+                // if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
+                // ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
+                //     transfer.setVoltage(3);
+                // } else {
                     transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
-                }
+                // }
 
                 break;
             case "INTAKE":

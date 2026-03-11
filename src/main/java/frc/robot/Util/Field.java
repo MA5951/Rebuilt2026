@@ -4,13 +4,16 @@ package frc.robot.Util;
 import java.util.function.ObjDoubleConsumer;
 
 import com.MAutils.Utils.DriverStationUtil;
+import com.MAutils.Utils.FlippingUtil;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rectangle2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 public class Field {
 
@@ -90,6 +93,22 @@ public class Field {
 
     public static double getDistanceToCenterHub(int tagID) {
         return getHub().getDistance(TAG_LAYOUT.getTagPose(tagID).get().toPose2d().getTranslation());
+    }
+
+    public static Pose2d flipByAlliance(Pose2d bluePose) {
+        if (DriverStationUtil.getAlliance() == Alliance.Red) {
+                return FlippingUtil.flipFieldPose(bluePose);
+        }
+
+        return bluePose;
+    }
+
+    public static Translation2d flipByAlliance(Translation2d bluePose) {
+        if (DriverStationUtil.getAlliance() == Alliance.Red) {
+                return FlippingUtil.flipFieldPosition(bluePose);
+        }
+
+        return bluePose;
     }
 
      

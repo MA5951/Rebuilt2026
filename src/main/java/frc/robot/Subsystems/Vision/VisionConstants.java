@@ -18,10 +18,10 @@ public class VisionConstants {
                
         public static final AprilTagCamera FRONT_LL = new AprilTagCamera(
                         new LimelightIO("limelight-frontll", Swerve.getInstance().getAbsYawSupplier()), DEFAULT_FILTERS_CONFIG,
-                        Swerve.getInstance().getAbsYawSupplier(), () -> Swerve.getInstance().getChassisSpeeds(), () -> Swerve.getInstance().getGyroData().yawVelocity );
+                        Swerve.getInstance().getAbsYawSupplier(), () -> Swerve.getInstance().getChassisSpeeds(), () -> Swerve.getInstance().getGyroData().yawVelocity , 1);
 
         public static final AprilTagCamera BACK_LL = new AprilTagCamera(
                         new LimelightIO("limelight-backll", Swerve.getInstance().getAbsYawSupplier()), DEFAULT_FILTERS_CONFIG,
-                        Swerve.getInstance().getAbsYawSupplier(), () -> Swerve.getInstance().getChassisSpeeds(), () -> Swerve.getInstance().getGyroData().yawVelocity );
+                        Swerve.getInstance().getAbsYawSupplier(), () -> Swerve.getInstance().getChassisSpeeds(), () -> Swerve.getInstance().getGyroData().yawVelocity, 0.7 );
 
 }

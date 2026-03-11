@@ -60,17 +60,17 @@ public class RobotContainer extends DeafultRobotContainer {
         
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
-        CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
-        //SixBar.getInstance();
+        // CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+        SixBar.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
         //Transfer.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-                new IntakeCommand());
-        //IntakeRoller.getInstance();
+        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+        //         new IntakeCommand());
+        IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 
         
@@ -111,7 +111,7 @@ public class RobotContainer extends DeafultRobotContainer {
                         && ((!getDriverController().getR1()) || SuperStructure.isFull() ) && !DriverStation.isAutonomous() ) ||//&& !DriverStation.isTeleop()
                         (getRobotState() == RobotConstants.EJECT && (!getDriverController().getActionsRight() && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.FEEDING
-                                && ((!getDriverController().getActionsDown() || !SuperStructure.isBalls()) && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
+                                && ((!getDriverController().getR2() || !SuperStructure.isBalls()) && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.FEEDING_IN_MOTION && (!getDriverController().getR2() && !DriverStation.isAutonomous() ))//&& !DriverStation.isTeleop()
                         || (getRobotState() == RobotConstants.SHOOTING
                                 && ((!getDriverController().getL1() || !SuperStructure.isBalls()
@@ -146,10 +146,10 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(() -> getDriverController().getActionsRight() && getRobotState() != RobotConstants.UNSTUCK,
                 RobotConstants.EJECT));
 
-        // T(StateTrigger.T(() -> getDriverController().getActionsDown() && getRobotState() != RobotConstants.UNSTUCK,
-        //         RobotConstants.FEEDING));
+        T(StateTrigger.T(() -> getDriverController().getR2() && Swerve.getInstance().getVelocityVector() < 0.2 && getDriverController().inDeadbound(),
+                RobotConstants.FEEDING));
 
-        T(StateTrigger.T(() -> getDriverController().getR2() && getRobotState() != RobotConstants.UNSTUCK,
+        T(StateTrigger.T(() -> getDriverController().getR2() && ! getDriverController().inDeadbound(),
                 RobotConstants.FEEDING_IN_MOTION));
 
         T(StateTrigger.T(
@@ -174,29 +174,24 @@ public class RobotContainer extends DeafultRobotContainer {
                 &&
                 ClimbCommand.isAtPosition, RobotConstants.CLIMB));
 
-        // Internal climb stats
+       
 
-        // new Trigger(() -> getDriverController().getActionsLeft()
-        // && SuperStructure.getTimeLeft() < 30 && SuperStructure.isRobotInAir()
-        // && (Math.abs(Climb.getInstance().getPosition() - ClimbConstnats.CLOSE_POSITION) < ClimbConstnats.TOLERANCE_FOR_OPENCLOSE_TRIGGER
-        // || SuperStructure.getTimeLeft() > 20)).onTrue(new InstantCommand(() ->
-        // Climb.getInstance().setState(ClimbConstnats.DOWN)));
-        //TODO what return it to idle?
-
-        // Internal shooter stats
-
-        new Trigger(() -> SuperStructure.isBalls() && SuperStructure.isInTheAlinceZone()
+        new Trigger(() -> SuperStructure.isBalls() && SuperStructure.isInWarmUpZone()
                 && getRobotState() != RobotConstants.SHOOTING && getRobotState() != RobotConstants.SHOOTING_PRESETS
                 && getRobotState() != RobotConstants.FEEDING && getRobotState() != RobotConstants.FEEDING_IN_MOTION
                 && getRobotState() != RobotConstants.EJECT && getRobotState() != RobotConstants.PRECLIMB
-                && getRobotState() != RobotConstants.CLIMB
-                && ((!ActiveUtil.isActive() && ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
-                        || ActiveUtil.isActive()))
+                && getRobotState() != RobotConstants.CLIMB)
+                
                 .onTrue(new InstantCommand(() -> Shooter.getInstance().setState(ShooterConstants.WARMUP)));
 
-        new Trigger(() -> (((!SuperStructure.isBalls()) || (!SuperStructure.isInTheAlinceZone())
-                || (ActiveUtil.getTimePastActive() > TIME_PAST_ACTIVE)
-                || (getLastRobotState() == RobotConstants.EJECT && !getDriverController().getActionsRight())))
+                // && ((!ActiveUtil.isActive() && ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
+                //         || ActiveUtil.isActive()))
+
+                // || (ActiveUtil.getTimePastActive() > TIME_PAST_ACTIVE)
+                // || (getLastRobotState() == RobotConstants.EJECT && !getDriverController().getActionsRight())
+
+        new Trigger(() -> (((!SuperStructure.isBalls()) || (!SuperStructure.isInWarmUpZone())
+                ))
                 && getRobotState() != RobotConstants.SHOOTING
                 && getRobotState() != RobotConstants.SHOOTING_PRESETS
                 && getRobotState() != RobotConstants.FEEDING && getRobotState() != RobotConstants.FEEDING_IN_MOTION
@@ -219,14 +214,6 @@ public class RobotContainer extends DeafultRobotContainer {
                         && SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS)
                 && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.IDLE)));
-
-        // new Trigger(() -> (getRobotState() != RobotConstants.IDLE&&
-        //  SixBar.getInstance().getVelocity() > 2 &&
-        //  SixBar.getInstance().getVelocity() > 2 &&
-        // SixBar.getInstance().getAppliedVolts() < 0.4 &&
-        // SixBar.getInstance().getPosition() > -58) )
-        // .onTrue(new InstantCommand(() ->
-        // SixBar.getInstance().setState(SixBarConstants.COLLISION)));
 
         new Trigger(() -> (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION
                 && SixBar.getInstance().getPosition() < -60))
@@ -252,7 +239,7 @@ public class RobotContainer extends DeafultRobotContainer {
         (new InstantCommand(() -> SixBar.getInstance().setState(SixBar.HOMING)));
 
         new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
-        (new InstantCommand(() -> Hood.getInstance().setState(HoodConstants.HOMING)));
+        (new InstantCommand(() -> Hood.getInstance().setState(Hood.HOMING)));
 
         new Trigger (() -> getOperatorController().getActionsDown()).onTrue
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));

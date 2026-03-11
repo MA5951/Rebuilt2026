@@ -3,6 +3,8 @@ package frc.robot.Subsystems.Vision;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.Vision.VisionSystem;
+import com.MAutils.Vision.Util.LimelightHelpers.RawFiducial;
+
 import frc.robot.Util.Field;
 
 public class Vision {
@@ -22,7 +24,8 @@ public class Vision {
 
     public boolean isMainTag() {
         tagId = VisionConstants.FRONT_LL.getCameraIO().getTag().id;
-        return tagId == 21 || tagId == 26 || tagId == 18 || tagId == 10 || tagId == 2 || tagId == 5 || tagId == 24 || tagId == 27;//TODO Hanfel Red Side
+        return tagId == 21 || tagId == 26 || tagId == 18 || tagId == 10 || tagId == 2 || tagId == 5 || tagId == 24
+                || tagId == 27 || tagId == 8 || tagId == 11;
     }
 
     public int getTagID() {
@@ -37,15 +40,12 @@ public class Vision {
     public double getRawTrigDistance() {
         MALog.log("Subsystems/Vision/Pitch", -VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch);
         return (Field.HUB_TAG_HIGHT - VisionConstants.FRONT_LL_HIGHT)
-                / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch) + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
+                / Math.tan(Math.toRadians((-VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch)
+                        + VisionConstants.FRONT_LL.getCameraIO().getTag().tync));
 
     }
 
-    public double getFilteredTx() {
-        return VisionConstants.FRONT_LL.getCameraIO().getTag().txnc > -0.8 &&
-                VisionConstants.FRONT_LL.getCameraIO().getTag().txnc < 0 ? 0
-                        : VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;// TODO Try withut
-    }
+    
 
     public double getCOrrectedTy() {
         // VisionConstants.FRONT_LL.getCameraIO().getIMU().Pitch
@@ -83,6 +83,20 @@ public class Vision {
 
     public void resetFilter() {
         VisionConstants.FRONT_LL.getCameraIO().allowTags(Field.ALL_TAGS);
+    }
+
+    public boolean isTagInFrame(int id) {
+        if (VisionConstants.FRONT_LL.getCameraIO().getFiducials().length > 0) {
+            for (RawFiducial tag : VisionConstants.FRONT_LL.getCameraIO().getFiducials()) {
+                if (tag.id == id) {
+                    return true;
+                }
+            }
+
+        }
+
+        return false;
+
     }
 
     public static Vision getInstance() {

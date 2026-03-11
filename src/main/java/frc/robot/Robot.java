@@ -66,9 +66,11 @@ public class Robot extends DeafultRobot {
         Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
 
     if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)
-        && (VisionConstants.FRONT_LL.getCameraIO().getFiducials().length >= 2
-            || (VisionConstants.FRONT_LL.getCameraIO().getTag().id == 24 ||
-                VisionConstants.FRONT_LL.getCameraIO().getTag().id == 27))) {// TODO Handel Red Side
+        
+            && (Vision.getInstance().isTagInFrame(24) ||
+                Vision.getInstance().isTagInFrame(27) || Vision.getInstance().isTagInFrame(8) || Vision.getInstance().isTagInFrame(11))) {
+
+
 
       Vision.getInstance().filterCornerTags();
     } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
@@ -91,6 +93,7 @@ public class Robot extends DeafultRobot {
     super.autonomousInit();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
+      Hood.getInstance().setState(Hood.HOMING);
     }
 
     CommandScheduler.getInstance().schedule(new DepotClimb());
@@ -102,9 +105,9 @@ public class Robot extends DeafultRobot {
     ActiveUtil.startTeleop();
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
+      Hood.getInstance().setState(Hood.HOMING);
     }
 
-    
   }
 
   @Override

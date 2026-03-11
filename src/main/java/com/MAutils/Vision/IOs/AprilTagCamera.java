@@ -33,7 +33,8 @@ public class AprilTagCamera extends Camera {
     private Rotation2d heading;
     private Twist2d visionTwsit = new Twist2d();
     private boolean updatePoseEstiamte = true;
-    private double xyFom, oFom, visionTs, fieldDx, fieldDy, fieldDtheta, robotDx, robotDy;
+    private double xyFom, oFom, visionTs, fieldDx, fieldDy, fieldDtheta, robotDx, robotDy, fomCOF;
+    
 
     // ===== ADDED: supplier for chassis speeds so filters can use real v =====
     private final Supplier<ChassisSpeeds> chassisSpeedsSupplier; // ADDED
@@ -48,15 +49,15 @@ public class AprilTagCamera extends Camera {
             FiltersConfig teleopConfig,
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier) {
-        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds(), () -> 0.0); // CHANGED
+        this(cameraIO, teleopConfig, autoConfig, robotAngleSupplier, () -> new ChassisSpeeds(), () -> 0.0, 1.0); // CHANGED
     }
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
             Supplier<Double> robotAngleSupplier,
             Supplier<ChassisSpeeds> chassisSpeedsSupplier,
-            Supplier<Double> robotAngleVelocitySupplier) { // ADDED
-        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier, robotAngleVelocitySupplier); // CHANGED
+            Supplier<Double> robotAngleVelocitySupplier, double fomCOF) { // ADDED
+        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier, robotAngleVelocitySupplier, fomCOF); // CHANGED
     }
 
     // ===== ADDED: new ctor that accepts a ChassisSpeeds supplier =====
@@ -65,9 +66,10 @@ public class AprilTagCamera extends Camera {
             FiltersConfig autoConfig,
             Supplier<Double> robotAngleSupplier,
             Supplier<ChassisSpeeds> chassisSpeedsSupplier,
-            Supplier<Double> robotAngleVelocitySupplier) { // ADDED
+            Supplier<Double> robotAngleVelocitySupplier, double fomCOF) { // ADDED
         super(cameraIO);
 
+        this.fomCOF = fomCOF;
         this.teleopConfig = teleopConfig;
         this.autoConfig = autoConfig;
 
@@ -82,7 +84,7 @@ public class AprilTagCamera extends Camera {
                 cameraIO,
                 this.chassisSpeedsSupplier,
                 () -> Math.toRadians(this.robotAngleSupplier.get()),
-                robotAngleVelocitySupplier); // ADDED
+                robotAngleVelocitySupplier, fomCOF); // ADDED
 
         poseEstimatorSource = new PoseEstimatorSource("LL",
                 () -> getRobotRelaticTwist(poseEstimate, visionTs),

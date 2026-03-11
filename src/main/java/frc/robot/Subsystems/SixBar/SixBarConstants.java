@@ -47,7 +47,7 @@ public class SixBarConstants {
         public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
                         .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
                         .gear(GEAR)
-                        .isBrake(false)
+                        .isBrake(true)
                         .tolerance(TOLERANCE)
                         .range(MINUMUM_ANGLE, MAXIMUM_ANGLE)
                         .startPose(IDLE_ANGLE)
