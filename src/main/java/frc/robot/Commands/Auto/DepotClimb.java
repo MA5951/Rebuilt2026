@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SwerveAutoController;
+import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 
 public class DepotClimb extends SequentialCommandGroup {
@@ -19,7 +20,10 @@ public class DepotClimb extends SequentialCommandGroup {
       SwerveAutoFollower.followPath("DC 2"),
       new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
       new ParallelDeadlineGroup(new WaitCommand(2), new SwerveAutoController()),
-      new InstantCommand(() -> RobotConstants.PRECLIMB.setState())
+      SwerveAutoFollower.followPath("DC 3"),
+      new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
+      new ParallelDeadlineGroup(new InstantCommand(() -> Climb.getInstance().getIR()), SwerveAutoFollower.followPath("DC 4")),
+      new InstantCommand(() -> RobotConstants.CLIMB.setState())
     );
   }
 }
