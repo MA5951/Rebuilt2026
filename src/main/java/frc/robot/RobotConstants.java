@@ -29,7 +29,7 @@ public class RobotConstants {
 
         public static final MRobotState IDLE_INTAKE = new MRobotState("IDLE_INTAKE",
                         IntakeRollerConstants.IDLE, SandwichConstants.IDLE,
-                        RollerConstants.IDLE, HoodConstants.IDLE, TransferConstants.IDLE, ClimbConstnats.IDLE,
+                        RollerConstants.IDLE, HoodConstants.IDLE, TransferConstants.IDLE,
                         KickerConstants.IDLE);
 
         public static final MRobotState IDLE_SHOOTER = new MRobotState("IDLEֹֹ_SHOOTER",
@@ -37,12 +37,12 @@ public class RobotConstants {
 
         public static final MRobotState INTAKE_DEPLOY = new MRobotState("INTAKE_DEPLOY",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, SixBarConstants.DEPLOY,
-                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE);
+                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE, Climb.PRECLIMB);
 
         public static final MRobotState INTAKE_ROLLER = new MRobotState("INTAKE_ROLLER",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, RollerConstants.INTAKE,
                         SixBarConstants.ARMBRAKS,
-                        TransferConstants.INTAKE, KickerConstants.INTAKE);
+                        TransferConstants.INTAKE, KickerConstants.INTAKE, Climb.PRECLIMB);
 
         public static final MRobotState FEEDING_IN_MOTION = new MRobotState("FEEDING_IN_MOTION", () -> {
                 if (SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS) {

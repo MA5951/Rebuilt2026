@@ -297,7 +297,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 6;
         }
 
-        return hoodTable.interpolate(distance) - 2;
+        return hoodTable.interpolate(distance) ;//-2
 
     }
 
