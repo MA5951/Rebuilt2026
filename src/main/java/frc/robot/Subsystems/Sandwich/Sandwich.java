@@ -83,7 +83,7 @@ public class Sandwich extends PowerControlledSystem {
         super.periodic();
 
         MALog.log("/Subsystems/Sandwich/ left ir", getLeftIr());
-        //MALog.log("/Subsystems/Sandwich/ right ir", getRightIr());
+        MALog.log("/Subsystems/Sandwich/ right ir", getRightIr());
         MALog.log("/Subsystems/Sandwich/ middle ir", getMiddleIr());
 
 

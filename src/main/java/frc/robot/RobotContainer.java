@@ -60,16 +60,16 @@ public class RobotContainer extends DeafultRobotContainer {
         
         CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
+        CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
         SixBar.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Sandwich.getInstance(), new SandwichCommand());
         CommandScheduler.getInstance().setDefaultCommand(Transfer.getInstance(), new TransferCommand());
-        //Transfer.getInstance();
+        Transfer.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand());
         CommandScheduler.getInstance().setDefaultCommand(Roller.getInstance(), new RollerCommand());
         CommandScheduler.getInstance().setDefaultCommand(Kicker.getInstance(), new KickerCommand());
-        // CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
-        //         new IntakeCommand());
+        CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
+                new IntakeCommand());
         IntakeRoller.getInstance();
         CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
 

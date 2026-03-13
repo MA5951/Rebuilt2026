@@ -23,11 +23,14 @@ public class TransferCommand extends SubsystemCommand {
     public void Automatic() {
         switch (transfer.getCurrentState().stateName) {
             case "IDLE":
-                // if ((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
-                // ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15)) {
-                //     transfer.setVoltage(3);
+                // if ((!SixBar.getInstance().atPoint(15) &&
+                // SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION)
+                // ||(SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION &&
+                // SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE -
+                // 15)) {
+                // transfer.setVoltage(3);
                 // } else {
-                    transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
+                transfer.setVoltage(TransferConstants.IDLE_VOLTAGE);
                 // }
 
                 break;
@@ -45,12 +48,12 @@ public class TransferCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 transfer.setVoltage(SuperStructure.getTransferSinVoltage());
-                //  if (!SuperStructure.isBallsInSandwich()) {
-                //    transfer.setVoltage(5);
+                // if (!SuperStructure.isBallsInSandwich()) {
+                    ///transfer.setVoltage(8);
                 // } else {
-                //    transfer.setVoltage(0);
+                    // transfer.setVoltage(3);
                 // }
-                //transfer.setVoltage(10);
+                // transfer.setVoltage(8);
                 break;
             case "UNSTUCK":
                 transfer.setVoltage(TransferConstants.UNSTUCK_VOLTAGE);

@@ -91,10 +91,13 @@ public class Robot extends DeafultRobot {
   @Override
   public void autonomousInit() {
     super.autonomousInit();
-    if (!SixBarCommand.isReset) {
-      SixBar.getInstance().setState(SixBar.HOMING);
+    // if (!SixBarCommand.isReset) {
+    //   SixBar.getInstance().setState(SixBar.HOMING);
+    //   Hood.getInstance().setState(Hood.HOMING);
+    // }
+
+    SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);
-    }
 
     CommandScheduler.getInstance().schedule(new DepotClimb());
   }
@@ -103,10 +106,13 @@ public class Robot extends DeafultRobot {
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();
-    if (!SixBarCommand.isReset) {
-      SixBar.getInstance().setState(SixBar.HOMING);
+    // if (!SixBarCommand.isReset) {
+    //   SixBar.getInstance().setState(SixBar.HOMING);
+    //   Hood.getInstance().setState(Hood.HOMING);
+    // }
+
+    SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);
-    }
 
   }
 

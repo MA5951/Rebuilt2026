@@ -25,8 +25,8 @@ public class IntakeCommand extends SubsystemCommand {
     public void Automatic() {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
-                if ((((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
-                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15))) ) {
+                if (((((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
+                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15))) ) && SixBar.getInstance().getCurrentState() != SixBar.HOMING) {
                     intakeroller.setVoltage(4);
                 } else {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
@@ -41,11 +41,12 @@ public class IntakeCommand extends SubsystemCommand {
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);
                 break;
             case "SHOOTING":
-                if (SixBar.getInstance().atPoint(3)) {
-                    intakeroller.setVoltage(-1);
-                } else {
-                    intakeroller.setVoltage(4);
-                }
+                // if (SixBar.getInstance().atPoint(3)) {
+                //     intakeroller.setVoltage(-1);
+                // } else {
+                //     intakeroller.setVoltage(4);
+                // }
+                intakeroller.setVoltage(4);
             break;
         }
     }

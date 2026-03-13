@@ -130,7 +130,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
-    private static boolean automatic = true;
+    private static boolean automatic = false;
     private static boolean defence = false;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
@@ -229,9 +229,12 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isBallsInSandwich() {
-        // return Sandwich.getInstance().getLeftIr() ||
-        // Sandwich.getInstance().getMiddleIr();
-        return true;
+        return 
+        Sandwich.getInstance().getLeftIr() ;
+        // ||
+
+        //Sandwich.getInstance().getMiddleIr() ;
+        // || Sandwich.getInstance().getRightIr();
     }
 
     public static boolean isAutomatic() {

@@ -36,10 +36,16 @@ public class RollerCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 //if (!SuperStructure.isBallsInSandwich()) {
-                    roller.setVoltage(8);
+                    //roller.setVoltage(6);
                 // } else {
                 //    roller.setVoltage(0);
                 // }
+
+                //if (!SuperStructure.isBallsInSandwich()) {
+                    roller.setVoltage(4);
+                //} else {
+                  // roller.setVoltage(0);
+                //}
                 break;
             case "UNSTUCK":
                 roller.setVoltage(RollerConstants.UNSTUCK_VOLTAGE);

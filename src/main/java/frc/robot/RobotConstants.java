@@ -94,7 +94,7 @@ public class RobotConstants {
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING, RollerConstants.SHOOTING,
                         TransferConstants.SHOOTING,
-                        HoodConstants.SHOOTING, SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE,
+                        HoodConstants.SHOOTING, SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING,
                         KickerConstants.SHOOTING);
 
         public static final MRobotState EJECT = new MRobotState("EJECT", () -> {

@@ -57,16 +57,24 @@ public class SixBarCommand extends SubsystemCommand {
                 //     sixbar.setPosition(8);
                 // }
 
-                sixbar.setPosition(8);
+                if (SixBar.getInstance().getPosition() < -20) {
+                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                } else if (SixBar.getInstance().getPosition() > -5){
+                    sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                } 
+
+                // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                // sixbar.setVoltage(1.5);
                 break;
             case "HOMING":
                 isReset = true;
-                sixbar.setVoltage(1.3);
+                sixbar.setVoltage(1.2);
                 if (homingDebouncer.calculate(sixbar.getCurrent() > 50)) {
                     sixbar.resetPosition(0);
                     sixbar.setState(SixBarConstants.IDLE);
                 }
                 lastCurrent = sixbar.getCurrent();
+                break;
             case "FORCE_OPEN":
                 sixbar.setVoltage(-1.3);
                 break;

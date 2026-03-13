@@ -25,7 +25,7 @@ public class SixBar extends PositionControlledSystem {
 
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
-                SixBarConstants.SHOOTING, SixBarConstants.IDLE, SixBarConstants.FORCE_OPEN, SixBarConstants.FORCE_CLOSE, HOMING);
+                SixBarConstants.SHOOTING, SixBarConstants.DEPLOY ,SixBarConstants.IDLE, SixBarConstants.FORCE_OPEN, SixBarConstants.FORCE_CLOSE, HOMING);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
         

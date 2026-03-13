@@ -1,6 +1,7 @@
 
 package frc.robot.Subsystems.SixBar;
 
+
 import com.MAutils.Components.Motor;
 import com.MAutils.Components.Motor.MotorType;
 import com.MAutils.RobotControl.State;
@@ -42,12 +43,12 @@ public class SixBarConstants {
         private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
                         "SixBar Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(60).withKI(0).withKD(0);// kp = 36
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(41).withKI(0).withKD(0);// kp = 36
 
         public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
                         .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
                         .gear(GEAR)
-                        .isBrake(true)
+                        .isBrake(false)
                         .tolerance(TOLERANCE)
                         .range(MINUMUM_ANGLE, MAXIMUM_ANGLE)
                         .startPose(IDLE_ANGLE)
@@ -69,10 +70,7 @@ public class SixBarConstants {
         public static final State IDLE = new State("IDLE");
         public static final State DEPLOY = new State("DEPLOY");
         public static final State ARMBRAKS = new State("ARMBRAKS");
-        public static final State COLLISION = new State("COLLISION", () -> {
-
-        }, () -> {
-        });
+        public static final State COLLISION = new State("COLLISION");
         public static final State SHOOTING = new State("SHOOTING");
         public static final State FORCE_OPEN = new State("FORCE_OPEN");
         public static final State FORCE_CLOSE = new State("FORCE_CLOSE");

@@ -31,11 +31,13 @@ public class HoodCommand extends SubsystemCommand {
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
             case "SHOOTING":
-                if (SuperStructure.isAutomatic()) {
-                   hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());//
-                } else {
-                    hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
-                }
+                // if (SuperStructure.isAutomatic()) {
+                //    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());//
+                // } else {
+                //     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
+                // }
+
+                hood.setPosition(18);
                 break;
             case "FEEDING":
                 hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());
