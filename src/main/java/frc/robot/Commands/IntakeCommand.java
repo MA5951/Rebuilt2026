@@ -46,7 +46,7 @@ public class IntakeCommand extends SubsystemCommand {
                 // } else {
                 //     intakeroller.setVoltage(4);
                 // }
-                intakeroller.setVoltage(4);
+                intakeroller.setVoltage(0);
             break;
         }
     }

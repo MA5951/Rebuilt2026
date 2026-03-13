@@ -130,7 +130,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
     private static InterpolationTable hoodTable = new InterpolationTable(hoodTableData);
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
-    private static boolean automatic = false;
+    private static boolean automatic = true;
     private static boolean defence = false;
     private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
     public static boolean isLocked = false;
@@ -320,7 +320,11 @@ public class SuperStructure extends DeafultSuperStructure {
 
         // return (4.46 * Math.pow(10, -3) + -0.0138 * distance + 0.0383 *
         // Math.pow(distance, 2)) + distance;
-        return Vision.getInstance().getDistanceTryg() + Field.getDistanceToCenterHub(26);
+
+        if (SuperStructure.isMainTag()) {
+            return Vision.getInstance().getDistanceTryg() + Field.getDistanceToCenterHub(Vision.getInstance().getTagID());
+        }
+        return Vision.getInstance().getDistanceTryg() ;
     }
 
     public static double getAbsDistanceToHub() {

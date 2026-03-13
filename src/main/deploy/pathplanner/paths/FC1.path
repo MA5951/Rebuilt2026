@@ -3,35 +3,42 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.21778273809011095,
-        "y": 5.986063988090013
+        "x": 4.446,
+        "y": 0.831
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5995163690476186,
-        "y": 5.940386904761905
+        "x": 8.278293543720405,
+        "y": 0.34489795849132876
       },
       "isLocked": false,
-      "linkedName": "MC3END"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.090543154761905,
-        "y": 5.588020833333334
+        "x": 7.702299107142856,
+        "y": 4.3090625000000005
       },
       "prevControl": {
-        "x": 2.061332842870055,
-        "y": 5.836308484414053
+        "x": 7.686186238919203,
+        "y": 0.43009596553781115
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "MC4END"
+      "linkedName": "FC1END"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "FeedingInMotion",
+      "waypointRelativePos": 0.6,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 4.0,
     "maxAcceleration": 3.0,
@@ -42,13 +49,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -41.566369637549485
+    "rotation": 180.0
   },
   "reversed": false,
-  "folder": "MC",
+  "folder": "FC",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.88140399658212
+    "rotation": 177.945700290715
   },
   "useDefaultConstraints": true
 }

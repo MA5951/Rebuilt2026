@@ -57,13 +57,13 @@ public class SixBarCommand extends SubsystemCommand {
                 //     sixbar.setPosition(8);
                 // }
 
-                if (SixBar.getInstance().getPosition() < -20) {
-                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
-                } else if (SixBar.getInstance().getPosition() > -5){
-                    sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
-                } 
+                // if (SixBar.getInstance().getPosition() < -20) {
+                //     sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                // } else if (SixBar.getInstance().getPosition() > -5){
+                //     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                // } 
 
-                // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 // sixbar.setVoltage(1.5);
                 break;
             case "HOMING":

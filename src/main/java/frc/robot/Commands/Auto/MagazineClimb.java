@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.RobotConstants;
 import frc.robot.Commands.SwerveAutoController;
+import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
@@ -21,7 +22,14 @@ public class MagazineClimb extends SequentialCommandGroup {
       new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
       new ParallelDeadlineGroup(new WaitCommand(2), new SwerveAutoController()),
       new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()),
-      SwerveAutoFollower.followPath("MC3")
+      SwerveAutoFollower.followPath("MC3"),
+      SwerveAutoFollower.followPath("MC4"),
+      new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
+      new ParallelDeadlineGroup(new WaitCommand(2), new SwerveAutoController()),
+      SwerveAutoFollower.followPath("MC5"),
+      new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
+      new ParallelDeadlineGroup(new InstantCommand(() -> Climb.getInstance().getIR()), SwerveAutoFollower.followPath("MC6")),
+      new InstantCommand(() -> RobotConstants.CLIMB.setState())
     );
   }
 }

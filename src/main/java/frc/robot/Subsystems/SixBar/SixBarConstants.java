@@ -14,7 +14,7 @@ import frc.robot.PortMap;
 public class SixBarConstants {
         public static final double COLLISION_VOLTS_INSIDE = 0.7;
         public static final double COLLISION_VOLTS_OUTSIDE = 0;
-        public static final double DEPLOY_ANGLE = 77;
+        public static final double DEPLOY_ANGLE = 73;
         public static final double IDLE_ANGLE = 24;
         public static final double BUMPER_ZONE_ANGLE = IDLE_ANGLE;
         public static final double FRAME_PARIMETER_ANGLE = 2;
@@ -23,7 +23,7 @@ public class SixBarConstants {
         public static final double COLLISION_POWER_ANGLE = -58;
         public static final double CANT_MOVE_VOLTAGE = 0.0;
 
-        public static final double MINUMUM_ANGLE = -79;
+        public static final double MINUMUM_ANGLE = -77;
         public static final double MAXIMUM_ANGLE = 5;
         public static final double GEAR = 24;
         public static final double CAN_CODER_GEAR = 2;
@@ -43,7 +43,7 @@ public class SixBarConstants {
         private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
                         "SixBar Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(41).withKI(0).withKD(0);// kp = 36
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(33).withKI(0).withKD(0);// kp = 36
 
         public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
                         .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)
