@@ -8,27 +8,32 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.546642371012467,
-        "y": 4.743985717677
+        "x": 1.1965773809472537,
+        "y": 6.201398809518586
       },
       "isLocked": false,
       "linkedName": "DC2END"
     },
     {
       "anchor": {
-        "x": 1.645406562054208,
-        "y": 4.61077032810271
+        "x": 0.21778273809011095,
+        "y": 5.986063988090013
       },
       "prevControl": {
-        "x": 1.645406562054208,
-        "y": 5.039506809240606
+        "x": 1.1574255952278412,
+        "y": 6.005639880941931
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "DC3 END"
+      "linkedName": "MC3END"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.3892405063291162,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,10 +47,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -90.88140399658212
   },
   "reversed": false,
-  "folder": "DC",
+  "folder": "MC",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -21.0

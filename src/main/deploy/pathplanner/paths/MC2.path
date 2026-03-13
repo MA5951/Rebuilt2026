@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4690104166615394,
-        "y": 5.235654761899538
+        "x": 7.908,
+        "y": 5.319
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.546642371012467,
-        "y": 4.743985717677
+        "x": 7.017142857142857,
+        "y": 5.281331845238096
       },
       "isLocked": false,
-      "linkedName": "DC2END"
+      "linkedName": "MC1END"
     },
     {
       "anchor": {
-        "x": 1.645406562054208,
-        "y": 4.61077032810271
+        "x": 2.5864657738095236,
+        "y": 5.319
       },
       "prevControl": {
-        "x": 1.645406562054208,
-        "y": 5.039506809240606
+        "x": 3.8327976190476187,
+        "y": 5.333534226190477
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "DC3 END"
+      "linkedName": "MC2END"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.46413502109704685,
+      "rotationDegrees": -45.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +47,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -30.27179324012818
   },
   "reversed": false,
-  "folder": "DC",
+  "folder": "MC",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -21.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }
