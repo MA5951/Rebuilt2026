@@ -20,7 +20,7 @@ public class TransferConstants {
         public static final double MANUAL_VOLTAGE = 7.0;
 
 
-        public static final double GEAR = 3.33333;
+        public static final double GEAR = 5;
         public static final double RAMP_RATE = 0;
         public static final int CURRENT_LIMIT = 55;
         public static final int STATOR_CURRENT_LIMIT = 45;

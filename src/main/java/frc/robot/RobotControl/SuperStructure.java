@@ -52,6 +52,9 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double SANDWICH_STUCK_DELTA = 10;
 
     public static double AFTER_ANGLE = 0;
+    //this class is ugly becuase of galdo
+
+    private static boolean isExtendedMagazine = true;
 
     private static double[][] hoodTableData = {
             { 5.676, 27.0 },
@@ -228,12 +231,19 @@ public class SuperStructure extends DeafultSuperStructure {
         return true;
     }
 
-    public static boolean isBallsInSandwich() {
-        return 
-        Sandwich.getInstance().getLeftIr() ;
-        // ||
+    public static boolean isExtendedMagazine() {
+        return isExtendedMagazine;
+    }
 
-        //Sandwich.getInstance().getMiddleIr() ;
+    public static void SetIsExtendedMagazine(boolean bool) {
+        isExtendedMagazine = bool;
+    }
+
+    public static boolean isBallsInSandwich() {
+        return true;
+        // Sandwich.getInstance().getLeftIr() 
+        // ||
+        // Sandwich.getInstance().getMiddleIr() ;
         // || Sandwich.getInstance().getRightIr();
     }
 
@@ -443,7 +453,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double getTransferSinVoltage() {
         double f = 1;
-        return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * -1.5 + 8.5);
+        return ((Math.cos(2 * Math.PI * f * (Timer.getFPGATimestamp() - startShootingTime))) * 1.5 + 8.5);
     }
 
     public static double getRollerSinVoltage() {
@@ -472,7 +482,7 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) {
+        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && RobotContainer.getRobotState() != RobotConstants.SHOOTING_UNLOCKED) {
             isLocked = true;
         }
 

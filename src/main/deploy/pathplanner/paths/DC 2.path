@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6766888888888887,
-        "y": 6.032611111111111
+        "x": 1.9166222222222222,
+        "y": 5.65
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.9458555555555557,
-        "y": 5.974144444444444
+        "x": 1.1857888888888892,
+        "y": 5.5915333333333335
       },
       "isLocked": false,
       "linkedName": "DC1 End"
@@ -46,12 +46,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.2679900744416863,
+      "waypointRelativePos": 0.45311203319500276,
       "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 1.7,
-      "rotationDegrees": -103.93071340199272
+      "waypointRelativePos": 1.6614107883817204,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [

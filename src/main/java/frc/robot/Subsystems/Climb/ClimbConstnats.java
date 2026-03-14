@@ -79,9 +79,8 @@ public class ClimbConstnats {
         public static final State IDLE = new State("IDLE");
         
         public static final State DOWN = new State("DOWN");
-        
+        public static final State EXTEND = new State("EXTEND");
+        public static final State SHOOTING = new State("SHOOTING");
 
-        
-        
 
 }

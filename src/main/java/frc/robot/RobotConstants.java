@@ -37,12 +37,12 @@ public class RobotConstants {
 
         public static final MRobotState INTAKE_DEPLOY = new MRobotState("INTAKE_DEPLOY",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, SixBarConstants.DEPLOY,
-                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE, Climb.PRECLIMB);
+                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE, ClimbConstnats.EXTEND);
 
         public static final MRobotState INTAKE_ROLLER = new MRobotState("INTAKE_ROLLER",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, RollerConstants.INTAKE,
                         SixBarConstants.ARMBRAKS,
-                        TransferConstants.INTAKE, KickerConstants.INTAKE, Climb.PRECLIMB);
+                        TransferConstants.INTAKE, KickerConstants.INTAKE,  ClimbConstnats.EXTEND);
 
         public static final MRobotState FEEDING_IN_MOTION = new MRobotState("FEEDING_IN_MOTION", () -> {
                 if (SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS) {
@@ -54,7 +54,7 @@ public class RobotConstants {
                         ShooterConstants.FEEDING_IN_MOTION, SandwichConstants.FEEDING_IN_MOTION,
                         RollerConstants.FEEDING_IN_MOTION, TransferConstants.FEEDING_IN_MOTION,
                         HoodConstants.FEEDING_IN_MOTION, IntakeRollerConstants.FORWARD,
-                        KickerConstants.FEEDING_IN_MOTION);
+                        KickerConstants.FEEDING_IN_MOTION, ClimbConstnats.SHOOTING);
 
         public static final MRobotState FEEDING = new MRobotState("FEEDING", () -> {
                 SuperStructure.atPointLatch = false;
@@ -65,7 +65,7 @@ public class RobotConstants {
         },
                         ShooterConstants.FEEDING, SandwichConstants.FEEDING,
                         RollerConstants.FEEDING, TransferConstants.FEEDING, HoodConstants.FEEDING,
-                        SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE, KickerConstants.FEEDING);
+                        SixBarConstants.SHOOTING, IntakeRollerConstants.IDLE, KickerConstants.FEEDING, ClimbConstnats.SHOOTING);
 
         public static final MRobotState SHOOTING = new MRobotState("SHOOTING", () -> {
                 SwerveController.isAbs = 0;
@@ -85,7 +85,27 @@ public class RobotConstants {
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,
-                        SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING);
+                        SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING, ClimbConstnats.SHOOTING);
+
+        public static final MRobotState SHOOTING_UNLOCKED = new MRobotState("SHOOTING_UNLOCKED", () -> {
+                SwerveController.isAbs = 0;
+                SuperStructure.atPointLatch = false;
+                SuperStructure.isLocked = false;
+                SuperStructure.ballsShot = 0;
+               SuperStructure.startShootingTime = Timer.getFPGATimestamp();
+               SwerveController.atPointLock = false;
+               Robot.counter = 0;
+               
+
+
+        }, () -> {
+                SixBar.getInstance().setState(SixBar.getInstance().getLastState());
+                SwerveController.atPointLock = false;
+                SwerveController.isAbs = 0;
+        },
+                        ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
+                        RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,
+                        SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING, ClimbConstnats.SHOOTING);
 
         public static final MRobotState SHOOTING_PRESETS = new MRobotState("SHOOTING_PRESETS", () -> {
                 SuperStructure.atPointLatch = false;
@@ -95,7 +115,7 @@ public class RobotConstants {
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING, RollerConstants.SHOOTING,
                         TransferConstants.SHOOTING,
                         HoodConstants.SHOOTING, SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING,
-                        KickerConstants.SHOOTING);
+                        KickerConstants.SHOOTING, ClimbConstnats.SHOOTING);
 
         public static final MRobotState EJECT = new MRobotState("EJECT", () -> {
         }, () -> SixBar.getInstance().setState(SixBar.getInstance().getLastState()),

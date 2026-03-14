@@ -51,19 +51,19 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
 
-                // if (SixBar.getInstance().getPosition() < -36) {
-                //     sixbar.setPosition(34.5);
-                // } else {
-                //     sixbar.setPosition(8);
-                // }
+                if (SixBar.getInstance().getPosition() > -24) {
+                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                } else {
+                    sixbar.setVoltage(3);
+                }
 
-                // if (SixBar.getInstance().getPosition() < -20) {
+                // if (SixBar.getInstance().getPosition() < -17) {
                 //     sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 // } else if (SixBar.getInstance().getPosition() > -5){
                 //     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
-                // } 
+                // }    
 
-                sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 // sixbar.setVoltage(1.5);
                 break;
             case "HOMING":

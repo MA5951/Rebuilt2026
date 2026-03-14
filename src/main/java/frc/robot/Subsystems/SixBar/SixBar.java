@@ -63,7 +63,7 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE;
+        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE || ( getCurrentState() == HOMING) || Climb.getInstance().getPosition() > 0.17;
     }
 
 

@@ -5,6 +5,7 @@ import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
+import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
@@ -59,6 +60,29 @@ public class ClimbCommand extends SubsystemCommand {
                     climb.setState(HoodConstants.IDLE);
                 }
                 lastCurrent = climb.getCurrent();
+                break;
+            case "SHOOTING":
+                // if(SuperStructure.isExtendedMagazine()){
+                //     if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.02 ) {
+                //         climb.setVoltage(-0.8);
+                //     } else {
+                //         climb.setVoltage(0);
+                //     }
+                // } else {
+
+                    climb.setVoltage(0);
+                // }
+                // climb.setPosition(ClimbConstnats.OPEN_POSITION);
+                
+                break;
+            case "EXTEND":
+                if(SuperStructure.isExtendedMagazine()){
+                    climb.setPosition(0.18,0.19);
+                } else {
+                    climb.setVoltage(0);
+                }
+                break;
+
         }
     }
 

@@ -36,10 +36,10 @@ public class Roller extends PowerControlledSystem {
     private boolean canFeeding() {
         return (SuperStructure.atPointForFeeding() && RobotContainer.getRobotState() == RobotConstants.FEEDING);
     }
-
+//galdo is at fault
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&& !SuperStructure.isBallsInSandwich()
     }
 
     @Override

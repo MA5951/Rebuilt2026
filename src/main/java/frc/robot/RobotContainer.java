@@ -241,7 +241,7 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
         (new InstantCommand(() -> Hood.getInstance().setState(Hood.HOMING)));
 
-        new Trigger (() -> getOperatorController().getActionsDown()).onTrue
+        new Trigger (() -> getOperatorController().getDpadRight()).onTrue
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
 
          new Trigger (() -> getOperatorController().getL1()).onTrue
@@ -250,7 +250,11 @@ public class RobotContainer extends DeafultRobotContainer {
         new Trigger (() -> getOperatorController().getR1()).onTrue
         (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.FORCE_CLOSE)));
 
-      
+        new Trigger (() -> getOperatorController().getDpadLeft()).onTrue
+        (new InstantCommand(() -> SuperStructure.SetIsExtendedMagazine(!SuperStructure.isExtendedMagazine())));
+
+        new Trigger (() -> getOperatorController().getR2()).onTrue
+        (new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.IDLE)));
         
     }
 }
