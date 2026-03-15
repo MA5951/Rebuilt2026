@@ -9,6 +9,7 @@ import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
+import frc.robot.Subsystems.SixBar.SixBar;
 
 public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();
@@ -70,7 +71,11 @@ public class ClimbCommand extends SubsystemCommand {
                 //     }
                 // } else {
 
-                    climb.setVoltage(0);
+                    if (SixBarCommand.hasClosed) {
+                        climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                    } else {
+                        climb.setVoltage(0);
+                    }
                 // }
                 // climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 
@@ -81,6 +86,9 @@ public class ClimbCommand extends SubsystemCommand {
                 } else {
                     climb.setVoltage(0);
                 }
+                break;
+            case "HOLD":
+                climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
 
         }

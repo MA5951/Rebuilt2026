@@ -30,7 +30,7 @@ public class RobotConstants {
         public static final MRobotState IDLE_INTAKE = new MRobotState("IDLE_INTAKE",
                         IntakeRollerConstants.IDLE, SandwichConstants.IDLE,
                         RollerConstants.IDLE, HoodConstants.IDLE, TransferConstants.IDLE,
-                        KickerConstants.IDLE);
+                        KickerConstants.IDLE, ClimbConstnats.HOLD);
 
         public static final MRobotState IDLE_SHOOTER = new MRobotState("IDLEֹֹ_SHOOTER",
                         ShooterConstants.IDLE, HoodConstants.IDLE);
@@ -54,7 +54,7 @@ public class RobotConstants {
                         ShooterConstants.FEEDING_IN_MOTION, SandwichConstants.FEEDING_IN_MOTION,
                         RollerConstants.FEEDING_IN_MOTION, TransferConstants.FEEDING_IN_MOTION,
                         HoodConstants.FEEDING_IN_MOTION, IntakeRollerConstants.FORWARD,
-                        KickerConstants.FEEDING_IN_MOTION, ClimbConstnats.SHOOTING);
+                        KickerConstants.FEEDING_IN_MOTION, ClimbConstnats.EXTEND);
 
         public static final MRobotState FEEDING = new MRobotState("FEEDING", () -> {
                 SuperStructure.atPointLatch = false;

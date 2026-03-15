@@ -10,6 +10,8 @@ import com.ctre.phoenix6.hardware.CANcoder;
 
 import edu.wpi.first.units.measure.Angle;
 import frc.robot.PortMap;
+import frc.robot.RobotConstants;
+import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Swerve.Swerve;
@@ -63,7 +65,7 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE || ( getCurrentState() == HOMING) || Climb.getInstance().getPosition() > 0.17;
+        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE || ( getCurrentState() == HOMING) || (Climb.getInstance().getPosition() > 0.17 && (RobotContainer.getRobotState() == RobotConstants.SHOOTING || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS || RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED));
     }
 
 

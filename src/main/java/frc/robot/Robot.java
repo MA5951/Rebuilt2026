@@ -98,7 +98,7 @@ public class Robot extends DeafultRobot {
 
    
 
-    CommandScheduler.getInstance().schedule(new DepotClimb());
+    CommandScheduler.getInstance().schedule(new FeedingAuto());
   }
 
   @Override

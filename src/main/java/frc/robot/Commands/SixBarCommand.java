@@ -6,6 +6,7 @@ import com.MAutils.RobotControl.SubsystemCommand;
 import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
@@ -18,6 +19,7 @@ public class SixBarCommand extends SubsystemCommand {
     private static Debouncer homingDebouncer = new Debouncer(0.1);
     public static boolean isAtPosition = false;
     public static boolean isReset = false;
+    public static boolean hasClosed = false;
     public double lastCurrent = 0;
 
     public SixBarCommand() {
@@ -51,17 +53,21 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
 
-                if (SixBar.getInstance().getPosition() > -24) {
-                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                if (hasClosed && Climb.getInstance().getPosition() > 0.15) {
+                    sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 } else {
-                    sixbar.setVoltage(3);
+                    sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                }
+
+                if (sixbar.getPosition() > -26) {
+                    hasClosed = true;
                 }
 
                 // if (SixBar.getInstance().getPosition() < -17) {
-                //     sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 // } else if (SixBar.getInstance().getPosition() > -5){
-                //     sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
-                // }    
+                // sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                // }
 
                 // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 // sixbar.setVoltage(1.5);
@@ -81,7 +87,7 @@ public class SixBarCommand extends SubsystemCommand {
             case "FORCE_CLOSE":
                 sixbar.setVoltage(1.3);
                 break;
-        } 
+        }
     }
 
     @Override

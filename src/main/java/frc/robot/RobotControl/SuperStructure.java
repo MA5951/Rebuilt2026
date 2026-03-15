@@ -395,9 +395,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean atPointForShooting() {
 
-        return (atPointLatch || Shooter.getInstance().atPointForShooting())
-                && Hood.getInstance().atPointForShooting() && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
-                        || (!isAutomatic() || DriverStation.isAutonomous())));
+        return (atPointLatch || Shooter.getInstance().atPointForShooting()) // (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() ||
+                && Hood.getInstance().atPointForShooting() && ( (!isAutomatic() || DriverStation.isAutonomous()));
 
     }
 
@@ -416,12 +415,17 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static boolean isOkAngleForFeeding() {
-        if (PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0
+        if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0
                 && PoseEstimator.getCurrentPose().getRotation().getDegrees() > 135
                 || PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0
-                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -135) {
+                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -135) && DriverStationUtil.getAlliance() == Alliance.Blue) {
             return true;
         }
+
+        if (PoseEstimator.getCurrentPose().getRotation().getDegrees() < 45
+                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() > -45  && DriverStationUtil.getAlliance() == Alliance.Red) {
+                            return true;
+                        }
 
         return false;
     }

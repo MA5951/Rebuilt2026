@@ -1,10 +1,12 @@
 
 package frc.robot;
 
+
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
+import com.MAutils.Utils.DriverStationUtil;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.events.EventTrigger;
@@ -12,6 +14,7 @@ import com.pathplanner.lib.events.EventTrigger;
 import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -47,6 +50,7 @@ import frc.robot.Subsystems.Swerve.SwerveConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
 import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
+import frc.robot.Util.Field;
 
 public class RobotContainer extends DeafultRobotContainer {
 
@@ -87,11 +91,11 @@ public class RobotContainer extends DeafultRobotContainer {
         NamedCommands.registerCommand("FeedingInMotion", new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
 
 
-        // new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
-        // ).onTrue(new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
+        new Trigger(() -> ((PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStationUtil.getAlliance() == Alliance.Blue) || ( PoseEstimator.getCurrentPose().getX() < Field.LENGTH - 5.5 && DriverStationUtil.getAlliance() == Alliance.Red)) && DriverStation.isAutonomous()//TODO Handel Red Side
+        ).onTrue(new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
 
-        new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
-        ).onTrue(new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
+        // new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
+        // ).onTrue(new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
         
     }
 

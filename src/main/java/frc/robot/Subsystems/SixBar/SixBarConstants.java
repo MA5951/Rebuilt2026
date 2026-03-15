@@ -1,7 +1,6 @@
 
 package frc.robot.Subsystems.SixBar;
 
-
 import com.MAutils.Components.Motor;
 import com.MAutils.Components.Motor.MotorType;
 import com.MAutils.RobotControl.State;
@@ -10,6 +9,7 @@ import com.MAutils.Utils.GainConfig;
 import com.ctre.phoenix6.signals.InvertedValue;
 
 import frc.robot.PortMap;
+import frc.robot.Commands.SixBarCommand;
 
 public class SixBarConstants {
         public static final double COLLISION_VOLTS_INSIDE = 0.7;
@@ -34,7 +34,6 @@ public class SixBarConstants {
         public static final double ACCELERATION = 50;
 
         public static final double DELTA_CURRENT = 15;
-
 
         public static final double TOLERANCE_IN_ARM_BRAKE = 15;
         public static final double COLLISION_DETECTION = 1.5;
@@ -71,7 +70,8 @@ public class SixBarConstants {
         public static final State DEPLOY = new State("DEPLOY");
         public static final State ARMBRAKS = new State("ARMBRAKS");
         public static final State COLLISION = new State("COLLISION");
-        public static final State SHOOTING = new State("SHOOTING");
+        public static final State SHOOTING = new State("SHOOTING", () -> SixBarCommand.hasClosed = false, () -> {
+        });
         public static final State FORCE_OPEN = new State("FORCE_OPEN");
         public static final State FORCE_CLOSE = new State("FORCE_CLOSE");
 }
