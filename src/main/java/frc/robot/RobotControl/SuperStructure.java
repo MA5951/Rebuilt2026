@@ -395,8 +395,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean atPointForShooting() {
 
-        return (atPointLatch || Shooter.getInstance().atPointForShooting()) // (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() ||
-                && Hood.getInstance().atPointForShooting() && ( (!isAutomatic() || DriverStation.isAutonomous()));
+        return (atPointLatch || Shooter.getInstance().atPointForShooting()) 
+                && Hood.getInstance().atPointForShooting() &&  (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic() ));
 
     }
 

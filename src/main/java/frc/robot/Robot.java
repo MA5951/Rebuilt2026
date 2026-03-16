@@ -6,6 +6,8 @@ import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobot;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
+import com.pathplanner.lib.commands.FollowPathCommand;
+import com.pathplanner.lib.commands.PathfindingCommand;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -42,6 +44,9 @@ public class Robot extends DeafultRobot {
 
     m_robotContainer = new RobotContainer();
     PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
+
+    FollowPathCommand.warmupCommand().schedule();
+    PathfindingCommand.warmupCommand().schedule();
   }
 
   @Override
@@ -98,7 +103,7 @@ public class Robot extends DeafultRobot {
 
    
 
-    CommandScheduler.getInstance().schedule(new FeedingAuto());
+    CommandScheduler.getInstance().schedule(new TwoMagazine());
   }
 
   @Override

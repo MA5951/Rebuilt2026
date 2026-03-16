@@ -4,10 +4,12 @@
   "holonomicMode": true,
   "pathFolders": [
     "DC",
+    "FB",
     "FC",
     "Feeding ",
     "MC",
     "MCRight",
+    "FS",
     "Two Magazine"
   ],
   "autoFolders": [],

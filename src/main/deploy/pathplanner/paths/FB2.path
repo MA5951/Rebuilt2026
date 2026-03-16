@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.023811111111111,
-        "y": 4.9314888888888895
+        "x": 7.713637660490315,
+        "y": 5.956390870188332
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0238111111111112,
-        "y": 4.9314888888888895
+        "x": 6.525744444444444,
+        "y": 5.672066666666666
       },
       "isLocked": false,
-      "linkedName": "TM4 End"
+      "linkedName": "FB1END"
     },
     {
       "anchor": {
-        "x": 1.9945777777777782,
-        "y": 4.9314888888888895
+        "x": 5.697466666666667,
+        "y": 5.486922222222222
       },
       "prevControl": {
-        "x": 1.029877777777778,
-        "y": 4.941233333333332
+        "x": 6.759611111111111,
+        "y": 5.662322222222222
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": -135.0
   },
   "reversed": false,
-  "folder": "Two Magazine",
+  "folder": "FB",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -29.999999999999996
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -4,7 +4,6 @@ package frc.robot.Subsystems.Swerve;
 import com.MAutils.Swerve.Controllers.AngleAdjustController;
 import com.MAutils.Swerve.Controllers.FieldCentricDrive;
 
-
 import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.SwerveSystemConstants.GearRatio;
 import com.MAutils.Swerve.SwerveSystemConstants.WheelType;
@@ -12,17 +11,19 @@ import com.MAutils.Swerve.Utils.PIDController;
 import com.MAutils.Swerve.Utils.ProfiledPIDController;
 import com.MAutils.Swerve.Utils.SwerveState;
 import com.MAutils.Utils.GainConfig;
+import com.pathplanner.lib.path.PathConstraints;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
+import edu.wpi.first.math.util.Units;
 import frc.robot.PortMap;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Subsystems.Vision.VisionConstants;
 
-public class SwerveConstants {  
+public class SwerveConstants {
 
         public static double relSetPoint;
 
@@ -54,20 +55,19 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(2);
 
-        public static final ProfiledPIDController PROFILED_REL_PID_CONTROLLER = new ProfiledPIDController(5, 0, 0, new Constraints(1000, 3300))//a= 500
+        public static final ProfiledPIDController PROFILED_REL_PID_CONTROLLER = new ProfiledPIDController(5, 0, 0,
+                        new Constraints(1000, 3300))// a= 500
                         .withContinuesInput(-180, 180)
                         .withTolerance(1.5);
 
+        public static final PathConstraints constraints = new PathConstraints(
+                        4, 3,
+                        Units.degreesToRadians(540), Units.degreesToRadians(720));
 
-        
- 
-                        
-        
-
-       
         // Swerve Drive Controllers
         public static final FieldCentricDrive FIELD_CENTRIC_DRIVE = new FieldCentricDrive(
-                        RobotContainer.getDriverController(), SWERVE_CONSTANTS, () -> Swerve.getInstance().getGyroData());
+                        RobotContainer.getDriverController(), SWERVE_CONSTANTS,
+                        () -> Swerve.getInstance().getGyroData());
 
         public static final AngleAdjustController ANGLE_ADJUST_CONTROLLER = new AngleAdjustController(SWERVE_CONSTANTS,
                         REL_PID_CONTROLLER);
@@ -86,61 +86,60 @@ public class SwerveConstants {
         public static final SwerveState SHOOTING_ABS = new SwerveState("Shooting Absolute")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); //setPointLimiterAbs.calculate(
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); // setPointLimiterAbs.calculate(
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
-
 
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
-                                
 
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(VisionConstants.FRONT_LL.getCameraIO().getTag().id));//setPointLimiterRel.calculate()
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(() -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc); 
-                                
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(
+                                                VisionConstants.FRONT_LL.getCameraIO().getTag().id));// setPointLimiterRel.calculate()
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(
+                                                () -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc);
+
                         })
-                        
-                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
         public static final SwerveState SHOOTING_ABS_UNLOCKED = new SwerveState("Shooting Absolute Unlocked")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); //setPointLimiterAbs.calculate(
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); // setPointLimiterAbs.calculate(
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                                 FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1);
                         })
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);
 
-
         public static final SwerveState SHOOTING_REL_UNLOCKED = new SwerveState("Shooting Relative Unlocked")
                         .withOnStateEnter(() -> {
-                                
 
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER); 
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(VisionConstants.FRONT_LL.getCameraIO().getTag().id));//setPointLimiterRel.calculate()
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(() -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc);
-                                FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1); 
-                                
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(
+                                                VisionConstants.FRONT_LL.getCameraIO().getTag().id));// setPointLimiterRel.calculate()
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(
+                                                () -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc);
+                                FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1);
+
                         })
-                        
+
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);
-
 
         public static final SwerveState FEEDING = new SwerveState("Feeding")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAngleToFeeding());
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier()); 
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
 
-        // public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding In Motion")
-        //                 .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.6, 0.4))
-        //                 .withSpeeds(FIELD_CENTRIC_DRIVE);
+        // public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding
+        // In Motion")
+        // .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.6, 0.4))
+        // .withSpeeds(FIELD_CENTRIC_DRIVE);
 
 }

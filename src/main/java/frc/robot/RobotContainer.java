@@ -89,13 +89,14 @@ public class RobotContainer extends DeafultRobotContainer {
         NamedCommands.registerCommand("Shooting", new InstantCommand(() -> RobotConstants.SHOOTING.setState()));
         NamedCommands.registerCommand("Feeding", new InstantCommand(() -> RobotConstants.FEEDING.setState()));
         NamedCommands.registerCommand("FeedingInMotion", new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
+        NamedCommands.registerCommand("IntakeIdle", new InstantCommand(() -> RobotConstants.IDLE_INTAKE.setState()));
 
 
-        new Trigger(() -> ((PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStationUtil.getAlliance() == Alliance.Blue) || ( PoseEstimator.getCurrentPose().getX() < Field.LENGTH - 5.5 && DriverStationUtil.getAlliance() == Alliance.Red)) && DriverStation.isAutonomous()//TODO Handel Red Side
-        ).onTrue(new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
+        // new Trigger(() -> ((PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStationUtil.getAlliance() == Alliance.Blue) || ( PoseEstimator.getCurrentPose().getX() < Field.LENGTH - 5.5 && DriverStationUtil.getAlliance() == Alliance.Red)) && DriverStation.isAutonomous()//TODO Handel Red Side
+        // ).onTrue(new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
 
-        // new Trigger(() -> PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStation.isAutonomous()//TODO Handel Red Side
-        // ).onTrue(new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
+        new Trigger(() -> (PoseEstimator.getCurrentPose().getX() > 5.5 && DriverStationUtil.getAlliance() == Alliance.Blue) || ( PoseEstimator.getCurrentPose().getX() < Field.LENGTH - 5.5 && DriverStationUtil.getAlliance() == Alliance.Red) && DriverStation.isAutonomous()//TODO Handel Red Side
+        ).onTrue(new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()));
         
     }
 

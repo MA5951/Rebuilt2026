@@ -1,0 +1,86 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.8484111111111114,
+        "y": 6.091077777777778
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.5985923197966951,
+        "y": 6.100594684113565
+      },
+      "isLocked": false,
+      "linkedName": "TM5 End 4"
+    },
+    {
+      "anchor": {
+        "x": 0.416,
+        "y": 5.925
+      },
+      "prevControl": {
+        "x": 0.416,
+        "y": 6.175
+      },
+      "nextControl": {
+        "x": 0.416,
+        "y": 5.675
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.023811111111111,
+        "y": 4.9314888888888895
+      },
+      "prevControl": {
+        "x": 1.380677777777778,
+        "y": 5.711044444444444
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "TM4 End"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.29709543568463614,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 1.6315352697095404,
+      "rotationDegrees": -90.0
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.2243176178660018,
+      "endWaypointRelativePos": null,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 1.5,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -29.999999999999996
+  },
+  "reversed": false,
+  "folder": "Two Magazine",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -55.0
+  },
+  "useDefaultConstraints": false
+}

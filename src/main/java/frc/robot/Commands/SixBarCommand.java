@@ -75,7 +75,7 @@ public class SixBarCommand extends SubsystemCommand {
             case "HOMING":
                 isReset = true;
                 sixbar.setVoltage(1.2);
-                if (homingDebouncer.calculate(sixbar.getCurrent() > 50)) {
+                if (homingDebouncer.calculate(sixbar.getCurrent() > 35)) {
                     sixbar.resetPosition(0);
                     sixbar.setState(SixBarConstants.IDLE);
                 }

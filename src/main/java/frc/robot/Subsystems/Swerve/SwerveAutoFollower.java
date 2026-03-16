@@ -66,6 +66,15 @@ public class SwerveAutoFollower {
         return new InstantCommand();
     }
 
+    public static Command findfollowPath(String path) {
+        try {
+            return AutoBuilder.pathfindThenFollowPath(PathPlannerPath.fromPathFile(path), SwerveConstants.constraints);
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return new InstantCommand();
+    }
+
     public static Command pathFindToPose(Pose2d targetPose, PathConstraints constraints) {
         return AutoBuilder.pathfindToPose(targetPose, constraints);
     }

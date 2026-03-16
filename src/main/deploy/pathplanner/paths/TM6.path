@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.811268855368235,
-        "y": 5.71299023957409
+        "x": 0.416,
+        "y": 5.925
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.594762504422126,
-        "y": 5.83799023957409
+        "x": 1.2345111111111111,
+        "y": 5.2920333333333325
       },
-      "isLocked": false,
+      "isLocked": true,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.5376397515527955,
-        "y": 5.970523513753327
+        "x": 1.6925,
+        "y": 5.009444444444443
       },
       "prevControl": {
-        "x": 7.754933451641527,
-        "y": 5.833708961845607
+        "x": 0.9421777777777773,
+        "y": 5.633088888888887
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "TM6 End"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -23.55226367289463
   },
   "reversed": false,
   "folder": "Two Magazine",
