@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.090543154761905,
-        "y": 5.588020833333334
+        "x": 1.6546140195208512,
+        "y": 5.116633333333333
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.064441964285714,
-        "y": 5.098623511904763
+        "x": 1.2435232278418598,
+        "y": 4.706354135857241
       },
       "isLocked": false,
-      "linkedName": "MC4END"
+      "linkedName": "MC1 End1"
     },
     {
       "anchor": {
-        "x": 1.9208854166609934,
-        "y": 4.628802083333333
+        "x": 1.445,
+        "y": 4.627
       },
       "prevControl": {
-        "x": 1.8817336309467074,
-        "y": 5.098623511904762
+        "x": 1.405848214285714,
+        "y": 5.096821428571428
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "MC",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -41.566369637549485
+    "rotation": -55.0
   },
   "useDefaultConstraints": true
 }

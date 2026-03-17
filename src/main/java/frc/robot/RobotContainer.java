@@ -62,7 +62,7 @@ public class RobotContainer extends DeafultRobotContainer {
         super();
 
         
-        CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
+        
         CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand());
         CommandScheduler.getInstance().setDefaultCommand(SixBar.getInstance(), new SixBarCommand());
         SixBar.getInstance();

@@ -466,9 +466,13 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getSetPointForShootingRel(double id) {
-        if (id == 27) {
+        if (id == 27 ||id == 11) {
             return 2;
-        } else if (id == 24) {
+        } else if (id == 24 || id == 8) {
+            return -2;
+        } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() > Field.WIDTH / 2) {
+            return 2;
+        } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
             return -2;
         } 
 

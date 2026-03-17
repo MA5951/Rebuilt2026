@@ -20,7 +20,6 @@ public class SixBarCommand extends SubsystemCommand {
     public static boolean isAtPosition = false;
     public static boolean isReset = false;
     public static boolean hasClosed = false;
-    public double lastCurrent = 0;
 
     public SixBarCommand() {
         super(sixbar);
@@ -79,7 +78,6 @@ public class SixBarCommand extends SubsystemCommand {
                     sixbar.resetPosition(0);
                     sixbar.setState(SixBarConstants.IDLE);
                 }
-                lastCurrent = sixbar.getCurrent();
                 break;
             case "FORCE_OPEN":
                 sixbar.setVoltage(-1.3);

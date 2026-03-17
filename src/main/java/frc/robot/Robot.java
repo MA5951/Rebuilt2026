@@ -13,10 +13,16 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Commands.SixBarCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.Auto.DepotClimb;
+import frc.robot.Commands.Auto.Drive;
 import frc.robot.Commands.Auto.FeedingAuto;
+import frc.robot.Commands.Auto.GoTo;
+import frc.robot.Commands.Auto.MagazineClimb;
 import frc.robot.Commands.Auto.TwoMagazine;
 import frc.robot.RobotControl.Dashboard;
 import frc.robot.RobotControl.SuperStructure;
@@ -103,13 +109,18 @@ public class Robot extends DeafultRobot {
 
    
 
-    CommandScheduler.getInstance().schedule(new TwoMagazine());
+    CommandScheduler.getInstance().schedule(new MagazineClimb());
+    // CommandScheduler.getInstance().schedule(new GoTo(Field.flipByAlliance(new Pose2d(1.445,4.627, Rotation2d.fromDegrees(-90))) , 0.1, true));
+    //CommandScheduler.getInstance().schedule();
   }
 
   @Override
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();
+
+    CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
+
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);

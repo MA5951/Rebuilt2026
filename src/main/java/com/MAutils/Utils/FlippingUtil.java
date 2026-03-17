@@ -5,15 +5,16 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.util.Units;
+import frc.robot.Util.Field;
 
 /** Utility class for flipping positions/rotations to the other side of the field */
 public class FlippingUtil {
   /** The type of symmetry for the current field */
   public static FieldSymmetry symmetryType = FieldSymmetry.kRotational;
   /** The X size or length of the current field in meters */
-  public static double fieldSizeX = Units.feetToMeters(57.573); //TODO move to constance 
+  public static double fieldSizeX = Field.LENGTH; //TODO move to constance 
   /** The Y size or width of the current field in meters */ 
-  public static double fieldSizeY = Units.feetToMeters(26.417); //TODO move to constance
+  public static double fieldSizeY = Field.WIDTH; //TODO move to constance
 
   /** Enum representing the different types of field symmetry */
   public enum FieldSymmetry {

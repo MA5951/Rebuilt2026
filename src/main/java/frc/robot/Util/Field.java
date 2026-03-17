@@ -3,6 +3,7 @@ package frc.robot.Util;
 
 import java.util.function.ObjDoubleConsumer;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Utils.DriverStationUtil;
 import com.MAutils.Utils.FlippingUtil;
 
@@ -106,15 +107,18 @@ public class Field {
         }
 
         public static Pose2d flipByAlliance(Pose2d bluePose) {
+                MALog.log("/FlipUtil/Blue", bluePose);
                 if (DriverStationUtil.getAlliance() == Alliance.Red) {
+                        MALog.log("/FlipUtil/Red", FlippingUtil.flipFieldPose(bluePose));
                         return FlippingUtil.flipFieldPose(bluePose);
                 }
-
+                
                 return bluePose;
         }
 
         public static Translation2d flipByAlliance(Translation2d bluePose) {
                 if (DriverStationUtil.getAlliance() == Alliance.Red) {
+                        
                         return FlippingUtil.flipFieldPosition(bluePose);
                 }
 
