@@ -51,7 +51,7 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(5);
 
-        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.043, 0, 0)
+        public static final PIDController REL_PID_CONTROLLER = new PIDController(0.046, 0, 0)
                         .withContinuesInput(-180, 180)
                         .withTolerance(2);
 

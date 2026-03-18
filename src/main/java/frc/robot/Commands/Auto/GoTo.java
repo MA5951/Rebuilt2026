@@ -19,7 +19,7 @@ public class GoTo extends Command {
   private Pose2d targetPose;
   private final PIDController xController = new PIDController(1.5, 0, 0);
   private final PIDController yController = new PIDController(1.5, 0, 0);
-  private final PIDController tController = new PIDController(0.07, 0, 0).withContinuesInput(-180, 180);
+  private final PIDController tController = new PIDController(0.07, 0, 0).withContinuesInput(-180, 180).withTolerance(3);
   private ChassisSpeeds speeds = new ChassisSpeeds();
   private double atPointRad;
   private boolean stopEnd;
@@ -69,6 +69,6 @@ public class GoTo extends Command {
 
   @Override
   public boolean isFinished() {
-    return PoseEstimator.getCurrentPose().getTranslation().getDistance(targetPose.getTranslation()) < atPointRad;
+    return PoseEstimator.getCurrentPose().getTranslation().getDistance(targetPose.getTranslation()) < atPointRad && tController.atSetpoint();
   }
 }

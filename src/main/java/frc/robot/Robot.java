@@ -12,7 +12,9 @@ import com.pathplanner.lib.commands.PathfindingCommand;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
@@ -44,6 +46,8 @@ public class Robot extends DeafultRobot {
   private final RobotContainer m_robotContainer;
   public static int counter = 0;
 
+  private Command auto;
+
   public Robot() {
     super();
     Vision.getInstance();
@@ -53,6 +57,9 @@ public class Robot extends DeafultRobot {
 
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
+
+    //auto = new MagazineClimb();
+    auto = new DepotClimb();
   }
 
   @Override
@@ -109,9 +116,23 @@ public class Robot extends DeafultRobot {
 
    
 
-    CommandScheduler.getInstance().schedule(new MagazineClimb());
+    CommandScheduler.getInstance().schedule(auto);
     // CommandScheduler.getInstance().schedule(new GoTo(Field.flipByAlliance(new Pose2d(1.445,4.627, Rotation2d.fromDegrees(-90))) , 0.1, true));
-    //CommandScheduler.getInstance().schedule();
+    // CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
+    //   new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
+    //   new GoTo(Field.flipByAlliance(new Pose2d(1.145,4.227, Rotation2d.fromDegrees(-90))) , 0.15, false),
+    //   new ParallelDeadlineGroup(new SequentialCommandGroup(
+    //   new WaitUntilCommand(() -> Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) > 0.05),
+    //   new WaitUntilCommand(() -> Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) < 0.1)
+    // ), new Drive(0.5, -0.1, 0)),
+    // new ParallelDeadlineGroup(new WaitUntilCommand(() -> Climb.getInstance().getIR()), new Drive(0, -0.2, 0)),
+    // new InstantCommand(() -> RobotConstants.CLIMB.setState())
+    // ));
+  }
+
+  @Override 
+  public void autonomousExit() {
+    Climb.getInstance().setBrakeMode(false);
   }
 
   @Override
