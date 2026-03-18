@@ -48,7 +48,11 @@ public class IntakeCommand extends SubsystemCommand {
                 // } else {
                 //     intakeroller.setVoltage(4);
                 // }
-                intakeroller.setVoltage(6);
+                if (SixBar.getInstance().atPoint(3) && SixBar.getInstance().getPosition()> -55) {
+                    intakeroller.setVoltage(-6);
+                } else {
+                    intakeroller.setVoltage(6);
+                }
             break;
         }
     }

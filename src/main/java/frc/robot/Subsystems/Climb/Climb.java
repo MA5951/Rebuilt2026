@@ -43,7 +43,7 @@ public class Climb extends PositionControlledSystem {
     @Override
     public boolean CAN_MOVE() {
         return SixBar.getInstance().getPosition() < ClimbConstnats.INTAKE_OPEN_POSITION
-                || getCurrentState() == ClimbConstnats.IDLE;
+                ;
     }// (DriverStation.isAutonomous() && getCurrentState() == ClimbConstnats.PRECLIMB
      // || getCurrentState() == ClimbConstnats.IDLE) || (DriverStation.isAutonomous()
      // && macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE) &&

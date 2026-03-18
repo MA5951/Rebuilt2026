@@ -3,9 +3,15 @@ package frc.robot.Subsystems.Swerve;
 
 import com.MAutils.Swerve.SwerveSystem;
 
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+
 
 public class Swerve extends SwerveSystem{
     private static Swerve instance;
+    private double lastSpeed;
+    private double deltaSpeed;
+    private double deltaCurrent;
+
 
     private boolean isRampFlag = false;
 
@@ -51,6 +57,12 @@ public class Swerve extends SwerveSystem{
 
     public boolean isRampFlag() {
         return isRampFlag;
+    }
+
+    public boolean isModuleStuck() {
+        deltaSpeed = Math.abs(getCurrentStates()[1].speedMetersPerSecond) - lastSpeed;
+        lastSpeed = Math.abs(lastSpeed);
+        return (deltaSpeed < 0.03) && (Math.abs(getSwerveModuleData()[1].driveCurrent)> 15);
     }
    
 

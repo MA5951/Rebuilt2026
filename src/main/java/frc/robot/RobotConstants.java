@@ -120,7 +120,7 @@ public class RobotConstants {
         public static final MRobotState EJECT = new MRobotState("EJECT", () -> {
         }, () -> SixBar.getInstance().setState(SixBar.getInstance().getLastState()),
                         SandwichConstants.EJECT, RollerConstants.EJECT, TransferConstants.EJECT, HoodConstants.EJECT,
-                        ShooterConstants.EJECT, KickerConstants.EJECT);
+                        ShooterConstants.EJECT, KickerConstants.EJECT, SixBarConstants.SHOOTING);
 
         public static final MRobotState UNSTUCK = new MRobotState("UNSTUCK",
                         SandwichConstants.UNSTUCK, RollerConstants.UNSTUCK, TransferConstants.UNSTUCK,

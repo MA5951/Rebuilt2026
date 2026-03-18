@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.398952972493345,
-        "y": 7.121375332741792
+        "x": 4.399,
+        "y": 7.121
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.109041703630451,
-        "y": 7.153566992006159
+        "x": 8.109088731137106,
+        "y": 7.153191659264367
       },
       "isLocked": false,
       "linkedName": null
@@ -120,6 +120,17 @@
   ],
   "pointTowardsZones": [],
   "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.15124915597570182,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Intake"
+        }
+      }
+    },
     {
       "name": "IntakeIdle",
       "waypointRelativePos": 2.5161290322580645,

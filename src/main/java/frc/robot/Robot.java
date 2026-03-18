@@ -58,8 +58,8 @@ public class Robot extends DeafultRobot {
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
 
-    //auto = new MagazineClimb();
-    auto = new DepotClimb();
+    auto = new MagazineClimb();
+    //auto = new DepotClimb();
   }
 
   @Override

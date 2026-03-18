@@ -49,9 +49,12 @@ public class Field {
                         22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32 };
 
         public static final Rectangle2d FIELD_RECTANGLE = new Rectangle2d(new Translation2d(0, 0), FIELD_CORNER);
+        // public static final Rectangle2d ALLOWED_FIELD = new Rectangle2d(
+        //                 new Translation2d(ROBOT_FACE / 2, ROBOT_FACE / 2),
+        //                 new Translation2d(Field.LENGTH - (Field.ROBOT_FACE / 2), Field.WIDTH - (Field.ROBOT_FACE / 2)));
         public static final Rectangle2d ALLOWED_FIELD = new Rectangle2d(
-                        new Translation2d(ROBOT_FACE / 2, ROBOT_FACE / 2),
-                        new Translation2d(Field.LENGTH - (Field.ROBOT_FACE / 2), Field.WIDTH - (Field.ROBOT_FACE / 2)));
+                        new Translation2d(0, 0),
+                        FIELD_CORNER);
         public static final Rectangle2d HUB_BLUE = new Rectangle2d(
                         new Translation2d(BLUE_HUB.getX() - (HUB_WIDTH / 2) - (ROBOT_FACE / 2),
                                         BLUE_HUB.getY() - (HUB_WIDTH / 2) - (ROBOT_FACE / 2)),

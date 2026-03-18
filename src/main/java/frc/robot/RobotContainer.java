@@ -202,6 +202,8 @@ public class RobotContainer extends DeafultRobotContainer {
                 && getRobotState() != RobotConstants.FEEDING && getRobotState() != RobotConstants.FEEDING_IN_MOTION
                 && getRobotState() != RobotConstants.EJECT)
                 .onTrue(new InstantCommand(() -> Shooter.getInstance().setState(ShooterConstants.IDLE)));
+        //Internal Climb
+        new Trigger(() -> RobotContainer.getLastRobotState() == RobotConstants.SHOOTING && !DriverStation.isAutonomous()).onTrue(new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.IDLE)));
 
         // Internal sixbar stats
         new Trigger(() -> (getRobotState() == RobotConstants.INTAKE_DEPLOY))

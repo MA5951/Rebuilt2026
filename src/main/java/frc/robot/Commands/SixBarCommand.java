@@ -7,6 +7,7 @@ import edu.wpi.first.math.filter.Debouncer;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
+import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
@@ -30,10 +31,14 @@ public class SixBarCommand extends SubsystemCommand {
     public void Automatic() {
         switch (sixbar.getCurrentState().stateName) {
             case "IDLE":
-                if (SuperStructure.isDefenceMode()) {
-                    sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                if (Climb.getInstance().getPosition() > 0.15  && Climb.getInstance().getCurrentState() == ClimbConstnats.IDLE) {
+                        sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 } else {
-                    sixbar.setPositionClose(SixBarConstants.BUMPER_ZONE_ANGLE);
+                    if (SuperStructure.isDefenceMode()) {
+                        sixbar.setPositionClose(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                    } else {
+                        sixbar.setPositionClose(SixBarConstants.BUMPER_ZONE_ANGLE);
+                    }
                 }
                 break;
             case "DEPLOY":

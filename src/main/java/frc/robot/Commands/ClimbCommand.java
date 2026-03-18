@@ -88,7 +88,7 @@ public class ClimbCommand extends SubsystemCommand {
                 }
                 break;
             case "HOLD":
-                climb.setPosition(ClimbConstnats.OPEN_POSITION);
+                climb.setPosition(0.18,0.19);
                 break;
 
         }
