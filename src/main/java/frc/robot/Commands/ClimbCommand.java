@@ -88,7 +88,11 @@ public class ClimbCommand extends SubsystemCommand {
                 }
                 break;
             case "HOLD":
-                climb.setPosition(0.18,0.19);
+            if(SuperStructure.isExtendedMagazine()){
+                    climb.setPosition(0.18,0.19);
+                } else {
+                    climb.setVoltage(0);
+                }
                 break;
 
         }

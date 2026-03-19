@@ -15,7 +15,6 @@ public class FeedingAuto extends SequentialCommandGroup {
 
     public FeedingAuto() {
         addCommands(
-
                 SwerveAutoFollower.followPath("F1")
         );
     }

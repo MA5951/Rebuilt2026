@@ -50,6 +50,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
+    public static  double shootingFactor = 1;
 
     public static double AFTER_ANGLE = 0;
     //this class is ugly becuase of galdo
@@ -294,10 +295,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30; // - 60;
+            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30 * shootingFactor; // - 60;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30; // - 60;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30 * shootingFactor; // - 60;
     }
 
     private static double getHoodAngle(double distance) {
@@ -479,6 +480,14 @@ public class SuperStructure extends DeafultSuperStructure {
         return 0;
     }
 
+    public void setShooterFactor(double newFactor) {
+        shootingFactor = newFactor;
+    }
+
+    public double getShooterFactor() {
+        return shootingFactor;
+    }
+
     public static void update() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && !isLocked) {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
@@ -498,6 +507,7 @@ public class SuperStructure extends DeafultSuperStructure {
             atPointLatch = true;
         }
 
+        MALog.log("/SuperStructure/Shooting Factor", (shootingFactor - 1) * 100);
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
         MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());
         MALog.log("/SuperStructure/Distance/Shooter Pose", GeometryUtil

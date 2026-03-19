@@ -13,15 +13,15 @@ public class Dashboard {
     
     }
 
-    public static boolean isActiveDisabled() {
-        return activeDisable.get() == 1;
-    }
+    // public static boolean isActiveDisabled() {
+    //     return activeDisable.get() == 1;
+    // }
 
-    public static boolean isFirstShift() {
-        return isFirstShift.get() == 1;
-    }
+    // public static boolean isFirstShift() {
+    //     return isFirstShift.get() == 1;
+    // }
 
-    public static double getIntakeFactor() {
-        return intakeFactor.get();
-    }
+    // public static double getIntakeFactor() {
+    //     return intakeFactor.get();
+    // }
 }
