@@ -14,6 +14,7 @@ public class ActiveUtil {
     private static Boolean isMyFirstShift; 
     private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
     private static int currentShift = 0;
+    private static boolean isActiveDisabled = false;
 
     public static void startTeleop() {
         matchTimer.reset();
@@ -24,8 +25,6 @@ public class ActiveUtil {
     public static void setIsMyFirstShift(Boolean isMyFirstShift) {
         ActiveUtil.isMyFirstShift = isMyFirstShift;
     }
-    //TODO you dont consider the dashboard override here
-    //TODO also what about the code that get the data from the fms
 
     public static void checkShift() {
         if (isMyFirstShift == null && DriverStation.getGameSpecificMessage().length() > 0) {
@@ -53,7 +52,7 @@ public class ActiveUtil {
     }
 
     public static boolean isActive() {
-        if (Dashboard.isActiveDisabled()) {
+        if (isActiveDisabled) {
             return true;
         }
 
@@ -61,7 +60,7 @@ public class ActiveUtil {
     }
 
     public static double getTimeInActive() {
-        if (Dashboard.isActiveDisabled()) {
+        if (isActiveDisabled) {
             return 0;
         }
 
@@ -89,7 +88,7 @@ public class ActiveUtil {
     }
 
     public static double getTimePastActive() {
-        if (Dashboard.isActiveDisabled()) {
+        if (isActiveDisabled) {
             return 0;
         }
 
@@ -116,7 +115,7 @@ public class ActiveUtil {
     }
 
     public static double getTimeUntilActive() {
-        if (Dashboard.isActiveDisabled()) {
+        if (isActiveDisabled) {
             return 0;
         }
 
@@ -149,6 +148,7 @@ public class ActiveUtil {
     public static void getGameMode() {
         if (matchTimer.get() < 10) {
             MALog.log("/ActiveUtil/GameMode", "Transfer" );
+            checkShift();
         } else if (matchTimer.get() > 110) {
             MALog.log("/ActiveUtil/GameMode", "Endgame" );
         } else if (isMyShift()) {
@@ -171,5 +171,13 @@ public class ActiveUtil {
             currentShift = 0; 
         }
         return currentShift;
+    }
+
+    public static void setActiveDisabled(boolean activeDisabled) {
+        isActiveDisabled = activeDisabled;
+    }
+
+    public static boolean isActiveDisabled() {
+        return isActiveDisabled;
     }
 } 

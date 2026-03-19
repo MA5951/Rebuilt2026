@@ -102,8 +102,6 @@ public class Robot extends DeafultRobot {
       PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
     }
 
-    ActiveUtil.setIsMyFirstShift(Dashboard.isFirstShift());
-
   }
 
   @Override
@@ -154,7 +152,6 @@ public class Robot extends DeafultRobot {
   @Override
   public void teleopPeriodic() {
     super.teleopPeriodic();
-    ActiveUtil.checkShift();
     ActiveUtil.getGameMode();
     MALog.log("ActiveUtil/is active", ActiveUtil.isActive());
 
@@ -163,6 +160,8 @@ public class Robot extends DeafultRobot {
     } else {
       MALog.log("ActiveUtil/Active Time", ActiveUtil.getTimeUntilActive());
     }
+
+    
 
   }
 

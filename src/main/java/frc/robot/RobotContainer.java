@@ -6,6 +6,7 @@ import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
+import com.MAutils.RobotControl.RobotControlConstants.SystemMode;
 import com.MAutils.Utils.DriverStationUtil;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -226,8 +227,7 @@ public class RobotContainer extends DeafultRobotContainer {
                 && SixBar.getInstance().getPosition() < -60))
                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBar.getInstance().getLastState())));
 
-        new Trigger(() -> (getOperatorController().getActionsDown()))
-                .onTrue(new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
+        
 
         new Trigger(() -> getDriverController().getDpadDown()).onTrue(
                 new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose))
@@ -242,26 +242,28 @@ public class RobotContainer extends DeafultRobotContainer {
         
         new Trigger(() -> !ActiveUtil.isActive() && isStartActive).onTrue(new InstantCommand(() -> isStartActive = false));
 
-        new Trigger (() -> getOperatorController().getActionsRight()).onTrue
+        new Trigger (() -> getOperatorController().getActionsDown()).onTrue
         (new InstantCommand(() -> SixBar.getInstance().setState(SixBar.HOMING)));
 
-        new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
+        new Trigger (() -> getOperatorController().getActionsRight()).onTrue
         (new InstantCommand(() -> Hood.getInstance().setState(Hood.HOMING)));
 
-        new Trigger (() -> getOperatorController().getDpadRight()).onTrue
+        new Trigger (() -> getOperatorController().getActionsUp()).onTrue
         (new InstantCommand(() -> Climb.getInstance().setState(Climb.HOMING)));
 
          new Trigger (() -> getOperatorController().getL1()).onTrue
-        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.FORCE_OPEN)));
+        (new InstantCommand(() -> SixBar.getInstance().setSystemMode(SystemMode.MANUAL)));
 
         new Trigger (() -> getOperatorController().getR1()).onTrue
-        (new InstantCommand(() -> SixBar.getInstance().setState(SixBarConstants.FORCE_CLOSE)));
+        (new InstantCommand(() -> SixBar.getInstance().setSystemMode(SystemMode.MANUAL)));
 
-        new Trigger (() -> getOperatorController().getDpadLeft()).onTrue
+        new Trigger (() -> getOperatorController().getActionsLeft()).onTrue
         (new InstantCommand(() -> SuperStructure.SetIsExtendedMagazine(!SuperStructure.isExtendedMagazine())));
 
-        new Trigger (() -> getOperatorController().getR2()).onTrue
-        (new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.IDLE)));
+        new Trigger(() -> getOperatorController().getOptionsLeft()).onTrue(new InstantCommand(() -> ActiveUtil.setActiveDisabled(!ActiveUtil.isActiveDisabled())));
+
+        new Trigger(() -> (getOperatorController().getDpadLeft()))
+                .onTrue(new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
         
     }
 }

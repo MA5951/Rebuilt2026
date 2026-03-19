@@ -70,13 +70,15 @@ public class ClimbCommand extends SubsystemCommand {
                 //         climb.setVoltage(0);
                 //     }
                 // } else {
-
+                if(SuperStructure.isExtendedMagazine()) {
                     if (SixBarCommand.hasClosed) {
                         climb.setPosition(ClimbConstnats.IDLE_POSITION);
                     } else {
                         climb.setVoltage(0);
                     }
-                // }
+                } else {
+                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                }
                 // climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 
                 break;
@@ -84,14 +86,14 @@ public class ClimbCommand extends SubsystemCommand {
                 if(SuperStructure.isExtendedMagazine()){
                     climb.setPosition(0.18,0.19);
                 } else {
-                    climb.setVoltage(0);
+                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
                 break;
             case "HOLD":
             if(SuperStructure.isExtendedMagazine()){
                     climb.setPosition(0.18,0.19);
                 } else {
-                    climb.setVoltage(0);
+                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
                 break;
 
