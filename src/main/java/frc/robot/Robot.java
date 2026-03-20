@@ -9,6 +9,7 @@ import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import com.pathplanner.lib.commands.PathfindingCommand;
 
+import edu.wpi.first.epilogue.Logged;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -39,6 +40,7 @@ import frc.robot.Subsystems.Vision.Vision;
 import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
 import frc.robot.Util.Field;
+import frc.robot.lib.MatchTime;
 
 public class Robot extends DeafultRobot {
 
@@ -47,6 +49,9 @@ public class Robot extends DeafultRobot {
   public static int counter = 0;
 
   private Command auto;
+
+  @Logged(name = "MatchTime")
+  private final MatchTime matchTime = new MatchTime(2026);
 
   public Robot() {
     super();
@@ -97,10 +102,13 @@ public class Robot extends DeafultRobot {
       Vision.getInstance().resetFilter();
     }
 
-    if (Swerve.getInstance().isRampFlag() && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+    if ((Swerve.getInstance().isRampFlag() || PoseEstimator.isOutOfFieldFlag()) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
       Swerve.getInstance().resetRampFlag();
+      PoseEstimator.resetOutOfFieldFlag();
       PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
     }
+
+    matchTime.update(MatchTime.kGameData2026.get());
 
   }
 

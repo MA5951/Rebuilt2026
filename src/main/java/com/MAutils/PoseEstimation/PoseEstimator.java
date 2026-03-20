@@ -42,6 +42,7 @@ public class PoseEstimator {
     private static final List<PoseEstimatorSource> sources = new ArrayList<>();
 
     private static SwerveDriveSimulation swerveSim = null;
+    private static boolean outOfFieldBool = false;
 
     // Pose and time just before our replay buffer begins
     private static Pose2d poseBeforeHistory = new Pose2d();
@@ -63,6 +64,14 @@ public class PoseEstimator {
 
     public static void setSwerveSim(SwerveDriveSimulation sim) {
         swerveSim = sim;
+    }
+
+    public static void resetOutOfFieldFlag() {
+        outOfFieldBool = false;
+    }
+
+    public static boolean isOutOfFieldFlag() {
+        return outOfFieldBool;
     }
 
     public static void resetPose(Pose2d newPose) {
@@ -196,10 +205,12 @@ public class PoseEstimator {
 
             HistoryEntry last = history.peekLast();
             lastUpdateTime = (last == null) ? historyStartTime : last.time;
+            
 
             // Keep window sane after replay
             trimHistory();
         } else {
+            outOfFieldBool = true;
             TelemetryLogger.logPoseEstimator(
                     "Update rejected in replay because pose is outside the field");
         }
@@ -234,6 +245,7 @@ public class PoseEstimator {
                 MALog.log("Pose Estimator/Current Pose", currentPose);
             }
         } else {
+            outOfFieldBool = true;
             TelemetryLogger.logPoseEstimator("Update rejected at apply at time because pose is outside the field");
         }
     }

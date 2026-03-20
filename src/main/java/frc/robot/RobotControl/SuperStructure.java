@@ -559,6 +559,16 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
         MALog.log("/SuperStructure/Is In Warmup", isInWarmUpZone());
+        MALog.log("/SuperStructure/Shooter at point for shooting", atPointLatch || Shooter.getInstance().atPointForShooting());
+        MALog.log("/SuperStructure/Shooter at point for feeding",  (atPointLatch || Shooter.getInstance().atPointForShooting()));
+        MALog.log("/SuperStructure/ok feeding angle", isOkAngleForFeeding() );
+        MALog.log("/SuperStructure/hitting net?",  !isHittingNet() );
+
+
+
+        MALog.log("/SuperStructure/swerve at point for shooting",  SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic() ));
+        MALog.log("/SuperStructure/swerve at point for feeding", distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get()));
+
 
     }
 
