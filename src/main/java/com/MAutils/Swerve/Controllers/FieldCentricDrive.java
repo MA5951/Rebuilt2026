@@ -11,9 +11,12 @@ import com.MAutils.Swerve.SwerveSystem;
 import com.MAutils.Swerve.SwerveSystemConstants;
 import com.MAutils.Swerve.Utils.SwerveController;
 import com.MAutils.Utils.ChassisSpeedsUtil;
+import com.MAutils.Utils.DriverStationUtil;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 
@@ -72,7 +75,7 @@ public class FieldCentricDrive extends SwerveController {
             if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0
                     && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -160
                     && RobotContainer.getDriverController().getRightX(true, 1) > 0
-                    || RobotContainer.getDriverController().getRightX(true, 1) == 0)) {// ||
+                    || RobotContainer.getDriverController().getRightX(true, 1) == 0) && DriverStationUtil.getAlliance() == Alliance.Blue) {// ||
                                                                                        // (PoseEstimator.getCurrentPose().getRotation().getDegrees()
                                                                                        // < 0 &&
                                                                                        // PoseEstimator.getCurrentPose().getRotation().getDegrees()

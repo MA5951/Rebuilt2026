@@ -84,14 +84,14 @@ public class ClimbCommand extends SubsystemCommand {
                 break;
             case "EXTEND":
                 if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.18,0.19);
+                    climb.setPosition(0.089,0.19);
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
                 break;
             case "HOLD":
             if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.18,0.19);
+                    climb.setPosition(0.089,0.19);
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }

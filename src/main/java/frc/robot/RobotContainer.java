@@ -152,10 +152,9 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(() -> getDriverController().getActionsRight() && getRobotState() != RobotConstants.UNSTUCK,
                 RobotConstants.EJECT));
 
-        T(StateTrigger.T(() -> getDriverController().getR2() && Swerve.getInstance().getVelocityVector() < 0.2 && getDriverController().inDeadbound(),
-                RobotConstants.FEEDING));
+       
 
-        T(StateTrigger.T(() -> getDriverController().getR2() && ! getDriverController().inDeadbound(),
+        T(StateTrigger.T(() -> getDriverController().getR2() ,
                 RobotConstants.FEEDING_IN_MOTION));
 
         T(StateTrigger.T(
@@ -264,6 +263,9 @@ public class RobotContainer extends DeafultRobotContainer {
 
         new Trigger(() -> (getOperatorController().getDpadLeft()))
                 .onTrue(new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
+
+        // new Trigger (() -> getOperatorController().getL2()).onTrue
+        // (new InstantCommand(() -> Climb.getInstance().setSystemMode(SystemMode.MANUAL)));
         
     }
 }
