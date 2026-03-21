@@ -60,7 +60,7 @@ public class SixBarConstants {
                         .gear(GEAR)
                         .isBrake(false)
                         .tolerance(TOLERANCE)
-                        .range(MINUMUM_ANGLE, 20)
+                        .range(MINUMUM_ANGLE, 90)
                         .startPose(IDLE_ANGLE)
                         .motorCurrentLimit(CURRENT_LIMIT)
                         .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)

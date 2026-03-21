@@ -50,12 +50,85 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
-    public static  double shootingFactor = 1;
+    public static  double shootingFactor = 1.14;
 
     public static double AFTER_ANGLE = 0;
     //this class is ugly becuase of galdo
 
     private static boolean isExtendedMagazine = true;
+
+    // private static double[][] hoodTableData = {
+    //         { 5.676, 27.0 },
+    //         { 5.436, 27.0 },
+    //         { 5.126, 26.0 },
+    //         { 4.996, 25.0 },
+    //         { 4.816, 25.0 },
+    //         { 4.616, 25.0 },
+    //         { 4.446, 25.0 },
+    //         { 4.276, 22.0 },
+    //         { 3.936, 22.0 },
+    //         { 3.756, 22.0 },
+    //         { 3.587, 21.0 },
+    //         { 3.428, 20.0 },
+    //         { 3.244, 19.5 },
+    //         { 3.109, 17.5 },
+    //         { 2.986, 17 },
+    //         { 2.892, 15.5 },
+    //         { 2.795, 15.5 },
+    //         { 2.691, 14.5 },
+    //         { 2.551, 14.5 },
+    //         { 2.468, 14.0 },
+    //         { 2.374, 14.0 },
+    //         { 2.278, 13.0 },
+    //         { 2.184, 13.0 },
+    //         { 2.090, 13.0 },
+    //         { 2.014, 13.0 },
+    //         { 1.887, 11.0 },
+    //         { 1.783, 10.0 },
+    //         { 1.697, 10.0 },
+    //         { 1.591, 9.80 },
+    //         { 1.514, 9.8 },
+    //         { 1.344, 9.8 },
+    //         { 1.2, 8.5 },
+    //         { 1, 8.5 },
+    // };
+
+    // private static double[][] shooterTableData = {
+    //         { 5.676, 4150.0 },
+    //         { 5.436, 4055.0 },
+    //         { 5.216, 4000.0 },
+    //         { 4.996, 3875.0 },
+    //         { 4.816, 3825.0 },
+    //         { 4.616, 3800.0 },
+    //         { 4.446, 3720.0 },
+    //         { 4.276, 3705.0 },
+    //         { 4.086, 3595.0 },
+    //         { 3.936, 3600.0 },
+    //         { 3.756, 3550.0 },
+    //         { 3.587, 3500.0 },
+    //         { 3.428, 3490.0 },
+    //         { 3.244, 3490.0 },
+    //         { 3.109, 3350.0 },
+    //         { 2.986, 3300.0 },
+    //         { 2.892, 3300.0 },
+    //         { 2.795, 3300.0 },
+    //         { 2.691, 3200.0 },
+    //         { 2.551, 3200.0 },
+    //         { 2.468, 3100.0 },
+    //         { 2.374, 3100.0 },
+    //         { 2.278, 3070.0 },
+    //         { 2.184, 3000.0 },
+    //         { 2.090, 3000.0 },
+    //         { 2.014, 3000.0 },
+    //         { 1.887, 3000.0 },
+    //         { 1.783, 2900.0 },
+    //         { 1.697, 2900.0 },
+    //         { 1.591, 2900.0 },
+    //         { 1.514, 2900.0 },
+    //         { 1.344, 2850.0 },
+    //         { 1.2, 3000.0 },
+    //         { 1, 3000.0 },
+    // };
 
     private static double[][] hoodTableData = {
             { 5.676, 27.0 },
@@ -68,29 +141,27 @@ public class SuperStructure extends DeafultSuperStructure {
             { 4.276, 22.0 },
             { 3.936, 22.0 },
             { 3.756, 22.0 },
-            { 3.587, 21.0 },
-            { 3.428, 20.0 },
-            { 3.244, 19.5 },
-            { 3.109, 17.5 },
-            { 2.986, 17 },
-            { 2.892, 15.5 },
-            { 2.795, 15.5 },
-            { 2.691, 14.5 },
-            { 2.551, 14.5 },
-            { 2.468, 14.0 },
+            { 3.587, 22.0 },
+            { 3.428, 21.0 },
+            { 3.244, 20.0 },
+            { 3.109, 20.0 },
+            { 2.986, 19.0 },
+            { 2.892, 18.0 },
+            { 2.795, 17.0 },
+            { 2.691, 16.0 },
+            { 2.551, 15.5 },
+            { 2.468, 15.0 },
             { 2.374, 14.0 },
             { 2.278, 13.0 },
             { 2.184, 13.0 },
-            { 2.090, 13.0 },
-            { 2.014, 13.0 },
+            { 2.090, 12.5 },
+            { 2.014, 12.0 },
             { 1.887, 11.0 },
             { 1.783, 10.0 },
-            { 1.697, 10.0 },
-            { 1.591, 9.80 },
-            { 1.514, 9.8 },
-            { 1.344, 9.8 },
-            { 1.2, 8.5 },
-            { 1, 8.5 },
+            { 1.697, 9.0 },
+            { 1.591, 8.0 },
+            { 1.514, 7.0 },
+            { 1.344, 6.0 },
     };
 
     private static double[][] shooterTableData = {
@@ -104,30 +175,28 @@ public class SuperStructure extends DeafultSuperStructure {
             { 4.276, 3705.0 },
             { 4.086, 3595.0 },
             { 3.936, 3600.0 },
-            { 3.756, 3550.0 },
-            { 3.587, 3500.0 },
-            { 3.428, 3490.0 },
-            { 3.244, 3490.0 },
-            { 3.109, 3350.0 },
-            { 2.986, 3300.0 },
-            { 2.892, 3300.0 },
-            { 2.795, 3300.0 },
+            { 3.756, 3600.0 },
+            { 3.587, 3600.0 },
+            { 3.428, 3570.0 },
+            { 3.244, 3500.0 },
+            { 3.109, 3360.0 },
+            { 2.986, 3310.0 },
+            { 2.892, 3200.0 },
+            { 2.795, 3200.0 },
             { 2.691, 3200.0 },
             { 2.551, 3200.0 },
             { 2.468, 3100.0 },
-            { 2.374, 3100.0 },
-            { 2.278, 3070.0 },
+            { 2.374, 3075.0 },
+            { 2.278, 3050.0 },
             { 2.184, 3000.0 },
             { 2.090, 3000.0 },
-            { 2.014, 3000.0 },
-            { 1.887, 3000.0 },
-            { 1.783, 2900.0 },
-            { 1.697, 2900.0 },
-            { 1.591, 2900.0 },
-            { 1.514, 2900.0 },
-            { 1.344, 2850.0 },
-            { 1.2, 3000.0 },
-            { 1, 3000.0 },
+            { 2.014, 2950.0 },
+            { 1.887, 2750.0 },
+            { 1.783, 2750.0 },
+            { 1.697, 2700.0 },
+            { 1.591, 2700.0 },
+            { 1.514, 2700.0 },
+            { 1.344, 2650.0 },
     };
 
     private static double lastFeedingResult = 0;
@@ -295,20 +364,20 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) - 60 > 6000 ? 0 : shooterTable.interpolate(x) - 30 * shootingFactor; // - 60;
+            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 175  * shootingFactor; // - 60;
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 30 * shootingFactor; // - 60;
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 175 * shootingFactor; // - 60;, 125
     }
 
     private static double getHoodAngle(double distance) {
 
-        if (hoodTable.interpolate(distance) < 6 && (RobotContainer.getRobotState() == RobotConstants.FEEDING
+        if (hoodTable.interpolate(distance) - 2.7 < 10 && (RobotContainer.getRobotState() == RobotConstants.FEEDING
                 || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION)) {
-            return 6;
+            return 10;
         }
 
-        return hoodTable.interpolate(distance) ;//-2
+        return hoodTable.interpolate(distance) - 1;//-2 , -2.7
 
     }
 
@@ -346,7 +415,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     private static double getDistanceToTargetShooting() {
-        if (!(SwerveController.isAbs < 3) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+        if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// && VisionConstants.FRONT_LL.getCameraIO().isTag()
 
             return getRelativDistanceToHub();
         }
@@ -499,7 +568,7 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && RobotContainer.getRobotState() != RobotConstants.SHOOTING_UNLOCKED) {
+        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && ((Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL && VisionConstants.FRONT_LL.getCameraIO().isTag()) ||Swerve.getInstance().getState() == SwerveConstants.SHOOTING_ABS) && RobotContainer.getRobotState() != RobotConstants.SHOOTING_UNLOCKED) {
             isLocked = true;
         }
 
@@ -507,6 +576,7 @@ public class SuperStructure extends DeafultSuperStructure {
             atPointLatch = true;
         }
 
+        MALog.log("/SuperStructure/Locking Set Point", isLocked);
         MALog.log("/SuperStructure/Shooting Factor", (shootingFactor - 1) * 100);
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
         MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());

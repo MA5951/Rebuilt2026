@@ -63,22 +63,25 @@ public class ClimbCommand extends SubsystemCommand {
                 lastCurrent = climb.getCurrent();
                 break;
             case "SHOOTING":
-                // if(SuperStructure.isExtendedMagazine()){
-                //     if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.02 ) {
-                //         climb.setVoltage(-0.8);
-                //     } else {
-                //         climb.setVoltage(0);
-                //     }
-                // } else {
-                if(SuperStructure.isExtendedMagazine()) {
-                    if (SixBarCommand.hasClosed) {
-                        climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                if(SuperStructure.isExtendedMagazine()){
+                    if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.01 ) {
+                        climb.setVoltage(-0.8);
                     } else {
-                        climb.setVoltage(0);
+                        climb.setVoltage(-0.3);
                     }
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
+                // } else {
+                // if(SuperStructure.isExtendedMagazine()) {
+                //     if (SixBarCommand.hasClosed) {
+                //         climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                //     } else {
+                //         climb.setVoltage(0);
+                //     }
+                // } else {
+                //     climb.setPosition(ClimbConstnats.IDLE_POSITION);
+                // }
                 // climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 
                 break;

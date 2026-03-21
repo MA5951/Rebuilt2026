@@ -74,7 +74,7 @@ public class Vision {
     }
 
     public void filterCornerTags() {
-        VisionConstants.FRONT_LL.getCameraIO().allowTags(new int[] { 24, 27 });
+        VisionConstants.FRONT_LL.getCameraIO().allowTags(new int[] { 24, 27 , 8, 11});
     }
 
     public void filterCenterMainTag() {
