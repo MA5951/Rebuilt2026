@@ -57,15 +57,15 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
 
-                if (hasClosed && Climb.getInstance().getPosition() > 0.15) {
-                    sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
-                } else {
-                    sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
-                }
+                // if (hasClosed && Climb.getInstance().getPosition() > 0.15) {
+                //     sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+                // } else {
+                sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                // }
 
-                if (sixbar.getPosition() > -26) {
-                    hasClosed = true;
-                }
+                // if (sixbar.getPosition() > -26) {
+                //     hasClosed = true;
+                // }
 
                 // if (SixBar.getInstance().getPosition() < -17) {
                 // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
