@@ -50,12 +50,85 @@ public class SuperStructure extends DeafultSuperStructure {
     public static final double FEEDING_IN_MOTION_MIN_DISTANCE = 1;
 
     public static final double SANDWICH_STUCK_DELTA = 10;
-    public static  double shootingFactor = 1.14;
+    public static double shootingFactor = 1.23;//1.14
 
     public static double AFTER_ANGLE = 0;
-    //this class is ugly becuase of galdo
+    // this class is ugly becuase of galdo
 
     private static boolean isExtendedMagazine = true;
+
+    private static double[][] hoodTableData = {
+    { 5.676, 27.0 },
+    { 5.436, 27.0 },
+    { 5.126, 26.0 },
+    { 4.996, 25.0 },
+    { 4.816, 25.0 },
+    { 4.616, 25.0 },
+    { 4.446, 25.0 },
+    { 4.276, 22.0 },
+    { 3.936, 22.0 },
+    { 3.756, 22.0 },
+    { 3.587, 21.0 },
+    { 3.428, 20.0 },
+    { 3.244, 19.5 },
+    { 3.109, 17.5 },
+    { 2.986, 17 },
+    { 2.892, 15.5 },
+    { 2.795, 15.5 },
+    { 2.691, 14.5 },
+    { 2.551, 14.5 },
+    { 2.468, 14.0 },
+    { 2.374, 14.0 },
+    { 2.278, 13.0 },
+    { 2.184, 13.0 },
+    { 2.090, 13.0 },
+    { 2.014, 13.0 },
+    { 1.887, 11.0 },
+    { 1.783, 10.0 },
+    { 1.697, 10.0 },
+    { 1.591, 9.80 },
+    { 1.514, 9.8 },
+    { 1.344, 9.8 },
+    { 1.2, 8.5 },
+    { 1, 8.5 },
+    };
+
+    private static double[][] shooterTableData = {
+    { 5.676, 4150.0 },
+    { 5.436, 4055.0 },
+    { 5.216, 4000.0 },
+    { 4.996, 3875.0 },
+    { 4.816, 3825.0 },
+    { 4.616, 3800.0 },
+    { 4.446, 3720.0 },
+    { 4.276, 3705.0 },
+    { 4.086, 3595.0 },
+    { 3.936, 3600.0 },
+    { 3.756, 3550.0 },
+    { 3.587, 3500.0 },
+    { 3.428, 3490.0 },
+    { 3.244, 3490.0 },
+    { 3.109, 3350.0 },
+    { 2.986, 3300.0 },
+    { 2.892, 3300.0 },
+    { 2.795, 3300.0 },
+    { 2.691, 3200.0 },
+    { 2.551, 3200.0 },
+    { 2.468, 3100.0 },
+    { 2.374, 3100.0 },
+    { 2.278, 3070.0 },
+    { 2.184, 3000.0 },
+    { 2.090, 3000.0 },
+    { 2.014, 3000.0 },
+    { 1.887, 3000.0 },
+    { 1.783, 2900.0 },
+    { 1.697, 2900.0 },
+    { 1.591, 2900.0 },
+    { 1.514, 2900.0 },
+    { 1.344, 2850.0 },
+    { 1.2, 3000.0 },
+    { 1, 3000.0 },
+    };
 
     // private static double[][] hoodTableData = {
     //         { 5.676, 27.0 },
@@ -68,29 +141,27 @@ public class SuperStructure extends DeafultSuperStructure {
     //         { 4.276, 22.0 },
     //         { 3.936, 22.0 },
     //         { 3.756, 22.0 },
-    //         { 3.587, 21.0 },
-    //         { 3.428, 20.0 },
-    //         { 3.244, 19.5 },
-    //         { 3.109, 17.5 },
-    //         { 2.986, 17 },
-    //         { 2.892, 15.5 },
-    //         { 2.795, 15.5 },
-    //         { 2.691, 14.5 },
-    //         { 2.551, 14.5 },
-    //         { 2.468, 14.0 },
+    //         { 3.587, 22.0 },
+    //         { 3.428, 21.0 },
+    //         { 3.244, 20.0 },
+    //         { 3.109, 20.0 },
+    //         { 2.986, 19.0 },
+    //         { 2.892, 18.0 },
+    //         { 2.795, 17.0 },
+    //         { 2.691, 16.0 },
+    //         { 2.551, 15.5 },
+    //         { 2.468, 15.0 },
     //         { 2.374, 14.0 },
     //         { 2.278, 13.0 },
     //         { 2.184, 13.0 },
-    //         { 2.090, 13.0 },
-    //         { 2.014, 13.0 },
+    //         { 2.090, 12.5 },
+    //         { 2.014, 12.0 },
     //         { 1.887, 11.0 },
     //         { 1.783, 10.0 },
-    //         { 1.697, 10.0 },
-    //         { 1.591, 9.80 },
-    //         { 1.514, 9.8 },
-    //         { 1.344, 9.8 },
-    //         { 1.2, 8.5 },
-    //         { 1, 8.5 },
+    //         { 1.697, 9.0 },
+    //         { 1.591, 8.0 },
+    //         { 1.514, 7.0 },
+    //         { 1.344, 6.0 },
     // };
 
     // private static double[][] shooterTableData = {
@@ -104,100 +175,29 @@ public class SuperStructure extends DeafultSuperStructure {
     //         { 4.276, 3705.0 },
     //         { 4.086, 3595.0 },
     //         { 3.936, 3600.0 },
-    //         { 3.756, 3550.0 },
-    //         { 3.587, 3500.0 },
-    //         { 3.428, 3490.0 },
-    //         { 3.244, 3490.0 },
-    //         { 3.109, 3350.0 },
-    //         { 2.986, 3300.0 },
-    //         { 2.892, 3300.0 },
-    //         { 2.795, 3300.0 },
+    //         { 3.756, 3600.0 },
+    //         { 3.587, 3600.0 },
+    //         { 3.428, 3570.0 },
+    //         { 3.244, 3500.0 },
+    //         { 3.109, 3360.0 },
+    //         { 2.986, 3310.0 },
+    //         { 2.892, 3200.0 },
+    //         { 2.795, 3200.0 },
     //         { 2.691, 3200.0 },
     //         { 2.551, 3200.0 },
     //         { 2.468, 3100.0 },
-    //         { 2.374, 3100.0 },
-    //         { 2.278, 3070.0 },
+    //         { 2.374, 3075.0 },
+    //         { 2.278, 3050.0 },
     //         { 2.184, 3000.0 },
     //         { 2.090, 3000.0 },
-    //         { 2.014, 3000.0 },
-    //         { 1.887, 3000.0 },
-    //         { 1.783, 2900.0 },
-    //         { 1.697, 2900.0 },
-    //         { 1.591, 2900.0 },
-    //         { 1.514, 2900.0 },
-    //         { 1.344, 2850.0 },
-    //         { 1.2, 3000.0 },
-    //         { 1, 3000.0 },
+    //         { 2.014, 2950.0 },
+    //         { 1.887, 2750.0 },
+    //         { 1.783, 2750.0 },
+    //         { 1.697, 2700.0 },
+    //         { 1.591, 2700.0 },
+    //         { 1.514, 2700.0 },
+    //         { 1.344, 2650.0 },
     // };
-
-    private static double[][] hoodTableData = {
-            { 5.676, 27.0 },
-            { 5.436, 27.0 },
-            { 5.126, 26.0 },
-            { 4.996, 25.0 },
-            { 4.816, 25.0 },
-            { 4.616, 25.0 },
-            { 4.446, 25.0 },
-            { 4.276, 22.0 },
-            { 3.936, 22.0 },
-            { 3.756, 22.0 },
-            { 3.587, 22.0 },
-            { 3.428, 21.0 },
-            { 3.244, 20.0 },
-            { 3.109, 20.0 },
-            { 2.986, 19.0 },
-            { 2.892, 18.0 },
-            { 2.795, 17.0 },
-            { 2.691, 16.0 },
-            { 2.551, 15.5 },
-            { 2.468, 15.0 },
-            { 2.374, 14.0 },
-            { 2.278, 13.0 },
-            { 2.184, 13.0 },
-            { 2.090, 12.5 },
-            { 2.014, 12.0 },
-            { 1.887, 11.0 },
-            { 1.783, 10.0 },
-            { 1.697, 9.0 },
-            { 1.591, 8.0 },
-            { 1.514, 7.0 },
-            { 1.344, 6.0 },
-    };
-
-    private static double[][] shooterTableData = {
-            { 5.676, 4150.0 },
-            { 5.436, 4055.0 },
-            { 5.216, 4000.0 },
-            { 4.996, 3875.0 },
-            { 4.816, 3825.0 },
-            { 4.616, 3800.0 },
-            { 4.446, 3720.0 },
-            { 4.276, 3705.0 },
-            { 4.086, 3595.0 },
-            { 3.936, 3600.0 },
-            { 3.756, 3600.0 },
-            { 3.587, 3600.0 },
-            { 3.428, 3570.0 },
-            { 3.244, 3500.0 },
-            { 3.109, 3360.0 },
-            { 2.986, 3310.0 },
-            { 2.892, 3200.0 },
-            { 2.795, 3200.0 },
-            { 2.691, 3200.0 },
-            { 2.551, 3200.0 },
-            { 2.468, 3100.0 },
-            { 2.374, 3075.0 },
-            { 2.278, 3050.0 },
-            { 2.184, 3000.0 },
-            { 2.090, 3000.0 },
-            { 2.014, 2950.0 },
-            { 1.887, 2750.0 },
-            { 1.783, 2750.0 },
-            { 1.697, 2700.0 },
-            { 1.591, 2700.0 },
-            { 1.514, 2700.0 },
-            { 1.344, 2650.0 },
-    };
 
     private static double lastFeedingResult = 0;
     private static ShootingParameters currentShootingParameters = new ShootingParameters(0, 0);
@@ -220,7 +220,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double distance = 0;
 
     public enum ShootingPreset {
-        CLOSE(0, 3800, new Pose2d()),
+        CLOSE(17, 3000, new Pose2d()),
         CLIMB(15.5, 3200, new Pose2d()),
         TRENCH(17.5, 3150, new Pose2d());
 
@@ -270,6 +270,20 @@ public class SuperStructure extends DeafultSuperStructure {
 
     }
 
+    public static double getAbsAngleToTargetFuter() {
+
+        double xDis = Field.getHub().getX()
+                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1, Swerve.getInstance().getChassisSpeeds()),
+                        VisionConstants.FRONTLL_OFFSET).getX();
+        double yDis = Field.getHub().getY()
+                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1, Swerve.getInstance().getChassisSpeeds()),
+                        VisionConstants.FRONTLL_OFFSET).getY();
+        double angle = Math.atan2(yDis, xDis);
+
+        return Math.toDegrees(angle);
+
+    }
+
     public static double getAngleToFeeding() {
         double xDis = FEEDING_POSE.getX() - GeometryUtil.poseAdjust(PoseEstimator.getCurrentPose(),
                 VisionConstants.FRONTLL_OFFSET).getX();
@@ -311,7 +325,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean isBallsInSandwich() {
         return true;
-        // Sandwich.getInstance().getLeftIr() 
+        // Sandwich.getInstance().getLeftIr()
         // ||
         // Sandwich.getInstance().getMiddleIr() ;
         // || Sandwich.getInstance().getRightIr();
@@ -364,10 +378,11 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 175  * shootingFactor; // - 60;
+            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 80  * shootingFactor; // - 60;//-50
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 175 * shootingFactor; // - 60;, 125
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 80  * shootingFactor; // - 60;,
+                                                                                                            // 125
     }
 
     private static double getHoodAngle(double distance) {
@@ -377,7 +392,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 1;//-2 , -2.7
+        return hoodTable.interpolate(distance) - 2;// -2 , -1
 
     }
 
@@ -402,25 +417,32 @@ public class SuperStructure extends DeafultSuperStructure {
         // Math.pow(distance, 2)) + distance;
 
         if (SuperStructure.isMainTag()) {
-            return Vision.getInstance().getDistanceTryg() + Field.getDistanceToCenterHub(Vision.getInstance().getTagID());
+            return Vision.getInstance().getDistanceTryg()
+                    + Field.getDistanceToCenterHub(Vision.getInstance().getTagID());
         }
-        return Vision.getInstance().getDistanceTryg() ;
+        return Vision.getInstance().getDistanceTryg();
     }
 
     public static double getAbsDistanceToHub() {
         return GeometryUtil
-        .poseAdjust(PoseEstimator.getCurrentPose(),
-        VisionConstants.FRONTLL_OFFSET)
-        .getDistance(Field.getHub());
+                .poseAdjust(PoseEstimator.getCurrentPose(),
+                        VisionConstants.FRONTLL_OFFSET)
+                .getDistance(Field.getHub());
     }
 
     private static double getDistanceToTargetShooting() {
-        if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// && VisionConstants.FRONT_LL.getCameraIO().isTag()
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+            return GeometryUtil
+                    .poseAdjust(PoseEstimator.getCurrentPose(),
+                            VisionConstants.FRONTLL_OFFSET)
+                    .getDistance(Field.getHub());
+        }
+
+        if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL
+                && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// && VisionConstants.FRONT_LL.getCameraIO().isTag()
 
             return getRelativDistanceToHub();
         }
-
-        
 
         return getAbsDistanceToHub();
 
@@ -465,8 +487,9 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static boolean atPointForShooting() {
 
-        return (atPointLatch || Shooter.getInstance().atPointForShooting()) 
-                && Hood.getInstance().atPointForShooting() &&  (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic() ));
+        return (atPointLatch || Shooter.getInstance().atPointForShooting())
+                && Hood.getInstance().atPointForShooting()
+                && (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic()));
 
     }
 
@@ -488,14 +511,16 @@ public class SuperStructure extends DeafultSuperStructure {
         if ((PoseEstimator.getCurrentPose().getRotation().getDegrees() > 0
                 && PoseEstimator.getCurrentPose().getRotation().getDegrees() > 135
                 || PoseEstimator.getCurrentPose().getRotation().getDegrees() < 0
-                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -135) && DriverStationUtil.getAlliance() == Alliance.Blue) {
+                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() < -135)
+                && DriverStationUtil.getAlliance() == Alliance.Blue) {
             return true;
         }
 
         if (PoseEstimator.getCurrentPose().getRotation().getDegrees() < 45
-                        && PoseEstimator.getCurrentPose().getRotation().getDegrees() > -45  && DriverStationUtil.getAlliance() == Alliance.Red) {
-                            return true;
-                        }
+                && PoseEstimator.getCurrentPose().getRotation().getDegrees() > -45
+                && DriverStationUtil.getAlliance() == Alliance.Red) {
+            return true;
+        }
 
         return false;
     }
@@ -536,7 +561,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static double getSetPointForShootingRel(double id) {
-        if (id == 27 ||id == 11) {
+        if (id == 27 || id == 11) {
             return 2;
         } else if (id == 24 || id == 8) {
             return -2;
@@ -544,7 +569,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return -5;
         } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
             return 5;
-        } 
+        }
 
         return 0;
     }
@@ -558,7 +583,7 @@ public class SuperStructure extends DeafultSuperStructure {
     }
 
     public static void update() {
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && !isLocked) {
+        if ((RobotContainer.getRobotState() == RobotConstants.SHOOTING || RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED)&& !isLocked) {
             currentShootingParameters = new ShootingParameters(getShootingRPM(getDistanceToTargetShooting()),
                     getHoodAngle(getDistanceToTargetShooting()));
         } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING
@@ -568,7 +593,11 @@ public class SuperStructure extends DeafultSuperStructure {
                     getHoodAngle(getDistanceToTargetFeeding() + FEEDING_DISTANCE_OFFSET));
         }
 
-        if (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() && ((Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL && VisionConstants.FRONT_LL.getCameraIO().isTag()) ||Swerve.getInstance().getState() == SwerveConstants.SHOOTING_ABS) && RobotContainer.getRobotState() != RobotConstants.SHOOTING_UNLOCKED) {
+        if ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()
+                && ((Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL
+                        && VisionConstants.FRONT_LL.getCameraIO().isTag())
+                        || Swerve.getInstance().getState() == SwerveConstants.SHOOTING_ABS))
+                && RobotContainer.getRobotState() != RobotConstants.SHOOTING_UNLOCKED) {
             isLocked = true;
         }
 
@@ -581,9 +610,9 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
         MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());
         MALog.log("/SuperStructure/Distance/Shooter Pose", GeometryUtil
-        .poseAdjust(PoseEstimator.getCurrentPose(),
-        VisionConstants.FRONTLL_OFFSET)
-        .getDistance(Field.getHub()));
+                .poseAdjust(PoseEstimator.getCurrentPose(),
+                        VisionConstants.FRONTLL_OFFSET)
+                .getDistance(Field.getHub()));
         MALog.log("/SuperStructure/Distance/Trigo Distance Tag", getRelativDistanceToHub());
         MALog.log("/SuperStructure/Shooter Velo", currentShootingParameters.shooterRPM());
         MALog.log("/SuperStructure/Hood Angle", currentShootingParameters.hoodAngle());
@@ -629,16 +658,14 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/SuperStructure/is abs", SwerveController.isAbs);
         MALog.log("/SuperStructure/Is In Warmup", isInWarmUpZone());
-        MALog.log("/SuperStructure/Shooter at point for shooting", atPointLatch || Shooter.getInstance().atPointForShooting());
-        MALog.log("/SuperStructure/Shooter at point for feeding",  (atPointLatch || Shooter.getInstance().atPointForShooting()));
-        MALog.log("/SuperStructure/ok feeding angle", isOkAngleForFeeding() );
-        MALog.log("/SuperStructure/hitting net?",  !isHittingNet() );
+        MALog.log("/reflect/Shooter at point for shooting", atPointLatch || Shooter.getInstance().atPointForShooting());
+        MALog.log("/reflect/Shooter at point for feeding",
+                (atPointLatch || Shooter.getInstance().atPointForShooting()));
+        MALog.log("/reflect/ok feeding angle", isOkAngleForFeeding());
+        MALog.log("/reflect/hitting net?", !isHittingNet());
 
-
-
-        MALog.log("/SuperStructure/swerve at point for shooting",  SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic() ));
-        MALog.log("/SuperStructure/swerve at point for feeding", distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get()));
-
+        MALog.log("/reflect/swerve at point for shooting",
+                SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic()));
 
     }
 

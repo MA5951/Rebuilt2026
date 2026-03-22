@@ -35,7 +35,7 @@ public class ShooterConstants {
         private static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
                         "Shooter Slave Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKS(0.195).withKV(0.1195).withKP(0);//0.26, 0.32
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKS(0.195).withKV(0.1195).withKP(0.26);//0.26, 0.32
 
         public static VelocitySystemConstants SHOOTER_CONSTANTS = VelocitySystemConstants
                         .newBuilder("Shooter", REAL_GAIN_CONFIG, MASTER_MOTOR, SLAVE_MOTOR)

@@ -171,13 +171,16 @@ public class RobotContainer extends DeafultRobotContainer {
         T(StateTrigger.T(() -> getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isTransferStuck(),
                 getLastRobotState()));
 
-        T(StateTrigger.T(() -> getDriverController().getActionsLeft() 
-                &&
-                Climb.getInstance().getPosition() < 0.05, RobotConstants.PRECLIMB));
+        // T(StateTrigger.T(() -> getDriverController().getActionsLeft() 
+        //         &&
+        //         Climb.getInstance().getPosition() < 0.05, RobotConstants.PRECLIMB));
 
-        T(StateTrigger.T(() -> getDriverController().getActionsLeft()
-                &&
-                ClimbCommand.isAtPosition, RobotConstants.CLIMB));
+        // T(StateTrigger.T(() -> getDriverController().getActionsLeft()
+        //         &&
+        //         ClimbCommand.isAtPosition, RobotConstants.CLIMB));
+
+        // T(StateTrigger.T(() -> getDriverController().getOptionsLeft(),
+        //         RobotConstants.SHOOTING_UNLOCKED));
 
        
 

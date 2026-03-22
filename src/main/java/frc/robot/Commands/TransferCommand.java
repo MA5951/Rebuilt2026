@@ -49,9 +49,9 @@ public class TransferCommand extends SubsystemCommand {
             case "SHOOTING":
                 transfer.setVoltage(SuperStructure.getTransferSinVoltage());
                 // if (!SuperStructure.isBallsInSandwich()) {
-                    ///transfer.setVoltage(8);
+                //     transfer.setVoltage(8);
                 // } else {
-                    // transfer.setVoltage(3);
+                //     transfer.setVoltage(3);
                 // }
                 //transfer.setVoltage(4);
                 //why no work? GALDO

@@ -64,11 +64,7 @@ public class ClimbCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 if(SuperStructure.isExtendedMagazine()){
-                    if (climb.getPosition() > ClimbConstnats.CLOSE_POSITION + 0.01 ) {
-                        climb.setVoltage(-0.8);
-                    } else {
-                        climb.setVoltage(-0.3);
-                    }
+                    climb.setPosition(0.182,0.19);
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
@@ -87,14 +83,14 @@ public class ClimbCommand extends SubsystemCommand {
                 break;
             case "EXTEND":
                 if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.089,0.19);
+                    climb.setPosition(0.182,0.19);//0.089
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
                 break;
             case "HOLD":
             if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.089,0.19);
+                    climb.setPosition(0.182,0.19);//0/089
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }

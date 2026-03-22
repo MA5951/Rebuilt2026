@@ -36,7 +36,7 @@ public class Sandwich extends PowerControlledSystem {
     private boolean canShoot() {
         return (SuperStructure.atPointForShooting()) &&
                 ((RobotContainer.getRobotState() == RobotConstants.SHOOTING
-                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS)) ;
+                        || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS || RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED)) ;
     }
 
     private boolean canIntake() {

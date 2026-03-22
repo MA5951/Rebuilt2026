@@ -47,7 +47,7 @@ public class SwerveConstants {
                         .withGearRatio(GearRatio.L2);
 
         // PID Controllers
-        public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.06, 0, 0)
+        public static final PIDController ABS_PID_CONTROLLER = new PIDController(0.06, 0, 0)//0.06//0.09
                         .withContinuesInput(-180, 180)
                         .withTolerance(5);
 
@@ -88,8 +88,10 @@ public class SwerveConstants {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); // setPointLimiterAbs.calculate(
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                
                         })
-                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER)
+              ;
 
         public static final SwerveState SHOOTING_REL = new SwerveState("Shooting Relative")
                         .withOnStateEnter(() -> {
@@ -99,35 +101,23 @@ public class SwerveConstants {
                                                 VisionConstants.FRONT_LL.getCameraIO().getTag().id));// setPointLimiterRel.calculate()
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(
                                                 () -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc);
+                                                
 
                         })
 
-                        .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+                        .withSpeeds(ANGLE_ADJUST_CONTROLLER)
+                        ;
 
         public static final SwerveState SHOOTING_ABS_UNLOCKED = new SwerveState("Shooting Absolute Unlocked")
                         .withOnStateEnter(() -> {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTarget()); // setPointLimiterAbs.calculate(
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTargetFuter());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                                 FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1);
                         })
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);
 
-        public static final SwerveState SHOOTING_REL_UNLOCKED = new SwerveState("Shooting Relative Unlocked")
-                        .withOnStateEnter(() -> {
-
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(REL_PID_CONTROLLER);
-                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getSetPointForShootingRel(
-                                                VisionConstants.FRONT_LL.getCameraIO().getTag().id));// setPointLimiterRel.calculate()
-                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(
-                                                () -> VisionConstants.FRONT_LL.getCameraIO().getTag().txnc);
-                                FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1);
-
-                        })
-
-                        .withOmega(ANGLE_ADJUST_CONTROLLER)
-                        .withXY(FIELD_CENTRIC_DRIVE);
 
         public static final SwerveState FEEDING = new SwerveState("Feeding")
                         .withOnStateEnter(() -> {

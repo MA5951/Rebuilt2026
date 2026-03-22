@@ -37,6 +37,7 @@ public class KickerCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 kicker.setVoltage(KickerConstants.SHOOTING_VOLTAGE);
+               // kicker.setVoltage(2);
                 break;
             case "UNSTUCK":
                 kicker.setVoltage(KickerConstants.UNSTUCK_VOLTAGE);

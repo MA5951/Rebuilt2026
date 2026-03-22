@@ -43,6 +43,8 @@ public class RollerCommand extends SubsystemCommand {
 
                 // if (!SuperStructure.isBallsInSandwich()) {
                     roller.setVoltage(6);
+                   // roller.setVoltage(2);
+
                 // } else {
                 //   roller.setVoltage(0);
                 // }
