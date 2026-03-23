@@ -20,6 +20,7 @@ public class AprilTagFilters {
 
     // Cache latest data to ensure XY and Omega use the same frame
     private PoseEstimate lastEstimate;
+    private Pose2d lastPose = new Pose2d();
     private RawFiducial lastTag;
     private double lastCaptureTime, fomCof;
 
@@ -62,6 +63,9 @@ public class AprilTagFilters {
 
     /** Calculates FOM for Omega Rotation (0..1) */
     public double getOFOM() {
+        if (lastPose.getX() == -1 && isBasicValid()) {
+            return 0.6;
+        }
         if (!isBasicValid()) return 0.0;
 
         // Since you are certain in your angle, we compare Vision Yaw vs IMU Yaw
@@ -78,6 +82,8 @@ public class AprilTagFilters {
                           (config.hardYawGateDeg - config.softYawFullTrustDeg);
             trustTheta = 0.5 * (1.0 + Math.cos(Math.PI * norm));
         }
+
+        lastPose = lastEstimate.pose;
 
         return clamp01(trustTheta * calculateGeometricTrust()) * fomCof;
     }

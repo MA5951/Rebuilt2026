@@ -51,6 +51,10 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(5);
 
+        public static final PIDController ABS_PID_MOTION_CONTROLLER = new PIDController(0.075, 0, 0)//0.06//0.09
+                        .withContinuesInput(-180, 180)
+                        .withTolerance(5);
+
         public static final PIDController REL_PID_CONTROLLER = new PIDController(0.046, 0, 0)
                         .withContinuesInput(-180, 180)
                         .withTolerance(2);
@@ -110,10 +114,10 @@ public class SwerveConstants {
 
         public static final SwerveState SHOOTING_ABS_UNLOCKED = new SwerveState("Shooting Absolute Unlocked")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_MOTION_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTargetFuter());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
-                                FIELD_CENTRIC_DRIVE.withSclers(0.1, 0.1);
+                                FIELD_CENTRIC_DRIVE.withSclers(0.13, 0.1);
                         })
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);

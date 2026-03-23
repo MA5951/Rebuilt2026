@@ -106,8 +106,8 @@ public class SuperStructure extends DeafultSuperStructure {
     { 3.936, 3600.0 },
     { 3.756, 3550.0 },
     { 3.587, 3500.0 },
-    { 3.428, 3490.0 },
-    { 3.244, 3490.0 },
+    { 3.428, 3450.0 },
+    { 3.244, 3430.0 },
     { 3.109, 3350.0 },
     { 2.986, 3300.0 },
     { 2.892, 3300.0 },
@@ -378,21 +378,21 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 80  * shootingFactor; // - 60;//-50
+            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 10 - (shooterTable.interpolate(x)/45)  * shootingFactor; // - 60;//-50
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 80  * shootingFactor; // - 60;,
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 10 - (shooterTable.interpolate(x)/45) * shootingFactor; // - 60;,
                                                                                                             // 125
     }
 
     private static double getHoodAngle(double distance) {
 
-        if (hoodTable.interpolate(distance) - 2.7 < 10 && (RobotContainer.getRobotState() == RobotConstants.FEEDING
+        if (hoodTable.interpolate(distance) - 1 < 10 && (RobotContainer.getRobotState() == RobotConstants.FEEDING
                 || RobotContainer.getRobotState() == RobotConstants.FEEDING_IN_MOTION)) {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 2;// -2 , -1
+        return hoodTable.interpolate(distance) - 1;// -2 , -1
 
     }
 
@@ -433,7 +433,7 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getDistanceToTargetShooting() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
             return GeometryUtil
-                    .poseAdjust(PoseEstimator.getCurrentPose(),
+                    .poseAdjust(PoseEstimator.getPoseLookAhead(0.75, Swerve.getInstance().getChassisSpeeds()),
                             VisionConstants.FRONTLL_OFFSET)
                     .getDistance(Field.getHub());
         }

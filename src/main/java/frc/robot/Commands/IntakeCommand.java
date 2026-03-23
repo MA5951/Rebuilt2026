@@ -4,6 +4,7 @@ package frc.robot.Commands;
 import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.Dashboard;
 import frc.robot.RobotControl.SuperStructure;
@@ -25,8 +26,11 @@ public class IntakeCommand extends SubsystemCommand {
     public void Automatic() {
         switch (intakeroller.getCurrentState().stateName) {
             case "IDLE":
-                if (((((!SixBar.getInstance().atPoint(15) && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) || 
-                (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15))) ) && SixBar.getInstance().getCurrentState() != SixBar.HOMING) {
+                if (((((!SixBar.getInstance().atPoint(15)
+                        && SixBar.getInstance().getCurrentState() != SixBarConstants.COLLISION) ||
+                        (SixBar.getInstance().getCurrentState() == SixBarConstants.COLLISION
+                                && SixBar.getInstance().getPosition() < -SixBarConstants.BUMPER_ZONE_ANGLE - 15))))
+                        && SixBar.getInstance().getCurrentState() != SixBar.HOMING) {
                     intakeroller.setVoltage(4);
                 } else {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
@@ -37,31 +41,39 @@ public class IntakeCommand extends SubsystemCommand {
                 break;
 
             case "FORWARD":
-                intakeroller.setVoltage(8);//9//Swerve.getInstance().getVelocityVector() * 0.28 + 4.4// ((Swerve.getInstance().getVelocityVector() * 0.55 + 4)*  0.9)*Dashboard.getIntakeFactor()
+                if (SixBar.getInstance().getPosition() < -45) {
+                    if (DriverStation.isAutonomous()) {
+                        intakeroller.setVoltage(9);
+                    } else {
+                        intakeroller.setVoltage(7);
+                    }
+                } else {
+                    intakeroller.setVoltage(0);
+                }
                 break;
             case "BACKWARD":
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);
                 break;
             case "SHOOTING":
                 // if (SixBar.getInstance().atPoint(3)) {
-                //     intakeroller.setVoltage(0);
+                // intakeroller.setVoltage(0);
                 // } else {
-                //     intakeroller.setVoltage(4);
+                // intakeroller.setVoltage(4);
                 // }
-                if (SixBar.getInstance().atPoint(3) && SixBar.getInstance().getPosition()> -55) {
+                if (SixBar.getInstance().atPoint(3) && SixBar.getInstance().getPosition() > -55) {
                     intakeroller.setVoltage(-6);
                 } else {
                     intakeroller.setVoltage(6);
                 }
-            break;
+                break;
         }
     }
 
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getR1()) {
-            intakeroller.setVoltage(8); //TODO move to constants/use the saame value as automatic
-        } else if (RobotContainer.getOperatorController().getL1()){
+            intakeroller.setVoltage(8); // TODO move to constants/use the saame value as automatic
+        } else if (RobotContainer.getOperatorController().getL1()) {
             intakeroller.setVoltage(-8);
         } else {
             intakeroller.setVoltage(0);

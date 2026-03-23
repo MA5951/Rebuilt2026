@@ -105,7 +105,7 @@ public class RobotConstants {
         },
                         ShooterConstants.SHOOTING, SandwichConstants.SHOOTING,
                         RollerConstants.SHOOTING, TransferConstants.SHOOTING, HoodConstants.SHOOTING,
-                        SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING, KickerConstants.SHOOTING);
+                        SixBarConstants.DEPLOY, IntakeRollerConstants.FORWARD, KickerConstants.SHOOTING);
 
         public static final MRobotState SHOOTING_PRESETS = new MRobotState("SHOOTING_PRESETS", () -> {
                 SuperStructure.atPointLatch = false;
@@ -120,7 +120,10 @@ public class RobotConstants {
         public static final MRobotState EJECT = new MRobotState("EJECT", () -> {
         }, () -> SixBar.getInstance().setState(SixBar.getInstance().getLastState()),
                         SandwichConstants.EJECT, RollerConstants.EJECT, TransferConstants.EJECT, HoodConstants.EJECT,
-                        ShooterConstants.EJECT, KickerConstants.EJECT, SixBarConstants.SHOOTING);
+                        ShooterConstants.EJECT, KickerConstants.EJECT, SixBarConstants.SHOOTING, IntakeRollerConstants.SHOOTING);
+
+        public static final MRobotState INTAKE_EJECT = new MRobotState("INTAKE_EJECT", () -> {
+        }, SixBarConstants.DEPLOY, IntakeRollerConstants.BACKWARD);
 
         public static final MRobotState UNSTUCK = new MRobotState("UNSTUCK",
                         SandwichConstants.UNSTUCK, RollerConstants.UNSTUCK, TransferConstants.UNSTUCK,
