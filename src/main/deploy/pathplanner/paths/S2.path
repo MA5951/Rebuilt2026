@@ -32,28 +32,28 @@
     },
     {
       "anchor": {
-        "x": 9.512111269611259,
-        "y": 6.1116547788897835
+        "x": 8.761669044222538,
+        "y": 7.094992867332382
       },
       "prevControl": {
-        "x": 9.262213247996087,
-        "y": 6.104514835415064
+        "x": 8.511771022607366,
+        "y": 7.087852923857663
       },
       "nextControl": {
-        "x": 9.964964336658333,
-        "y": 6.124593437948271
+        "x": 9.214522111269613,
+        "y": 7.10793152639087
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 9.732068473605553,
-        "y": 4.0673466476487
+        "x": 9.680313837375177,
+        "y": 4.778972895863053
       },
       "prevControl": {
-        "x": 9.680313837371601,
-        "y": 4.934236804567387
+        "x": 9.654436519258203,
+        "y": 7.107931526390869
       },
       "nextControl": null,
       "isLocked": false,
@@ -82,35 +82,9 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0.26738690074274446,
-      "maxWaypointRelativePos": 1.0938555030384811,
+      "maxWaypointRelativePos": 1.0047265361242457,
       "constraints": {
-        "maxVelocity": 2.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 11.5,
-        "unlimited": false
-      }
-    },
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 1.6853477380148578,
-      "maxWaypointRelativePos": 3.0,
-      "constraints": {
-        "maxVelocity": 1.0,
-        "maxAcceleration": 3.0,
-        "maxAngularVelocity": 540.0,
-        "maxAngularAcceleration": 720.0,
-        "nominalVoltage": 11.5,
-        "unlimited": false
-      }
-    },
-    {
-      "name": "Constraints Zone",
-      "minWaypointRelativePos": 2.0904794058068816,
-      "maxWaypointRelativePos": 2.284942606347064,
-      "constraints": {
-        "maxVelocity": 0.2,
+        "maxVelocity": 2.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -149,7 +123,7 @@
   "folder": "Solor1",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -45.0
+    "rotation": -59.99999999999999
   },
   "useDefaultConstraints": true
 }

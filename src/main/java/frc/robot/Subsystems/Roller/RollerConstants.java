@@ -12,7 +12,7 @@ import frc.robot.PortMap;
 public class RollerConstants {
 
         public static final double IDLE_VOLTAGE = 0;
-        public static final double INTAKE_VOLTAGE = -3;
+        public static final double INTAKE_VOLTAGE = -2;
         public static final double FEEDING_IN_MOTION_VOLTAGE = 3.0;
         public static final double EJECT_VOLTAGE = 5.0;
         public static final double FEEDING_VOLTAGE = 6.0;

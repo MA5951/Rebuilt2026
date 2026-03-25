@@ -97,7 +97,7 @@ public class SwerveModuleTalonFX implements SwerveModuleIO {
                 turnCurrent); //TODO replace with constance
 
         StatusSignalsRunner.registerSignals(constants.MODULES_ID_ARRY[0].getDriveMotor() , driveVelocity, driveAppliedVolts,
-                driveCurrent, turnVelocity, turnAppliedVolts, turnCurrent, drivePosition, turnPosition);
+                driveCurrent, turnVelocity, turnAppliedVolts, turnCurrent, drivePosition, turnPosition, turnAbsolutePosition);
 
     }
 

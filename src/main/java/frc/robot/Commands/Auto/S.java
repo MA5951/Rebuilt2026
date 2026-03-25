@@ -12,7 +12,7 @@ import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 public class S extends SequentialCommandGroup {
   public S() {
     addCommands(
-      SwerveAutoFollower.followPath("S1"),
+      SwerveAutoFollower.followPath("S3"),
       new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
       new ParallelDeadlineGroup(new WaitCommand(9), new SwerveAutoController()),
       new InstantCommand(()-> RobotConstants.IDLE_INTAKE.setState()),

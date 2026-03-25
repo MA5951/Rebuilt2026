@@ -51,7 +51,7 @@ public class SwerveConstants {
                         .withContinuesInput(-180, 180)
                         .withTolerance(5);
 
-        public static final PIDController ABS_PID_MOTION_CONTROLLER = new PIDController(0.075, 0, 0)//0.06//0.09
+        public static final PIDController ABS_PID_MOTION_CONTROLLER = new PIDController(0.1, 0, 0)//0.06//0.09
                         .withContinuesInput(-180, 180)
                         .withTolerance(5);
 

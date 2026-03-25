@@ -74,6 +74,10 @@ public interface MAController {
         return getRightX(true, 1) == 0 && getLeftX(true, 1) == 0 && getLeftY(true, 1) == 0;
     }
 
+    default public boolean inDeadbound(double deadbound) {
+        return getRightX(true, 1) == 0 && getLeftX(true, 1) == 0 && getLeftY(true, 1) == 0;
+    }
+
     default public void log() {
         MALog.log("Controllers/" + getPort() + "/L1", getL1());
         MALog.log("Controllers/" + getPort() + "/L2", getL2());
