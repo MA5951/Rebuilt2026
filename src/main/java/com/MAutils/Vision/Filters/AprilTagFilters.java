@@ -51,19 +51,19 @@ public class AprilTagFilters {
         if (!isBasicValid()) return 0.0;
 
         // 1. Motion Gate (Innovation)
-        double motionTrust = calculateMotionTrust();
-        if (motionTrust <= 0) return 0.0;
+        //double motionTrust = calculateMotionTrust();
+        // if (motionTrust <= 0) return 0.0;
 
         // 2. Geometric / Range Trust
         double geomTrust = calculateGeometricTrust();
 
         // 3. Final Combined XY FOM
-        return clamp01((motionTrust + geomTrust) / 2 ) * fomCof;//m
+        return clamp01(( geomTrust) / 2 ) * fomCof;//m
     }
 
     /** Calculates FOM for Omega Rotation (0..1) */
     public double getOFOM() {
-        if (lastPose.getX() == -1 && isBasicValid()) {
+        if (lastPose.getX() == 0 && isBasicNone0()) {
             return 0.6;
         }
         if (!isBasicValid()) return 0.0;
@@ -91,6 +91,19 @@ public class AprilTagFilters {
     // ===================== Modular Filter Blocks =====================
 
     private boolean isBasicValid() {
+        if (lastEstimate == null || lastEstimate.pose == null || lastTag == null) return false;
+        if (lastEstimate.tagCount < config.minTagsSeen) return false;
+        if (lastTag.ambiguity > config.maxAmbiguity) return false;
+        if (!FiltersConfig.fieldRactangle.contains(lastEstimate.pose.getTranslation())) return false;
+        if (Math.abs(imuYawVelocitySupplier.get()) > 150) return false;
+        
+        // Zero-check (prevent Limelight boot-up glitches)
+        if (Math.abs(lastEstimate.pose.getX()) < 1e-3) return false;
+        
+        return true;
+    }
+
+    private boolean isBasicNone0() {
         if (lastEstimate == null || lastEstimate.pose == null || lastTag == null) return false;
         if (lastEstimate.tagCount < config.minTagsSeen) return false;
         if (lastTag.ambiguity > config.maxAmbiguity) return false;

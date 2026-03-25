@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 /*
  * Estimates the robot's pose using swerve drive odometry.
@@ -125,8 +126,7 @@ public class SwerveDriveEstimator {
         collisionDetector.calculateCollision();
 
         if (collisionDetector.getForceVector() < SKIP_ODOMETRY_Gs 
-                && Math.abs(swerveSystem.getGyroData().pitch) < MAX_UPDATE_ANGLE
-                && Math.abs(swerveSystem.getGyroData().roll) < MAX_UPDATE_ANGLE) {
+                && swerveSystem.getTiltAngle() < MAX_UPDATE_ANGLE) {
 
             loopTwistSum.dx = 0;
             loopTwistSum.dy = 0;

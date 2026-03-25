@@ -116,6 +116,10 @@ public class SwerveSystem extends SubsystemBase {
                 swerveConstants.modulesLocationArry);
     }
 
+    public double getTiltAngle() {
+        return Math.sqrt(Math.pow(getGyroData().roll, 2) + Math.pow(getGyroData().pitch, 2));
+    }
+
     public SwerveSystemConstants getSwerveConstants() {
         return swerveConstants;
     }

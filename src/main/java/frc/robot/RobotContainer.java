@@ -235,6 +235,7 @@ public class RobotContainer extends DeafultRobotContainer {
                 new Trigger(() -> (((!SuperStructure.isBalls()) || (!SuperStructure.isInWarmUpZone())))
                                 && getRobotState() != RobotConstants.SHOOTING
                                 && getRobotState() != RobotConstants.SHOOTING_PRESETS
+                                && getRobotState() != RobotConstants.SHOOTING_UNLOCKED
                                 && getRobotState() != RobotConstants.FEEDING
                                 && getRobotState() != RobotConstants.FEEDING_IN_MOTION
                                 && getRobotState() != RobotConstants.EJECT)

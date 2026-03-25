@@ -182,7 +182,6 @@ public class Robot extends DeafultRobot {
   @Override
   public void disabledInit() {
     super.disabledInit();
-    RobotConstants.IDLE.setState();
     Swerve.getInstance().drive(new ChassisSpeeds());
   }
 

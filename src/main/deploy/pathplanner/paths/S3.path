@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 9.17570613409415,
-        "y": 5.749372325249644
+        "x": 8.865178316690441,
+        "y": 5.943452211126962
       },
       "prevControl": {
-        "x": 7.209029957203994,
-        "y": 5.723495007132667
+        "x": 6.898502139800285,
+        "y": 5.917574893009984
       },
       "nextControl": {
-        "x": 9.684399908262453,
-        "y": 5.7560656643834385
+        "x": 9.373872090858743,
+        "y": 5.950145550260756
       },
       "isLocked": false,
       "linkedName": null
@@ -48,11 +48,11 @@
     },
     {
       "anchor": {
-        "x": 2.2535235378031384,
+        "x": 2.4864194008559197,
         "y": 5.117
       },
       "prevControl": {
-        "x": 3.2239229671897296,
+        "x": 3.456818830242511,
         "y": 5.104061340941511
       },
       "nextControl": null,
@@ -91,7 +91,7 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0.5752869682646855,
-      "maxWaypointRelativePos": 1.4584740040513173,
+      "maxWaypointRelativePos": 1.2397029034436287,
       "constraints": {
         "maxVelocity": 0.85,
         "maxAcceleration": 3.0,
@@ -106,11 +106,24 @@
       "minWaypointRelativePos": 1.9770425388251116,
       "maxWaypointRelativePos": 2.714382174206619,
       "constraints": {
-        "maxVelocity": 3.0,
+        "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 11.5,
+        "unlimited": false
+      }
+    },
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.3288318703578543,
+      "maxWaypointRelativePos": 1.920324105334225,
+      "constraints": {
+        "maxVelocity": 4.0,
+        "maxAcceleration": 6.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
         "unlimited": false
       }
     }
@@ -139,7 +152,7 @@
   },
   "goalEndState": {
     "velocity": 0.0,
-    "rotation": -59.99999999999999
+    "rotation": -48.00000000000001
   },
   "reversed": false,
   "folder": "Solor1",

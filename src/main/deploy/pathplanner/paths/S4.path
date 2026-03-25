@@ -1,0 +1,97 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.774607703281026,
+        "y": 3.925021398002854
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.253338088445078,
+        "y": 8.207717546362339
+      },
+      "isLocked": false,
+      "linkedName": "S2 End"
+    },
+    {
+      "anchor": {
+        "x": 5.953980028530669,
+        "y": 5.374151212553495
+      },
+      "prevControl": {
+        "x": 6.953372146268557,
+        "y": 5.3392886968184525
+      },
+      "nextControl": {
+        "x": 4.841255349500712,
+        "y": 5.412967189728959
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.693437945791726,
+        "y": 5.374151212553495
+      },
+      "prevControl": {
+        "x": 3.935549215406562,
+        "y": 5.425905848787448
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.09808102345415588,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 0.989339019189763,
+      "rotationDegrees": -45.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 1.0641458474004124,
+      "maxWaypointRelativePos": 1.7987846049966165,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 6.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.0,
+    "maxAcceleration": 6.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -45.0
+  },
+  "reversed": false,
+  "folder": "Solor1",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": false
+}

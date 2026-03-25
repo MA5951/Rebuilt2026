@@ -1,6 +1,7 @@
 
 package frc.robot.Subsystems.Swerve;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Swerve.SwerveSystem;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -46,8 +47,8 @@ public class Swerve extends SwerveSystem{
         if (Math.abs(getGyroData().roll) > 8 || Math.abs(getGyroData().pitch) > 8) {
             isRampFlag = true;
         }
-        
 
+        MALog.log("/Subsystems/Swerve/tiltAngle", getTiltAngle());
     }
 
     public void resetRampFlag() {
@@ -64,6 +65,8 @@ public class Swerve extends SwerveSystem{
         lastSpeed = Math.abs(lastSpeed);
         return (deltaSpeed < 0.03) && (Math.abs(getSwerveModuleData()[1].driveCurrent)> 15);
     }
+
+
    
 
     public static Swerve getInstance() {
