@@ -1,23 +1,20 @@
 
-
 package frc.robot.Commands;
 
 import com.MAutils.DashBoard.Tunable;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
-
 
 public class HoodCommand extends SubsystemCommand {
     private static final Hood hood = Hood.getInstance();
 
     private double manuelPosition = 20;
     private static Debouncer homingDebouncer = new Debouncer(0.2);
-
-
 
     public HoodCommand() {
         super(hood);
@@ -32,7 +29,17 @@ public class HoodCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 if (SuperStructure.isAutomatic()) {
-                   hood.setPosition(SuperStructure.getShootingParameters().hoodAngle());//
+                    // if ((int) Timer.getFPGATimestamp() - SuperStructure.startShootingTime % 2 ==
+                    // 0) {
+                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() - 0.5);
+                    // } else {
+                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() + 0.5);
+                    // }
+
+                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
+                    //         + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
+                    //                 * 0.3));
+                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
                 } else {
                     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
                 }
@@ -61,26 +68,25 @@ public class HoodCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         // if (manuelPosition < HoodConstants.MIN_POSITION) {
-        //     manuelPosition = HoodConstants.MIN_POSITION;
+        // manuelPosition = HoodConstants.MIN_POSITION;
         // } else if (manuelPosition > HoodConstants.MAX_POSITION) {
-        //     manuelPosition = HoodConstants.MAX_POSITION;
+        // manuelPosition = HoodConstants.MAX_POSITION;
         // }
 
         // if (RobotContainer.getOperatorController().getDpadUp()) {
-        //     //manuelPosition += HoodConstants.MANUAL_INCREMENT; 
-        //     hood.setVoltage(1);
-        // }   else if (RobotContainer.getOperatorController().getDpadDown()) {
-        //     //manuelPosition -= HoodConstants.MANUAL_INCREMENT;
-        //     hood.setVoltage(-1);
-        // }  else {
-        //     hood.setVoltage(0);
+        // //manuelPosition += HoodConstants.MANUAL_INCREMENT;
+        // hood.setVoltage(1);
+        // } else if (RobotContainer.getOperatorController().getDpadDown()) {
+        // //manuelPosition -= HoodConstants.MANUAL_INCREMENT;
+        // hood.setVoltage(-1);
+        // } else {
+        // hood.setVoltage(0);
         // }
 
-
         // if (RobotContainer.getOperatorController().getActionsLeft()) {
-        //     manuelPosition = 23;
+        // manuelPosition = 23;
         // } else if (RobotContainer.getOperatorController().getActionsRight()) {
-        //     manuelPosition = 5;
+        // manuelPosition = 5;
         // }
         hood.setPosition(hood.getHoodPosition());
     }

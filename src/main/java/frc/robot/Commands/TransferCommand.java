@@ -3,9 +3,13 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
+import frc.robot.Subsystems.Roller.Roller;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
@@ -13,6 +17,7 @@ import frc.robot.Subsystems.Transfer.TransferConstants;
 
 public class TransferCommand extends SubsystemCommand {
     private static Transfer transfer = Transfer.getInstance();
+    private double endTime = 0;
 
     public TransferCommand() {
         super(transfer);
@@ -47,7 +52,31 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                transfer.setVoltage(SuperStructure.getTransferSinVoltage());
+                // if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+                //     transfer.setVoltage(4);
+                // } else {
+                //     transfer.setVoltage(SuperStructure.getTransferSinVoltage());
+                // }
+
+                // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime < 3) {
+                //     transfer.setVoltage(4 + Timer.getFPGATimestamp() - SuperStructure.startShootingTime);
+                // } else {
+                //     transfer.setVoltage(7);
+                // }
+
+                //   if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime > 1) {
+                //     if (Roller.getInstance().getCurrent() > 25 || Timer.getFPGATimestamp() - endTime < 0.3) {
+                //         endTime = Timer.getFPGATimestamp();
+                //         transfer.setVoltage(0);
+                //     } else {
+                //         transfer.setVoltage(7);
+                //     }\
+                //   } else {
+                    transfer.setVoltage(7);
+                //   }
+
+                // transfer.setVoltage(7);
+
                 // if (!SuperStructure.isBallsInSandwich()) {
                 //     transfer.setVoltage(8);
                 // } else {

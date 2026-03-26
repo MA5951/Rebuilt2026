@@ -61,8 +61,7 @@ public class FieldCentricDrive extends SwerveController {
     public void updateSpeeds() {
         speeds.vxMetersPerSecond = -controller.getLeftY(true, xyScaler) * constants.MAX_VELOCITY;
         speeds.vyMetersPerSecond = -controller.getLeftX(true, xyScaler) * constants.MAX_VELOCITY;
-        speeds.omegaRadiansPerSecond = tunrLimite
-                .calculate(-controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY);// (Math.pow(-controller.getRightX(true,
+        speeds.omegaRadiansPerSecond = -controller.getRightX(true, omegaScaler) * constants.MAX_ANGULAR_VELOCITY;// (Math.pow(-controller.getRightX(true,
                                                                                                       // omegaScaler),2)*(Math.abs(-controller.getRightX(true,
                                                                                                       // omegaScaler) )
                                                                                                       // *

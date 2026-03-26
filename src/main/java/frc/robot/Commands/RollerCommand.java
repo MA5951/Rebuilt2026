@@ -3,6 +3,7 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Roller.Roller;
@@ -10,6 +11,7 @@ import frc.robot.Subsystems.Roller.RollerConstants;
 
 public class RollerCommand extends SubsystemCommand {
     private static final Roller roller = Roller.getInstance();
+    private double endTime = 0;
 
     public RollerCommand() {
         super(roller);
@@ -41,8 +43,19 @@ public class RollerCommand extends SubsystemCommand {
                 //    roller.setVoltage(0);
                 // }
 
-                // if (!SuperStructure.isBallsInSandwich()) {
+                // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime > 1) {
+                //     if (Roller.getInstance().getCurrent() > 25 || Timer.getFPGATimestamp() - endTime < 0.3) {
+                //         endTime = Timer.getFPGATimestamp();
+                //         roller.setVoltage(0);
+                //     } else {
+                //         roller.setVoltage(6);
+                //     }
+                //   } else {
                     roller.setVoltage(6);
+                //   }
+
+                // if (!SuperStructure.isBallsInSandwich()) {
+                    // roller.setVoltage(6);
                    // roller.setVoltage(2);
 
                 // } else {

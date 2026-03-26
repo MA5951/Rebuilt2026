@@ -122,7 +122,7 @@ public class SwerveDriveEstimator {
 
     // Update
     public void updateOdometry() {
-        skidDetector.calculateSkid();
+        //skidDetector.calculateSkid();
         collisionDetector.calculateCollision();
 
         if (collisionDetector.getForceVector() < SKIP_ODOMETRY_Gs 

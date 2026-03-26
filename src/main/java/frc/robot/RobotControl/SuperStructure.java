@@ -71,8 +71,8 @@ public class SuperStructure extends DeafultSuperStructure {
     { 3.587, 21.0 },
     { 3.428, 20.0 },
     { 3.244, 19.5 },
-    { 3.109, 17.5 },
-    { 2.986, 17 },
+    { 3.109, 17 },
+    { 2.986, 16 },
     { 2.892, 15.5 },
     { 2.795, 15.5 },
     { 2.691, 14.5 },
@@ -107,9 +107,9 @@ public class SuperStructure extends DeafultSuperStructure {
     { 3.756, 3550.0 },
     { 3.587, 3500.0 },
     { 3.428, 3450.0 },
-    { 3.244, 3430.0 },
-    { 3.109, 3350.0 },
-    { 2.986, 3300.0 },
+    { 3.244, 3450.0 },
+    { 3.109, 3450.0 },
+    { 2.986, 3400.0 },
     { 2.892, 3300.0 },
     { 2.795, 3300.0 },
     { 2.691, 3200.0 },
@@ -273,10 +273,10 @@ public class SuperStructure extends DeafultSuperStructure {
     public static double getAbsAngleToTargetFuter() {
 
         double xDis = Field.getHub().getX()
-                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1, Swerve.getInstance().getChassisSpeeds()),
+                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1.1, Swerve.getInstance().getChassisSpeeds()),
                         VisionConstants.FRONTLL_OFFSET).getX();
         double yDis = Field.getHub().getY()
-                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1, Swerve.getInstance().getChassisSpeeds()),
+                - GeometryUtil.poseAdjust(PoseEstimator.getPoseLookAhead(1.1, Swerve.getInstance().getChassisSpeeds()),
                         VisionConstants.FRONTLL_OFFSET).getY();
         double angle = Math.atan2(yDis, xDis);
 
@@ -378,10 +378,10 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
-            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 10 - (shooterTable.interpolate(x)/45)  * shootingFactor; // - 60;//-50
+            return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 20 - (shooterTable.interpolate(x)/45)  * shootingFactor; // - 60;//-50
         }
 
-        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) - 10 - (shooterTable.interpolate(x)/45) * shootingFactor; // - 60;,
+        return shooterTable.interpolate(x) > 6000 ? 0 : shooterTable.interpolate(x) + 20 - (shooterTable.interpolate(x)/45) * shootingFactor; // - 60;,
                                                                                                             // 125
     }
 
@@ -433,16 +433,16 @@ public class SuperStructure extends DeafultSuperStructure {
     private static double getDistanceToTargetShooting() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
             return GeometryUtil
-                    .poseAdjust(PoseEstimator.getPoseLookAhead(0.75, Swerve.getInstance().getChassisSpeeds()),
+                    .poseAdjust(PoseEstimator.getPoseLookAhead(0.89, Swerve.getInstance().getChassisSpeeds()),
                             VisionConstants.FRONTLL_OFFSET)
                     .getDistance(Field.getHub());
         }
 
-        if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL
-                && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// && VisionConstants.FRONT_LL.getCameraIO().isTag()
+        // if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL
+        //         && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// && VisionConstants.FRONT_LL.getCameraIO().isTag()
 
-            return getRelativDistanceToHub();
-        }
+        //     return getRelativDistanceToHub();
+        // }
 
         return getAbsDistanceToHub();
 
@@ -488,7 +488,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public static boolean atPointForShooting() {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting())
-                && Hood.getInstance().atPointForShooting()
+                && ((Hood.getInstance().atPointForShooting() && (RobotContainer.getRobotState() == RobotConstants.SHOOTING || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS)) || (Hood.getInstance().atPoint(2) && RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED))
                 && (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic()));
 
     }
@@ -562,9 +562,9 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double getSetPointForShootingRel(double id) {
         if (id == 27 || id == 11) {
-            return 2;
+            return -5;
         } else if (id == 24 || id == 8) {
-            return -2;
+            return 5;
         } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() > Field.WIDTH / 2) {
             return -5;
         } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
