@@ -116,6 +116,7 @@ public class Robot extends DeafultRobot {
   @Override
   public void autonomousInit() {
     super.autonomousInit();
+    ActiveUtil.setIsMyFirstShift(false);
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);
@@ -146,7 +147,6 @@ public class Robot extends DeafultRobot {
   public void teleopInit() {
     super.teleopInit();
     ActiveUtil.startTeleop();
-
     CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
 
     if (!SixBarCommand.isReset) {

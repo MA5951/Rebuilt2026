@@ -52,11 +52,11 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                // if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
-                //     transfer.setVoltage(4);
-                // } else {
-                //     transfer.setVoltage(SuperStructure.getTransferSinVoltage());
-                // }
+                if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+                    transfer.setVoltage(4);
+                } else {
+                    transfer.setVoltage(SuperStructure.getTransferSinVoltage());
+                 }
 
                 // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime < 3) {
                 //     transfer.setVoltage(4 + Timer.getFPGATimestamp() - SuperStructure.startShootingTime);
@@ -72,7 +72,7 @@ public class TransferCommand extends SubsystemCommand {
                 //         transfer.setVoltage(7);
                 //     }\
                 //   } else {
-                    transfer.setVoltage(7);
+                    // transfer.setVoltage(7);
                 //   }
 
                 // transfer.setVoltage(7);
