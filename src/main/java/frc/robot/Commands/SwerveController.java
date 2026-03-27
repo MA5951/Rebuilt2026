@@ -25,46 +25,53 @@ public class SwerveController extends SwerveSystemController {
     public void SetSwerveState() {
 
         // if ( ((swerveSystem.getState() == SwerveConstants.SHOOTING_REL
-        //         || swerveSystem.getState() == SwerveConstants.SHOOTING_ABS) && ((
-        //                 SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) && SuperStructure.isAutomatic()) || atPointLock )) {
-        //     setState(SwerveConstants.NONE);
-        //     atPointLock = true;
+        // || swerveSystem.getState() == SwerveConstants.SHOOTING_ABS) && ((
+        // SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) &&
+        // SuperStructure.isAutomatic()) || atPointLock )) {
+        // setState(SwerveConstants.NONE);
+        // atPointLock = true;
         // } else {
-            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
+                (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
+                        && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
 
-                 if (SuperStructure.isMainTag() && isAbs < 3) {
-                     setState(SwerveConstants.SHOOTING_REL);
-                     if (isAbs == 1) {
-                         isAbs = 2;
-                     }
-                 } else {
-                    setState(SwerveConstants.SHOOTING_ABS);
-                     if (isAbs == 2 || isAbs == 3) {
-                         isAbs = 3;
-                     } else {
-                     isAbs = 1;
-                     }
-                 }
-                 
-                
-            } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
-                setState(SwerveConstants.SHOOTING_ABS_UNLOCKED);
-            } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
-                    (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
-                            && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
-                setState(SwerveConstants.FEEDING);
-            } else {
-                if (RobotContainer.getDriverController().getL2()) {
-                    setState(SwerveConstants.FIELD_CENTRIC_40);
-                } else {
-                    setState(SwerveConstants.FIELD_CENTRIC);
+            if (SuperStructure.isMainTag() && isAbs < 3) {
+                setState(SwerveConstants.SHOOTING_REL);
+                if (isAbs == 1) {
+                    isAbs = 2;
                 }
+            } else {
+                setState(SwerveConstants.SHOOTING_ABS);
+                if (isAbs == 2 || isAbs == 3) {
+                    isAbs = 3;
+                } else {
+                    isAbs = 1;
+                }
+            }
+
+        } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+            setState(SwerveConstants.SHOOTING_ABS_UNLOCKED);
+        } else if (RobotContainer.getRobotState() == RobotConstants.FEEDING ||
+                (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
+                        && RobotContainer.getLastRobotState() == RobotConstants.FEEDING)) {
+            setState(SwerveConstants.FEEDING);
+        } else {
+
+            if (RobotContainer.getDriverController().getL2()) {
+                // if (Swerve.getInstance().getTiltAngle() > 5) {
+                    // setState(SwerveConstants.RAMP_40);
+                // } else {
+                    setState(SwerveConstants.FIELD_CENTRIC_40);
+                // }
+            } else {
+                // if (Swerve.getInstance().getTiltAngle() > 5) {
+                    // setState(SwerveConstants.RAMP);
+                // } else {
+                    setState(SwerveConstants.FIELD_CENTRIC);
+                // }
+            }
             // }
         }
-
-
 
     }
 

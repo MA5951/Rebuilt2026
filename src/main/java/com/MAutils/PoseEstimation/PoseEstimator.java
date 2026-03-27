@@ -109,9 +109,9 @@ public class PoseEstimator {
         // NOTE: This assumes sources only report "unconsumed" late packets via hasBefore().
         // If a source keeps old packets forever and hasBefore() doesn't account for consumption,
         // it should be fixed inside that source (or implement PrunablePoseEstimatorSource).
-        if (hasLatePackets()) {
-            replayHistory();
-        }
+        // if (hasLatePackets()) {
+        //     replayHistory();
+        // }
 
         // Apply one step at 'now'
         applyAtTime(now, history, true);
@@ -144,7 +144,7 @@ public class PoseEstimator {
     }
 
     public static Pose2d getPoseLookAhead(double time, ChassisSpeeds speedsRobotRelativ) {
-        return currentPose.exp(
+        return PoseEstimator.getCurrentPose().exp(
                 new Twist2d(
                         speedsRobotRelativ.vxMetersPerSecond * time,
                         speedsRobotRelativ.vyMetersPerSecond * time,
@@ -307,7 +307,9 @@ public class PoseEstimator {
             return new Twist2d();
         }
 
-        
+       
+        MALog.log("Pose Estimator/sumofFOM/XY", sumFomXY);
+        MALog.log("Pose Estimator/sumofFOM/Theta", sumFomTheta);
 
         double outDx = hasXY ? (dxAcc / sumFomXY) : 0.0;
         double outDy = hasXY ? (dyAcc / sumFomXY) : 0.0;

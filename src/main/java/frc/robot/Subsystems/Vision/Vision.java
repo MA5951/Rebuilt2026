@@ -17,7 +17,7 @@ public class Vision {
 
     private Vision() {
         VisionSystem.getInstance()
-                .setCameras(VisionConstants.FRONT_LL, VisionConstants.BACK_LL);
+                .setCameras(VisionConstants.FRONT_LL , VisionConstants.BACK_LL);//
 
         lastTX = VisionConstants.FRONT_LL.getCameraIO().getTag().txnc;
     }

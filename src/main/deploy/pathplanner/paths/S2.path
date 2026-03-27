@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.4864194008559197,
-        "y": 5.117
+        "x": 2.5381740370898713,
+        "y": 5.218887303851641
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.7414693295256667,
-        "y": 5.167132667620169
+        "x": 3.7932239657596183,
+        "y": 5.269019971471811
       },
       "isLocked": false,
       "linkedName": "S1end"
@@ -129,7 +129,7 @@
   "folder": "Solor1",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -48.00000000000001
+    "rotation": -50.0
   },
   "useDefaultConstraints": true
 }

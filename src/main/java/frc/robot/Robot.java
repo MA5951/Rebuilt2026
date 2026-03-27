@@ -3,6 +3,7 @@ package frc.robot;
 
 import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimationMA;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobot;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
@@ -96,6 +97,7 @@ public class Robot extends DeafultRobot {
 
 
 
+
       Vision.getInstance().filterCornerTags();
     } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
       Vision.getInstance().filterHubTags();
@@ -107,9 +109,11 @@ public class Robot extends DeafultRobot {
       Swerve.getInstance().resetRampFlag();
       PoseEstimator.resetOutOfFieldFlag();
       PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
+      PoseEstimationMA.getInstance().resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
     }
 
     matchTime.update(MatchTime.kGameData2026.get());
+    PoseEstimationMA.getInstance().update();
 
   }
 
@@ -170,7 +174,9 @@ public class Robot extends DeafultRobot {
       MALog.log("ActiveUtil/Active Time", ActiveUtil.getTimeUntilActive());
     }
 
-    
+    MALog.log("ActiveUtil/Time until active", ActiveUtil.getTimeUntilActive());
+    MALog.log("ActiveUtil/Time In active", ActiveUtil.getTimeInActive());
+    MALog.log("ActiveUtil/Time past Active", ActiveUtil.getTimePastActive());
 
   }
 

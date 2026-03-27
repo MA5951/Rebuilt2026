@@ -19,7 +19,7 @@ public class AngleAdjustController extends SwerveController {
     public AngleAdjustController(SwerveSystemConstants swerveSystem, PIDController pidController) {
         super("Angle Adjust Controller");
         this.pidController = pidController;
-        this.angleSupplier = angleSupplier; //TODO ?
+        this.angleSupplier = () -> 0d; //TODO ?
 
         pidController.setSetpoint(angleOffset);
         //withGyroSupplier(() -> SwerveSystem.getInstance(swerveSystem).getAbsYaw()); //TODO GALDO

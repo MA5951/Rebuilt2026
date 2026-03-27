@@ -44,7 +44,7 @@ public class Swerve extends SwerveSystem{
     public void periodic() {
         super.periodic();
 
-        if (Math.abs(getGyroData().roll) > 8 || Math.abs(getGyroData().pitch) > 8) {
+        if (getTiltAngle() > 5) {
             isRampFlag = true;
         }
 

@@ -3,6 +3,7 @@ package com.MAutils.Auto;
 
 import com.MAutils.Logger.MALog;
 import com.MAutils.Logger.TelemetryLogger;
+import com.MAutils.PoseEstimation.PoseEstimationMA;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.MRobotState;
 

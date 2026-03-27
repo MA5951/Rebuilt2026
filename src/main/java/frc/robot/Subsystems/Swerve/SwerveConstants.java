@@ -83,10 +83,7 @@ public class SwerveConstants {
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35))
                         .withSpeeds(FIELD_CENTRIC_DRIVE);
 
-        public static final SwerveState RAMP = new SwerveState("RAMP")
-                        .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.4, 0.1))
-                        .withXY(FIELD_CENTRIC_DRIVE)
-                        .withOmega(ANGLE_ADJUST_CONTROLLER);
+        
 
         public static final SwerveState FIELD_CENTRIC_40 = new SwerveState("Field Centric 40 Precent")
                         .withOnStateEnter(() -> FIELD_CENTRIC_DRIVE.withSclers(0.3, 0.20))
@@ -122,7 +119,7 @@ public class SwerveConstants {
                                 ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_MOTION_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(() -> SuperStructure.getAbsAngleToTargetFuter());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
-                                FIELD_CENTRIC_DRIVE.withSclers(0.16, 0.1);
+                                FIELD_CENTRIC_DRIVE.withSclers(0.12, 0.1);
                         })
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);
@@ -135,6 +132,26 @@ public class SwerveConstants {
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                         })
                         .withSpeeds(ANGLE_ADJUST_CONTROLLER);
+
+        public static final SwerveState RAMP_40 = new SwerveState("RAMP")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getCloses45Deg());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                FIELD_CENTRIC_DRIVE.withSclers(0.3, 0.20);
+                        })
+                        .withOmega(ANGLE_ADJUST_CONTROLLER)
+                        .withXY(FIELD_CENTRIC_DRIVE);
+
+        public static final SwerveState RAMP = new SwerveState("RAMP")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getCloses45Deg());
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35);
+                        })
+                        .withOmega(ANGLE_ADJUST_CONTROLLER)
+                        .withXY(FIELD_CENTRIC_DRIVE);
 
         // public static final SwerveState FEEDING_IN_MOTION = new SwerveState("Feeding
         // In Motion")

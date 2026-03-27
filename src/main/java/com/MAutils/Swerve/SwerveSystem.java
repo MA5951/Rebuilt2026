@@ -7,6 +7,8 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimationMA;
+import com.MAutils.PoseEstimation.PoseEstimationMA.OdometryObservation;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.PoseEstimation.SwerveDriveEstimator;
 import com.MAutils.Simulation.Simulatables.SwerveSimulation;
@@ -37,7 +39,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 
 public class SwerveSystem extends SubsystemBase {
-    //private static SwerveSystem instance;
+    // private static SwerveSystem instance;
 
     private SwerveState currentState = new SwerveState("NONE");
     private SwerveDriveEstimator swerveDriveEstimator;
@@ -49,10 +51,11 @@ public class SwerveSystem extends SubsystemBase {
                     new SwerveModuleState(),
                     new SwerveModuleState(),
                     new SwerveModuleState()
-            }); //TODO what the point?
-    private Supplier<ModuleLimits> currentLimits; //TODO what the point? if you dont even have a set func for it, you should
+            }); // TODO what the point?
+    private Supplier<ModuleLimits> currentLimits; // TODO what the point? if you dont even have a set func for it, you
+                                                  // should
 
-    //TODO clean the code
+    // TODO clean the code
     public static final Lock odometryLock = new ReentrantLock();
     private final SwerveSystemConstants swerveConstants;
     private final SwerveModule[] swerveModules;// FL FR RL RR
@@ -64,7 +67,7 @@ public class SwerveSystem extends SubsystemBase {
     private final SwerveModuleState[] currentStates = new SwerveModuleState[4];
     private final SwerveModulePosition[] currentPositions = new SwerveModulePosition[4];
 
-    private final SwerveSetpointGenerator swerveSetpointGenerator; //TODO you must clean this code as soon as possibal
+    private final SwerveSetpointGenerator swerveSetpointGenerator; // TODO you must clean this code as soon as possibal
     private com.pathplanner.lib.util.swerve.SwerveSetpoint currSetpoint = new com.pathplanner.lib.util.swerve.SwerveSetpoint(
             new ChassisSpeeds(),
             new SwerveModuleState[] {
@@ -156,7 +159,14 @@ public class SwerveSystem extends SubsystemBase {
 
         swerveDriveEstimator.updateOdometry();
 
-        
+        if (getTiltAngle() < 5) {
+            PoseEstimationMA.getInstance().addOdometryObservation(new OdometryObservation(
+                    Timer.getFPGATimestamp(), currentPositions, Optional.of(Rotation2d.fromDegrees(getGyroData().roll)),
+                    Optional.of(Rotation2d.fromDegrees(getGyroData().pitch)),
+                    Optional.of(Rotation2d.fromDegrees(getGyroData().yaw))),
+                    swerveConstants.kinematics);
+        }
+
         logSwerve();
 
     }
@@ -176,9 +186,9 @@ public class SwerveSystem extends SubsystemBase {
 
     public double getAbsYaw() {
         if (DriverStationUtil.getAlliance() == Alliance.Blue) {
-            return getGyroData().yaw ;
+            return getGyroData().yaw;
         }
-        return getGyroData().yaw+ 180;
+        return getGyroData().yaw + 180;
 
     }
 
@@ -200,25 +210,26 @@ public class SwerveSystem extends SubsystemBase {
     public void drive(ChassisSpeeds speeds) {
 
         if (Double.isInfinite(speeds.vxMetersPerSecond) ||
-        Double.isInfinite(speeds.vyMetersPerSecond) ||
-        Double.isInfinite(speeds.omegaRadiansPerSecond) ||
-        Double.isNaN(speeds.vxMetersPerSecond) ||
-        Double.isNaN(speeds.vyMetersPerSecond) ||
-        Double.isNaN(speeds.omegaRadiansPerSecond)) {
-        speeds = new ChassisSpeeds();
+                Double.isInfinite(speeds.vyMetersPerSecond) ||
+                Double.isInfinite(speeds.omegaRadiansPerSecond) ||
+                Double.isNaN(speeds.vxMetersPerSecond) ||
+                Double.isNaN(speeds.vyMetersPerSecond) ||
+                Double.isNaN(speeds.omegaRadiansPerSecond)) {
+            speeds = new ChassisSpeeds();
         }
 
-        // currSetpoint = swerveSetpointGenerator.generateSetpoint(currSetpoint, speeds, Constants.LOOP_TIME);
+        // currSetpoint = swerveSetpointGenerator.generateSetpoint(currSetpoint, speeds,
+        // Constants.LOOP_TIME);
 
         // MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
         // currSetpoint.moduleStates());
         // runSwerveStates(currSetpoint.moduleStates());
 
         currentSetpointMA = swerveSetPointGeneratorMA.generateSetpoint(
-        currentLimits.get(), currentSetpointMA, speeds, Constants.LOOP_TIME);
-        
+                currentLimits.get(), currentSetpointMA, speeds, Constants.LOOP_TIME);
+
         MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",
-        currentSetpointMA.moduleStates());
+                currentSetpointMA.moduleStates());
         runSwerveStates(currentSetpointMA.moduleStates());
 
         // MALog.logSwerveModuleStates("/Subsystems/Swerve/States/SetPoint",

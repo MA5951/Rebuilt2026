@@ -3,6 +3,8 @@ package com.MAutils.Vision.IOs;
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimationMA;
+import com.MAutils.PoseEstimation.PoseEstimationMA.VisionObservation;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.PoseEstimation.PoseEstimatorSource;
 import com.MAutils.Vision.Filters.AprilTagFilters;
@@ -10,6 +12,7 @@ import com.MAutils.Vision.Filters.FiltersConfig;
 import com.MAutils.Vision.IOs.VisionCameraIO.PoseEstimateType;
 import com.MAutils.Vision.Util.LimelightHelpers.PoseEstimate;
 
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -34,7 +37,6 @@ public class AprilTagCamera extends Camera {
     private Twist2d visionTwsit = new Twist2d();
     private boolean updatePoseEstiamte = true;
     private double xyFom, oFom, visionTs, fieldDx, fieldDy, fieldDtheta, robotDx, robotDy, fomCOF;
-    
 
     // ===== ADDED: supplier for chassis speeds so filters can use real v =====
     private final Supplier<ChassisSpeeds> chassisSpeedsSupplier; // ADDED
@@ -42,8 +44,8 @@ public class AprilTagCamera extends Camera {
     // ===== CHANGED: original ctor now delegates and uses zero speeds by default
     // =====
 
-    //TODO need to add filter of more then one camrea that check if the dis bettwen the src are in tolorecn
-    
+    // TODO need to add filter of more then one camrea that check if the dis bettwen
+    // the src are in tolorecn
 
     public AprilTagCamera(VisionCameraIO cameraIO,
             FiltersConfig teleopConfig,
@@ -57,7 +59,8 @@ public class AprilTagCamera extends Camera {
             Supplier<Double> robotAngleSupplier,
             Supplier<ChassisSpeeds> chassisSpeedsSupplier,
             Supplier<Double> robotAngleVelocitySupplier, double fomCOF) { // ADDED
-        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier, robotAngleVelocitySupplier, fomCOF); // CHANGED
+        this(cameraIO, teleopConfig, teleopConfig, robotAngleSupplier, chassisSpeedsSupplier,
+                robotAngleVelocitySupplier, fomCOF); // CHANGED
     }
 
     // ===== ADDED: new ctor that accepts a ChassisSpeeds supplier =====
@@ -86,7 +89,7 @@ public class AprilTagCamera extends Camera {
                 () -> Math.toRadians(this.robotAngleSupplier.get()),
                 robotAngleVelocitySupplier, fomCOF); // ADDED
 
-        poseEstimatorSource = new PoseEstimatorSource("LL",
+        poseEstimatorSource = new PoseEstimatorSource(cameraIO.getName(),
                 () -> getRobotRelaticTwist(poseEstimate, visionTs),
                 () -> xyFom,
                 () -> oFom,
@@ -94,8 +97,6 @@ public class AprilTagCamera extends Camera {
 
         PoseEstimator.addSource(poseEstimatorSource);
     }
-
-    
 
     public void setUpdatePoseEstimate(boolean updatePoseEstiamte) {
         this.updatePoseEstiamte = updatePoseEstiamte;
@@ -105,34 +106,36 @@ public class AprilTagCamera extends Camera {
         return DriverStation.isTeleop() ? teleopConfig : autoConfig;
     }
 
-    //TODO need to also consider isValidForHeadingReset
+    // TODO need to also consider isValidForHeadingReset
     @Override
     public void update() {
         aprilTagFilters.update();
         cameraIO.update();
         logIO();
 
-
         if (updatePoseEstiamte) {
             xyFom = aprilTagFilters.getXyFOM(); // CHANGED: now computed by yaw/motion gates
-            oFom = aprilTagFilters.getOFOM(); // CHANGED 
+            oFom = aprilTagFilters.getOFOM(); // CHANGED
 
             MALog.log("Subsystems/Vision/Cameras/" + name + "/XY FOM", xyFom);
             MALog.log("Subsystems/Vision/Cameras/" + name + "/Omega FOM", oFom);
 
             visionTs = getVisionTimetemp();
 
-            if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0) && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
+            if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0)
+                    && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
                 poseEstimatorSource.capture();
+                PoseEstimationMA.getInstance().addVisionObservation(
+                        new VisionObservation(Timer.getFPGATimestamp() - (poseEstimate.latency / 1000.0),
+                                new Pose3d(poseEstimate.pose), VecBuilder.fill(0.07, 0.07, 10)), cameraIO.getName());
             } else {
                 oFom = 0;
                 xyFom = 0;
                 poseEstimatorSource.capture();
             }
-            
+
         }
 
-        
     }
 
     @Override
@@ -156,21 +159,20 @@ public class AprilTagCamera extends Camera {
         return Timer.getFPGATimestamp() - (poseEstimate.latency / 1000.0);
     }
 
-    //TODO add get raw pose value,without fom or filters just pose3d
-    
-    
+    // TODO add get raw pose value,without fom or filters just pose3d
+
     private Twist2d getRobotRelaticTwist(PoseEstimate poseEstimator, double timestemp) {
         visionPose = poseEstimate.pose;
         prior = PoseEstimator.getPoseAt(timestemp);
         MALog.log("/OdometryDebug/PriorPose", prior);
 
         delta = new Transform2d(prior, visionPose);
-        // MALog.log("/OdometryDebug/Delta", new Pose2d(new Translation2d(de),new Rotation2d(0)));
+        // MALog.log("/OdometryDebug/Delta", new Pose2d(new Translation2d(de),new
+        // Rotation2d(0)));
 
         fieldDx = delta.getTranslation().getX();
         fieldDy = delta.getTranslation().getY();
         fieldDtheta = delta.getRotation().getRadians();
-        
 
         visionTwsit.dx = fieldDx;
         visionTwsit.dy = fieldDy;
@@ -181,6 +183,7 @@ public class AprilTagCamera extends Camera {
     }
 
     public boolean isValidForHeadingReset() {
-        return cameraIO.isTag() && cameraIO.getFiducials().length > 1 && cameraIO.getTag().distToCamera < 2 && cameraIO.getPoseEstimate(VisionCameraIO.PoseEstimateType.MT1).pose.getX() != -1;
+        return cameraIO.isTag() && cameraIO.getFiducials().length > 1 && cameraIO.getTag().distToCamera < 2
+                && cameraIO.getPoseEstimate(VisionCameraIO.PoseEstimateType.MT1).pose.getX() != -1;
     }
 }

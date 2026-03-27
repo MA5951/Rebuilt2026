@@ -2,6 +2,7 @@
 package frc.robot;
 
 import com.MAutils.Logger.MALog;
+import com.MAutils.PoseEstimation.PoseEstimationMA;
 import com.MAutils.PoseEstimation.PoseEstimator;
 import com.MAutils.RobotControl.DeafultRobotContainer;
 import com.MAutils.RobotControl.StateTrigger;
@@ -54,8 +55,8 @@ import frc.robot.Util.Field;
 
 public class RobotContainer extends DeafultRobotContainer {
 
-        public static final double TIME_UNTIL_ACTIVE = 1;
-        public static final double TIME_PAST_ACTIVE = 1;
+        public static final double TIME_UNTIL_ACTIVE = 2;
+        public static final double TIME_PAST_ACTIVE = 2;
         public static boolean isStartActive = false;
 
         public RobotContainer() {
@@ -136,7 +137,7 @@ public class RobotContainer extends DeafultRobotContainer {
                                                                                                                   // !DriverStation.isTeleop()
                                                 || (getRobotState() == RobotConstants.SHOOTING
                                                                 && ((!getDriverController().getL1()
-                                                                                || !SuperStructure.isBalls())
+                                                                                || !SuperStructure.isBalls() || !(ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ))
                                                                                 && !DriverStation.isAutonomous()))// &&
                                                                                                                   // !DriverStation.isTeleop()
 
@@ -145,7 +146,7 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 || getRobotState() == RobotConstants.SHOOTING_PRESETS
                                                                 && !getDriverController().getL1()
                                                 || getRobotState() == RobotConstants.SHOOTING_UNLOCKED
-                                                                && !getDriverController().getL1(),
+                                                                && (!getDriverController().getL1() || !(ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE )),
                                 RobotConstants.IDLE_INTAKE));
 
                 T(StateTrigger.T(
@@ -197,9 +198,15 @@ public class RobotContainer extends DeafultRobotContainer {
                                 &&
                                 ClimbCommand.isAtPosition, RobotConstants.CLIMB));
 
+                                // && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() <
+                // TIME_PAST_ACTIVE
+                // || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)&&
+                // (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                // || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
+
                 T(StateTrigger.T(
                                 () -> getDriverController().getL1() && SuperStructure.isAutomatic()
-                                                && !driverController.inDeadbound(),
+                                                && !driverController.inDeadbound() && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ),
                                 RobotConstants.SHOOTING_UNLOCKED));
 
                 T(StateTrigger.T(
@@ -209,7 +216,7 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 getRobotState() != RobotConstants.UNSTUCK
                                                 && SuperStructure.isAutomatic()
                                                 && Swerve.getInstance().getVelocityVector() < 0.2
-                                                && driverController.inDeadbound(),
+                                                && driverController.inDeadbound() && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ),
                                 RobotConstants.SHOOTING));
 
                 new Trigger(() -> SuperStructure.isBalls() && SuperStructure.isInWarmUpZone()
@@ -272,6 +279,10 @@ public class RobotContainer extends DeafultRobotContainer {
 
                 new Trigger(() -> getDriverController().getDpadDown()).onTrue(
                                 new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO()
+                                                .getPoseEstimate(PoseEstimateType.MT1).pose)));
+
+                new Trigger(() -> getDriverController().getDpadDown()).onTrue(
+                                new InstantCommand(() -> PoseEstimationMA.getInstance().resetPose(VisionConstants.FRONT_LL.getCameraIO()
                                                 .getPoseEstimate(PoseEstimateType.MT1).pose)));
 
                 new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new StartingActiveCommand());
