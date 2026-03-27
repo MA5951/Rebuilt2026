@@ -364,9 +364,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
     public static double getCloses45Deg() {
 
-    index = (int)((Swerve.getInstance().getGyroData().yaw%360)/90);
-    return (90*index) + (45 *
-    Math.signum(Swerve.getInstance().getGyroData().yaw));
+    index = (int)((Swerve.getInstance().getAbsYaw())/90);
+    return (90*index) + (45 * Math.signum(Swerve.getInstance().getAbsYaw()));
     }
 
     
@@ -395,12 +394,12 @@ public class SuperStructure extends DeafultSuperStructure {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) + 70 - (shooterTable.interpolate(x) / 45) * shootingFactor; // -
+                    : shooterTable.interpolate(x) - 200 - (shooterTable.interpolate(x) / 45) * shootingFactor; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) + 70 - (shooterTable.interpolate(x) / 45) * shootingFactor; // - 60;,
+                : shooterTable.interpolate(x) - 200 - (shooterTable.interpolate(x) / 45) * shootingFactor; // - 60;,
         // 125
     }
 
@@ -411,7 +410,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 1;// -2 , -1
+        return hoodTable.interpolate(distance) ;// -2 , -1
 
     }
 
@@ -529,7 +528,7 @@ public class SuperStructure extends DeafultSuperStructure {
 
         return (atPointLatch || Shooter.getInstance().atPointForShooting()) && isOkAngleForFeeding()
                 && Hood.getInstance().atPointForFeedingInMotion() && !isHittingNet()
-                && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get());
+               ;// && distanceYToMotionFeeding(Field.getFeedingLine(), Swerve.getInstance().getGyroYawSupplier().get())
     }
 
     public static boolean isOkAngleForFeeding() {

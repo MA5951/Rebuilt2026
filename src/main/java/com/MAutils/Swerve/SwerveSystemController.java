@@ -27,8 +27,10 @@ public abstract class SwerveSystemController extends Command {
   }
 
   protected void setState(SwerveState state) {
+    if (swerveSystem.getState() != state) {
+      state.getOnStateEnter().run();
+    }
     swerveSystem.setState(state);
-    swerveSystem.getState().getOnStateEnter().run();
   }
 
   public abstract void ConfigControllers();

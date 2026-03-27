@@ -14,7 +14,7 @@ public class S extends SequentialCommandGroup {
     addCommands(
       SwerveAutoFollower.followPath("S3"),
       new InstantCommand(() -> RobotConstants.SHOOTING.setState()),
-      new ParallelDeadlineGroup(new WaitCommand(9), new SwerveAutoController()),
+      new ParallelDeadlineGroup(new WaitCommand(8), new SwerveAutoController()),
       new InstantCommand(()-> RobotConstants.IDLE_INTAKE.setState()),
       SwerveAutoFollower.followPath("S2")
       

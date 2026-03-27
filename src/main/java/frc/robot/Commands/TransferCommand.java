@@ -55,34 +55,7 @@ public class TransferCommand extends SubsystemCommand {
 
                 transfer.setVoltage(SuperStructure.getTransferSinVoltage());
 
-                // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime < 3) {
-                // transfer.setVoltage(4 + Timer.getFPGATimestamp() -
-                // SuperStructure.startShootingTime);
-                // } else {
-                // transfer.setVoltage(7);
-                // }
-
-                // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime > 1) {
-                // if (Roller.getInstance().getCurrent() > 25 || Timer.getFPGATimestamp() -
-                // endTime < 0.3) {
-                // endTime = Timer.getFPGATimestamp();
-                // transfer.setVoltage(0);
-                // } else {
-                // transfer.setVoltage(7);
-                // }\
-                // } else {
-                // transfer.setVoltage(7);
-                // }
-
-                // transfer.setVoltage(7);
-
-                // if (!SuperStructure.isBallsInSandwich()) {
-                // transfer.setVoltage(8);
-                // } else {
-                // transfer.setVoltage(3);
-                // }
-                // transfer.setVoltage(4);
-                // why no work? GALDO
+                
                 break;
             case "UNSTUCK":
                 transfer.setVoltage(TransferConstants.UNSTUCK_VOLTAGE);

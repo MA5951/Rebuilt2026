@@ -23,7 +23,6 @@ public class KickerCommand extends SubsystemCommand {
                 kicker.setVoltage(KickerConstants.IDLE_VOLTAGE);
                 break;
             case "INTAKE":
-            //TODO here i think we whant the logic of moveing the ball to the end of the sandwich to let other balls in 
                 kicker.setVoltage(KickerConstants.INTAKE_VOLTAGE);
                 break;
             case "FEEDING":
@@ -37,7 +36,6 @@ public class KickerCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 kicker.setVoltage(KickerConstants.SHOOTING_VOLTAGE);
-               // kicker.setVoltage(2);
                 break;
             case "UNSTUCK":
                 kicker.setVoltage(KickerConstants.UNSTUCK_VOLTAGE);

@@ -17,6 +17,7 @@ import com.MAutils.Swerve.IOs.Gyro.Gyro;
 import com.MAutils.Swerve.IOs.Gyro.GyroIO.GyroData;
 import com.MAutils.Swerve.IOs.PhoenixOdometryThread;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModule;
+import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleTalonFX;
 import com.MAutils.Swerve.IOs.SwerveModule.SwerveModuleIO.SwerveModuleData;
 import com.MAutils.Swerve.Utils.ModuleLimits;
 import com.MAutils.Swerve.Utils.SwerveSetPointGeneratorMA;
@@ -119,6 +120,8 @@ public class SwerveSystem extends SubsystemBase {
                 swerveConstants.modulesLocationArry);
     }
 
+   
+
     public double getTiltAngle() {
         return Math.sqrt(Math.pow(getGyroData().roll, 2) + Math.pow(getGyroData().pitch, 2));
     }
@@ -134,6 +137,12 @@ public class SwerveSystem extends SubsystemBase {
 
     public SwerveState getState() {
         return currentState;
+    }
+
+    public void isBrake(boolean isBrake) {
+        for (int i = 0; i < swerveModules.length; i++) {
+            swerveModules[i].setDriveNutralMode(isBrake);
+        }
     }
 
     public void periodic() {

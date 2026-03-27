@@ -14,12 +14,14 @@ public class AngleAdjustController extends SwerveController {
 
     private PIDController pidController;
     private Supplier<Double> angleSupplier;
+    private Supplier<Double> setPointSupplier;
     private double angleOffset = 0;
 
     public AngleAdjustController(SwerveSystemConstants swerveSystem, PIDController pidController) {
         super("Angle Adjust Controller");
         this.pidController = pidController;
         this.angleSupplier = () -> 0d; //TODO ?
+        this.setPointSupplier = () -> 0d;
 
         pidController.setSetpoint(angleOffset);
         //withGyroSupplier(() -> SwerveSystem.getInstance(swerveSystem).getAbsYaw()); //TODO GALDO
@@ -46,12 +48,12 @@ public class AngleAdjustController extends SwerveController {
     }
 
     public AngleAdjustController withSetPoint(double setPoint) {
-        pidController.setSetpoint(setPoint + angleOffset);
+        setPointSupplier = () -> setPoint;
         return this;
     }
 
     public AngleAdjustController withSetPoint(Supplier<Double> setPoint) {
-        pidController.setSetpoint(setPoint.get() + angleOffset);
+        setPointSupplier = setPoint;
         return this;
     }
 
@@ -61,6 +63,7 @@ public class AngleAdjustController extends SwerveController {
     }
 
     public void updateSpeeds() {
+        pidController.setSetpoint(setPointSupplier.get() + angleOffset);
         speeds.omegaRadiansPerSecond = pidController.calculate(angleSupplier.get());
     }
 

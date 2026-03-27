@@ -36,7 +36,6 @@ public class SandwichCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
                 sandwich.setVoltage(SandwichConstants.SHOOTING_VOLTAGE);
-                //sandwich.setVoltage(4);
                 break;
             case "UNSTUCK":
                 sandwich.setVoltage(SandwichConstants.UNSTUCK_VOLTAGE);

@@ -152,6 +152,7 @@ public class Robot extends DeafultRobot {
     super.teleopInit();
     ActiveUtil.startTeleop();
     CommandScheduler.getInstance().setDefaultCommand(Swerve.getInstance(), new SwerveController());
+    Swerve.getInstance().isBrake(true);
 
     if (!SixBarCommand.isReset) {
       SixBar.getInstance().setState(SixBar.HOMING);

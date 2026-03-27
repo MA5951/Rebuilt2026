@@ -37,30 +37,9 @@ public class RollerCommand extends SubsystemCommand {
                 roller.setVoltage(RollerConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                //if (!SuperStructure.isBallsInSandwich()) {
-                    //roller.setVoltage(6);
-                // } else {
-                //    roller.setVoltage(0);
-                // }
-
-                // if(Timer.getFPGATimestamp() - SuperStructure.startShootingTime > 1) {
-                //     if (Roller.getInstance().getCurrent() > 25 || Timer.getFPGATimestamp() - endTime < 0.3) {
-                //         endTime = Timer.getFPGATimestamp();
-                //         roller.setVoltage(0);
-                //     } else {
-                //         roller.setVoltage(6);
-                //     }
-                //   } else {
+                
                     roller.setVoltage(6);
-                //   }
-
-                // if (!SuperStructure.isBallsInSandwich()) {
-                    // roller.setVoltage(6);
-                   // roller.setVoltage(2);
-
-                // } else {
-                //   roller.setVoltage(0);
-                // }
+                
                 break;
             case "UNSTUCK":
                 roller.setVoltage(RollerConstants.UNSTUCK_VOLTAGE);

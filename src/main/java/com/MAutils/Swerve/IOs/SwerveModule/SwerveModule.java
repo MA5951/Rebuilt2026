@@ -52,6 +52,10 @@ public class SwerveModule {
         }
     }
 
+    public void setDriveNutralMode(boolean isBrake) {
+        moduleIO.setDriveNutralMode(isBrake);
+    }
+
     public void setVoltage(double driveVolts, double steerVolts) {
         moduleIO.setDriveVoltage(driveVolts);
         moduleIO.setSteerVoltage(steerVolts);

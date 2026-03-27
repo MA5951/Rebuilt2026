@@ -42,7 +42,7 @@ public class SwerveConstants {
                         .withMaxVelocityMaxAcceleration(4.9, 10)
                         .withOdometryUpdateRate(250)
                         .withDriveCurrentLimit(55, true)
-                        .withTurningCurrentLimit(50, false).withDriveTuning(driveGainConfig)
+                        .withTurningCurrentLimit(50, true).withDriveTuning(driveGainConfig)
                         .withTurningTuning(turnGainConfig)
                         .withGearRatio(GearRatio.L2);
 
@@ -149,6 +149,26 @@ public class SwerveConstants {
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getCloses45Deg());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                                 FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35);
+                        })
+                        .withOmega(ANGLE_ADJUST_CONTROLLER)
+                        .withXY(FIELD_CENTRIC_DRIVE);
+
+        public static final SwerveState GRAPH_45 = new SwerveState("GRAPH_45")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(45);
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35);
+                        })
+                        .withOmega(ANGLE_ADJUST_CONTROLLER)
+                        .withXY(FIELD_CENTRIC_DRIVE);
+
+        public static final SwerveState GRAPH_45_40 = new SwerveState("GRAPH_45_40")
+                        .withOnStateEnter(() -> {
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withSetPoint(45);
+                                ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
+                                FIELD_CENTRIC_DRIVE.withSclers(0.3, 0.20);
                         })
                         .withOmega(ANGLE_ADJUST_CONTROLLER)
                         .withXY(FIELD_CENTRIC_DRIVE);

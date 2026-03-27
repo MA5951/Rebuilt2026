@@ -180,4 +180,8 @@ public class ActiveUtil {
     public static boolean isActiveDisabled() {
         return isActiveDisabled;
     }
+
+    public static double getMatchTime() {
+        return matchTimer.get();
+    }
 } 

@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.HoodCommand;
@@ -55,9 +56,9 @@ import frc.robot.Util.Field;
 
 public class RobotContainer extends DeafultRobotContainer {
 
-        public static final double TIME_UNTIL_ACTIVE = 2;
+        public static final double TIME_UNTIL_ACTIVE = 1.2;
         public static final double TIME_PAST_ACTIVE = 2;
-        public static boolean isStartActive = false;
+        public static final CommandXboxController driverRumble = new CommandXboxController(2);
 
         public RobotContainer() {
                 super();
@@ -89,6 +90,10 @@ public class RobotContainer extends DeafultRobotContainer {
                                 new InstantCommand(() -> RobotConstants.FEEDING_IN_MOTION.setState()));
                 NamedCommands.registerCommand("IntakeIdle",
                                 new InstantCommand(() -> RobotConstants.IDLE_INTAKE.setState()));
+                NamedCommands.registerCommand("ShootingMotion",
+                                new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()));
+                NamedCommands.registerCommand("coast",
+                                new InstantCommand(() -> Swerve.getInstance().isBrake(false)));
 
                 // new Trigger(() -> ((PoseEstimator.getCurrentPose().getX() > 5.5 &&
                 // DriverStationUtil.getAlliance() == Alliance.Blue) || (
@@ -137,7 +142,10 @@ public class RobotContainer extends DeafultRobotContainer {
                                                                                                                   // !DriverStation.isTeleop()
                                                 || (getRobotState() == RobotConstants.SHOOTING
                                                                 && ((!getDriverController().getL1()
-                                                                                || !SuperStructure.isBalls() || !(ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ))
+                                                                                || !SuperStructure.isBalls()
+                                                                                || !(ActiveUtil.isActive() || ActiveUtil
+                                                                                                .getTimePastActive() < TIME_PAST_ACTIVE
+                                                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE))
                                                                                 && !DriverStation.isAutonomous()))// &&
                                                                                                                   // !DriverStation.isTeleop()
 
@@ -146,7 +154,10 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 || getRobotState() == RobotConstants.SHOOTING_PRESETS
                                                                 && !getDriverController().getL1()
                                                 || getRobotState() == RobotConstants.SHOOTING_UNLOCKED
-                                                                && (!getDriverController().getL1() || !(ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE )),
+                                                                && (!getDriverController().getL1() || !(ActiveUtil
+                                                                                .isActive()
+                                                                                || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)),
                                 RobotConstants.IDLE_INTAKE));
 
                 T(StateTrigger.T(
@@ -170,8 +181,8 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 && getRobotState() != RobotConstants.UNSTUCK,
                                 RobotConstants.EJECT));
 
-                T(StateTrigger.T(() -> getDriverController().getR2(),
-                                RobotConstants.FEEDING_IN_MOTION));
+                // T(StateTrigger.T(() -> getDriverController().getR2(),
+                //                 RobotConstants.FEEDING_IN_MOTION));
 
                 T(StateTrigger.T(
                                 () -> getDriverController().getL1() && !SuperStructure.isAutomatic()
@@ -198,7 +209,7 @@ public class RobotContainer extends DeafultRobotContainer {
                                 &&
                                 ClimbCommand.isAtPosition, RobotConstants.CLIMB));
 
-                                // && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() <
+                // && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() <
                 // TIME_PAST_ACTIVE
                 // || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)&&
                 // (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
@@ -206,7 +217,10 @@ public class RobotContainer extends DeafultRobotContainer {
 
                 T(StateTrigger.T(
                                 () -> getDriverController().getL1() && SuperStructure.isAutomatic()
-                                                && !driverController.inDeadbound() && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ),
+                                                && !driverController.inDeadbound()
+                                                && (ActiveUtil.isActive()
+                                                                || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE),
                                 RobotConstants.SHOOTING_UNLOCKED));
 
                 T(StateTrigger.T(
@@ -216,7 +230,10 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 getRobotState() != RobotConstants.UNSTUCK
                                                 && SuperStructure.isAutomatic()
                                                 && Swerve.getInstance().getVelocityVector() < 0.2
-                                                && driverController.inDeadbound() && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE ),
+                                                && driverController.inDeadbound()
+                                                && (ActiveUtil.isActive()
+                                                                || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
+                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE),
                                 RobotConstants.SHOOTING));
 
                 new Trigger(() -> SuperStructure.isBalls() && SuperStructure.isInWarmUpZone()
@@ -248,6 +265,8 @@ public class RobotContainer extends DeafultRobotContainer {
                                 && getRobotState() != RobotConstants.EJECT)
                                 .onTrue(new InstantCommand(
                                                 () -> Shooter.getInstance().setState(ShooterConstants.IDLE)));
+
+                new Trigger(() -> ActiveUtil.getMatchTime() > 11.5).onTrue(new StartingActiveCommand());
                 // Internal Climb
                 // new Trigger(() -> RobotContainer.getLastRobotState() ==
                 // RobotConstants.SHOOTING && !DriverStation.isAutonomous()).onTrue(new
@@ -282,19 +301,20 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 .getPoseEstimate(PoseEstimateType.MT1).pose)));
 
                 new Trigger(() -> getDriverController().getDpadDown()).onTrue(
-                                new InstantCommand(() -> PoseEstimationMA.getInstance().resetPose(VisionConstants.FRONT_LL.getCameraIO()
-                                                .getPoseEstimate(PoseEstimateType.MT1).pose)));
+                                new InstantCommand(() -> PoseEstimationMA.getInstance()
+                                                .resetPose(VisionConstants.FRONT_LL.getCameraIO()
+                                                                .getPoseEstimate(PoseEstimateType.MT1).pose)));
 
-                new Trigger(() -> ActiveUtil.isActive() && !isStartActive).onTrue(new StartingActiveCommand());
+                new Trigger(() -> ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE + 0.5)
+                                .onTrue(new StartingActiveCommand());
+                new Trigger(() -> ActiveUtil.getTimePastActive() > TIME_PAST_ACTIVE - 0.5)
+                                .onTrue(new StartingActiveCommand());
 
                 new Trigger(() -> getDriverController().getDpadLeft()).onTrue(
                                 new InstantCommand(() -> MALog.log("Flags/Align Flag", Timer.getFPGATimestamp())));
 
                 new Trigger(() -> getDriverController().getDpadRight()).onTrue(
                                 new InstantCommand(() -> MALog.log("Flags/Miss Flag", Timer.getFPGATimestamp())));
-
-                new Trigger(() -> !ActiveUtil.isActive() && isStartActive)
-                                .onTrue(new InstantCommand(() -> isStartActive = false));
 
                 new Trigger(() -> getOperatorController().getActionsDown())
                                 .onTrue(new InstantCommand(() -> SixBar.getInstance().setState(SixBar.HOMING)));
