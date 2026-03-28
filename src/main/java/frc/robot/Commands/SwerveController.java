@@ -60,17 +60,21 @@ public class SwerveController extends SwerveSystemController {
             if (RobotContainer.getDriverController().getL2()) {
                 if (Swerve.getInstance().getTiltAngle() > 5) {
                     setState(SwerveConstants.RAMP_40);
-                } else if (RobotContainer.getDriverController().getR2()) {
-                    setState(SwerveConstants.GRAPH_45_40);
-                } else {
+                } 
+                //else if (RobotContainer.getDriverController().getR2()) {
+                //     setState(SwerveConstants.GRAPH_45_40);
+                // } 
+                else {
                     setState(SwerveConstants.FIELD_CENTRIC_40);
                 }
             } else {
                 if (Swerve.getInstance().getTiltAngle() > 5) {
                     setState(SwerveConstants.RAMP);
-                } else if (RobotContainer.getDriverController().getR2()) {
-                    setState(SwerveConstants.GRAPH_45);
-                } else {
+                 } 
+                //else if (RobotContainer.getDriverController().getR2()) {
+                //     setState(SwerveConstants.GRAPH_45);
+                // } 
+                else {
                     setState(SwerveConstants.FIELD_CENTRIC);
                 }
             }

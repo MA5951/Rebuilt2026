@@ -44,4 +44,5 @@ public class TransferConstants {
         public static final State EJECT = new State("EJECT");
         public static final State SHOOTING = new State("SHOOTING");
         public static final State UNSTUCK = new State("UNSTUCK");
+        public static final State BACKWARD = new State("BACKWARD");
 }

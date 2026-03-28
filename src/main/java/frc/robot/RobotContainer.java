@@ -39,8 +39,10 @@ import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRoller;
+import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.Kicker.Kicker;
 import frc.robot.Subsystems.Roller.Roller;
+import frc.robot.Subsystems.Roller.RollerConstants;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Shooter.Shooter;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
@@ -50,6 +52,7 @@ import frc.robot.Subsystems.Swerve.Swerve;
 import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 import frc.robot.Subsystems.Swerve.SwerveConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
+import frc.robot.Subsystems.Transfer.TransferConstants;
 import frc.robot.Subsystems.Vision.VisionConstants;
 import frc.robot.Util.ActiveUtil;
 import frc.robot.Util.Field;
@@ -177,12 +180,27 @@ public class RobotContainer extends DeafultRobotContainer {
                 // || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)
 
                 T(StateTrigger.T(
-                                () -> getDriverController().getActionsRight()
-                                                && getRobotState() != RobotConstants.UNSTUCK,
-                                RobotConstants.EJECT));
+                () -> getDriverController().getActionsRight()
+                && getRobotState() != RobotConstants.UNSTUCK,
+                RobotConstants.EJECT));
 
-                // T(StateTrigger.T(() -> getDriverController().getR2(),
-                //                 RobotConstants.FEEDING_IN_MOTION));
+                // new Trigger(() -> getDriverController().getR2()).onTrue(
+                //                 new InstantCommand(() -> IntakeRoller.getInstance()
+                //                                 .setState(IntakeRollerConstants.BACKWARD))
+                //                                 .alongWith(new InstantCommand(() -> Transfer.getInstance()
+                //                                                 .setState(TransferConstants.BACKWARD))));
+
+                // new Trigger(() -> !getDriverController().getR2()
+                //                 && IntakeRoller.getInstance().getCurrentState() == IntakeRollerConstants.BACKWARD)
+                //                 .onTrue(
+                //                                 new InstantCommand(() -> IntakeRoller.getInstance()
+                //                                                 .setState(IntakeRollerConstants.IDLE))
+                //                                                 .alongWith(new InstantCommand(() -> Transfer
+                //                                                                 .getInstance()
+                //                                                                 .setState(TransferConstants.IDLE))));
+
+                T(StateTrigger.T(() -> getDriverController().getR2(),
+                                RobotConstants.FEEDING_IN_MOTION));
 
                 T(StateTrigger.T(
                                 () -> getDriverController().getL1() && !SuperStructure.isAutomatic()

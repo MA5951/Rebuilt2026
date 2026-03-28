@@ -410,7 +410,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) ;// -2 , -1
+        return hoodTable.interpolate(distance) - 1.2 ;// -2 , -1
 
     }
 
@@ -448,7 +448,7 @@ public class SuperStructure extends DeafultSuperStructure {
                 .getDistance(Field.getHub());
     }
 
-    private static double getDistanceToTargetShooting() {
+    public static double getDistanceToTargetShooting() {
         if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
             return GeometryUtil
                     .poseAdjust(PoseEstimator.getPoseLookAhead(0.89, Swerve.getInstance().getChassisSpeeds()),
@@ -513,7 +513,7 @@ public class SuperStructure extends DeafultSuperStructure {
                                 || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS))
                         || (Hood.getInstance().atPoint(2)
                                 && RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED))
-                && (SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic()));
+                && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || DriverStation.isAutonomous()) || (!isAutomatic()));
 
     }
 

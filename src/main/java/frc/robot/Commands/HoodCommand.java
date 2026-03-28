@@ -6,6 +6,8 @@ import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.RobotConstants;
+import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Hood.HoodConstants;
@@ -27,7 +29,7 @@ public class HoodCommand extends SubsystemCommand {
             case "IDLE":
                 hood.setPosition(HoodConstants.IDLE_POSITION);
                 break;
-            case "SHOOTING":
+            case "SHOOTING"://0.25X - 1
                 if (SuperStructure.isAutomatic()) {
                     // if ((int) Timer.getFPGATimestamp() - SuperStructure.startShootingTime % 2 ==
                     // 0) {
@@ -36,10 +38,18 @@ public class HoodCommand extends SubsystemCommand {
                     // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() + 0.5);
                     // }
 
-                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
-                    //         + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
-                    //                 * 0.3));
+                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
+                            + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
+                                    * 0.3));
                     hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
+
+                    if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+                        hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
+                    } else {
+                        hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
+                            + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
+                                    * (0.25 * SuperStructure.getDistanceToTargetShooting() - 1)));
+                    }
                 } else {
                     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
                 }

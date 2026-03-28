@@ -13,7 +13,7 @@ import frc.robot.PortMap;
 public class IntakeRollerConstants {
 
      public static final double FORWARD_VOLTAGE = 7;
-     public static final double BACKWARD_VOLTAGE = -5;
+     public static final double BACKWARD_VOLTAGE = -6;
      public static final double IDLE_VOLTAGE = 0;
 
      public static final double GEAR = 2;

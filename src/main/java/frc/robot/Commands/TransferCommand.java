@@ -60,6 +60,10 @@ public class TransferCommand extends SubsystemCommand {
             case "UNSTUCK":
                 transfer.setVoltage(TransferConstants.UNSTUCK_VOLTAGE);
                 break;
+            case "BACKWARD":
+                transfer.setVoltage(-5);
+                break;
+
         }
     }
 
