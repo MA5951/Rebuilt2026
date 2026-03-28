@@ -19,6 +19,7 @@ public class Sandwich extends PowerControlledSystem {
     private DigitalInput rightIr;
     private DigitalInput middleIr;
     private Debouncer intakeDebouncer;
+    private boolean lach = false;
 
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE,
@@ -44,11 +45,18 @@ public class Sandwich extends PowerControlledSystem {
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&&  !intakeDebouncer()
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) &&  !intakeDebouncer();
     }
 
     public boolean intakeDebouncer() {
-        return intakeDebouncer.calculate(Math.abs(getCurrent()) > 15);
+        if(intakeDebouncer.calculate(Math.abs(getCurrent()) > 15)) {
+            lach = true;
+        }
+        return lach;
+    }
+
+    public void resetIntakeLach() {
+        lach = false;
     }
 
     private boolean canFeedingInMotion() {

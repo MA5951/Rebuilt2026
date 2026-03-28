@@ -6,6 +6,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Sandwich.Sandwich;
 
 public class Roller extends PowerControlledSystem {
     private static Roller roller;
@@ -39,7 +40,7 @@ public class Roller extends PowerControlledSystem {
 //galdo is at fault
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&& !SuperStructure.isBallsInSandwich()
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) &&  !Sandwich.getInstance().intakeDebouncer();//&& !SuperStructure.isBallsInSandwich()
     }
 
     @Override

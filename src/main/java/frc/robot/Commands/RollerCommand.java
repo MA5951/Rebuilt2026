@@ -42,9 +42,6 @@ public class RollerCommand extends SubsystemCommand {
 
                 if (SandwichCommand.startTimer.hasElapsed(0.2)) {
                     roller.setVoltage(6);
-
-                   
-
                 } else {
                     roller.setVoltage(0);
                 }

@@ -14,6 +14,7 @@ import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.Kicker.KickerConstants;
 import frc.robot.Subsystems.Roller.RollerConstants;
+import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Sandwich.SandwichConstants;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
@@ -78,7 +79,7 @@ public class RobotConstants {
                Robot.counter = 0;
                SandwichCommand.startTimer.stop();
                SandwichCommand.startTimer.reset();
-               
+               Sandwich.getInstance().resetIntakeLach();
 
 
         }, () -> {
