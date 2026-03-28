@@ -59,7 +59,7 @@ import frc.robot.Util.Field;
 
 public class RobotContainer extends DeafultRobotContainer {
 
-        public static final double TIME_UNTIL_ACTIVE = 1.2;
+        public static final double TIME_UNTIL_ACTIVE = 3;
         public static final double TIME_PAST_ACTIVE = 2;
         public static final CommandXboxController driverRumble = new CommandXboxController(2);
 
@@ -157,10 +157,10 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 || getRobotState() == RobotConstants.SHOOTING_PRESETS
                                                                 && !getDriverController().getL1()
                                                 || getRobotState() == RobotConstants.SHOOTING_UNLOCKED
-                                                                && (!getDriverController().getL1() || !(ActiveUtil
+                                                                && ( !DriverStation.isAutonomous() && (!getDriverController().getL1() || !(ActiveUtil
                                                                                 .isActive()
                                                                                 || ActiveUtil.getTimePastActive() < TIME_PAST_ACTIVE
-                                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE)),
+                                                                                || ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE))),
                                 RobotConstants.IDLE_INTAKE));
 
                 T(StateTrigger.T(
@@ -219,9 +219,6 @@ public class RobotContainer extends DeafultRobotContainer {
                 T(StateTrigger.T(() -> getRobotState() == RobotConstants.UNSTUCK && !SuperStructure.isTransferStuck(),
                                 getLastRobotState()));
 
-                T(StateTrigger.T(() -> getDriverController().getActionsLeft()
-                                &&
-                                Climb.getInstance().getPosition() < 0.05, RobotConstants.PRECLIMB));
 
                 T(StateTrigger.T(() -> getDriverController().getActionsLeft()
                                 &&

@@ -12,7 +12,7 @@ import frc.robot.PortMap;
 public class KickerConstants {
 
         public static final double IDLE_VOLTAGE = 0;
-        public static final double INTAKE_VOLTAGE = 1.0;
+        public static final double INTAKE_VOLTAGE = -1.5;
         public static final double FEDDING_IN_MOTION_VOLTAGE = 3.0;
         public static final double EJECT_VOLTAGE = 5.0;
         public static final double FEEDING_VOLTAGE = 6.0;

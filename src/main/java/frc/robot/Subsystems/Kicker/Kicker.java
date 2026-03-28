@@ -8,6 +8,7 @@ import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
+import frc.robot.Subsystems.Sandwich.Sandwich;
 
 public class Kicker extends PowerControlledSystem {
     private static Kicker kicker;
@@ -32,7 +33,7 @@ public class Kicker extends PowerControlledSystem {
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&& !Sandwich.getInstance().intakeDebouncer()
     }
 
     private boolean canFeedingInMotion() {

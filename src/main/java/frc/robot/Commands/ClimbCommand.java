@@ -37,9 +37,7 @@ public class ClimbCommand extends SubsystemCommand {
                     climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
                 }
 
-                if (climb.atPoint()) {
-                    isAtPosition = true;
-                }
+                
                 climbLatch = false;
                 break;
             case "CLIMB":
@@ -87,13 +85,22 @@ public class ClimbCommand extends SubsystemCommand {
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
+                if (climb.atPoint()) {
+                    isAtPosition = true;
+                }
+                climbLatch = false;
                 break;
+                
             case "HOLD":
             if(SuperStructure.isExtendedMagazine()){
                     climb.setPosition(0.182,0.19);//0/089
                 } else {
                     climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 }
+                if (climb.atPoint()) {
+                    isAtPosition = true;
+                }
+                climbLatch = false;
                 break;
 
         }

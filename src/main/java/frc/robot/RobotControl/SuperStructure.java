@@ -1,6 +1,7 @@
 
 package frc.robot.RobotControl;
 
+import java.util.function.ObjDoubleConsumer;
 import java.util.function.Supplier;
 
 import com.MAutils.Logger.MALog;
@@ -260,6 +261,10 @@ public class SuperStructure extends DeafultSuperStructure {
         return setPointAlign;
     }
 
+    public static double getTimeSInceShooting() {
+        return Timer.getFPGATimestamp() - startShootingTime;
+    }
+
     public static void setSetPointAlign(double setPoiint) {
         setPointAlign = setPoiint;
     }
@@ -410,7 +415,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 1.2 ;// -2 , -1
+        return hoodTable.interpolate(distance) - 0.7 ;// -2 , -1
 
     }
 
@@ -691,6 +696,8 @@ public class SuperStructure extends DeafultSuperStructure {
 
         MALog.log("/reflect/swerve at point for shooting",
                 SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || (!isAutomatic()));
+
+        MALog.log("/SuperStructure/Time shooting", getTimeSInceShooting());
 
     }
 

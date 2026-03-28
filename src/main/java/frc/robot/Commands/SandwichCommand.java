@@ -3,12 +3,14 @@ package frc.robot.Commands;
 
 import com.MAutils.RobotControl.SubsystemCommand;
 
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.RobotContainer;
 import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.Sandwich.SandwichConstants;
 
 public class SandwichCommand extends SubsystemCommand {
     private static Sandwich sandwich = Sandwich.getInstance();
+    public static Timer startTimer = new Timer();
 
     public SandwichCommand() {
         //TODO what about the kiker system?
@@ -35,6 +37,7 @@ public class SandwichCommand extends SubsystemCommand {
                 sandwich.setVoltage(SandwichConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
+                startTimer.start();
                 sandwich.setVoltage(SandwichConstants.SHOOTING_VOLTAGE);
                 break;
             case "UNSTUCK":

@@ -12,7 +12,7 @@ import frc.robot.PortMap;
 public class SandwichConstants {
 
         public static final double IDLE_VOLTAGE = 0;
-        public static final double INTAKE_VOLTAGE = 2.0;
+        public static final double INTAKE_VOLTAGE = 0.7;
         public static final double FEDDING_IN_MOTION_VOLTAGE = 6.0;
         public static final double EJECT_VOLTAGE = 7.0;
         public static final double FEEDING_VOLTAGE = 7.0;

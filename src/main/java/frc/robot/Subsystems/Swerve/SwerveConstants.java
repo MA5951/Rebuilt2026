@@ -135,7 +135,7 @@ public class SwerveConstants {
 
         public static final SwerveState RAMP_40 = new SwerveState("RAMP")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_MOTION_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getCloses45Deg());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                                 FIELD_CENTRIC_DRIVE.withSclers(0.3, 0.20);
@@ -145,7 +145,7 @@ public class SwerveConstants {
 
         public static final SwerveState RAMP = new SwerveState("RAMP")
                         .withOnStateEnter(() -> {
-                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_CONTROLLER);
+                                ANGLE_ADJUST_CONTROLLER.withPIDController(ABS_PID_MOTION_CONTROLLER);
                                 ANGLE_ADJUST_CONTROLLER.withSetPoint(SuperStructure.getCloses45Deg());
                                 ANGLE_ADJUST_CONTROLLER.withGyroSupplier(Swerve.getInstance().getAbsYawSupplier());
                                 FIELD_CENTRIC_DRIVE.withSclers(0.85, 0.35);

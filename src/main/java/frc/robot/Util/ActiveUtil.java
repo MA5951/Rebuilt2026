@@ -14,7 +14,7 @@ public class ActiveUtil {
     private static Boolean isMyFirstShift; 
     private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
     private static int currentShift = 0;
-    private static boolean isActiveDisabled = false;
+    private static boolean isActiveDisabled = true;
 
     public static void startTeleop() {
         matchTimer.reset();

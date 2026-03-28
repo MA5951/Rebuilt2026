@@ -12,6 +12,8 @@ import frc.robot.Subsystems.Roller.RollerConstants;
 public class RollerCommand extends SubsystemCommand {
     private static final Roller roller = Roller.getInstance();
     private double endTime = 0;
+    // private boolean on;
+    // private double lastChange;
 
     public RollerCommand() {
         super(roller);
@@ -37,9 +39,16 @@ public class RollerCommand extends SubsystemCommand {
                 roller.setVoltage(RollerConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                
+
+                if (SandwichCommand.startTimer.hasElapsed(0.2)) {
                     roller.setVoltage(6);
-                
+
+                   
+
+                } else {
+                    roller.setVoltage(0);
+                }
+
                 break;
             case "UNSTUCK":
                 roller.setVoltage(RollerConstants.UNSTUCK_VOLTAGE);
@@ -50,7 +59,7 @@ public class RollerCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL2()) {
-            roller.setVoltage(6.5); //TODO move to constants
+            roller.setVoltage(6.5); // TODO move to constants
         } else {
             roller.setVoltage(0);
         }

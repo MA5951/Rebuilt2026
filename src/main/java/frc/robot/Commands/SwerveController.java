@@ -57,8 +57,10 @@ public class SwerveController extends SwerveSystemController {
             setState(SwerveConstants.FEEDING);
         } else {
 
+
+
             if (RobotContainer.getDriverController().getL2()) {
-                if (Swerve.getInstance().getTiltAngle() > 5) {
+                if (Swerve.getInstance().getTiltAngle() > 7) {
                     setState(SwerveConstants.RAMP_40);
                 } 
                 //else if (RobotContainer.getDriverController().getR2()) {
@@ -67,8 +69,10 @@ public class SwerveController extends SwerveSystemController {
                 else {
                     setState(SwerveConstants.FIELD_CENTRIC_40);
                 }
+            } else if (RobotContainer.getDriverController().getL1()) {
+                setState(SwerveConstants.SHOOTING_ABS_UNLOCKED);
             } else {
-                if (Swerve.getInstance().getTiltAngle() > 5) {
+                if (Swerve.getInstance().getTiltAngle() > 7) {
                     setState(SwerveConstants.RAMP);
                  } 
                 //else if (RobotContainer.getDriverController().getR2()) {

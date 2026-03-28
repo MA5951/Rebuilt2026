@@ -4,6 +4,7 @@ package frc.robot.Subsystems.Sandwich;
 import com.MAutils.Logger.MALog;
 import com.MAutils.Subsystems.DeafultSubsystems.Systems.PowerControlledSystem;
 
+import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import frc.robot.PortMap;
 import frc.robot.RobotConstants;
@@ -17,6 +18,7 @@ public class Sandwich extends PowerControlledSystem {
     private DigitalInput leftIr;
     private DigitalInput rightIr;
     private DigitalInput middleIr;
+    private Debouncer intakeDebouncer;
 
     private Sandwich() {
         super(SandwichConstants.SANDWICH_CONSTANTS, SandwichConstants.IDLE, SandwichConstants.INTAKE,
@@ -27,6 +29,7 @@ public class Sandwich extends PowerControlledSystem {
         leftIr = new DigitalInput(PortMap.Sandwich_Ports.LEFT_IR);
         rightIr = new DigitalInput(PortMap.Sandwich_Ports.RIGHT_IR);
         middleIr = new DigitalInput(PortMap.Sandwich_Ports.MIDDLE_IR);
+        intakeDebouncer = new Debouncer(1.3);
     }
 
     @Override
@@ -41,7 +44,11 @@ public class Sandwich extends PowerControlledSystem {
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) && !SuperStructure.isBallsInSandwich();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&&  !intakeDebouncer()
+    }
+
+    public boolean intakeDebouncer() {
+        return intakeDebouncer.calculate(Math.abs(getCurrent()) > 15);
     }
 
     private boolean canFeedingInMotion() {

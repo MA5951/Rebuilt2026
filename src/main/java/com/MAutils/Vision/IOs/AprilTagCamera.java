@@ -128,10 +128,13 @@ public class AprilTagCamera extends Camera {
                 PoseEstimationMA.getInstance().addVisionObservation(
                         new VisionObservation(Timer.getFPGATimestamp() - (poseEstimate.latency / 1000.0),
                                 new Pose3d(poseEstimate.pose), VecBuilder.fill(0.07, 0.07, 10)), cameraIO.getName());
+                MALog.log("Subsystems/Vision/Cameras/" + name + "/Odometry", "Odometry captured");
             } else {
                 oFom = 0;
                 xyFom = 0;
                 poseEstimatorSource.capture();
+                MALog.log("Subsystems/Vision/Cameras/" + name + "/Odometry", "Odometry didn't captured");
+
             }
 
         }

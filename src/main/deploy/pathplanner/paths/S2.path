@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.572076308784383,
-        "y": 5.053061224489795
+        "x": 3.6024111111111115,
+        "y": 5.218887303854119
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.827126237454131,
-        "y": 5.103193892109965
+        "x": 4.857461039780857,
+        "y": 5.269019971474289
       },
       "isLocked": false,
-      "linkedName": "S1end"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,28 +20,28 @@
         "y": 5.218887303854119
       },
       "prevControl": {
-        "x": 4.5047189390744435,
-        "y": 5.237737835262649
+        "x": 4.5055755096039265,
+        "y": 5.273388606474351
       },
       "nextControl": {
-        "x": 7.0796433666191145,
-        "y": 5.2059486447931524
+        "x": 7.118459343794578,
+        "y": 5.1800713266761775
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 8.608012422360249,
-        "y": 3.6607719609582965
+        "x": 7.674821683309556,
+        "y": 3.1228245363766054
       },
       "prevControl": {
-        "x": 5.826200724785356,
-        "y": 3.414937438847026
+        "x": 4.882710642100392,
+        "y": 3.0678075700473624
       },
       "nextControl": {
-        "x": 9.020643515605398,
-        "y": 3.697237034314845
+        "x": 10.301369472182596,
+        "y": 3.174579172610556
       },
       "isLocked": false,
       "linkedName": "S2 End"
@@ -74,8 +74,8 @@
       "rotationDegrees": 80.0
     },
     {
-      "waypointRelativePos": 2.2771855010660946,
-      "rotationDegrees": 170.0
+      "waypointRelativePos": 2.3667377398720495,
+      "rotationDegrees": 90.0
     }
   ],
   "constraintZones": [
@@ -136,7 +136,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.956110735989196,
+      "waypointRelativePos": 0.538957816377177,
       "endWaypointRelativePos": null,
       "command": {
         "type": "named",

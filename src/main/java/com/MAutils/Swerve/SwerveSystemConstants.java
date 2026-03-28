@@ -156,7 +156,7 @@ public class SwerveSystemConstants {
                         frontLeftLocation, frontRightLocation,
                         rearLeftLocation, rearRightLocation);
 
-        public ModuleLimits DEFUALT = new ModuleLimits(MAX_VELOCITY, 26.3,
+        public ModuleLimits DEFUALT = new ModuleLimits(MAX_VELOCITY, 18,//26.3
                         Units.degreesToRadians(700));
 
         public DriveTrainSimulationConfig DRIVE_TRAIN_SIMULATION_CONFIG = DriveTrainSimulationConfig

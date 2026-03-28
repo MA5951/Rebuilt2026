@@ -5,6 +5,7 @@ import com.MAutils.RobotControl.MRobotState;
 
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Commands.ClimbCommand;
+import frc.robot.Commands.SandwichCommand;
 import frc.robot.Commands.SwerveController;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -75,6 +76,8 @@ public class RobotConstants {
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
                SwerveController.atPointLock = false;
                Robot.counter = 0;
+               SandwichCommand.startTimer.stop();
+               SandwichCommand.startTimer.reset();
                
 
 
@@ -95,6 +98,8 @@ public class RobotConstants {
                SuperStructure.startShootingTime = Timer.getFPGATimestamp();
                SwerveController.atPointLock = false;
                Robot.counter = 0;
+               SandwichCommand.startTimer.stop();
+               SandwichCommand.startTimer.reset();
                
 
 

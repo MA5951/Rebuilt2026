@@ -35,15 +35,11 @@ public class IntakeCommand extends SubsystemCommand {
                 } else {
                     intakeroller.setVoltage(IntakeRollerConstants.IDLE_VOLTAGE);
                 }
-
-                // intakeroller.setVoltage(0);
-
                 break;
-
             case "FORWARD":
                 if (SixBar.getInstance().getPosition() < -60) {
                     if (DriverStation.isAutonomous()) {
-                        intakeroller.setVoltage(10.5);
+                        intakeroller.setVoltage(10);
                     } else {
                         intakeroller.setVoltage(7);
                     }
@@ -55,11 +51,6 @@ public class IntakeCommand extends SubsystemCommand {
                 intakeroller.setVoltage(IntakeRollerConstants.BACKWARD_VOLTAGE);
                 break;
             case "SHOOTING":
-                // if (SixBar.getInstance().atPoint(3)) {
-                // intakeroller.setVoltage(0);
-                // } else {
-                // intakeroller.setVoltage(4);
-                // }
                 if (SixBar.getInstance().atPoint(3) && SixBar.getInstance().getPosition() > -55) {
                     intakeroller.setVoltage(-6);
                 } else {

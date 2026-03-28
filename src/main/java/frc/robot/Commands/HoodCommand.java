@@ -38,18 +38,18 @@ public class HoodCommand extends SubsystemCommand {
                     // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() + 0.5);
                     // }
 
-                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
-                            + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
-                                    * 0.3));
-                    hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
+                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
+                    //         + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
+                    //                 * 0.3));
+                    // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
 
-                    if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
+                    // if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
                         hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
-                    } else {
-                        hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
-                            + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
-                                    * (0.25 * SuperStructure.getDistanceToTargetShooting() - 1)));
-                    }
+                    // } else {
+                    //     hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
+                    //         + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
+                    //                 * (0.25 * SuperStructure.getDistanceToTargetShooting() - 1)));
+                    // }
                 } else {
                     hood.setPosition(SuperStructure.getCurrentShootingPreset().hoodAngle);
                 }
