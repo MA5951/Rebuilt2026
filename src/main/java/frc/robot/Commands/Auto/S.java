@@ -18,7 +18,7 @@ public class S extends SequentialCommandGroup {
       SwerveAutoFollower.followPath("S3"),
       new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()),
   
-      new ParallelDeadlineGroup(new WaitCommand(8.5), new LockTarget(Field.flipByAlliance(new Pose2d(2,5.219,new Rotation2d())), 0.1, true, 0.3)),
+      new ParallelDeadlineGroup(new WaitCommand(7.5), new LockTarget(Field.flipByAlliance(new Pose2d(2,5.219,new Rotation2d())), 0.1, true, 0.3)),
       new LockTarget(Field.flipByAlliance(new Pose2d(3.427,5.219,new Rotation2d())), 0.5, false, 0.6),
       // new ParallelDeadlineGroup(new WaitCommand(8), new SwerveAutoController()),
       SwerveAutoFollower.followPath("S2")

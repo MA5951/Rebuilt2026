@@ -320,6 +320,15 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 .resetPose(VisionConstants.FRONT_LL.getCameraIO()
                                                                 .getPoseEstimate(PoseEstimateType.MT1).pose)));
 
+                new Trigger(() -> getDriverController().getDpadUp()).onTrue(
+                                new InstantCommand(() -> PoseEstimator.resetPose(VisionConstants.BACK_LL.getCameraIO()
+                                                .getPoseEstimate(PoseEstimateType.MT1).pose)));
+
+                new Trigger(() -> getDriverController().getDpadUp()).onTrue(
+                                new InstantCommand(() -> PoseEstimationMA.getInstance()
+                                                .resetPose(VisionConstants.BACK_LL.getCameraIO()
+                                                                .getPoseEstimate(PoseEstimateType.MT1).pose)));
+
                 new Trigger(() -> ActiveUtil.getTimeUntilActive() < TIME_UNTIL_ACTIVE + 0.5)
                                 .onTrue(new StartingActiveCommand());
                 new Trigger(() -> ActiveUtil.getTimePastActive() > TIME_PAST_ACTIVE - 0.5)
