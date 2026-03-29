@@ -12,9 +12,9 @@ import edu.wpi.first.wpilibj.Timer;
 public class ActiveUtil {
 
     private static Boolean isMyFirstShift; 
-    private static Timer matchTimer = new Timer(); //TODO why ust the timer and dont use the DriverStation match time
+    private static Timer matchTimer = new Timer();
     private static int currentShift = 0;
-    private static boolean isActiveDisabled = true;
+    private static boolean isActiveDisabled = false;
 
     public static void startTeleop() {
         matchTimer.reset();

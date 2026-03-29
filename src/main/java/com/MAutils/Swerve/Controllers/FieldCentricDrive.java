@@ -88,6 +88,10 @@ public class FieldCentricDrive extends SwerveController {
             
         }
 
+        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED && speeds.vxMetersPerSecond < -0.25 ) {
+            speeds.vxMetersPerSecond /= 2;
+        }
+
         speeds = ChassisSpeedsUtil.FromFieldToRobot(speeds,
                 Rotation2d.fromDegrees(gyroDataSupplier.get().yaw - angleOffset));
 
