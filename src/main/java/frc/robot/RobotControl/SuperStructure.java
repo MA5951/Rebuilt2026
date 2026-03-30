@@ -209,13 +209,15 @@ public class SuperStructure extends DeafultSuperStructure {
     private static InterpolationTable shooterTable = new InterpolationTable(shooterTableData);
     private static boolean automatic = true;
     private static boolean defence = false;
-    private static ShootingPreset currentShootingPreset = ShootingPreset.CLOSE;
+    private static ShootingPreset currentShootingPreset = ShootingPreset.TRENCH;
     public static boolean isLocked = false;
     public static boolean atPointLatch = false;
     public static double startShootingTime = 0;
     public static int ballsShot = 0;
     private static boolean ballLock = false;
     private static double setPointAlign = 0;
+    private static double shooterAdd = 0;
+    private static double hoodAdd = 0;
 
     private static double lastAngle = 0;
     private static final double TOLERANCE = 17.0; // degrees
@@ -246,6 +248,22 @@ public class SuperStructure extends DeafultSuperStructure {
         NONE,
         STUCK_IN_SANDWICH,
         STUCK_IN_TRANSFER;
+    }
+
+    public static void setShooterAdd(double add) {
+        shooterAdd += add;
+    }
+
+    public static void setHoodAdd(double add) {
+        hoodAdd += add;
+    }
+
+    public static double getShooterAdd() {
+        return shooterAdd;
+    }
+
+    public static double getHoodAdd() {
+        return hoodAdd;
     }
 
     public SuperStructure() {
@@ -399,12 +417,12 @@ public class SuperStructure extends DeafultSuperStructure {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 170 - (shooterTable.interpolate(x) / 45) * shootingFactor; // -
+                    : shooterTable.interpolate(x) - 170 - (shooterTable.interpolate(x) / 45) * shootingFactor + shooterAdd; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 100 - (shooterTable.interpolate(x) / 45) * shootingFactor; // - 60;,
+                : shooterTable.interpolate(x) - 100 - (shooterTable.interpolate(x) / 45) * shootingFactor + shooterAdd; // - 60;,
         // 125
     }
 
@@ -415,7 +433,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 0.7 ;// -2 , -1
+        return hoodTable.interpolate(distance) - 0.7 + hoodAdd ;// -2 , -1
 
     }
 
@@ -636,6 +654,8 @@ public class SuperStructure extends DeafultSuperStructure {
         }
 
         MALog.log("/SuperStructure/Locking Set Point", isLocked);
+        MALog.log("/SuperStructure/Shooter Add", shooterAdd);
+        MALog.log("/SuperStructure/Hood Add", hoodAdd);
         MALog.log("/SuperStructure/Shooting Factor", (shootingFactor - 1) * 100);
         MALog.log("/SuperStructure/Angle Abs", getAbsAngleToTarget());
         MALog.log("/SuperStructure/Distance/Abs", getAbsDistanceToHub());

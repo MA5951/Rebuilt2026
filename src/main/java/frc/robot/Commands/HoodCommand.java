@@ -44,7 +44,7 @@ public class HoodCommand extends SubsystemCommand {
                     // hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
 
                     // if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED) {
-                        hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() );
+                        hood.setPosition(SuperStructure.getShootingParameters().hoodAngle() + SuperStructure.getHoodAdd());
                     // } else {
                     //     hood.setPosition(SuperStructure.getShootingParameters().hoodAngle()
                     //         + (Math.sin((Timer.getFPGATimestamp() - SuperStructure.startShootingTime) * 4 * Math.PI)
@@ -57,10 +57,10 @@ public class HoodCommand extends SubsystemCommand {
                 // hood.setPosition(18);
                 break;
             case "FEEDING":
-                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());
+                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle()+ SuperStructure.getHoodAdd());
                 break;
             case "FEEDING_IN_MOTION":
-                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle());
+                hood.setPosition(SuperStructure.getFeedingParameters().hoodAngle()+ SuperStructure.getHoodAdd());
                 break;
             case "EJECT":
                 hood.setPosition(HoodConstants.EJECT_POSITION);

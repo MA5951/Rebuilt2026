@@ -363,15 +363,20 @@ public class RobotContainer extends DeafultRobotContainer {
 
                 new Trigger(() -> (getOperatorController().getDpadLeft()))
                                 .onTrue(new InstantCommand(
-                                                () -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
+                                                () -> SuperStructure.setHoodAdd(-0.2)));
 
-                T(StateTrigger.T(() -> getOperatorController().getMiddle(),
-                                RobotConstants.INTAKE_EJECT));
+                new Trigger(() -> (getOperatorController().getDpadRight()))
+                                .onTrue(new InstantCommand(
+                                                () -> SuperStructure.setHoodAdd(0.2)));
 
-                T(StateTrigger.T(
-                                () -> !getOperatorController().getMiddle()
-                                                && getRobotState() == RobotConstants.INTAKE_EJECT,
-                                getLastRobotState()));
+                new Trigger(() -> (getOperatorController().getDpadUp()))
+                                .onTrue(new InstantCommand(
+                                                () -> SuperStructure.setShooterAdd(10)));
+
+                new Trigger(() -> (getOperatorController().getDpadDown()))
+                                .onTrue(new InstantCommand(
+                                                () -> SuperStructure.setShooterAdd(-10)));
+
 
                 // new Trigger (() -> getOperatorController().getL2()).onTrue
                 // (new InstantCommand(() ->
