@@ -96,9 +96,11 @@ public class SixBarCommand extends SubsystemCommand {
     @Override
     public void Manual() {
         if (RobotContainer.getOperatorController().getL1()) {
-            sixbar.setVoltage(4);
+            sixbar.setVoltage(3);
         } else if (RobotContainer.getOperatorController().getR1()) {
-            sixbar.setVoltage(-4);
+            sixbar.setVoltage(-3);
+        } else {
+            sixbar.setVoltage(0);
         }
     }
 

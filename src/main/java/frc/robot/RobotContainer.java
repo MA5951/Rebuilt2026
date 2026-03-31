@@ -97,6 +97,8 @@ public class RobotContainer extends DeafultRobotContainer {
                                 new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()));
                 NamedCommands.registerCommand("coast",
                                 new InstantCommand(() -> Swerve.getInstance().isBrake(false)));
+                NamedCommands.registerCommand("OpenRoof",
+                                new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.EXTEND)));
 
                 // new Trigger(() -> ((PoseEstimator.getCurrentPose().getX() > 5.5 &&
                 // DriverStationUtil.getAlliance() == Alliance.Blue) || (
@@ -361,13 +363,13 @@ public class RobotContainer extends DeafultRobotContainer {
                 new Trigger(() -> getOperatorController().getOptionsLeft()).onTrue(
                                 new InstantCommand(() -> ActiveUtil.setActiveDisabled(!ActiveUtil.isActiveDisabled())));
 
-                new Trigger(() -> (getOperatorController().getDpadLeft()))
-                                .onTrue(new InstantCommand(
-                                                () -> SuperStructure.setHoodAdd(-0.2)));
+                // new Trigger(() -> (getOperatorController().getDpadLeft()))
+                //                 .onTrue(new InstantCommand(
+                //                                 () -> SuperStructure.setHoodAdd(-0.2)));
 
-                new Trigger(() -> (getOperatorController().getDpadRight()))
-                                .onTrue(new InstantCommand(
-                                                () -> SuperStructure.setHoodAdd(0.2)));
+                // new Trigger(() -> (getOperatorController().getDpadRight()))
+                //                 .onTrue(new InstantCommand(
+                //                                 () -> SuperStructure.setHoodAdd(0.2)));
 
                 new Trigger(() -> (getOperatorController().getDpadUp()))
                                 .onTrue(new InstantCommand(
@@ -378,9 +380,15 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 () -> SuperStructure.setShooterAdd(-10)));
 
 
-                new Trigger (() -> getOperatorController().getMiddle()).onTrue
-                (new InstantCommand(() ->
-                Climb.getInstance().setState(ClimbConstnats.IDLE)));
+                // new Trigger (() -> getOperatorController().getMiddle()).onTrue
+                // (new InstantCommand(() ->
+                // Climb.getInstance().setState(ClimbConstnats.IDLE)));
+
+                new Trigger(() -> getOperatorController().getDpadLeft()).onTrue(
+                                new InstantCommand(() -> ActiveUtil.setIsMyFirstShift(!ActiveUtil.isMyFirstShift())));
+
+                new Trigger(() -> getOperatorController().getDpadRight()).onTrue(
+                                new InstantCommand(() -> SuperStructure.setDefenceMode(!SuperStructure.isDefenceMode())));
 
         }
 }

@@ -22,8 +22,8 @@ public class ActiveUtil {
     }
 
 
-    public static void setIsMyFirstShift(Boolean isMyFirstShift) {
-        ActiveUtil.isMyFirstShift = isMyFirstShift;
+    public static void setIsMyFirstShift(Boolean bool) {
+        isMyFirstShift = bool;
     }
 
     public static void checkShift() {
@@ -183,5 +183,9 @@ public class ActiveUtil {
 
     public static double getMatchTime() {
         return matchTimer.get();
+    }
+
+    public static boolean isMyFirstShift() {
+        return isMyFirstShift;
     }
 } 
