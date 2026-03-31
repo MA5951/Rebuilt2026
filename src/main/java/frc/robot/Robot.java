@@ -118,6 +118,8 @@ public class Robot extends DeafultRobot {
     matchTime.update(MatchTime.kGameData2026.get());
     PoseEstimationMA.getInstance().update();
 
+    
+
   }
 
   @Override
@@ -170,6 +172,7 @@ public class Robot extends DeafultRobot {
   public void teleopPeriodic() {
     super.teleopPeriodic();
     ActiveUtil.getGameMode();
+    
     MALog.log("ActiveUtil/is active", ActiveUtil.isActive());
 
     if (ActiveUtil.isActive()) {

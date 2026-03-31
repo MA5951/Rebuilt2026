@@ -22,7 +22,7 @@ public class Constants {
 
     public static final SimulationType SIMULATION_TYPE = SimulationType.REPLAY; 
     public static final boolean TUNING_MODE = true; 
-    public static boolean COMPETITION_LOG = false;
+    public static boolean COMPETITION_LOG = true;
 
     public static void cheackConstants() { //TODO this shoudnt belong to the constnats class put it in the superstucer class
         if (DriverStation.isFMSAttached() ) { //Nots: If in copetition mode, enable competition logging 

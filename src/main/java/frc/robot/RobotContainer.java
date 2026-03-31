@@ -378,9 +378,9 @@ public class RobotContainer extends DeafultRobotContainer {
                                                 () -> SuperStructure.setShooterAdd(-10)));
 
 
-                // new Trigger (() -> getOperatorController().getL2()).onTrue
-                // (new InstantCommand(() ->
-                // Climb.getInstance().setSystemMode(SystemMode.MANUAL)));
+                new Trigger (() -> getOperatorController().getMiddle()).onTrue
+                (new InstantCommand(() ->
+                Climb.getInstance().setState(ClimbConstnats.IDLE)));
 
         }
 }
