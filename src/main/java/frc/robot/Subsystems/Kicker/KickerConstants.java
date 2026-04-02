@@ -16,7 +16,7 @@ public class KickerConstants {
         public static final double FEDDING_IN_MOTION_VOLTAGE = 3.0;
         public static final double EJECT_VOLTAGE = 5.0;
         public static final double FEEDING_VOLTAGE = 6.0;
-        public static final double SHOOTING_VOLTAGE = 9.5;//9,5
+        public static final double SHOOTING_VOLTAGE = 6;//9,5
         public static final double UNSTUCK_VOLTAGE = -2.0;
 
         public static final double GEAR = 1;

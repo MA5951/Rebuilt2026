@@ -35,6 +35,8 @@ public class SixBar extends PositionControlledSystem {
 
         resetPosition(0);
 
+        // resetPosition(-SixBarConstants.DEPLOY_ANGLE);
+
         HOMING.setOnStateSet(() -> setConstants(SixBarConstants.HOMING_SIXBAR_CONSTANTS, false));
         HOMING.setOnStateEnd(() -> setConstants(SixBarConstants.SIXBAR_CONSTANTS, false));
 

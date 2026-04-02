@@ -20,8 +20,8 @@ public class ShooterConstants {
         public static final double MAX_VELOCITY = 6060;
         public static final double GEAR = 1;
         public static final double TOLERANCE = 50;
-        public static final double CURRENT_LIMIT = 40;
-        public static final double STATOR_CURRENT_LIMIT = 30;
+        public static final double CURRENT_LIMIT = 100;
+        public static final double STATOR_CURRENT_LIMIT = 100;
         public static final double RAMP_RATE = 0.1;
 
         public static final double AT_POINT_FOR_FEEDING_TOLERANCE = 300;
@@ -32,10 +32,11 @@ public class ShooterConstants {
 
         private static final Motor MASTER_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_MASTER, MotorType.KRAKEN,
                         "Shooter Master Motor", InvertedValue.Clockwise_Positive);
+
         private static final Motor SLAVE_MOTOR = new Motor(PortMap.ShooterPorts.SHOOTER_SLAVE, MotorType.KRAKEN,
                         "Shooter Slave Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKS(0.195).withKV(0.1195).withKP(0.26);//0.26, 0.32
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKS(0.195).withKV(0.12).withKP(0.5);//0.26, 0.32//0.1195
 
         public static VelocitySystemConstants SHOOTER_CONSTANTS = VelocitySystemConstants
                         .newBuilder("Shooter", REAL_GAIN_CONFIG, MASTER_MOTOR, SLAVE_MOTOR)
