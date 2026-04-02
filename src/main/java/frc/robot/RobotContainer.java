@@ -78,8 +78,8 @@ public class RobotContainer extends DeafultRobotContainer {
                 CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                                 new IntakeCommand());
                 IntakeRoller.getInstance();
-                CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
-
+                //CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
+                Climb.getInstance();
         }
 
         @Override
