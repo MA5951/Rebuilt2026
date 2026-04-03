@@ -66,7 +66,7 @@ public class AprilTagFilters {
         if (lastPose.getX() == 0 && isBasicNone0()) {
             return 0.6;
         }
-        if (!isBasicValid()) return 0.0;
+        if (!isBasicValid()) return 0.0; //TODO move to first line 
 
         // Since you are certain in your angle, we compare Vision Yaw vs IMU Yaw
         double visionYaw = lastEstimate.pose.getRotation().getRadians();

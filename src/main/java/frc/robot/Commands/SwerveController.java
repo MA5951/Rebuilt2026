@@ -24,14 +24,10 @@ public class SwerveController extends SwerveSystemController {
 
     public void SetSwerveState() {
 
-        // if ( ((swerveSystem.getState() == SwerveConstants.SHOOTING_REL
-        // || swerveSystem.getState() == SwerveConstants.SHOOTING_ABS) && ((
-        // SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint()) &&
-        // SuperStructure.isAutomatic()) || atPointLock )) {
-        // setState(SwerveConstants.NONE);
-        // atPointLock = true;
-        // } else {
-        if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
+    
+        
+        if (SuperStructure.isAutomatic()) {
+            if (RobotContainer.getRobotState() == RobotConstants.SHOOTING ||
                 (RobotContainer.getRobotState() == RobotConstants.UNSTUCK
                         && RobotContainer.getLastRobotState() == RobotConstants.SHOOTING)) {
 
@@ -81,8 +77,22 @@ public class SwerveController extends SwerveSystemController {
                 else {
                     setState(SwerveConstants.FIELD_CENTRIC);
                 }
-            }
+            } 
         
+        } 
+
+        } else {
+            if (RobotContainer.getDriverController().getL2()) {
+                
+               
+                    setState(SwerveConstants.FIELD_CENTRIC_40);
+                
+            } else {
+                
+                
+                    setState(SwerveConstants.FIELD_CENTRIC);
+                
+            } 
         }
 
     }

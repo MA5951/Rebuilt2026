@@ -60,7 +60,7 @@ public class SixBarCommand extends SubsystemCommand {
                 // if (hasClosed && Climb.getInstance().getPosition() > 0.15) {
                 //     sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
                 // } else {
-                sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
+                //sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 // }
 
                 // if (sixbar.getPosition() > -26) {

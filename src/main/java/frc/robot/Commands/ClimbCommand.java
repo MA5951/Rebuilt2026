@@ -38,6 +38,8 @@ public class ClimbCommand extends SubsystemCommand {
                 }
 
                 
+
+                
                 climbLatch = false;
                 break;
             case "CLIMB":

@@ -64,11 +64,11 @@ public class Robot extends DeafultRobot {
     // PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
 
     PoseEstimator.resetPose(new Pose2d(12.13, 0.77, Rotation2d.fromDegrees(-90)));
-
+    
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
 
-    auto = new DepotClimb();
+    auto = new FeedingAuto();
     //auto = new DepotClimb();
   }
 
@@ -91,7 +91,7 @@ public class Robot extends DeafultRobot {
         (Math.abs(SixBar.getInstance().getPosition())
             - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
     MALog.log("/SuperStructure/Intake Tolorance",
-        Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
+        Math.abs( Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
 
     if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)
         

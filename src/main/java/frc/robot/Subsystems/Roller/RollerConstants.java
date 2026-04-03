@@ -20,7 +20,7 @@ public class RollerConstants {
         public static final double UNSTUCK_VOLTAGE = -0.0;
 
         public static final double GEAR = 1.5;
-        public static final double CURRENT_LIMIT = 35;
+        public static final double CURRENT_LIMIT = 40;//TODO move to statuer cuurent limit
         public static final double STATOR_CURRENT_LIMIT = 40;
         public static final double RAMP_RATE = 0.2;
 

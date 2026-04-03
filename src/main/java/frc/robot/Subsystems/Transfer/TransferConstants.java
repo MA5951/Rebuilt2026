@@ -34,7 +34,7 @@ public class TransferConstants {
                         .isBrake(false)
                         .rampRate(RAMP_RATE)
                         .motorCurrentLimit(CURRENT_LIMIT)
-                        .statorCurrentLimit(true, STATOR_CURRENT_LIMIT)
+                        .statorCurrentLimit(false, STATOR_CURRENT_LIMIT)
                         .build(PowerSystemConstants::new);
 
         public static final State IDLE = new State("IDLE");
