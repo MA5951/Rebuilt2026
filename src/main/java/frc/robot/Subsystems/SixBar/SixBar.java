@@ -33,7 +33,7 @@ public class SixBar extends PositionControlledSystem {
         
 
 
-        resetPosition(-SixBarConstants.BUMPER_ZONE_ANGLE);
+        resetPosition(0);
 
         // resetPosition(-SixBarConstants.DEPLOY_ANGLE);
 
