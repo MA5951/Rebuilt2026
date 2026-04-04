@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.Commands.SwerveController;
+import frc.robot.Commands.Auto.LockTarget;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Hood.Hood;
 import frc.robot.Subsystems.Sandwich.Sandwich;
@@ -58,8 +59,6 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static int index;
     // this class is ugly becuase of galdo
-
-    private static boolean isExtendedMagazine = false;
 
     // private static double[][] hoodTableData = {
     //         { 5.676, 27.0 },
@@ -345,14 +344,6 @@ public class SuperStructure extends DeafultSuperStructure {
         return true;
     }
 
-    public static boolean isExtendedMagazine() {
-        return isExtendedMagazine;
-    }
-
-    public static void SetIsExtendedMagazine(boolean bool) {
-        isExtendedMagazine = bool;
-    }
-
     public static boolean isBallsInSandwich() {
         return true;
         // Sandwich.getInstance().getLeftIr()
@@ -406,12 +397,12 @@ public class SuperStructure extends DeafultSuperStructure {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 210 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
+                    : shooterTable.interpolate(x) - 250 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 210 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
+                : shooterTable.interpolate(x) - 250 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
         // 125
     }
 
@@ -525,7 +516,7 @@ public class SuperStructure extends DeafultSuperStructure {
                                 || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS))
                         || (Hood.getInstance().atPoint(2)
                                 && RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED))
-                && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || DriverStation.isAutonomous()) || (!isAutomatic()));
+                && ((SwerveConstants.ANGLE_ADJUST_CONTROLLER.atSetpoint() || LockTarget.tController.atSetpoint()) || (!isAutomatic()));
 
     }
 

@@ -25,7 +25,7 @@ public class Climb extends PositionControlledSystem {
 
     private Climb() {
         super(ClimbConstnats.CLIMB_CONSTANTS, ClimbConstnats.IDLE, CLIMB, ClimbConstnats.DOWN,
-                PRECLIMB, HOMING, ClimbConstnats.EXTEND, ClimbConstnats.SHOOTING, ClimbConstnats.HOLD);
+                PRECLIMB, HOMING);
 
         // ClimbConstnats.PRECLIMB.setOnStateSet(() -> setBrakeMode(false));
         // ClimbConstnats.DOWN.setOnStateSet(() -> setBrakeMode(false));

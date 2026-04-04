@@ -126,7 +126,7 @@ public class Robot extends DeafultRobot {
   public void autonomousInit() {
     super.autonomousInit();
     if (!SixBarCommand.isReset) {
-      //SixBar.getInstance().setState(SixBar.HOMING);
+      SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);
     }
 
@@ -159,7 +159,7 @@ public class Robot extends DeafultRobot {
     Swerve.getInstance().isBrake(true);
 
     if (!SixBarCommand.isReset) {
-      //SixBar.getInstance().setState(SixBar.HOMING);
+      SixBar.getInstance().setState(SixBar.HOMING);
       Hood.getInstance().setState(Hood.HOMING);
     }
 

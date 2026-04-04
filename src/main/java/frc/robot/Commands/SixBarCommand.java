@@ -4,6 +4,8 @@ package frc.robot.Commands;
 import com.MAutils.RobotControl.SubsystemCommand;
 
 import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.wpilibj.DriverStation;
+import frc.robot.RobotConstants;
 import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -42,7 +44,11 @@ public class SixBarCommand extends SubsystemCommand {
                 }
                 break;
             case "DEPLOY":
-                sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+                if (RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED && DriverStation.isAutonomous()) {
+                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                } else {
+                    sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+                }
                 break;
             case "ARMBRAKS":
                 sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
@@ -73,7 +79,7 @@ public class SixBarCommand extends SubsystemCommand {
                 // sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 // }
 
-                // sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
                 // sixbar.setVoltage(1.5);
                 break;
             case "HOMING":

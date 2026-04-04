@@ -21,8 +21,8 @@ public class LockTarget extends Command {
   private Pose2d targetPose;
   private PIDController xController = new PIDController(1.5, 0, 0);
   private PIDController yController = new PIDController(1.5, 0, 0);
-  private final PIDController tController = new PIDController(0.07, 0, 0).withContinuesInput(-180, 180)
-      .withTolerance(3);
+  public static final PIDController tController = new PIDController(0.07, 0, 0).withContinuesInput(-180, 180)
+      .withTolerance(4);
   private ChassisSpeeds speeds = new ChassisSpeeds();
   private double atPointRad;
   private boolean stopEnd;

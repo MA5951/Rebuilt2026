@@ -79,4 +79,13 @@ public class SwerveAutoFollower {
     public static Command pathFindToPose(Pose2d targetPose, PathConstraints constraints) {
         return AutoBuilder.pathfindToPose(targetPose, constraints);
     }
+
+    public static Pose2d getStartPose(String path) {
+        try {
+            return PathPlannerPath.fromPathFile(path).getStartingHolonomicPose().get();
+        } catch (FileVersionException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        return new Pose2d();
+    }
 }

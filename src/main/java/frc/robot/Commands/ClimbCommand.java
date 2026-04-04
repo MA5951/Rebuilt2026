@@ -36,9 +36,6 @@ public class ClimbCommand extends SubsystemCommand {
                 } else {
                     climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
                 }
-
-                
-
                 
                 climbLatch = false;
                 break;
@@ -62,49 +59,6 @@ public class ClimbCommand extends SubsystemCommand {
                 }
                 lastCurrent = climb.getCurrent();
                 break;
-            case "SHOOTING":
-                if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.182,0.19);
-                } else {
-                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
-                }
-                // } else {
-                // if(SuperStructure.isExtendedMagazine()) {
-                //     if (SixBarCommand.hasClosed) {
-                //         climb.setPosition(ClimbConstnats.IDLE_POSITION);
-                //     } else {
-                //         climb.setVoltage(0);
-                //     }
-                // } else {
-                //     climb.setPosition(ClimbConstnats.IDLE_POSITION);
-                // }
-                // climb.setPosition(ClimbConstnats.OPEN_POSITION);
-                
-                break;
-            case "EXTEND":
-                if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.182,0.19);//0.089
-                } else {
-                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
-                }
-                if (climb.atPoint()) {
-                    isAtPosition = true;
-                }
-                climbLatch = false;
-                break;
-                
-            case "HOLD":
-            if(SuperStructure.isExtendedMagazine()){
-                    climb.setPosition(0.182,0.19);//0/089
-                } else {
-                    climb.setPosition(ClimbConstnats.IDLE_POSITION);
-                }
-                if (climb.atPoint()) {
-                    isAtPosition = true;
-                }
-                climbLatch = false;
-                break;
-
         }
     }
 

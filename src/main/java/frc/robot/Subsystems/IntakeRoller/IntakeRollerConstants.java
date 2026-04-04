@@ -18,7 +18,7 @@ public class IntakeRollerConstants {
 
      public static final double GEAR = 2.5;
      public static final double CURRENT_LIMIT = 70;
-     public static final double STATOR_CURRENT_LIMIT = 35;
+     public static final double STATOR_CURRENT_LIMIT = 65;
      public static final double RAMP_RATE = 0.2;
 
      private static final Motor INTAKE_ROLLER_MOTOR = new Motor(PortMap.Intake_Roller_Ports.INTAKE_ROLLER_MOTOR, MotorType.KRAKEN,

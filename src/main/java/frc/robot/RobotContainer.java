@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.AutoChooser.AutoSelector;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimationMA;
 import com.MAutils.PoseEstimation.PoseEstimator;
@@ -62,6 +63,7 @@ public class RobotContainer extends DeafultRobotContainer {
         public static final double TIME_UNTIL_ACTIVE = 3;
         public static final double TIME_PAST_ACTIVE = 2;
         public static final CommandXboxController driverRumble = new CommandXboxController(2);
+        public static final AutoSelector autoSelector = new AutoSelector();
 
         public RobotContainer() {
                 super();
@@ -97,9 +99,20 @@ public class RobotContainer extends DeafultRobotContainer {
                                 new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()));
                 NamedCommands.registerCommand("coast",
                                 new InstantCommand(() -> Swerve.getInstance().isBrake(false)));
-                NamedCommands.registerCommand("OpenRoof",
-                                new InstantCommand(() -> Climb.getInstance().setState(ClimbConstnats.EXTEND)));
+                
 
+
+                autoSelector.setAutoOptions(
+                        RobotConstants.NONE_AUTO,
+                        RobotConstants.DEPOT_CLIMB,
+                        RobotConstants.TWO_MAGAZINE,
+                        RobotConstants.FEEDING_AUTO,
+                        RobotConstants.FEEDING_BACK,
+                        RobotConstants.FEEDING_CLIMB,
+                        RobotConstants.FEEDING_SHOOTING,
+                        RobotConstants.MAGAZINE_CLIMB,
+                        RobotConstants.MAGAZINE_CLIMB_RIGHT
+                );
                 
 
         }
@@ -354,9 +367,6 @@ public class RobotContainer extends DeafultRobotContainer {
 
                 new Trigger(() -> getOperatorController().getR1()).onTrue(
                                 new InstantCommand(() -> SixBar.getInstance().setSystemMode(SystemMode.MANUAL)));
-
-                new Trigger(() -> getOperatorController().getActionsLeft()).onTrue(new InstantCommand(
-                                () -> SuperStructure.SetIsExtendedMagazine(!SuperStructure.isExtendedMagazine())));
 
                 new Trigger(() -> getOperatorController().getOptionsLeft()).onTrue(
                                 new InstantCommand(() -> ActiveUtil.setActiveDisabled(!ActiveUtil.isActiveDisabled())));

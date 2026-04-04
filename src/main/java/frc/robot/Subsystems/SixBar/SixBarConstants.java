@@ -42,7 +42,7 @@ public class SixBarConstants {
         private static final Motor SIXBAR_MOTOR = new Motor(PortMap.SixBarPorts.SIXBAR_MOTOR, MotorType.KRAKEN,
                         "SixBar Motor", InvertedValue.Clockwise_Positive);
 
-        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(32).withKI(0).withKD(0);// kp = 36
+        private static final GainConfig REAL_GAIN_CONFIG = new GainConfig().withKP(36).withKI(0).withKD(0);// kp = 36
 
         public static PositionSystemConstants SIXBAR_CONSTANTS = PositionSystemConstants
                         .newBuilder("SixBar", REAL_GAIN_CONFIG, SIXBAR_MOTOR)

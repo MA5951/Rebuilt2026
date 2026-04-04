@@ -2,12 +2,23 @@
 package frc.robot;
 
 import com.MAutils.Auto.AutoRoutine;
+import com.MAutils.AutoChooser.Autonomus;
 import com.MAutils.RobotControl.MRobotState;
+import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Commands.ClimbCommand;
 import frc.robot.Commands.SandwichCommand;
 import frc.robot.Commands.SwerveController;
+import frc.robot.Commands.Auto.DepotClimb;
+import frc.robot.Commands.Auto.FeedingAuto;
+import frc.robot.Commands.Auto.FeedingBack;
+import frc.robot.Commands.Auto.FeedingShooting;
+import frc.robot.Commands.Auto.MagazineClimb;
+import frc.robot.Commands.Auto.MgazineClimbRight;
+import frc.robot.Commands.Auto.TwoMagazine;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
@@ -20,10 +31,23 @@ import frc.robot.Subsystems.Sandwich.SandwichConstants;
 import frc.robot.Subsystems.Shooter.ShooterConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
+import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 import frc.robot.Subsystems.Transfer.TransferConstants;
 import frc.robot.Subsystems.Vision.Vision;
 
 public class RobotConstants {
+
+        public static final Autonomus NONE_AUTO = new Autonomus("None Auto", new InstantCommand(), new Pose2d(), 0);
+        public static final Autonomus DEPOT_CLIMB = new Autonomus("Depot Climb", new DepotClimb(), SwerveAutoFollower.getStartPose("DC 1 Push"), -90);
+        public static final Autonomus TWO_MAGAZINE = new Autonomus("Two Magazine", new TwoMagazine(), SwerveAutoFollower.getStartPose("TM5"), 0);
+        public static final Autonomus FEEDING_AUTO = new Autonomus("Feeding Auto", new FeedingAuto(), SwerveAutoFollower.getStartPose("F1"), 180);
+        public static final Autonomus FEEDING_BACK = new Autonomus("Feeding Back Auto", new FeedingBack(), SwerveAutoFollower.getStartPose("FB1"), 180);
+        public static final Autonomus FEEDING_CLIMB = new Autonomus("Feeding Climb", new FeedingBack(), SwerveAutoFollower.getStartPose("FC1"), 180);
+        public static final Autonomus FEEDING_SHOOTING = new Autonomus("Feeding Shooting", new FeedingShooting(), SwerveAutoFollower.getStartPose("FS1"), 180);
+        public static final Autonomus MAGAZINE_CLIMB_RIGHT = new Autonomus("Magazine Climb Right", new MgazineClimbRight(), SwerveAutoFollower.getStartPose("MCR1"), 180);
+        public static final Autonomus MAGAZINE_CLIMB = new Autonomus("Magazine Climb", new MagazineClimb(), SwerveAutoFollower.getStartPose("MC1"), 0);
+
+
 
         public static final MRobotState IDLE = new MRobotState("IDLE",
                         IntakeRollerConstants.IDLE, SixBarConstants.IDLE, ShooterConstants.IDLE, SandwichConstants.IDLE,
@@ -40,12 +64,12 @@ public class RobotConstants {
 
         public static final MRobotState INTAKE_DEPLOY = new MRobotState("INTAKE_DEPLOY",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, SixBarConstants.DEPLOY,
-                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE, ClimbConstnats.EXTEND);
+                        RollerConstants.INTAKE, TransferConstants.INTAKE, KickerConstants.INTAKE);
 
         public static final MRobotState INTAKE_ROLLER = new MRobotState("INTAKE_ROLLER",
                         IntakeRollerConstants.FORWARD, SandwichConstants.INTAKE, RollerConstants.INTAKE,
                         SixBarConstants.ARMBRAKS,
-                        TransferConstants.INTAKE, KickerConstants.INTAKE,  ClimbConstnats.EXTEND);
+                        TransferConstants.INTAKE, KickerConstants.INTAKE);
 
         public static final MRobotState FEEDING_IN_MOTION = new MRobotState("FEEDING_IN_MOTION", () -> {
                 if (SixBar.getInstance().getCurrentState() != SixBarConstants.ARMBRAKS) {
