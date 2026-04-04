@@ -45,7 +45,7 @@ public class Sandwich extends PowerControlledSystem {
 
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) &&  !intakeDebouncer();
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;
     }
 
     public boolean intakeDebouncer() {

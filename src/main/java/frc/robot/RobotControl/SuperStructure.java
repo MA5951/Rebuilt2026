@@ -398,31 +398,20 @@ public class SuperStructure extends DeafultSuperStructure {
                 && Climb.getInstance().getPosition() < CLIMB_POSITION_THRESHOLD && Climb.getInstance().isOnBar();
     }
 
-    public static StuckType isStuck() {
-        // if (Sandwich.getInstance().isMoving() && isBallsInSandwich()
-        // && sandwichStuckDebouncer
-        // .calculate(Sandwich.getInstance().getDeltaMAcamDistance() <
-        // SANDWICH_STUCK_DELTA)) {
-        // return StuckType.STUCK_IN_SANDWICH;
-        // } else if (!isBallsInSandwich() && Roller.getInstance().isMoving() &&
-        // Transfer.getInstance().isMoving()
-        // && isBalls()) {
-        // return StuckType.STUCK_IN_TRANSFER;
-        // } else {
+    public static StuckType isStuck() {       
         return StuckType.NONE;
-        // }
     }
 
     private static double getShootingRPM(double x) {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 170 - 17 - (shooterTable.interpolate(x) / 45) * shootingFactor + shooterAdd - 20; // -
+                    : shooterTable.interpolate(x) - 210 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 100 - 17 -  (shooterTable.interpolate(x) / 45) * shootingFactor + shooterAdd - 20; // - 60;,
+                : shooterTable.interpolate(x) - 210 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
         // 125
     }
 
@@ -433,7 +422,7 @@ public class SuperStructure extends DeafultSuperStructure {
             return 10;
         }
 
-        return hoodTable.interpolate(distance) - 0.7 + hoodAdd ;// -2 , -1
+        return hoodTable.interpolate(distance) - 1.7 + hoodAdd ;// -2 , -1
 
     }
 

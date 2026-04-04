@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.Auto.AutoRoutine;
 import com.MAutils.RobotControl.MRobotState;
 
 import edu.wpi.first.wpilibj.Timer;

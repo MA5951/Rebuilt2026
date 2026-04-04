@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class AutoChooser {
     private static SendableChooser<AutoRoutine> routinChooser;
-//TODO if you need to creat a instance of AutoChooser it cant be a static class 
     public AutoChooser() {
         routinChooser = new SendableChooser<>();
         Shuffleboard.getTab("Auto").add("Auto Chooser", routinChooser);

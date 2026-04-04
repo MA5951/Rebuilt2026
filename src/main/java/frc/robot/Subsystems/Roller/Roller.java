@@ -40,7 +40,7 @@ public class Roller extends PowerControlledSystem {
 //galdo is at fault
     private boolean canIntake() {
         return (RobotContainer.getRobotState() == RobotConstants.INTAKE_DEPLOY ||
-                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) &&  !Sandwich.getInstance().intakeDebouncer();//&& !SuperStructure.isBallsInSandwich()
+                RobotContainer.getRobotState() == RobotConstants.INTAKE_ROLLER) ;//&& !SuperStructure.isBallsInSandwich()
     }
 
     @Override

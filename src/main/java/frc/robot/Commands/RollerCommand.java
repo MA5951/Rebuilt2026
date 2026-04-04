@@ -40,11 +40,11 @@ public class RollerCommand extends SubsystemCommand {
                 break;
             case "SHOOTING":
 
-                // if (SandwichCommand.startTimer.hasElapsed(0.2)) {
+                if (SandwichCommand.startTimer.hasElapsed(0.2)) {
                     roller.setVoltage(6);
-                // } else {
-                    // roller.setVoltage(0);
-                // }
+                } else {
+                    roller.setVoltage(0);
+                }
 
                 break;
             case "UNSTUCK":

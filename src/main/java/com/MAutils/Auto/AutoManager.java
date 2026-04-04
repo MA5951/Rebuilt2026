@@ -28,7 +28,7 @@ public class AutoManager {
     //i didnt read all the calc in the planner code, i guesse chatgpt go over it but at the end all need to combain to swerve conroller and swerve stat and the next pose you need to go to / path
     
     public static void setRoutins(AutoRoutine... routins) {
-        AutoChooser.setAutoOptions(routins);
+        //AutoChooser.setAutoOptions(routins);
     }
 
     public static MRobotState popAutoState() { //TODO need to add 

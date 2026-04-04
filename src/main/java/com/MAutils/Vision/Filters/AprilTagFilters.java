@@ -50,6 +50,10 @@ public class AprilTagFilters {
     public double getXyFOM() {
         if (!isBasicValid()) return 0.0;
 
+        if (lastPose.getX() == 0) {
+            return 0.6;
+        }
+
         // 1. Motion Gate (Innovation)
         //double motionTrust = calculateMotionTrust();
         // if (motionTrust <= 0) return 0.0;
@@ -63,10 +67,9 @@ public class AprilTagFilters {
 
     /** Calculates FOM for Omega Rotation (0..1) */
     public double getOFOM() {
-        if (lastPose.getX() == 0 && isBasicNone0()) {
-            return 0.6;
-        }
-        if (!isBasicValid()) return 0.0; //TODO move to first line 
+        
+
+        
 
         // Since you are certain in your angle, we compare Vision Yaw vs IMU Yaw
         double visionYaw = lastEstimate.pose.getRotation().getRadians();
