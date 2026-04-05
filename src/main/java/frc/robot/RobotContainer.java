@@ -80,8 +80,7 @@ public class RobotContainer extends DeafultRobotContainer {
                 CommandScheduler.getInstance().setDefaultCommand(IntakeRoller.getInstance(),
                                 new IntakeCommand());
                 IntakeRoller.getInstance();
-                //CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
-                Climb.getInstance();
+                CommandScheduler.getInstance().setDefaultCommand(Climb.getInstance(), new ClimbCommand());
         }
 
         @Override
@@ -229,7 +228,11 @@ public class RobotContainer extends DeafultRobotContainer {
 
                 T(StateTrigger.T(() -> getDriverController().getActionsLeft()
                                 &&
-                                ClimbCommand.isAtPosition, RobotConstants.CLIMB));
+                                Climb.getInstance().getPosition() > 0.15, RobotConstants.CLIMB));
+
+                T(StateTrigger.T(() -> getDriverController().getActionsLeft()
+                                &&
+                                Climb.getInstance().getPosition() < 0.15, RobotConstants.PRECLIMB));
 
                 // && (ActiveUtil.isActive() || ActiveUtil.getTimePastActive() <
                 // TIME_PAST_ACTIVE

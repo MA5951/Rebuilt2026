@@ -58,7 +58,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Feeding ",
+  "folder": "Left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 61.0

@@ -15,12 +15,7 @@ public class FeedingAuto extends SequentialCommandGroup {
 
     public FeedingAuto() {
         addCommands(
-                SwerveAutoFollower.followPath("F2"),
-                new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()),
-                new ParallelCommandGroup(new LockTarget(Field.flipByAlliance(new Pose2d(3.121,0.89,new Rotation2d())), 0.1, true, 0.3), new WaitCommand(6)),
-                new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()),
-                new InstantCommand(() -> RobotConstants.IDLE_SHOOTER.setState()),
-                SwerveAutoFollower.followPath("F3")
+                SwerveAutoFollower.followPath("F1")
         );
     }
 }

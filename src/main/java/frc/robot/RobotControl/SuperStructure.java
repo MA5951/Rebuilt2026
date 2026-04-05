@@ -397,12 +397,12 @@ public class SuperStructure extends DeafultSuperStructure {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 310 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
+                    : shooterTable.interpolate(x) - 360 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 310 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
+                : shooterTable.interpolate(x) - 360 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
         // 125
     }
 

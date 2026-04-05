@@ -26,6 +26,7 @@ import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.Auto.DepotClimb;
 import frc.robot.Commands.Auto.Drive;
 import frc.robot.Commands.Auto.FeedingAuto;
+import frc.robot.Commands.Auto.FeedingClimb;
 import frc.robot.Commands.Auto.GoTo;
 import frc.robot.Commands.Auto.MagazineClimb;
 import frc.robot.Commands.Auto.S;

@@ -46,7 +46,7 @@ public class PortMap {
 
     public class ClimbPorts {
         public static final CANBusID CLIMB_MOTOR = new CANBusID(14, CAN_BUS.CANIVORE_BUS);
-        public static final int IR = 8;//8
+        public static final int IR = 2;//8
     }
 
     public class Transfer_Ports {

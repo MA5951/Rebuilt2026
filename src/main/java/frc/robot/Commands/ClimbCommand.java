@@ -30,13 +30,8 @@ public class ClimbCommand extends SubsystemCommand {
                 climb.setPosition(ClimbConstnats.IDLE_POSITION);
                 break;
             case "PRECLIMB":
-            
-                if (isAtPosition) {
-                    climb.setVoltage(0);
-                } else {
-                    climb.setPosition(ClimbConstnats.OPEN_POSITION,0.28);
-                }
-                
+                climb.setPosition(ClimbConstnats.OPEN_POSITION, 0.28);
+
                 climbLatch = false;
                 break;
             case "CLIMB":
@@ -47,13 +42,13 @@ public class ClimbCommand extends SubsystemCommand {
                     climb.setVoltage(ClimbConstnats.END_CLOSE_VOLTAGE);
                 }
 
-              break;
+                break;
             case "DOWN":
                 climb.setPosition(ClimbConstnats.OPEN_POSITION);
                 break;
             case "HOMING":
                 climb.setVoltage(ClimbConstnats.HOMING_VOLTAGE);
-                if (climb.getCurrent()-lastCurrent > HoodConstants.DELTA_CURRENT && climb.getCurrent() < 45) {
+                if (climb.getCurrent() - lastCurrent > HoodConstants.DELTA_CURRENT && climb.getCurrent() < 45) {
                     climb.resetPosition(0);
                     climb.setState(HoodConstants.IDLE);
                 }
