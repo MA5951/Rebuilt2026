@@ -37,7 +37,7 @@ public class IntakeCommand extends SubsystemCommand {
                 }
                 break;
             case "FORWARD":
-                if (SixBar.getInstance().getPosition() < -60) {
+                if (SixBar.getInstance().getPosition() < -65) {
                     if (DriverStation.isAutonomous()) {
                         intakeroller.setVoltage(6);
                     } else {

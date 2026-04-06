@@ -79,7 +79,9 @@ public class SixBarCommand extends SubsystemCommand {
                 // sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 // }
 
-                sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                //sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+
                 // sixbar.setVoltage(1.5);
                 break;
             case "HOMING":

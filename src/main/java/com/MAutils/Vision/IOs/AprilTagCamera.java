@@ -111,6 +111,7 @@ public class AprilTagCamera extends Camera {
     public void update() {
         aprilTagFilters.update();
         cameraIO.update();
+        poseEstimate = cameraIO.getPoseEstimate(getFiltersConfig().poseEstimateType);
         logIO();
 
         if (updatePoseEstiamte) {
@@ -122,12 +123,14 @@ public class AprilTagCamera extends Camera {
 
             visionTs = getVisionTimetemp();
 
-            if (cameraIO.isTag() && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getX() <= 0)
-                    && !(cameraIO.getPoseEstimate(PoseEstimateType.MT1).pose.getY() <= 0)) {
+            if (cameraIO.isTag() && (cameraIO.getPoseEstimate(FiltersConfig.poseEstimateType).pose.getX() > 0.01)
+                    && (cameraIO.getPoseEstimate(FiltersConfig.poseEstimateType).pose.getY() > 0.01)) {
+                getRobotRelaticTwist(poseEstimate, visionTs);
                 poseEstimatorSource.capture();
                 PoseEstimationMA.getInstance().addVisionObservation(
                         new VisionObservation(Timer.getFPGATimestamp() - (poseEstimate.latency / 1000.0),
-                                new Pose3d(poseEstimate.pose), VecBuilder.fill(0.07, 0.07, 10)), cameraIO.getName());
+                                new Pose3d(poseEstimate.pose), VecBuilder.fill(0.07, 0.07, 10)),
+                        cameraIO.getName());
                 MALog.log("Subsystems/Vision/Cameras/" + name + "/Odometry", "Odometry captured");
             } else {
                 oFom = 0;
@@ -144,7 +147,6 @@ public class AprilTagCamera extends Camera {
     @Override
     protected void logIO() {
         super.logIO();
-        poseEstimate = cameraIO.getPoseEstimate(getFiltersConfig().poseEstimateType);
 
         MALog.log("Subsystems/Vision/Cameras/" + name + "/Target/Ambiguit", tag.ambiguity);
         MALog.log("Subsystems/Vision/Cameras/" + name + "/Target/Id", tag.id);

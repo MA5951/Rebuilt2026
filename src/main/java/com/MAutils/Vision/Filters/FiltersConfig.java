@@ -28,7 +28,7 @@ public class FiltersConfig {
 
     //TODO need to add hear a obstical list that the filter will go over it, you can jump into a abostical + move to constants the sizees
 
-    public PoseEstimateType poseEstimateType = PoseEstimateType.MT2; // Use MegaTag2 for pose estimates
+    public static PoseEstimateType poseEstimateType = PoseEstimateType.MT2; // Use MegaTag2 for pose estimates
 
     public FiltersConfig() {}
 

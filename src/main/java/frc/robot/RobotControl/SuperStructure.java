@@ -397,12 +397,12 @@ public class SuperStructure extends DeafultSuperStructure {
 
         if (SwerveController.isAbs < 3) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 360 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
+                    : shooterTable.interpolate(x) - 210 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 360 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
+                : shooterTable.interpolate(x) - 330 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
         // 125
     }
 
@@ -591,12 +591,16 @@ public class SuperStructure extends DeafultSuperStructure {
         if (id == 27 || id == 11) {
             return -5;
         } else if (id == 24 || id == 8) {
-            return 5;
-        } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() > Field.WIDTH / 2) {
+            return 2;
+        } else if (( id == 26) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
             return -5;
-        } else if ((id == 10 || id == 26) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
+        } else if (( id == 26) && PoseEstimator.getCurrentPose().getY() > Field.WIDTH / 2) {
             return 5;
-        }
+        } else if ((id == 10 ) && PoseEstimator.getCurrentPose().getY() > Field.WIDTH / 2) {
+            return -5;
+        } else if ((id == 10 ) && PoseEstimator.getCurrentPose().getY() < Field.WIDTH / 2) {
+            return 5;
+        } 
 
         return 0;
     }
