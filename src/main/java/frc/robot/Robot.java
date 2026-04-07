@@ -28,6 +28,7 @@ import frc.robot.Commands.Auto.Drive;
 import frc.robot.Commands.Auto.FeedingAuto;
 import frc.robot.Commands.Auto.FeedingClimb;
 import frc.robot.Commands.Auto.FeedingShooting;
+import frc.robot.Commands.Auto.FeedingShootingR;
 import frc.robot.Commands.Auto.GoTo;
 import frc.robot.Commands.Auto.MagazineClimb;
 import frc.robot.Commands.Auto.S;
@@ -70,8 +71,8 @@ public class Robot extends DeafultRobot {
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
 
-    auto = new FeedingClimb();
-    //auto = new DepotClimb();
+    // auto = new FeedingShooting();
+    auto = new FeedingShootingR();
   }
 
   @Override

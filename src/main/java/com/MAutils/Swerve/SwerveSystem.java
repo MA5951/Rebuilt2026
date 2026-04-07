@@ -278,6 +278,7 @@ public class SwerveSystem extends SubsystemBase {
         MALog.log("/Subsystems/Swerve/Chassis Speeds/Current", currentSpeeds);
         MALog.logSwerveModuleStates("/Subsystems/Swerve/States/Current", currentStates);
         MALog.log("/Subsystems/Swerve/States/Current State", currentState.getStateName());
+        MALog.log("/Subsystems/Swerve/Abs Yaw", getAbsYawSupplier().get());
     }
 
 }

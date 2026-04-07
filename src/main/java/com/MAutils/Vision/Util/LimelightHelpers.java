@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import com.MAutils.Logger.MALog;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -1477,6 +1478,7 @@ public class LimelightHelpers {
     public static void SetRobotOrientation(String limelightName, double yaw, double yawRate, 
         double pitch, double pitchRate, 
         double roll, double rollRate) {
+            MALog.log("/CameraDebug/Yaw",yaw );
         SetRobotOrientation_INTERNAL(limelightName, yaw, yawRate, pitch, pitchRate, roll, rollRate, true);
     }
 

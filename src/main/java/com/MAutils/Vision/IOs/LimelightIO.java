@@ -2,6 +2,7 @@ package com.MAutils.Vision.IOs;
 
 import java.util.function.Supplier;
 
+import com.MAutils.Logger.MALog;
 import com.MAutils.Utils.Constants;
 import com.MAutils.Utils.Constants.SimulationType;
 import com.MAutils.Vision.Util.LimelightHelpers;
@@ -16,6 +17,7 @@ import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
+import frc.robot.Subsystems.Swerve.Swerve;
 
 public class LimelightIO implements VisionCameraIO {
 
@@ -39,6 +41,7 @@ public class LimelightIO implements VisionCameraIO {
         this.cameraName = name;
 
         logName = name;
+        LimelightHelpers.SetIMUMode(cameraName, 0);
 
     }
 
@@ -109,8 +112,8 @@ public class LimelightIO implements VisionCameraIO {
     }
 
     public void update() {
-
-        LimelightHelpers.SetRobotOrientation(cameraName, robotRotaionSupplier.get(), 0, 0, 0,
+     
+        LimelightHelpers.SetRobotOrientation(cameraName, Swerve.getInstance().getAbsYaw(), 0, 0, 0,
                 0, 0);
 
     }

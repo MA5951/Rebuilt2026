@@ -21,7 +21,7 @@ public class FeedingClimb extends SequentialCommandGroup {
       new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()),
       new ParallelCommandGroup(new LockTarget(Field.flipByAlliance(new Pose2d(1.067,2.454,new Rotation2d())), 0.1, true, 0.3), new WaitCommand(6)),
       new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
-      new GoTo(new Pose2d(1.067,2.454, Rotation2d.fromDegrees(90)), 0.07, true),
+      new GoTo(Field.flipByAlliance(new Pose2d(1.067,2.454, Rotation2d.fromDegrees(90))), 0.07, true),
       new ParallelDeadlineGroup(new SequentialCommandGroup(
       new WaitUntilCommand(() -> Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) > 0.1),
       new WaitCommand(1),

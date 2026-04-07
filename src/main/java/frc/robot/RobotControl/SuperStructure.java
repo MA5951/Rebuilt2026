@@ -230,7 +230,7 @@ public class SuperStructure extends DeafultSuperStructure {
     public enum ShootingPreset {
         CLOSE(17, 3000, new Pose2d()),
         CLIMB(15.5, 3200, new Pose2d()),
-        TRENCH(17.5, 3150, new Pose2d());
+        TRENCH(17.5, 2950, new Pose2d());
 
         public final double hoodAngle;
         public final double shooterRPM;
@@ -395,14 +395,15 @@ public class SuperStructure extends DeafultSuperStructure {
 
     private static double getShootingRPM(double x) {
 
-        if (SwerveController.isAbs < 3) {// Relativ
+        if (Swerve.getInstance().getState() == SwerveConstants.SHOOTING_REL
+                && VisionConstants.FRONT_LL.getCameraIO().isTag()) {// Relativ
             return shooterTable.interpolate(x) > 6000 ? 0
-                    : shooterTable.interpolate(x) - 210 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // -
+                    : shooterTable.interpolate(x) - 130 - (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd + 20; // -
                                                                                                               // 60;//-50
         }
 
         return shooterTable.interpolate(x) > 6000 ? 0
-                : shooterTable.interpolate(x) - 330 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd ; // - 60;,
+                : shooterTable.interpolate(x) - 370 -  (shooterTable.interpolate(x) / 130) * shootingFactor + shooterAdd + 50; // - 60;,
         // 125
     }
 
@@ -651,6 +652,7 @@ public class SuperStructure extends DeafultSuperStructure {
         MALog.log("/SuperStructure/Shooter Velo", currentShootingParameters.shooterRPM());
         MALog.log("/SuperStructure/Hood Angle", currentShootingParameters.hoodAngle());
         MALog.log("/SuperStructure/Shooting Latch", atPointLatch);
+        MALog.log("/SuperStructure/Alliance", DriverStationUtil.getAlliance().name());
 
         MALog.log("/SuperStructure/Offset Pose",
                 new Pose2d(GeometryUtil.poseAdjust(
