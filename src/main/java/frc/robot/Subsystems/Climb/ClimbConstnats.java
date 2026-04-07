@@ -15,7 +15,7 @@ public class ClimbConstnats {
 
         public static final double OPEN_POSITION = 0.17;
         public static final double CLOSE_POSITION = 0;
-        public static final double CLIMB_INTAKE_POSE = 0.05;
+        public static final double CLIMB_INTAKE_POSE = 0.08;
         public static final double IDLE_POSITION = 0;
         public static final double MIN_POSITION = 0;
         public static final double MAX_POSITION = 0.187;
@@ -27,7 +27,7 @@ public class ClimbConstnats {
         public static final double ACCELERATION = 0;
 
         public static final double START_CLOSE_VOLTAGE = -4;
-        public static final double END_CLOSE_VOLTAGE = -2.5;
+        public static final double END_CLOSE_VOLTAGE = -3;
 
 
         public static final double AUTONOMOUS_MIN_DISTANCE = 10;
@@ -41,7 +41,7 @@ public class ClimbConstnats {
 
         public static final double POSITION_FACTOR = 0.143 / (360);
 
-        public static final double GEAR = 48;
+        public static final double GEAR = 81;
 
         public static final double TOLERANCE_FOR_OPENCLOSE_TRIGGER = 0.03;
 

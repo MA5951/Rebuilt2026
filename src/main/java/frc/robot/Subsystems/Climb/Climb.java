@@ -33,7 +33,10 @@ public class Climb extends PositionControlledSystem {
 
         HOMING.setOnStateSet(() -> setConstants(ClimbConstnats.HOMING_CLIMB_CONSTANTS, false));
         HOMING.setOnStateEnd(() -> setConstants(ClimbConstnats.CLIMB_CONSTANTS, false));
-        CLIMB.setOnStateSet(() -> setBrakeMode(true));
+        CLIMB.setOnStateSet(() -> {
+            setBrakeMode(true);
+            SixBar.getInstance().setBrakeMode(true);
+        });
         PRECLIMB.setOnStateSet(() -> setBrakeMode(false));
         resetPosition(0);
     }
@@ -45,7 +48,7 @@ public class Climb extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return SixBar.getInstance().getPosition() < ClimbConstnats.INTAKE_OPEN_POSITION;
+        return true;
     }// (DriverStation.isAutonomous() && getCurrentState() == ClimbConstnats.PRECLIMB
      // || getCurrentState() == ClimbConstnats.IDLE) || (DriverStation.isAutonomous()
      // && macam.getDistance() < ClimbConstnats.AUTONOMOUS_MIN_DISTANCE) &&

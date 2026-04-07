@@ -26,13 +26,13 @@ import frc.robot.Commands.SwerveController;
 import frc.robot.Commands.Auto.DepotClimb;
 import frc.robot.Commands.Auto.Drive;
 import frc.robot.Commands.Auto.FeedingAuto;
-import frc.robot.Commands.Auto.FeedingClimb;
-import frc.robot.Commands.Auto.FeedingShooting;
-import frc.robot.Commands.Auto.FeedingShootingR;
+import frc.robot.Commands.Auto.ShootingClimbL;
+import frc.robot.Commands.Auto.ShootingClimbR;
+import frc.robot.Commands.Auto.ShootingL;
+import frc.robot.Commands.Auto.ShootingR;
 import frc.robot.Commands.Auto.GoTo;
-import frc.robot.Commands.Auto.MagazineClimb;
+import frc.robot.Commands.Auto.ShootingClimbL;
 import frc.robot.Commands.Auto.S;
-import frc.robot.Commands.Auto.TwoMagazine;
 import frc.robot.RobotControl.Dashboard;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.Climb.Climb;
@@ -61,23 +61,24 @@ public class Robot extends DeafultRobot {
 
   public Robot() {
     super();
+    m_robotContainer = new RobotContainer();
     Vision.getInstance();
 
-    m_robotContainer = new RobotContainer();
-    // PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new Rotation2d()));
+    
+    // PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new
+    // Rotation2d()));
 
     PoseEstimator.resetPose(new Pose2d(12.13, 0.77, Rotation2d.fromDegrees(-90)));
-    
+
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
 
-    // auto = new FeedingShooting();
-    auto = new FeedingShootingR();
   }
 
   @Override
   public void robotPeriodic() {
     super.robotPeriodic();
+
     MALog.log("/RobotControl/Current RobotState", RobotContainer.getRobotState().getStateName());
     MALog.log("/RobotControl/Last RobotState", RobotContainer.getLastRobotState().getStateName());
     MALog.log("/RobotControl/Test", (((!SuperStructure.isBalls()) || (!SuperStructure.isInTheAlinceZone())
@@ -94,15 +95,13 @@ public class Robot extends DeafultRobot {
         (Math.abs(SixBar.getInstance().getPosition())
             - SixBarConstants.DEPLOY_ANGLE) >= SixBarConstants.COLLISION_DETECTION));
     MALog.log("/SuperStructure/Intake Tolorance",
-        Math.abs( Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
+        Math.abs(Math.abs(SixBar.getInstance().getPosition()) - SixBarConstants.DEPLOY_ANGLE));
 
     if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)
-        
-            && (Vision.getInstance().isTagInFrame(24) ||
-                Vision.getInstance().isTagInFrame(27) || Vision.getInstance().isTagInFrame(8) || Vision.getInstance().isTagInFrame(11))) {
 
-
-
+        && (Vision.getInstance().isTagInFrame(24) ||
+            Vision.getInstance().isTagInFrame(27) || Vision.getInstance().isTagInFrame(8)
+            || Vision.getInstance().isTagInFrame(11))) {
 
       Vision.getInstance().filterCornerTags();
     } else if (RobotContainer.getRobotState() == RobotConstants.SHOOTING && (SwerveController.isAbs < 3)) {
@@ -111,17 +110,17 @@ public class Robot extends DeafultRobot {
       Vision.getInstance().resetFilter();
     }
 
-    if ((Swerve.getInstance().isRampFlag() || PoseEstimator.isOutOfFieldFlag()) && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
+    if ((Swerve.getInstance().isRampFlag() || PoseEstimator.isOutOfFieldFlag())
+        && VisionConstants.FRONT_LL.getCameraIO().isTag()) {
       Swerve.getInstance().resetRampFlag();
       PoseEstimator.resetOutOfFieldFlag();
       PoseEstimator.resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
-      PoseEstimationMA.getInstance().resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
+      PoseEstimationMA.getInstance()
+          .resetPose(VisionConstants.FRONT_LL.getCameraIO().getPoseEstimate(PoseEstimateType.MT1).pose);
     }
 
     matchTime.update(MatchTime.kGameData2026.get());
     PoseEstimationMA.getInstance().update();
-
-    
 
   }
 
@@ -133,25 +132,31 @@ public class Robot extends DeafultRobot {
       Hood.getInstance().setState(Hood.HOMING);
     }
 
-   
-
-    CommandScheduler.getInstance().schedule(auto);
-    // CommandScheduler.getInstance().schedule(new GoTo(Field.flipByAlliance(new Pose2d(1.445,4.627, Rotation2d.fromDegrees(-90))) , 0.1, true));
+    CommandScheduler.getInstance().schedule(RobotContainer.autoSelector.getSelectedAuto().getAutoCommand());
+    // CommandScheduler.getInstance().schedule(new GoTo(Field.flipByAlliance(new
+    // Pose2d(1.445,4.627, Rotation2d.fromDegrees(-90))) , 0.1, true));
     // CommandScheduler.getInstance().schedule(new SequentialCommandGroup(
-    //   new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
-    //   new GoTo(Field.flipByAlliance(new Pose2d(1.145,4.227, Rotation2d.fromDegrees(-90))) , 0.15, false),
-    //   new ParallelDeadlineGroup(new SequentialCommandGroup(
-    //   new WaitUntilCommand(() -> Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) > 0.05),
-    //   new WaitUntilCommand(() -> Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) < 0.1)
+    // new InstantCommand(() -> RobotConstants.PRECLIMB.setState()),
+    // new GoTo(Field.flipByAlliance(new Pose2d(1.145,4.227,
+    // Rotation2d.fromDegrees(-90))) , 0.15, false),
+    // new ParallelDeadlineGroup(new SequentialCommandGroup(
+    // new WaitUntilCommand(() ->
+    // Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) >
+    // 0.05),
+    // new WaitUntilCommand(() ->
+    // Math.abs(Swerve.getInstance().getCurrentStates()[1].speedMetersPerSecond) <
+    // 0.1)
     // ), new Drive(0.5, -0.1, 0)),
-    // new ParallelDeadlineGroup(new WaitUntilCommand(() -> Climb.getInstance().getIR()), new Drive(0, -0.2, 0)),
+    // new ParallelDeadlineGroup(new WaitUntilCommand(() ->
+    // Climb.getInstance().getIR()), new Drive(0, -0.2, 0)),
     // new InstantCommand(() -> RobotConstants.CLIMB.setState())
     // ));
   }
 
-  @Override 
+  @Override
   public void autonomousExit() {
     Climb.getInstance().setBrakeMode(false);
+    SixBar.getInstance().setBrakeMode(false);
   }
 
   @Override
@@ -166,15 +171,13 @@ public class Robot extends DeafultRobot {
       Hood.getInstance().setState(Hood.HOMING);
     }
 
-   
-
   }
 
   @Override
   public void teleopPeriodic() {
     super.teleopPeriodic();
     ActiveUtil.getGameMode();
-    
+
     MALog.log("ActiveUtil/is active", ActiveUtil.isActive());
 
     if (ActiveUtil.isActive()) {

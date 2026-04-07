@@ -10,6 +10,7 @@ import frc.robot.RobotContainer;
 import frc.robot.RobotControl.SuperStructure;
 import frc.robot.Subsystems.IntakeRoller.IntakeRollerConstants;
 import frc.robot.Subsystems.Roller.Roller;
+import frc.robot.Subsystems.Sandwich.Sandwich;
 import frc.robot.Subsystems.SixBar.SixBar;
 import frc.robot.Subsystems.SixBar.SixBarConstants;
 import frc.robot.Subsystems.Transfer.Transfer;
@@ -52,8 +53,13 @@ public class TransferCommand extends SubsystemCommand {
                 transfer.setVoltage(TransferConstants.EJECT_VOLTAGE);
                 break;
             case "SHOOTING":
-                if (SandwichCommand.startTimer.hasElapsed(0.2) ) {
-                    transfer.setVoltage(8);
+                if (SandwichCommand.startTimer.hasElapsed(0.2)) {
+                    if (Sandwich.getInstance().getCurrent() > 40
+                            && Math.abs(Sandwich.getInstance().getVelocity()) < 110) {
+                        transfer.setVoltage(-3);
+                    } else {
+                        transfer.setVoltage(8);
+                    }
                 } else {
                     transfer.setVoltage(0);
                 }

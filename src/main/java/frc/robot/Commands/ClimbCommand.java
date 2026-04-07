@@ -10,6 +10,7 @@ import frc.robot.Subsystems.Climb.Climb;
 import frc.robot.Subsystems.Climb.ClimbConstnats;
 import frc.robot.Subsystems.Hood.HoodConstants;
 import frc.robot.Subsystems.SixBar.SixBar;
+import frc.robot.Subsystems.SixBar.SixBarConstants;
 
 public class ClimbCommand extends SubsystemCommand {
     private static final Climb climb = Climb.getInstance();

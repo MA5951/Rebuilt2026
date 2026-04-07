@@ -104,13 +104,11 @@ public class RobotContainer extends DeafultRobotContainer {
                 autoSelector.setAutoOptions(
                         RobotConstants.NONE_AUTO,
                         RobotConstants.DEPOT_CLIMB,
-                        RobotConstants.TWO_MAGAZINE,
                         RobotConstants.FEEDING_AUTO,
-                        RobotConstants.FEEDING_BACK,
-                        RobotConstants.FEEDING_CLIMB,
-                        RobotConstants.FEEDING_SHOOTING,
-                        RobotConstants.MAGAZINE_CLIMB,
-                        RobotConstants.MAGAZINE_CLIMB_RIGHT
+                        RobotConstants.SHOOTING_L,
+                        RobotConstants.SHOOTING_R,
+                        RobotConstants.SHOOTING_CLIMB_L,
+                        RobotConstants.SHOOTING_CLIMB_R
                 );
                 
 

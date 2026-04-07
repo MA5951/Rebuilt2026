@@ -17,6 +17,7 @@ import static edu.wpi.first.units.Units.Gs;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.LinearAcceleration;
+import frc.robot.RobotContainer;
 
 public class GyroPiegon implements GyroIO {
 
@@ -59,7 +60,7 @@ public class GyroPiegon implements GyroIO {
 
     public void updateGyroData(GyroData gyroData) {
         gyroData.isConnected = BaseStatusSignal.isAllGood(yawAngle, pitchAngle, rollAngle, yawRate);
-        gyroData.yaw = yawAngle.getValue().in(Degrees) ;
+        gyroData.yaw = yawAngle.getValue().in(Degrees) + RobotContainer.autoSelector.getSelectedAuto().getYawOffset();
         gyroData.yawVelocity = yawRate.getValue().in(DegreesPerSecond);
         gyroData.pitch = pitchAngle.getValue().in(Degrees);
         gyroData.roll = rollAngle.getValue().in(Degrees);

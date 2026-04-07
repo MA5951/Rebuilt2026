@@ -79,8 +79,8 @@ public class SixBarCommand extends SubsystemCommand {
                 // sixbar.setPosition(SixBarConstants.BUMPER_ZONE_ANGLE);
                 // }
 
-                //sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
-                sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
+                sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                // sixbar.setPosition(SixBarConstants.DEPLOY_ANGLE);
 
                 // sixbar.setVoltage(1.5);
                 break;
@@ -97,6 +97,13 @@ public class SixBarCommand extends SubsystemCommand {
                 break;
             case "FORCE_CLOSE":
                 sixbar.setVoltage(1.3);
+                break;
+            case "CLIMB":
+                if (sixbar.getPosition() > -20) {
+                    sixbar.setPosition(SixBarConstants.FRAME_PARIMETER_ANGLE);
+                } else {
+                    sixbar.setVoltage(1.5);
+                }
                 break;
         }
     }

@@ -11,15 +11,15 @@ import frc.robot.RobotConstants;
 import frc.robot.Subsystems.Swerve.SwerveAutoFollower;
 import frc.robot.Util.Field;
 
-public class FeedingShooting extends SequentialCommandGroup {
-  public FeedingShooting() {
+public class ShootingR extends SequentialCommandGroup {
+  public ShootingR() {
     addCommands(
-      SwerveAutoFollower.followPath("F2"),
+      SwerveAutoFollower.followPath("R1"),
                 new InstantCommand(() -> RobotConstants.SHOOTING_UNLOCKED.setState()),
-                new ParallelCommandGroup(new LockTarget(Field.flipByAlliance(new Pose2d(3.121,0.89,new Rotation2d())), 0.1, true, 0.3), new WaitCommand(6)),
+                new ParallelCommandGroup(new LockTarget(Field.flipByAlliance(new Pose2d(3.121,Field.WIDTH - 0.89,new Rotation2d())), 0.1, true, 0.3), new WaitCommand(6)),
                 new InstantCommand(() -> RobotConstants.IDLE_SHOOTER.setState()),
                 new InstantCommand(() -> RobotConstants.INTAKE_DEPLOY.setState()),
-                SwerveAutoFollower.followPath("F3")
+                SwerveAutoFollower.followPath("R2")
     );
   }
 }

@@ -56,7 +56,7 @@ public class SwerveController extends SwerveSystemController {
 
 
             if (RobotContainer.getDriverController().getL2()) {
-                if (Swerve.getInstance().getTiltAngle() > 7) {
+                if (Swerve.getInstance().getTiltAngle() > 7 && (RobotContainer.getRobotState() != RobotConstants.CLIMB || RobotContainer.getRobotState() != RobotConstants.PRECLIMB)) {
                     setState(SwerveConstants.RAMP_40);
                 } 
                 //else if (RobotContainer.getDriverController().getR2()) {

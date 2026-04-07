@@ -27,7 +27,7 @@ public class SixBar extends PositionControlledSystem {
 
     private SixBar() {
         super(SixBarConstants.SIXBAR_CONSTANTS, SixBarConstants.ARMBRAKS, SixBarConstants.COLLISION,
-                SixBarConstants.SHOOTING, SixBarConstants.DEPLOY ,SixBarConstants.IDLE, SixBarConstants.FORCE_OPEN, SixBarConstants.FORCE_CLOSE, HOMING);
+                SixBarConstants.SHOOTING, SixBarConstants.DEPLOY ,SixBarConstants.IDLE, SixBarConstants.FORCE_OPEN, SixBarConstants.FORCE_CLOSE, HOMING, SixBarConstants.CLIMB);
 
         closedLoopVolts = systemIO.getSystemConstants().master.motorController.getClosedLoopOutput();
         
@@ -67,7 +67,7 @@ public class SixBar extends PositionControlledSystem {
 
     @Override
     public boolean CAN_MOVE() {
-        return Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE || ( getCurrentState() == HOMING) || (Climb.getInstance().getPosition() > 0.17 );//&& (RobotContainer.getRobotState() == RobotConstants.SHOOTING || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS || RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED)
+        return (Climb.getInstance().getPosition() < ClimbConstnats.CLIMB_INTAKE_POSE || SixBar.getInstance().getPosition() < -64) || ( getCurrentState() == HOMING) || (Climb.getInstance().getPosition() > 0.17 );//&& (RobotContainer.getRobotState() == RobotConstants.SHOOTING || RobotContainer.getRobotState() == RobotConstants.SHOOTING_PRESETS || RobotContainer.getRobotState() == RobotConstants.SHOOTING_UNLOCKED)
     }
 
 
