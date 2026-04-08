@@ -1,6 +1,7 @@
 
 package frc.robot;
 
+import com.MAutils.AutoChooser.Autonomus;
 import com.MAutils.DashBoard.DashBoard;
 import com.MAutils.Logger.MALog;
 import com.MAutils.PoseEstimation.PoseEstimationMA;
@@ -53,8 +54,7 @@ public class Robot extends DeafultRobot {
   @SuppressWarnings("unused")
   private final RobotContainer m_robotContainer;
   public static int counter = 0;
-
-  private Command auto;
+  public Autonomus lastAutoCommand;
 
   @Logged(name = "MatchTime")
   private final MatchTime matchTime = new MatchTime(2026);
@@ -68,7 +68,7 @@ public class Robot extends DeafultRobot {
     // PoseEstimator.resetPose(new Pose2d(Field.LENGTH / 2, Field.WIDTH / 2, new
     // Rotation2d()));
 
-    PoseEstimator.resetPose(new Pose2d(12.13, 0.77, Rotation2d.fromDegrees(-90)));
+    PoseEstimator.resetPose(Field.flipByAlliance(new Pose2d(3.586,3.596, Rotation2d.fromDegrees(-90))));
 
     FollowPathCommand.warmupCommand().schedule();
     PathfindingCommand.warmupCommand().schedule();
@@ -201,6 +201,16 @@ public class Robot extends DeafultRobot {
   public void disabledInit() {
     super.disabledInit();
     Swerve.getInstance().drive(new ChassisSpeeds());
+  }
+
+  @Override
+  public void disabledPeriodic() {
+    super.disabledPeriodic();
+    if(lastAutoCommand != RobotContainer.autoSelector.getSelectedAuto()){
+      PoseEstimator.resetPose(Field.flipByAlliance(RobotContainer.autoSelector.getSelectedAuto().getStartingPose()));
+    }
+    lastAutoCommand = RobotContainer.autoSelector.getSelectedAuto();
+
   }
 
 }
